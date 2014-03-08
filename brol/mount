@@ -1,0 +1,3 @@
+vpnc
+su -l
+mount -t cifs -o username=andlille,password=[pass] //files.ugent.be/andlille /home/drew/www

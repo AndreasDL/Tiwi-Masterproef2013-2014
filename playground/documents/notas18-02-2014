@@ -1,0 +1,21 @@
+webservice maken
+- gemiddeldes periode
+- per testbed kijken / test => versie aggregate 2 & 3
+- overzicht algemeen
+- vrije resources ranking
+statussen per test eventueel meerdere (
+
+volgende stap : webservice interface rest & calls beschrijven
+database daarna
+
+technologie rest 
+site :> algemeen alles
+webserice meer specifiek voor een test/testdomein
+
+usecases  ( huidig + experimenter (online, free res? , ping/delay) + reputation(uptime etc) & api = mailen
+rest api <=> soap?
+database herdefinieren
+input in database
+php/java vergelijken
+later performance testen => 
+sql injecties :o

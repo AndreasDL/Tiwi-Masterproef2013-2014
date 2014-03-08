@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage{a4wide} 
+\begin{document}
+\title{Database Design}
+\author{Andreas De Lille}
+\maketitle
+
+\section{Inhoud}
+Dit document beschrijft de opbouw van de test database.
+Deze database dient als een prototype voor de uiteindelijke uitwerking.
+De database zal (waarschijnlijk) draaien als een PostgreSQL database.
+De meeste dingen zijn eenvoudig er is echter een probleem, een test kan bestaan uit meerdere subtests met elk een eigen resultaat. Deze tests en het bijhorende resultaat opslaan is niet eenvoudig aangezien we hier met een platte database werken en niet met objecten.
+
+\section{tabellen}
+Er zijn 5 tabellen in de database:
+\begin{itemize}
+\item testbeds
+\item tests
+\item results
+\end{itemize}
+Hieronder zal beschreven worden waarvoor elke tabel dient en welke kolommen ze bevatten.
+
+\subsection{testbeds}
+\subsubsection{functie}
+De eerste tabel is testbed. Deze heeft als doel om alle verschillende testbeds bij te houden. Elk testbed krijgt bij toevoegen automatisch een uniek id toegewezen. Verder wordt ook de naam en url van elk testbed opgeslagen.
+\subsubsection{kolommen}
+\begin{itemize}
+\item testbedid. Het id van elk testbed, automatisch toegewezen, primaire sleutel.
+\item name. De naam van het testbed.
+\item url. De url van het testbed.
+\end{itemize}
+\subsubsection{opmerking}
+\begin{itemize}
+\item Moet er bijgehouden worden of een testbed al dan niet internationaal is? \\(scenarios.phpfilter=international)
+\item Moet er bijgehouden worden of een testbed al dan niet onderdeel is van het FED4FIRE project? (scenarios.php?filter=fed4fire)
+\end{itemize}
+
+\subsection{tests}
+\subsubsection{functie}
+Deze tabel zal de verschillende test bijhouden. In een later stadium kan deze tabel periodiek overlopen worden om de informatie van de database te actualiseren. Elk type test heeft een eigen testid. Samen met het testbedid vormt dit de primaire sleutel. Elke test die op een testbed uitgevoerd moet worden heeft hier dus een entry met zowel het testid en de testbedid. Dit is om te vermijden dat we gaan testen op aggregate manager versie 2 als enkel de 3 ondersteund wordt. Ook heeft deze dubbele primaire sleutel het voordeel dat we wel op meerdere verschillende versies kunnen test.
+\subsubsection{kolommen}
+\begin{itemize}
+\item testid. Het unieke id van elk type test.
+\item testbedid. Het id van een testbed waarop de test moet uitgevoerd worden.
+\item description. Beschrijving van de test.
+\end{itemize}
+
+\subsection{results}
+\subsubsection{functie}
+Deze tabel zal alle resultaten bijhouden van de tests. Aan elk resultaat wordt ook een resultid toegekend. Dit is de primaire sleutel. Bij elke entry is er ook een timestamp die automatisch ingevuld wordt. Met deze timestamp kunnen we bepalen wat het laatste resultaat is.
+\subsubsection{kolommen}
+\begin{itemize}
+\item testid. Het id van de test om het type aan te duiden (bv. ping test).
+\item testbedid. Het id van het testbed om aan te duiden op welk testbed de test uitgevoerd werd.
+\item resultid. Het id van het resultaat. De primaire sleutel.
+\item status. De status van de test, moet bijhouden of de test gelukt is of niet bv ping is gelukt of niet gelukt.
+\item value. De waarde van de test bv ping van 103 ms.
+\item timestamp. Deze houdt bij wanneer de test uitgevoerd was.
+\end{itemize}
+\end{document}

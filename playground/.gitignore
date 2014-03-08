@@ -27,17 +27,3 @@ core
 nbproject/*
 !nbproject/project.properties
 !nbproject/project.xml
-
-#intelliJ Idea
-.idea/
-
-#java
-*.class
-# Package Files #
-*.jar
-*.war
-*.ear
-
-site
-Stage/
-f4ftestsuite/
