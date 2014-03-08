@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import be.iminds.ilabt.jfed.ui.javafx.choosers.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
+            prefWidth="850.0" xmlns:fx="http://javafx.com/fxml" fx:controller="be.iminds.ilabt.jfed.ui.javafx.userlogin.UserLoginController">
+    <stylesheets>
+        <URL value="@../style/advanced_gui.css" />
+        <URL value="@../style/login.css" />
+    </stylesheets>
+    <top>
+        <VBox>
+            <ToolBar>
+                <items>
+                    <Button text="Restore Saved Settings" onAction="#loadConfig" />
+                    <Button text="Save Settings" onAction="#saveConfig" />
+                    <Button text="Reset to Default Settings" onAction="#resetConfig" />
+                    <Button text="Edit Testbed Info..." onAction="#editTestbeds" />
+                    <Button text="About..." onAction="#showAbout" />
+                </items>
+            </ToolBar>
+        </VBox>
+    </top>
+    <center>
+        <VBox>
+            <VBox>
+                <Label text="User Login type: "/>
+                <fx:define>
+                    <ToggleGroup fx:id="loginTypeToggleGroup"/>
+                </fx:define>
+                <RadioButton text="Default: Client Certificate including URN + Private Key + Automatic User Info" toggleGroup="$loginTypeToggleGroup"
+                             selected="true" onAction="#selectLoginType" fx:id="loginTypeKeyCertIntRadioButton"/>
+                <RadioButton text="Manual: Client Certificate + Private Key + Manual User Info" toggleGroup="$loginTypeToggleGroup"
+                             onAction="#selectLoginType" fx:id="loginTypeKeyCertExtRadioButton"/>
+                <RadioButton text="PlanetLab: Private SSH Key + PlanetLab Registry Server URL"  toggleGroup="$loginTypeToggleGroup"
+                             onAction="#selectLoginType" fx:id="loginTypePlanetlabRadioButton"/>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+            </VBox>
+            <StackPane VBox.vgrow="ALWAYS">
+
+                <!--<VBox.margin>-->
+                <!--<Insets left="20.0" />-->
+                <!--</VBox.margin>-->
+
+                <BorderPane fx:id="defaultLoginPanel">
+                    <center>
+                        <VBox>
+                            <Label text="Client Certificate including URN + Private Key (PEM format):"/>
+                            <!--<top>-->
+                            <VBox VBox.vgrow="SOMETIMES">
+                                <!--<HBox><Label text="Default User Login: Client Certificate including URN + Private Key"/></HBox>-->
+                                <VBox>
+                                    <fx:define>
+                                        <ToggleGroup fx:id="pemKeyCertInputToggleGroup"/>
+                                    </fx:define>
+                                    <RadioButton fx:id="pemKeyCertInputFromStringRadioButton" text="Enter Manually" toggleGroup="$pemKeyCertInputToggleGroup"
+                                                 selected="false" onAction="#updateFileOrString"/>
+                                    <RadioButton fx:id="pemKeyCertInputFromFileRadioButton" text="Load from file" toggleGroup="$pemKeyCertInputToggleGroup"
+                                                 selected="true" onAction="#updateFileOrString"/>
+                                </VBox>
+                                <HBox fx:id="pemKeyCertInputFromFileBox">
+                                    <Label text="File:" fx:id="pemKeyCertInputFromFileLabel"/>
+                                    <TextField fx:id="pemKeyCertInputFromFileField" text="" editable="false"  HBox.hgrow="ALWAYS"/>
+                                    <Button text="Load..." onAction="#loadCertificateFile" fx:id="pemKeyCertInputFromFileLoadButton"/>
+                                    <VBox.margin>
+                                        <Insets left="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <VBox.margin>
+                                    <Insets left="20.0" />
+                                </VBox.margin>
+                            </VBox>
+                            <!--</top>-->
+                            <!--<center>-->
+                            <VBox VBox.vgrow="ALWAYS">
+                                <TextArea text="" VBox.vgrow="ALWAYS"  fx:id="defaultLoginPanelPemField"/>
+                                <!--</VBox>-->
+                                <!--<VBox VBox.vgrow="ALWAYS">-->
+                                <Label text="Errors:" fx:id="errorLogLabel" managed="false" visible="false"/>
+                                <TextArea text="" VBox.vgrow="ALWAYS"  fx:id="errorLog" styleClass="errorText" managed="false" visible="false" wrapText="true"/>
+                            </VBox>
+                            <!--</VBox>-->
+                            <!--</center>-->
+                            <!--<bottom>-->
+                            <!--<VBox>-->
+                            <HBox fx:id="defaultLoginPanelPasswordBox">
+                                <Label text="Private Key Password:" styleClass="passRequiredText" />
+                                <PasswordField text="" HBox.hgrow="ALWAYS" fx:id="defaultLoginPanelPassword"  onAction="#unlockAndLogin"/>
+                                <Button fx:id="defaultLoginPanelPasswordButton" text="Login" onAction="#unlockAndLogin"/>
+                                <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                </VBox.margin>
+                            </HBox>
+                            <GridPane fx:id="manualCertificateDetails" managed="false" visible="false">
+                                <!--<ColumnConstraints maxWidth="250" hgrow="NEVER"/>-->
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <children>
+                                    <Label text="User Authority:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label text="User URN:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                                    <AuthorityChooser fx:id="defaultLoginPanelSliceAuthNameChooser" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <TextField fx:id="defaultLoginPanelUserUrnField" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                </children>
+                                <VBox.margin>
+                                    <Insets left="20.0" />
+                                </VBox.margin>
+                            </GridPane>
+                            <Label text="Info from Certificate:"/>
+                            <GridPane fx:id="derivedCertificateDetails">
+                                <Label text="User Authority URN:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label text="User Authority:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label text="User URN:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+                                <Label fx:id="defaultLoginPanelSliceAuthUrn" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="defaultLoginPanelSliceAuthName" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="defaultLoginPanelUsername" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="defaultLoginPanelUserUrn" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                <VBox.margin>
+                                    <Insets left="20.0" />
+                                </VBox.margin>
+                            </GridPane>
+                            <Button text="Certificate Details..." onAction="#showCertificateDetailsWindow" >
+                                <VBox.margin>
+                                    <Insets left="20.0" />
+                                </VBox.margin>
+                            </Button>
+                        </VBox>
+                        <!--</bottom>-->
+                    </center>
+                </BorderPane>
+
+                <BorderPane fx:id="planetLabLoginPanel">
+                    <center>
+                        <VBox>
+
+                            <Label text="Planetlab Sfa Hrn:">
+                                <!--<VBox.margin> <Insets top="20.0"/> </VBox.margin>-->
+                            </Label>
+                            <TextField fx:id="planetlabSfaHrnField"/>
+
+                            <Label text="Planetlab Authority:">
+                                <VBox.margin> <Insets top="25.0"/> </VBox.margin>
+                            </Label>
+                            <HBox>
+                                <AuthorityChooser fx:id="planetlabAuthChooser"/>
+                                <Label fx:id="planetlabAuthFeedbackLabel" text="">
+                                    <HBox.margin> <Insets left="10.0" right="10.0"/> </HBox.margin>
+                                </Label>
+                            </HBox>
+
+                            <Label text="Planetlab Private SSH Key:">
+                                <VBox.margin> <Insets top="25.0"/> </VBox.margin>
+                            </Label>
+                            <HBox>
+                                <Label text="File:"/>
+                                <TextField fx:id="planetlabFileField" text="" editable="false" HBox.hgrow="ALWAYS"/>
+                                <Button text="Load..." onAction="#loadPlanetlabFile"/>
+                                <VBox.margin> <Insets left="20.0"/> </VBox.margin>
+                            </HBox>
+                            <HBox fx:id="planetlabPasswordBox" visible="false" managed="false">
+                                <Label text="Private key password:"/>
+                                <PasswordField fx:id="planetlabPasswordField" text="" HBox.hgrow="ALWAYS" onAction="#planetLabUnlock"/>
+                                <VBox.margin> <Insets left="20.0"/> </VBox.margin>
+                            </HBox>
+
+                            <Label text="Client certificate: ">
+                                <VBox.margin> <Insets right="10.0" top="25.0"/> </VBox.margin>
+                            </Label>
+                            <HBox>
+                                <Button fx:id="planetlabCreateCertificateButton" styleClass="bigBtn" text="Fetch Certificate"
+                                        onAction="#planetlabFetchCertificate" visible="false" managed="false"/>
+
+                                <Label fx:id="planetlabCertificateFeedbackLabel" text="">
+                                    <HBox.margin> <Insets left="10.0" right="10.0"/> </HBox.margin>
+                                </Label>
+                            </HBox>
+                            <Label text="Note: The client certificate can be fetched from the Planetlab Sfa Registry when all other login details are provided.">
+                                <VBox.margin> <Insets left="30.0" right="10.0"/> </VBox.margin>
+                            </Label>
+
+                            <VBox fx:id="planetlabDetailsBox" visible="false" managed="false">
+                                <Label text="Details:">
+                                    <VBox.margin> <Insets top="20.0"/> </VBox.margin>
+                                </Label>
+                                <TextArea fx:id="planetlabDetailsText"/>
+                            </VBox>
+                        </VBox>
+                    </center>
+                </BorderPane>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="60.0" right="10.0" top="10.0" />
+                </VBox.margin>
+            </StackPane>
+            <Label fx:id="missingInfoWarningLabel" text="Warning: Some user info is unknown. You can login, but some functions will not work." managed="false" visible="false"/>
+            <Label fx:id="missingInfoErrorLabel" text="Error: Some user info is unknown. You cannot login without this info." managed="false" visible="false"/>
+            <VBox alignment="CENTER">
+                <Button fx:id="loginButton" styleClass="bigBtn" text="Login" onAction="#login"/>
+                <Button fx:id="logoutButton" styleClass="bigBtn" text="Skip Login" onAction="#nologin"/>
+
+                <VBox.margin>
+                    <!--<Insets bottom="10.0" left="100.0" right="10.0" top="10.0" />-->
+                </VBox.margin>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

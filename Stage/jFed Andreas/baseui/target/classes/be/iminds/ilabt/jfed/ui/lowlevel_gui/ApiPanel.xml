@@ -1,0 +1,11 @@
+
+<!--<tab name="apitab" text="API">-->
+    <panel name="apipan" columns="1" gap="4" top="4" left="4" weightx="1" weighty="1">
+        <label name="apiLabel" weightx="1" init="initLabel(apiLabel)"/>
+        <panel name="apiAuthChoicePanel" weightx="1" columns="1" />
+        <!--<checkbox text="Debug Mode" name="debugMode" selected="false" weightx="1"/>-->
+        <panel name="methods" columns="5" gap="4" top="4" left="4" weightx="1" weighty="1">
+            <label text="API methods:" colspan="5" weightx="5" />
+        </panel>
+    </panel>
+<!--</tab>-->

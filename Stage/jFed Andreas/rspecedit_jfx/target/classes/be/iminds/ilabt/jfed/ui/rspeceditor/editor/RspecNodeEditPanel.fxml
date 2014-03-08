@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="be.iminds.ilabt.jfed.ui.rspeceditor.editor.RspecNodeEditPanel" minHeight="200" minWidth="200"  >
+    <top>
+        <ToolBar>
+            <items>
+                <Label text="Edit" />
+            </items>
+        </ToolBar>
+    </top>
+    <center>
+        <VBox fx:id="nodeEditPanel">
+            <HBox>
+                <Label text="ID:"/>
+                <TextField fx:id="idField"/>
+            </HBox>
+            <Button text="Commit Changes" onAction="#onCommitChanges" />
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,46 @@
+<desktop>
+
+    <panel columns="1" gap="4" top="4" left="4">
+        <menubar weightx="1" colspan="1">
+            <menu text="Edit">
+                <menuitem text="Save" action="saveConfig()"/>
+                <menuitem text="Restore" action="loadConfig()"/>
+                <menuitem text="Reset to Internal defaults" action="resetConfig()"/>
+            </menu>
+        </menubar>
+
+        <panel columns="2" gap="4" top="4" left="4" weightx="1" weighty="1">
+            <label text="User Authorization (certificate + private key):" colspan="2" />
+            <panel columns="2" gap="4" top="4" left="20" weightx="1" weighty="1" colspan="2">
+                <label text="PEM key and certificate file:"  colspan="2"/>
+                <textfield name="pemkeycertfilename" columns="50" weightx="4" colspan="1" caret="chooseAndLoadFile(pemkeycertfilename, pemkeycert)" action="chooseAndLoadFile(pemkeycertfilename, pemkeycert)" editable="false" />
+                <button text="Load..." weightx="1" colspan="1" action="chooseAndLoadFile(pemkeycertfilename, pemkeycert)"/>
+                <textarea name="pemkeycert" columns="50" rows="10" weightx="1" weighty="5" colspan="2" editable="false" />
+                <panel columns="2" colspan="2" >
+                    <label text="Private Key Password:" />
+                    <passwordfield name="password" text="" weightx="1" perform="begin"/>
+                </panel>
+                <panel colspan="2" weightx="1" weighty="0" halign="right"> <button text="Certificate Details..." action="showCertificateDetailsWindow" weightx="0" weighty="0" halign="right"/></panel>
+                <panel colspan="2" weightx="1" weighty="0" halign="right"> <button text="Create PEM key and certificate file using planetlab login..." action="planetlabWizard" weightx="0" weighty="0" halign="right"/></panel>
+            </panel>
+            <panel top="20"/>
+            <label text="Derived from private key and certificate:" colspan="2"/>
+            <panel columns="2" top="4" left="20" colspan="2"  >
+                <checkbox name="manualoverride" text="Manual override" colspan="2" action="onManualOverride(manualoverride.selected)" />
+                <label text="User Slice Authority:" />
+                <panel name="authChoicePanel" colspan="1" weightx="1" init="initAuthChoicePanel(authChoicePanel)" columns="1" >
+                </panel>
+                <label text="User Slice Authority URN:" />
+                <textfield name="saurn" text="TODO Slice Authority URN" weightx="1" editable="false"/>
+                <label text="Username:" />
+                <textfield name="username" text="TODO username" weightx="1" editable="false"/>
+                <label text="User URN:" />
+                <textfield name="userurn" text="TODO userurn" weightx="1" editable="false"/>
+            </panel >
+        </panel>
+
+        <panel columns="1" gap="20" top="20" left="20" right="20" bottom="20" weightx="1" weighty="0"  halign="center">
+            <button text="Use this User Configuration" weightx="0" weighty="0" colspan="1" action="begin"/>
+        </panel>
+    </panel>
+</desktop>

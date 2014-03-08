@@ -1,0 +1,103 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@BlackRed.css"/>
+    </stylesheets>
+    <center>
+        <BorderPane>
+            <!--Links-->
+            <left>
+                <GridPane hgap="8" vgap="8" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                          AnchorPane.rightAnchor="0"
+                          AnchorPane.bottomAnchor="0">
+                    <padding>
+                        <Insets top="10" bottom="10" left="10" right="10"/>
+                    </padding>
+
+                    <Label text="ID" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField text="" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="HardWare Type(s)" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="8">
+                        <ListView fx:id="list"/>
+                        <HBox spacing="8">
+
+                            <Button text="add" fx:id="btnAdd"/>
+                            <Button text="Delete"/>
+                        </HBox>
+                    </VBox>
+
+
+                    <Label text="Sliver Type:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField text="raw-pc" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <!-- >verangen door combobox? -->
+
+                    <CheckBox text="Exclusive" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+                    <CheckBox text="OS Image URN" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+
+                    <CheckBox text="Component Manager URN" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <CheckBox text="Component Manager URN" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+
+                    <CheckBox text="Component URN" GridPane.rowIndex="7" GridPane.columnIndex="0" selected="true"/>
+                    <TextField text="urn:publicid:IDN+emulab.get+authority+cm" GridPane.rowIndex="7"
+                               GridPane.columnIndex="1"/>
+
+                    <CheckBox text="Component name" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+                    <CheckBox text="DNS Name" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                    <TextField GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+                </GridPane>
+            </left>
+
+            <!--rechts-->
+            <center>
+                <VBox spacing="5">
+                    <padding>
+                        <Insets top="10" bottom="10" left="10" right="10"/>
+                    </padding>
+
+                    <Label text="Exec Service"/>
+                    <ListView/>
+                    <Button text="add Exec Service"/>
+
+                    <Separator orientation="horizontal"/>
+
+                    <Label text="Install Service"/>
+                    <ListView/>
+                    <Button text="add Install Service"/>
+
+                    <Separator orientation="horizontal"/>
+
+                    <Label text="Login Service"/>
+                    <ListView/>
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
+
+    <bottom>
+        <ToolBar>
+            <items>
+                <!-- align right -->
+                <Separator HBox.hgrow="ALWAYS" visible="false" orientation="HORIZONTAL"/>
+
+                <Label text="Edit RspecNode"/>
+                <Button text="Remove"/>
+                <Button text="Assign to Fixed Node"/>
+            </items>
+        </ToolBar>
+    </bottom>
+
+</fx:root>

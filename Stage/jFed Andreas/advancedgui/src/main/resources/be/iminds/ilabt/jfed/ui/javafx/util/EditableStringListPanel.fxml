@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" minHeight="100" minWidth="100"  >
+    <center>
+        <VBox>
+            <ListView fx:id="listView" VBox.vgrow="SOMETIMES" maxHeight="100"/>
+            <HBox>
+                <Button text="Add" onAction="#add" fx:id="addButton"/>
+                <Button text="Delete" onAction="#delete" fx:id="deleteButton"/>
+            </HBox>
+        </VBox>
+    </center>
+</fx:root>

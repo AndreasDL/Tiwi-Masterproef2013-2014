@@ -30,6 +30,8 @@ nbproject/*
 
 #intelliJ Idea
 .idea/
+*.iml
+*.iws
 
 #java
 *.class
@@ -38,6 +40,5 @@ nbproject/*
 *.war
 *.ear
 
-site
-Stage/
 f4ftestsuite/
+site

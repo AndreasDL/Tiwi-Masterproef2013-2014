@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml" fx:id="overview">
+    <Label text="" fx:id="nameLabel"/>
+    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+        <!--<Button text="Info" onAction="#viewInfo"/>-->
+        <Button text="GetVersion" onAction="#getVersion"/>
+        <Button text="Fetch Advertisement" onAction="#fetchAdvertisement"/>
+    </HBox>
+</HBox>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane fx:id="pane" prefHeight="-1" prefWidth="-1" xmlns:fx="http://javafx.com/fxml" fx:controller="be.iminds.ilabt.jfed.ui.javafx.am_list_gui.ScanAuthorityDialogController"  >
+    <center>
+        <VBox spacing="10.0" >
+            <HBox spacing="10.0">
+                <Label text="Aggregate Manager URL to scan:"/>
+                <TextField fx:id="amUrlField" text="https://example.com/xmlrpc/am2/" onAction="#scan" HBox.hgrow="ALWAYS" prefWidth="600" />
+            </HBox>
+            <HBox spacing="50.0" alignment="CENTER" >
+                <Button text="Scan" onAction="#scan" fx:id="scanButton"/>
+                <Button text="Cancel" onAction="#cancel" fx:id="cancelButton"/>
+            </HBox>
+            <HBox spacing="10.0" fx:id="scanLogBox" VBox.vgrow="ALWAYS" visible="false">
+                <ProgressIndicator fx:id="progress" visible="false" />
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <Label text="Scan details:"/>
+                    <TextArea editable="false" text="" fx:id="scanLogTextArea" prefWidth="600" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </HBox>
+            <HBox spacing="50.0" alignment="CENTER"  fx:id="yesNoButtons" visible="false">
+                <Button text="Yes" onAction="#yes" />
+                <Button text="No" onAction="#no" />
+            </HBox>
+            <HBox spacing="50.0" alignment="CENTER" visible="false" fx:id="postScanButtons" >
+                <Button text="Open scan result as new Authority" onAction="#ok" />
+                <Button text="Discard scan result" onAction="#cancel" />
+            </HBox>
+        </VBox>
+    </center>
+    <padding>
+        <Insets top="10.0" left="2.0" right="2.0" bottom="10.0" />
+    </padding>
+</BorderPane>

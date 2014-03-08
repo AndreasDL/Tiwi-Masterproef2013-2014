@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.iminds.ilabt.jfed</groupId>
+    <artifactId>jFedSuite</artifactId>
+    <version>2.0</version>
+    <packaging>pom</packaging>
+
+    <scm>
+        <connection>scm:svn:https://svn.atlantis.ugent.be/svn/f4ftestsuite/trunk/suite</connection>
+    </scm>
+
+    <name>jFed Suite (a Java Software Suite for Federated Internet Research and Experimentation Testbeds)</name>
+
+    <modules>
+        <module>jfed-library</module>
+        <module>jfed-highlevel-library</module> 
+        <module>geni-rspec-binding</module>
+        <module>rspecedit_jfx</module>
+        <module>baseui</module>
+        <module>compliance-verification</module>
+        <module>compliance-verification-gui</module>
+        <module>advancedgui</module>
+        <!-- <module>am_tests</module> -->
+    </modules>
+</project>

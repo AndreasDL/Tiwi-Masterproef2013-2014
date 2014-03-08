@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import be.iminds.ilabt.jfed.ui.rspeceditor.editor.*?>
+
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" >
+    <HBox VBox.vgrow="NEVER">
+        <ListView fx:id="userSpecListView" minWidth="150.0" minHeight="100.0" prefHeight="150.0" HBox.hgrow="SOMETIMES"/>
+        <VBox HBox.hgrow="SOMETIMES">
+            <Label text="User Urn:"/>
+            <TextField fx:id="userUrnTextField"/>
+            <CheckBox fx:id="sshCheckBox" text="Include SSH Key"/>
+            <Label text="User SSH Key(s) (one per line):"/>
+            <TextArea fx:id="sshTextField" VBox.vgrow="ALWAYS"/>
+            <HBox VBox.vgrow="NEVER">
+                <Button text="Add" onAction="#add" fx:id="addButton"/>
+                <Button text="Remove" onAction="#remove" fx:id="removeButton" disable="true"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</fx:root>

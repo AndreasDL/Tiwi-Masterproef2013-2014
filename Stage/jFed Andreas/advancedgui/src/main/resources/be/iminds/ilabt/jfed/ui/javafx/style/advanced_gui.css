@@ -1,0 +1,216 @@
+
+.bigBtn {
+    -fx-label-padding: 10;
+}
+.addIco {
+    -fx-graphic: url("icons15/add.png");
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+.addBtn {
+    -fx-graphic: url("icons15/add.png");
+}
+.removeBtn, .deleteBtn {
+    -fx-graphic: url("icons15/remove.png");
+}
+.removeIco, .deleteIco {
+    -fx-graphic: url("icons15/remove.png");
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+.saveBtn {
+    -fx-graphic: url("icons15/floppy.png");
+}
+.editBtn {
+    -fx-graphic: url("icons15/edit.png");
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+.editIco {
+    -fx-graphic: url("icons15/edit.png");
+}
+.unsavedIco {
+    -fx-graphic: url("icons15/no-floppy.png");
+    -fx-content-display: graphic-only;
+    -fx-background-color: transparent;
+}
+.discardBtn {
+    -fx-graphic: url("icons15/trash.png");
+}
+.forbiddenBtn {
+    -fx-graphic: url("icons15/forbidden.png");
+}
+.errorBtn {
+    -fx-graphic: url("icons15/error.png");
+}
+.warningBtn {
+    -fx-graphic: url("icons15/warning.png");
+}
+.helpIco {
+    -fx-graphic: url("icons15/help.png");
+    -fx-content-display: graphic-only;
+}
+
+.helpLabel {
+  -fx-font-weight: bold;
+  -fx-text-fill: dodgerblue;
+}
+
+.boldText {
+  -fx-font-weight: bold;
+}
+
+.firstIco {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M -4 1 v 4 h -1 v -8 h 1 v 4 l 4 4 v -8 z";
+    -fx-scale-shape: true;
+    -fx-content-display: graphic-only;
+}
+.prevIco {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M 0 -4 l 4 4 v -8 z";
+    -fx-scale-shape: true;
+    -fx-content-display: graphic-only;
+}
+.nextIco {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M 0 0 l 4 -4 L 0 -8 z";
+    -fx-scale-shape: true;
+    -fx-content-display: graphic-only;
+}
+.lastIco {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M 4 -4 L 0 0 v -8 L 4 -4 v 4 h 1 v -8 h -1 z";
+    -fx-scale-shape: true;
+    -fx-content-display: graphic-only;
+}
+.autoLastIco {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M 4 -4 L 0 0 v -8 L 4 -4 v 4 h 1 v -8 h -1 z";
+    -fx-scale-shape: true;
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 5;
+}
+.autoLastToggleButton {
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 5;
+}
+
+
+.textFieldError {
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+.text-field.validation_error {
+  -fx-background-color: red,
+        linear-gradient(
+         to bottom,
+         derive(red,70%) 5%,
+         derive(red,90%) 40%
+        );
+ }
+
+ .text-field.validation_warning {
+  -fx-background-color: orange,
+        linear-gradient(
+         to bottom,
+         derive(orange,70%) 5%,
+         derive(orange,90%) 40%
+        );
+ }
+ .text-field.validation_explicit_ok {
+  -fx-background-color: green,
+        linear-gradient(
+         to bottom,
+         derive(green,70%) 5%,
+         derive(green,90%) 40%
+        );
+ }
+
+
+.label.validation_error {
+  -fx-background-color: red,
+        linear-gradient(
+         to bottom,
+         derive(red,70%) 5%,
+         derive(red,90%) 40%
+        );
+ }
+
+ .label.validation_warning {
+  -fx-background-color: orange,
+        linear-gradient(
+         to bottom,
+         derive(orange,70%) 5%,
+         derive(orange,90%) 40%
+        );
+ }
+ .label.validation_explicit_ok {
+  -fx-background-color: green,
+        linear-gradient(
+         to bottom,
+         derive(green,70%) 5%,
+         derive(green,90%) 40%
+        );
+ }
+
+
+#okBtn {
+    -fx-graphic: url("icons15/ok.png");
+}
+
+#cancelBtn {
+    -fx-graphic: url("icons15/skip.png");
+}
+
+
+#alternative_button {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+
+
+.tasktstate_unsubmitted {
+   -fx-text-fill: black;
+}
+
+.tasktstate_blocked {
+   -fx-text-fill: darkgrey;
+}
+
+.tasktstate_queued {
+  -fx-text-fill: blue;
+}
+
+.tasktstate_running {
+   -fx-font-weight: bold;
+   -fx-text-fill: blue;
+}
+
+.tasktstate_failed {
+  -fx-font-weight: bold;
+  -fx-text-fill: red;
+}
+
+.tasktstate_success {
+   -fx-text-fill: green;
+}

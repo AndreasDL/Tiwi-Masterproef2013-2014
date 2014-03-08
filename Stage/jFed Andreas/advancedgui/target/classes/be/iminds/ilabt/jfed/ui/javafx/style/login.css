@@ -1,0 +1,11 @@
+
+.errorText {
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+
+.passRequiredText {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}

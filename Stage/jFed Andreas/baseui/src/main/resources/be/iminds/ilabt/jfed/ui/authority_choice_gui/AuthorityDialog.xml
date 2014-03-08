@@ -1,0 +1,59 @@
+<dialog name="editOrAddAuth" text="Authority Configuration" init="initAuthDialog(saveOrAddButton, cancelButton, type, urn, urnPart, authName, urlPanel, certificate, certificateAliases, reconnectEachTime, gid)">
+    <panel columns="2">
+        <label text="Type:" visible="false"/>
+        <textfield name="type" text="Test" columns="10" visible="false" />
+        <label text="Name in URN:"/>
+        <textfield name="urnPart" text="<AUTH>" columns="50" action="updateUrn(urn, urnPart)"/>
+        <label text="URN:"/>
+        <textfield name="urn" text="urn:publicid:IDN+<AUTH>+authority+cm" columns="50" editable="false"/>
+        <label text="Authority name:"/>
+        <textfield name="authName" text="Test" columns="50"/>
+
+        <label text="Server URL's:" colspan="2"/>
+        <panel left="20" columns="1" colspan="2">
+            <panel columns="4"  name="urlPanel" gap="2">
+
+                <label text="API type"/>
+                <label text="version"/>
+                <label text="URL"/>
+                <label text=""/>
+
+                <!--<combobox text="Slice Authority" weightx="1"/>-->
+                <!--<textfield text="1" columns="2" weightx="1"/>-->
+                <!--<textfield name="authSAurl" text="Test" columns="50" weightx="1"/>-->
+                <!--<button text="delete" weightx="0"/>-->
+
+            </panel>
+            <!--<label text="Authority Aggregate Manager URL:"/>-->
+            <!--<textfield name="authAMurl" text="Test" columns="50"/>-->
+            <!--<label text="Authority Aggregate Manager v2 URL:"/>-->
+            <!--<textfield name="authAM2url" text="Test" columns="50"/>-->
+            <!--<label text="Authority Aggregate Manager v3 URL:"/>-->
+            <!--<textfield name="authAM3url" text="Test" columns="50"/>-->
+            <button text="Add URL" action="addUrlLine(urlPanel)" weighty="0" weightx="0" halign="right"/>
+        </panel>
+
+        <label text="Reconnect for each request:"/>
+        <checkbox name="reconnectEachTime" text="" selected="false"/>
+
+        <label text="Authority SSL Certificate:" colspan="2"/>
+        <panel colspan="2" columns="2">
+            <textarea name="certificate" text="Test" weightx="1" columns="50" rows="5" editable="true" action="updateCertificateDetails"/>
+            <button text="Details..." action="showCertificateDetailsWindow" weightx="0"/>
+            <panel name="certificateDetails" colspan="2" weightx="1" />
+        </panel>
+
+        <label text="Authority SSL Certificate allowed CN (if the hostname is not in the CN, but this is, the certificate will be used anyway):" colspan="2"/>
+        <textfield name="certificateAliases" text="Test" columns="50" editable="true" colspan="2"/>
+
+        <label text="Gid:" colspan="2" visible="false"/>
+        <textarea name="gid" text="Test" columns="50" rows="5" editable="false" colspan="2" visible="false"/>
+
+        <panel columns="4" colspan="2" weightx="1">
+            <button name="saveOrAddButton" text="Save" action="saveAuth(type.text, urn.text, authName.text, reconnectEachTime.selected, certificate.text, certificateAliases.text, urlPanel)"/>
+            <button name="cancelButton" text="Cancel Edit"  action="cancelAuth()"/>
+            <button name="removeButton" text="Delete Authority"  action="deleteEditedAuth(urn.text)"/>
+            <button name="showButton" text="Show Authority info as XML..."  action="showXml(type.text, urn.text, authName.text, reconnectEachTime.selected, certificate.text, certificateAliases.text, urlPanel)"/>
+        </panel>
+    </panel>
+</dialog>

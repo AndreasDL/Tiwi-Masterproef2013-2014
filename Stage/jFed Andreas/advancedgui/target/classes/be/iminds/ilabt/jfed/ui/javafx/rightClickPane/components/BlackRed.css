@@ -1,0 +1,75 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #5C5C5C, #000000),
+        linear-gradient(to bottom, #5C5C5C, #000000);
+    -fx-accent: #FF0000;
+    -fx-focus-color: #FF0000;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(to top,#000000,#4A4A4A);
+    -fx-background-radius: 0;
+}
+
+.button:hover {
+    -fx-text-fill: #FF0000;
+    -fx-border-color: #FF0000
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-background-radius: 7;
+}
+
+.check-box{
+    -fx-text-fill: white;
+}
+
+.tool-bar{
+    -fx-background-color: linear-gradient(#7d7e7d 1%, #0e0e0e 100%);
+}
+
+.list:hover{
+    -fx-background-radius: 100;
+    -fx-border-color: #FF0000;
+}
+.list-cell{
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+.list-cell:filled:selected{
+    -fx-text-fill: white;
+    -fx-background-color: #A10008;
+}
+.list-cell:filled:hover{
+    -fx-text-fill: #FF0000;
+}
+
+
+#rect-main{
+    -fx-background-color: #5E0000;
+    -fx-fill: #5E0000;
+    -fx-stroke: #5E0000;
+    -fx-background-radius: 10;
+
+    -fx-border-width: 5;
+    -fx-border-color: #000000;
+    -fx-border-radius: 0;
+}
+
+#rect-drag{
+    -fx-fill: #FFFFFF;
+    -fx-background: #FFFFFF;
+
+    -fx-border-radius:100;
+    -fx-background-radius: 100;
+}
+
+#connection{
+    -fx-fill: #FFFFFF;
+    -fx-background: #FFFFFF;
+}
+
+

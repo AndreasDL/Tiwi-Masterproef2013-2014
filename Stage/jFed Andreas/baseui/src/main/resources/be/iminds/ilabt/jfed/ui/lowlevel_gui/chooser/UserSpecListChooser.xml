@@ -1,0 +1,18 @@
+<panel name="chooserpan" columns="2" gap="4" top="4" left="4" weightx="1">
+    <checkbox name="req" text="" action="handleRequired(req,lab,choice, userurn, sshKeyCheck, sshKey, add, remove, sshlab, userurnlab)" init="initRequired(req,lab,choice, userurn, sshKeyCheck, sshKey, add, remove, sshlab, userurnlab)" selected="true" rowspan="5" colspan="1" />
+    <panel columns="2" gap="4" top="4" left="4" weighty="1" weightx="1">
+        <label name="lab" text="" colspan="2"/>
+        <list selection="multiple" name="choice" weightx="1" weighty="1" colspan="1" action="select(choice, userurn, sshKeyCheck, sshKey, sshlab)" init="initCurrentUsers(choice)" />
+        <panel columns="2" gap="4" top="4" left="4" weighty="1" weightx="1">
+            <label name="userurnlab" text="User URN:" colspan="2" />
+            <textfield name="userurn" text="" colspan="2" weightx="1"/>
+
+            <checkbox name="sshKeyCheck" text="" colspan="1" action="handleSshKeyCheck(sshKeyCheck.selected, sshlab, sshKey)" init="handleSshKeyCheck(sshKeyCheck.selected, sshlab, sshKey)" />
+            <label name="sshlab" text="SSH Key:" colspan="1"/>
+            <textarea name="sshKey" text="" colspan="2" columns="5" rows="3" weightx="1"/>
+
+            <button name="add" text="Add" action="add(choice, userurn, sshKeyCheck, sshKey)"  colspan="1"/>
+            <button name="remove" text="Remove" action="remove(choice, userurn, sshKeyCheck, sshKey)"  colspan="1"/>
+        </panel>
+    </panel>
+</panel>

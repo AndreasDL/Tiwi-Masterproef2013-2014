@@ -1,0 +1,8 @@
+<panel columns="5" weightx="1">
+    <label name="label" text="Authority:" />
+    <combobox name="authChooser" text="Authority" editable="false" weightx="1" action="onUserSelectedAuth(authChooser)" />
+    <textfield name="authTextField" text="Authority" editable="false" weightx="1" visible="false" />
+    <button name="editbutton" text="Edit..." action="editAuth()" />
+    <button name="addbutton" text="Add..." action="addAuth()" />
+    <button name="updatebutton" text="Update List using Clearing House" action="loadFromClearingHouse()" />
+</panel>

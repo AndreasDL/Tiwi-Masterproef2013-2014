@@ -1,0 +1,14 @@
+<dialog name="wizard" text="Add an Aggregate Manager">
+    <panel columns="2" gap="4">
+        <textarea editable="false" wrap="true"  weighty="0" rows="2" colspan="2" weightx="0"
+                  text="This tool will automatically scan the needed info using the Aggregate Manager URL. It will then let you review and finalize the AM data."/>
+        <label text="AM URL:" weightx="0"/>
+        <textfield name="url" text="" columns="60" weightx="1"/>
+
+        <panel columns="3" colspan="2" weightx="1">
+            <button name="saveOrAddButton" text="Scan Aggregate Manager Info" action="runWizard(url.text)"/>
+            <button name="saveOrAddButton" text="Add Info Manually" action="skipWizard"/>
+            <button name="cancelButton" text="Cancel"  action="cancelWizard()"/>
+        </panel>
+    </panel>
+</dialog>

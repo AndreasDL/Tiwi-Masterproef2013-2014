@@ -1,0 +1,11 @@
+<?import be.iminds.ilabt.jfed.ui.javafx.rightClickPane.components.RspecEditorRightClickPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <HBox>
+            <RspecEditorRightClickPane />
+        </HBox>
+    </center>
+
+</BorderPane>

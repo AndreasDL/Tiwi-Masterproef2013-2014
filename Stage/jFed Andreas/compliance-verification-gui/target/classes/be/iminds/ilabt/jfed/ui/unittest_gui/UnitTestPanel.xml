@@ -1,0 +1,37 @@
+<panel name="unitTestPanel" columns="2" gap="4" top="4" left="4" colspan="1" weightx="1" weighty="1" >
+    <textarea editable="false" wrap="true" text="This GUI can be used to run compliance Tests on Slice Authorities and Aggregate Managers.
+The current user credentials are used for all tests.
+For Tests with a Slice Authority, the Slice Authority of the current user is used (shown below).
+For Tests with an Aggregate Manager, select the aggregate manager to be tested below.
+Multiple tests are available, select the ones to run below. Hover the mouse pointer over the available texts to show more info.
+You can also provide a test group to run, if no group is provided all tests in the test class are executed.
+
+Detailed test reports are written in a new map (name starting with 'test-output-') in the map this GUI runs from." colspan="2"/>
+
+    <label text="User authority: "/><label name="userAuthLabel" text="unknown" weightx="1"/>
+
+    <panel weightx="1" colspan="2">
+        <label text="Aggregate Manager "/>
+        <panel name="authChoicePanel" weightx="1" init="initAuthChoicePanel(authChoicePanel)"/>
+    </panel>
+
+    <panel name="unitTestChoicePanel" columns="1" colspan="2" weightx="1" init="initUnitTestChoicePanel(unitTestChoicePanel)"  top="5" bottom="5">
+        <label text="Available Tests: " colspan="2" />
+    </panel>
+    <label text="Tests Group: " colspan="1" weightx="1"/>
+    <textfield name="testGroup" text="" colspan="1" weightx="1"/>
+
+    <panel columns="1" gap="20" top="20" left="20" right="20" bottom="20" weightx="1" weighty="0"  halign="center" colspan="2" >
+        <button name="runUnitTests" text="Run Tests" weightx="0" weighty="0" halign="center" action="runUnitTestsInThread(runUnitTests, testGroup.text)" colspan="2"/>
+    </panel>
+
+    <label text="Test Summary: " colspan="2" />
+    <list name="resultList" weightx="1" weighty="1" colspan="2"/>
+    <panel colspan="2" weightx="1">
+        <button halign="right" text="Clear log" action="clearLog(resultList)"/>
+    </panel>
+
+    <panel columns="1" gap="20" top="5" left="20" right="20" bottom="5" weightx="1" weighty="0"  halign="center" colspan="2" >
+        <button name="showLogButton" text="Show Logs..." weightx="0" weighty="0" halign="center" action="showLogs()" colspan="2"/>
+    </panel>
+</panel>

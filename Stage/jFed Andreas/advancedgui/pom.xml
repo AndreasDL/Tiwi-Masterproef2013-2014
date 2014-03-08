@@ -1,0 +1,232 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.iminds.ilabt.jfed</groupId>
+    <artifactId>advancedgui</artifactId>
+    <version>2.0</version>
+    <packaging>jar</packaging>
+
+    <scm>
+        <connection>scm:svn:https://svn.atlantis.ugent.be/svn/f4ftestsuite/trunk/suite</connection>
+    </scm>
+
+    <name>jFed Advanced GUI</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>7</source>
+                        <target>7</target>
+                    </configuration>
+                    <version>3.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>be.iminds.ilabt.jfed.ui.javafx.advanced_gui.JFedAdvancedGUI</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <!--
+                            <goal>copy-dependencies</goal>
+                            -->
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeArtifactIds>javafx</excludeArtifactIds>
+                            <excludes>javafx/**</excludes>
+                            <outputDirectory>${project.build.directory}/extracted-libs</outputDirectory>
+                            <!-- <outputDirectory>${project.build.directory}/libs</outputDirectory> -->
+                            <includeScope>compile</includeScope>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>create-javafx-packages</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target xmlns:fx="javafx:com.sun.javafx.tools.ant">
+                                <taskdef
+                                   uri="javafx:com.sun.javafx.tools.ant"
+                                   resource="com/sun/javafx/tools/ant/antlib.xml"
+                                   classpath="${java.home}/../lib/ant-javafx.jar"/>
+                                <echo message="Building using javafx packager from ant: java.home=${java.home} project.name=${project.name} project.build.directory=${project.build.directory} project.build.finalName=${project.build.finalName}"/>
+                                <fx:application id="fxApp"
+                                               name="${project.name}"
+                                               mainClass="be.iminds.ilabt.jfed.ui.javafx.advanced_gui.JFedAdvancedGUI"/>
+                                <fx:application id="fxAppProbe"
+                                               name="${project.name}"
+                                               mainClass="be.iminds.ilabt.jfed.ui.javafx.probe_gui.JFedProbeStandalone"/>
+                                <!-- Note: this will overwrite the JAR produced by maven-jar-plugin, change destfile if you don't want this -->
+                                <!-- <fx:jar destfile="${project.build.directory}/${project.build.finalName}"> -->
+                                <fx:jar destfile="${project.build.directory}/jFed-advanced-GUI.jar">
+                                    <fx:application refid="fxApp"/>
+                                    <fx:fileset dir="${project.build.directory}/classes"/>
+                                    <fx:fileset dir="${project.build.directory}/extracted-libs"/>
+
+
+                                    <manifest>
+                                        <attribute name="Implementation-Vendor" value="iMinds"/>
+                                        <attribute name="Implementation-Title" value="jFed GUI"/>
+                                        <attribute name="Implementation-Version" value="2.0"/>
+                                        <attribute name="Implementation-Build" value="${buildNumber}"/>
+                                    </manifest>
+                                    <!--
+                                    <fx:resources>
+                                        <fx:fileset dir="${project.build.directory}" includes="libs/*.jar"/>
+                                    </fx:resources>
+                                    -->
+                                </fx:jar>
+                                <fx:jar destfile="${project.build.directory}/jFed-probe-GUI.jar">
+                                    <fx:application refid="fxAppProbe"/>
+                                    <fx:fileset dir="${project.build.directory}/classes"/>
+                                    <fx:fileset dir="${project.build.directory}/extracted-libs"/>
+
+
+                                    <manifest>
+                                        <attribute name="Implementation-Vendor" value="iMinds"/>
+                                        <attribute name="Implementation-Title" value="jFed Probe GUI"/>
+                                        <attribute name="Implementation-Version" value="2.0"/>
+                                        <attribute name="Implementation-Build" value="${buildNumber}"/>
+                                    </manifest>
+                                </fx:jar>
+                                <!-- don't do this! This artifact is not to be used by other maven projects... <attachartifact file="${project.build.directory}/rspec-editor-standalone.jar" type="jar"/> -->
+                                <!-- actually, you can do this if you add a classifier -->
+                                <attachartifact file="${project.build.directory}/jFed-advanced-GUI.jar" classifier="singlejar" type="jar"/>
+                                <echo message="Created fx:jar at ${project.build.directory}/jFed-advanced-GUI.jar"/>
+
+                                <attachartifact file="${project.build.directory}/jFed-probe-GUI.jar" classifier="probesinglejar" type="jar"/>
+                                <echo message="Created fx:jar at ${project.build.directory}/jFed-probe-GUI.jar"/>
+
+                                <!-- <fx:deploy outdir="${project.build.directory}/javafx-output" outfile="${project.build.finalName}" nativeBundles="all"> -->
+                                    <fx:deploy width="1280" height="1024" outdir="${project.build.directory}/javafx-output" outfile="jFed-advanced-GUI" nativeBundles="all">
+                                    <fx:application refid="fxApp"/>
+                                    <fx:resources>
+                                        <!-- If you changed <fx:jar> above, don't forget to modify the line below -->
+                                            <!-- <fx:fileset dir="${project.build.directory}" includes="${project.build.finalName}.jar"/> -->
+                                        <fx:fileset dir="${project.build.directory}" includes="jFed-advanced-GUI.jar"/>
+                                        <fx:fileset dir="${project.build.directory}" includes="libs/*.jar"/>
+                                    </fx:resources>
+                                </fx:deploy>
+                                <echo message="Created fx:deploy at ${project.build.directory}/javafx-output/"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!-- add SVN revision number to jar manifest. See http://mojo.codehaus.org/buildnumber-maven-plugin/usage.html -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>   <!-- check if locally changed files -->
+                    <doUpdate>false</doUpdate> <!-- update before checking build number -->
+                     <revisionOnScmFailure>unknown</revisionOnScmFailure>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jfed-library</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>baseui</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rspecedit_jfx</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>geni-rspec-binding</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jfed-highlevel-library</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>compliance-verification</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- needed because java7 does not correctly export the included JavaFX lib. see also http://blog.cag.se/?p=752 and in particular the last comment there. -->
+        <!-- see also the antrun build above, which uses the javaFX way of packaging. This way, this lib is actually NOT included in the jar. It is only needed here to make the build work -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.2</version>
+            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+

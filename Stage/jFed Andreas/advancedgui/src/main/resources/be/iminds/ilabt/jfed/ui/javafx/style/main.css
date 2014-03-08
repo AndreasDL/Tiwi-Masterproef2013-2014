@@ -1,0 +1,7 @@
+.callOverviewText {
+    -fx-font: 10 sans-serif;
+    -fx-text-fill: blue;
+}
+.callOverviewFixedText {
+    -fx-font: 12 sans-serif;
+}
