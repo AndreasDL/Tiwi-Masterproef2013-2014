@@ -1,32 +1,21 @@
-<html>
-    <head>
-        <title>LastController test</title>
-    </head>
-<body>
 <?php
-class LastController {
-    public function get($params){
-        print "LastController - get()<br>";
-        foreach ($params as $key => $value){
-            print "$key => $value<br>";
-        }
-        
-        $link = pg_Connect("dbname=testdb user=postgres password=post");
-        $result = pg_exec($link,"select * from results order by testbedId");
-        
-        print "<table>";
-        print "<tr><th>testbed</th><th>ping</th><th>getVersion</th><th>free resources</th></tr>";
-        while ($row  = pg_fetch_assoc($result)){
-            print "<tr>"
-                    . "<td><a href=\"$row[testbedurl]\">$row[testbedid]</a></td>"
-                    . "<td>$row[pingvalue]</td>"
-                    . "<td>$row[getversionstatus]</td>"
-                    . "<td>$row[freeresources]</td>"
-               . "</tr>";
-        }
-        
-        print "</table>";
+//debugging
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+
+include (__DIR__."/../database/AccessDatabase.php");
+
+class LastController implements iController{
+    //handles all requests for /last
+    
+    private $dbo;
+    
+    public function __construct(){
+        $this->dbo = new AccessDatabase;
     }
-}?>
-</body>
-</html>
+    
+    public function get($params){
+        return json_encode($this->dbo->getLast($params));
+    }
+}

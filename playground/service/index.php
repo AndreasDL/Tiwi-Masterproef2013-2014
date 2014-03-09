@@ -8,33 +8,27 @@
         } elseif (preg_match('/[a-zA-Z]+Model$/', $classname)) {
             include __DIR__ . '/models/' . $classname . '.php';
             return true;
-        } elseif (preg_match('/[a-zA-Z]+View$/', $classname)) {
-            include __DIR__ . '/views/' . $classname . '.php';
-            return true;
         }
     }
     
     #controller bepalen
     $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1].'Controller');
     $verb = $_SERVER['REQUEST_METHOD'];
-    
+    /*
     print "Controller stuffs: <br>";
     print "$verb<br>";
     print "$controller_name<br>";
     
     #parameters parsen
-    print "<br>Params<br>";
+    print "Params<br><br>";*/
     $parameters = array();
     if (isset($_SERVER['QUERY_STRING'])) {
         parse_str($_SERVER['QUERY_STRING'], $parameters);
     }
-
-    #redirecten naar controller
-    print "<br><br>";
+    //redirect to controller
     if (class_exists($controller_name)){
-        print "redirecting... ";
+        //print "redirecting... ";
         $controller = new $controller_name();
         $result = $controller->get($parameters);
-        print_r($result);
+        echo $result;
     }
-?>
