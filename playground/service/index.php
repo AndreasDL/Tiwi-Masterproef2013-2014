@@ -12,23 +12,36 @@
     }
     
     #controller bepalen
-    $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1].'Controller');
+    $controller_name = "";
+    if (isset ($_SERVER['PATH_INFO'])){
+        $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]);
+    }
+    $controller_name .= 'Controller';
+    
+    #request method
     $verb = $_SERVER['REQUEST_METHOD'];
-    /*
+    
+    /* Debug
     print "Controller stuffs: <br>";
     print "$verb<br>";
     print "$controller_name<br>";
+    */
     
-    #parameters parsen
-    print "Params<br><br>";*/
+    #parameters parsen enkel nog get params
+    //print "Params<br>";
     $parameters = array();
     if (isset($_SERVER['QUERY_STRING'])) {
         parse_str($_SERVER['QUERY_STRING'], $parameters);
     }
+    #lijst met kommas omzetten naar arrays
+    foreach ($parameters as $key => $value){
+        $parameters[$key] = explode(',',$value);;
+    }
+    //print_r($parameters);
+    
     //redirect to controller
     if (class_exists($controller_name)){
         //print "redirecting... ";
         $controller = new $controller_name();
-        $result = $controller->get($parameters);
-        echo $result;
+        echo $controller->get($parameters);
     }
