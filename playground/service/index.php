@@ -32,11 +32,11 @@
     $parameters = array();
     if (isset($_SERVER['QUERY_STRING'])) {
         parse_str($_SERVER['QUERY_STRING'], $parameters);
+        foreach ($parameters as $key => $value){
+            $parameters[$key] = explode(',',$value);
+        }
     }
     #lijst met kommas omzetten naar arrays
-    foreach ($parameters as $key => $value){
-        $parameters[$key] = explode(',',$value);;
-    }
     //print_r($parameters);
     
     //redirect to controller
