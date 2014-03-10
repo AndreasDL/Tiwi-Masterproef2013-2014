@@ -1,44 +1,32 @@
-<html>
-<head>
-	<title>database</title>
-</head>
-<body>
 <?php
+	header("content-Type:application/json");
+	include("function.php");
+
 	if (!empty($_GET['name']) ){//check if valid request
 		//request
 		$name=$_GET['name'];
-		$table = maketable();
+		//$price=getPrice($name);
+		$ping=getPrice($name);
 
-		if (empty($table)){
-			echo "id not found";
+		if (empty($ping)){
+			//book not found
+			deliver_response(200,"id not found",NULL);
 		}else{
-			echo $table;
+			//book price
+			deliver_response(200,"id found",$ping);
 		}
 	}else{
-		echo "invalid request";
+		deliver_response(200,"invalid request",NULL);
 	}
 
-	function maketable(){
-		$con = mysqli_connect("localhost","test","hoi","testdb");
-		if (mysqli_connect_errno()){
-			echo "connect failed";
-		}
+	function deliver_response($status,$status_message,$data){
+		
+		header("HTTP/1.1 $status $status_message");
+		$response['status']=$status;
+		$response['status_message']=$status_message;
+		$response['data']=$data;
 
-		$query  = "select * from hotel";
-		$result = mysqli_query($con,$query);
-		if (!$result){
-			die('query '.mysqli_error($con));
-		}
-
-		$table = "<table><tr><td>Id</td><td>Name</td><td>ping</td></tr>";
-		while($row = mysqli_fetch_array($result)){
-			$table .= "<tr><td>".$row['id']."</td><td>".$row['name']."</td><td>".$row['ping']."</td></tr>";
-	    }
-		mysqli_close($con);
-		$table .= "</table>";
-		return $table;
-
+		$json_response=json_encode($response);
+		echo $json_response;
 	}
 ?>
-</body>
-</html>

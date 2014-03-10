@@ -1,32 +1,47 @@
 <?php
-	header("content-Type:application/json");
-	include("function.php");
-
-	if (!empty($_GET['name']) ){//check if valid request
-		//request
-		$name=$_GET['name'];
-		//$price=getPrice($name);
-		$ping=getPrice($name);
-
-		if (empty($ping)){
-			//book not found
-			deliver_response(200,"id not found",NULL);
-		}else{
-			//book price
-			deliver_response(200,"id found",$ping);
-		}
-	}else{
-		deliver_response(200,"invalid request",NULL);
-	}
-
-	function deliver_response($status,$status_message,$data){
-		
-		header("HTTP/1.1 $status $status_message");
-		$response['status']=$status;
-		$response['status_message']=$status_message;
-		$response['data']=$data;
-
-		$json_response=json_encode($response);
-		echo $json_response;
-	}
-?>
+    #autoload classes
+    spl_autoload_register('apiAutoload');
+    function apiAutoload($classname){
+        if (preg_match('/[a-zA-Z]+Controller$/', $classname)) {
+            include __DIR__ . '/controllers/' . $classname . '.php';
+            return true;
+        } elseif (preg_match('/[a-zA-Z]+Model$/', $classname)) {
+            include __DIR__ . '/models/' . $classname . '.php';
+            return true;
+        }
+    }
+    
+    #controller bepalen
+    $controller_name = "";
+    if (isset ($_SERVER['PATH_INFO'])){
+        $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]);
+    }
+    $controller_name .= 'Controller';
+    
+    #request method
+    $verb = $_SERVER['REQUEST_METHOD'];
+    
+    /* Debug
+    print "Controller stuffs: <br>";
+    print "$verb<br>";
+    print "$controller_name<br>";
+    */
+    
+    #parameters parsen enkel nog get params
+    //print "Params<br>";
+    $parameters = array();
+    if (isset($_SERVER['QUERY_STRING'])) {
+        parse_str($_SERVER['QUERY_STRING'], $parameters);
+        foreach ($parameters as $key => $value){
+            $parameters[$key] = explode(',',$value);
+        }
+    }
+    #lijst met kommas omzetten naar arrays
+    //print_r($parameters);
+    
+    //redirect to controller
+    if (class_exists($controller_name)){
+        //print "redirecting... ";
+        $controller = new $controller_name();
+        echo $controller->get($parameters);
+    }

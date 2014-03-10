@@ -23,9 +23,8 @@ $sth = $dbh->prepare($create);
 $sth->execute();
 #fill
 for (my $i = 0; $i < 1000 ; $i++){
-	my $ping = rand()*100;
-	$sth = $dbh->prepare($insert);
-	$sth->execute("hoi".$i,$i,$ping);
-	print "hoi".$i , " " , $ping , "\n";
+	my $sth = $dbh->prepare($insert);
+	$sth->execute("hoi".$i,$i,$i);
+	print "hoi".$i , " " , $i , "\n";
 }
 $dbh->disconnect if defined($dbh);
