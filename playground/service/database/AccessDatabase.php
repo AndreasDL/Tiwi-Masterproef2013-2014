@@ -18,7 +18,10 @@ class AccessDatabase{
         $this->conString = "dbname=".$this->dbname." user=".$this->login." password=".$this->pass;
         
         $this->data = array();
-        for ($i = 0 ; $i < 3 ; $i++){
+        
+        #pings from diff testbeds
+        $temp = array();
+        for ($i = 0 ; $i < 5 ; $i++){
             $test = array();
             $test['testname']  = 'ping';
             $test['testbedId'] = "urn-testbed$i";
@@ -30,33 +33,135 @@ class AccessDatabase{
                 $subResult['name'] = 'pingValue';
                 $subResult['value'] = rand(20,73);
             array_push($test['results'],$subResult);
-            
-            array_push($this->data,$test);
+            array_push($temp,$test);
         }
+        $this->data['difpings'] = $temp;
         
-        for ( $i = 0 ; $i < 5 ; $i++){
+        #pings from same testbed
+        $temp = array();
+        for ($i = 0 ; $i < 5 ; $i++){
             $test = array();
-            $test['testname']  = 'stitching';
-            $test['testbedId'] = "urn-testbed$i";
-            $test['planId']    = 78+$i;
-            $test['resultId']  = 2358 + $i;
+            $test['testname']  = 'ping';
+            $test['testbedId'] = "urn-testbed0";
+            $test['planId']    = 103;
+            $test['resultId']  = 1498 + $i;
             $test['log']       = "http://www.".$test['testbedId']."com/Logs/".$test['testname']."/log".$test['resultId'];
             $test['results']   = array();
-            
-            $subs = array('setup','getUserCredential','generateRspec','');
                 $subResult = array();
-                $subResult['name'] = 'setup';
-                $subResult['value'] = 'succes';
+                $subResult['name'] = 'pingValue';
+                $subResult['value'] = rand(20,93);
             array_push($test['results'],$subResult);
-            
-            array_push($this->data,$test);
+            array_push($temp,$test);
         }
-        print_r($this->data);
+        $this->data['pings'] = $temp;
+        
+        #stitches
+        $temp = array();
+        for ( $i = 0 ; $i < 5 ; $i++){
+            $test = array();
+            $test['testname']  = 'stitching-name'.$i;
+            $test['testbeds']  = array();
+                for ($j = 0 ; $j < 3 ; $j++){
+                    array_push($test['testbeds'],"urn-testbed$j");
+                }
+            $test['planId']    = 78+$i;
+            $test['resultId']  = 2358 + $i;
+            $test['log']       = "http://www.".$test['testname']."com/Logs/".$test['testname']."/log".$test['resultId'];
+            $test['results']   = array();
+            $subs = array('setup','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
+                for ($j = 0 ; $j < sizeof($subs); $j++){
+                    $subResult = array();
+                    $subResult['name'] = $subs[$j];
+                    $subResult['value'] = 'succes';
+                    array_push($test['results'],$subResult);
+                }
+            array_push($temp,$test);
+        }
+        $this->data['stitching'] = $temp;
+        
+        #tests
+        #description
+        $temp = array();
+        $test = array();
+        $test['definitionId'] = 'ping';
+        $test['command'] = 'ping';
+        $test['parameters'] = array( array('name' => 'timeout','type' => 'int'),
+                array('name' => 'testbed' , 'type' , 'string'));
+        $test['return'] = array(array( 'name' => 'pingValue',
+            'type' => 'int',
+            'description' => 'pingValue'));
+        array_push($temp , $test);
+        $test = array();
+        $test['definitionId'] = 'stitching';
+        $test['command'] = 'stitch';
+        $test['parameters'] = array( array('name' => 'topology' , 'type' => 'string'),
+            array('name' => 'testbeds', 'type' => 'testbed[]'));
+        $test['return'] = array( 
+            array('name' => 'setup', 'type'=>'string', 'description'=>'succes?'),
+            array('name'=>'getUserCredential', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'generateRspec', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'createSlice', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'initStitching', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'callSCS', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'callCreateSlivers', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'waitForAllReady', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'loginAndPing', 'type'=>'string','description'=>'succes?'),
+            array('name'=>'callDeletes','type'=>'string','description'=>'succes?'));
+        array_push($temp , $test);
+        $this->data['testDescription'] = $temp;
+        
+        #testplan
+        $temp = array();
+        for ($i = 0 ; $i < 5 ; $i++){
+            $test =array();
+            $test['definitionId'] = 'ping';
+            $test['parameters'] = array( array('name' => 'timeout' , 'value' => rand(100,136)),
+                array('name' => 'testbed', 'value' => 'urn-testbed'.$i ));
+            $test['frequency'] = rand(60,3600);
+            $test['planId'] = $i;
+            array_push($temp,$test);
+        }
+        for ($i = 5 ; $i < 10 ; $i++){
+            $test =array();
+            $test['definitionId'] = 'stitching';
+            $test['parameters'] = array( array('name' => 'topology' , 'value' => 'ring'),
+                array('name' => 'testbeds', 'value' => array('urn-testbed0','urn-testbed3')));
+            $test['frequency'] = rand(3600,10800);
+            $test['planId'] = $i;
+            array_push($temp,$test);
+        }
+        $this->data['testplan']=$temp;
+        
+        $this->data['parameterGroup'] = $temp;
     }
     
     public function getLast($params){
-        $ret = $this->data;
-        
-        //return $ret;
+        return $this->data['difpings'];
+    }
+    public function getDetail($params){
+        return $this->data['stitching'][3];
+    }
+    public function getAverage($param){
+        $avg = 0;
+        foreach ($this->data['pings'] as $ping){
+            $avg += $ping['results'][0]['value'];
+        }
+        return $avg / sizeof($this->data['pings']);
+    }
+    public function getList($param){
+        return $this->data['pings'];
+    }
+    
+    public function getTestDescription($testDescriptionId){
+        return $this->data['testDescription'][1];
+    }
+    public function getTestPlan($testPlanId){
+        return $this->data['testplan'][2];
+    }
+    public function getTestDescriptionList(){
+        return $this->data['testDescription'];
+    }
+    public function getTestPlanList(){
+        return $this->data['testplan'];
     }
 }
