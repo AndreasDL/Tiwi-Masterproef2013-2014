@@ -5,9 +5,6 @@
         if (preg_match('/[a-zA-Z]+Controller$/', $classname)) {
             include __DIR__ . '/controllers/' . $classname . '.php';
             return true;
-        } elseif (preg_match('/[a-zA-Z]+Model$/', $classname)) {
-            include __DIR__ . '/models/' . $classname . '.php';
-            return true;
         }
     }
     

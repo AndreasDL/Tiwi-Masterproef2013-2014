@@ -13,11 +13,11 @@ Het is de bedoeling dat ook het actualiseren van de monitoring informatie via de
 \section{Api Calls}
 We kunnen de calls op delen in 2 grote groepen. 
 \begin{itemize}
-\item Resultaten : Het opvragen van resultaten van een test.
-\item Configuratie : Het opvragen, aanpassen en aanmaken van testen en de bijhorende configuratie.
+\item Results : Het opvragen van resultaten van een test.
+\item Configuration : Het opvragen, aanpassen en aanmaken van testen en de bijhorende configuratie.
 \end{itemize}
 
-\section{Calls - Resultaten}
+\section{Calls - Results}
 Voor het opvragen van resultaten wordt gebruik gemaakt van een generische functie.
 
 \subsection{Functies}
@@ -45,21 +45,38 @@ Wanneer er enkel een from parameter opgegeven is, dan worden de eerste x resulta
 \item resultid : Geeft het id van een testresultaat waarvan men een detail weergave wil.
 \item testname : De naam van de test. Dit is ENKEL nodig bij stitching tests, omdat deze over meerdere testbeds gaan. 
 \end{itemize}
-Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven.
-
-\subsection{Return waarden}
-Er kan gekozen worden tussen xml en json. Het verschil tussen xml en json is dat xml een boomstructuur beschrijft. De json voorstel komt meer overeen met een hashmap. Xml is meer geschikt voor grote geavanceerde structuren. Aangezien het hier om eenvoudige monitoring informatie gaat, is het gebruik van xml af te raden. Verder dient te worden opgemerkt dat een xml-notatie van een object langer is dan de overeenkomstige json. Ook is het parsen van json eenvoudiger. Bijgevolg zal hier dus geen xml, maar json gebruikt worden. Door de mvc opbouw die ik hier zal gebruiken, zal het echter niet moeilijk zijn om xml functionaliteiten te voorzien. Dit kan achteraf eventueel toegevoegd worden.\\
-
-Merk op dat de huidige situatie niet voorziet in een webservice. De website maakt rechtstreeks verbinding met de databank. Het tussenvoegen van een webservice kan overhead veroorzaken. Door calls te bundelen, zodat een call direct alle resultaten van een testbed teruggeeft, wordt deze overhead tot een minimum beperkt.\\
-
-Sommige opvragen geven langere antwoorden terug. Zo is de status van een stitching test multivalued. Een stitching test zal proberen om connectie te maken met een testbed. Vervolgens zal hij aanmelden en een testnetwerk opzetten. Eenmaal het testnetwerk opgezet is zal hij proberen om te pingen tussen de verschillende nodes. Een stitching test kan bij elke stap mislopen. Daarom zal er in de status duidelijk vermeld moeten worden welke stappen gelukt zijn en welke niet. Zo kan het zijn dat een stitching test niet kan aanmelden, wat niet verwonderlijk is als hij bv. ook niet kan pingen naar een testbed. De status van een stitching test zal dan ook overeen komen met een lijst van statussen.\\
-
-De teruggegeven data zal ook generiek gemaakt worden als een soort geneste hash/array waarin alle waarden zitten. Dit geeft het voordeel dat we ons geen zorgen moeten maken over attributen die niet ingevuld zijn, deze worden dan gewoon weggelaten. Het dan ook aan de client om de teruggegeven data om te zetten naar klassen, indien nodig.
-
+Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven. Ook opgeven van lijsten is mogelijk.
+\clearpage
 \subsection{Voorbeelden}
 Hieronder zal ik een aantal voorbeelden van calls en bijhorende antwoorden geven.
 Voorlopig zijn deze voorbeelden enkel beperkt tot het opvragen van data met behulp van HTTP GET requests.
-
+\subsubsection{last?testbed=urn-testbed0\&test=ping\&count=2}
+Deze call geeft voor testbed0 de laatste 2 ping resultaten terug.
+\begin{verbatim}
+[{
+    "testname": "ping",
+    "testbedId": "urn-testbed0",
+    "planId": 103,
+    "resultId": 1499,
+    "log": "http://www.urn-testbed0com/Logs/ping/log1499",
+    "results": [{
+        "name": "pingValue",
+        "value": 39
+      }],
+    "timestamp": "2014-03-14 18:08:38"
+  },{
+    "testname": "ping",
+    "testbedId": "urn-testbed0",
+    "planId": 103,
+    "resultId": 1500,
+    "log": "http://www.urn-testbed0com/Logs/ping/log1500",
+    "results": [{
+        "name": "pingValue",
+        "value": 35
+      }],
+    "timestamp": "2014-03-14 18:08:39"
+}]
+\end{verbatim}
 \clearpage
 \subsubsection{last?testbed=ALL\&test=ping}
 Deze call geeft voor elk testbed de laatste ping resultaten terug.
@@ -153,7 +170,7 @@ Deze functie geeft een detail resultaat terug van de stitchingtest met naam 'sti
 \end{verbatim}
 \clearpage
 
-\subsubsection{Average?testbed=urn-testbed0\&test=ping}
+\subsubsection{Average?testbed=urn-testbed0\&test=ping\\ \&from=2014-03-1T18:03:37\\\&till=2014-03-11T18:03:37}
 Deze call geeft het gemiddelde van alle waarden van de ping test op testbed0 terug.
 \begin{verbatim}
 {
@@ -162,16 +179,258 @@ Deze call geeft het gemiddelde van alle waarden van de ping test op testbed0 ter
   "results": [
     {
       "name": "average-pingValue",
-      "value": 60.333333333333
+      "value": 38.666666666667
     }
-  ]
+  ],
+  "from": "2014-03-1 18:03:37",
+  "till": "2014-03-11 18:03:37"
+}
+\end{verbatim}
+\subsubsection{list?testbed=urn-testbed0\&test=ping\\\&till="2014-03-14T18:08:39\\\&count=2}
+Deze call geeft een lijst van de 2 laatste pingtests voor 2014-03-14 18:08:39 op testbed0 terug.
+\begin{verbatim}
+[{
+    "testname": "ping",
+    "testbedId": "urn-testbed0",
+    "planId": 103,
+    "resultId": 1499,
+    "log": "http://www.urn-testbed0com/Logs/ping/log1499",
+    "results": [{
+        "name": "pingValue",
+        "value": 39
+      }],
+    "timestamp": "2014-03-14 18:08:38"
+  },{
+    "testname": "ping",
+    "testbedId": "urn-testbed0",
+    "planId": 103,
+    "resultId": 1500,
+    "log": "http://www.urn-testbed0com/Logs/ping/log1500",
+    "results": [{
+        "name": "pingValue",
+        "value": 35
+      }],
+    "timestamp": "2014-03-14 18:08:39"
+}]
+\end{verbatim}
+\clearpage
+
+\section{Calls - configuration}
+Deze calls hebben het doel om de configuratie van een test op te vragen.
+
+\subsection{Functies}
+Er zijn (uiteraard) ook een aantal functies voor het opvragen van de testconfiguratie.
+\begin{itemize}
+\item TestDescription : Geeft de definitie van een testweer. Deze bevat informatie over de naam, het commando. Verder duidt deze definitie ook aan welke parameters er nodig zijn en welke waarden er terug gegeven worden. Deze waarden zijn echter niet ingevuld. Het is de bedoel om hier bijvoorbeeld te defini\"eren dat een pingtest bijvoorbeeld bestaat uit een ping commando en dat deze een timeout en een testbed moet meekrijgen. Samengevat kan gesteld worden dat dit de beschrijving van een type test is.
+\item TestPlan : Hierbij wordt het plan teruggegeven. Dit is de concrete invulling van een testDescription. Daarbij wordt de test gecombineerd met de ingevulde parameters. Zo zal hier ingevuld worden dat er op testbed2 om de 5 minuten een pingtest moet uitgevoerd worden.
+\end{itemize}
+
+\subsection{Parameters}
+
+\begin{itemize}
+\item test : Deze parameter duidt aan welke test opgevraagd wordt.
+\item Plan : Deze parameter duit aan welk plan opgevraagd wordt.
+\end{itemize}
+Het is ook mogelijk om als waarde ALL of een lijst van id's op te geven.
+
+\subsection{Voorbeelden}
+Hieronder worden een aantal mogelijke calls weergegeven. Voorlopig zijn deze voorbeelden beperkt tot het opvragen van data via http get requests.
+
+\clearpage
+\subsubsection{testDescription?test=stitching}
+Deze call geeft de beschrijving van een stitching test terug.
+\begin{verbatim}
+{ "definitionId": "stitching",
+  "command": "stitch",
+  "parameters": [{
+      "name": "topology",
+      "type": "string"
+    },{
+      "name": "testbeds",
+      "type": "testbed[]"}],
+  "return": [{
+      "name": "setup",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "getUserCredential",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "generateRspec",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "createSlice",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "initStitching",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "callSCS",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "callCreateSlivers",
+      "type": "string",
+      "description": "succes?"
+    },{
+      "name": "waitForAllReady", "type": "string", "description": "succes?"
+    },{
+      "name": "loginAndPing", "type": "string", "description": "succes?"
+    },{
+      "name": "callDeletes", "type": "string","description": "succes?"
+}]}
+\end{verbatim}
+\clearpage
+\subsubsection{testDescription?test=all}
+Hierbij worden alle testbeschrijvingen teruggegeven.
+\begin{verbatim}
+[{
+    "definitionId": "ping",
+    "command": "ping",
+    "parameters": [{
+        "name": "timeout", "type": "int"
+      },{ 
+        "name": "testbed", "type": "string"
+    }],
+    "return": [{
+        "name": "pingValue", "type": "int", "description": "pingValue"
+    	}]
+    },{
+    "definitionId": "stitching",
+    "command": "stitch",
+    "parameters": [{
+        "name": "topology", "type": "string"
+      },{
+        "name": "testbeds","type": "testbed[]"
+     }],
+    "return": 
+    [{
+        "name": "setup", "type": "string",
+        "description": "succes?"
+      },{
+        "name": "getUserCredential", "type": "string", "description": "succes?"
+      },{
+        "name": "generateRspec", "type": "string", "description": "succes?"
+      },{
+        "name": "createSlice", "type": "string", "description": "succes?"
+      },{
+        "name": "initStitching","type": "string", "description": "succes?"
+      },{
+        "name": "callSCS","type": "string","description": "succes?"
+      },{
+        "name": "callCreateSlivers","type": "string","description": "succes?"
+      },{
+        "name": "waitForAllReady", "type": "string", "description": "succes?"
+      },{
+        "name": "loginAndPing", "type": "string", "description": "succes?"
+      },{
+        "name": "callDeletes", "type": "string", "description": "succes?"
+}]}]
+\end{verbatim}
+\clearpage
+\subsubsection{testPlan?plan=all}
+Deze call geeft alle geplande tests terug.
+\begin{verbatim}
+[{
+    "definitionId": "ping",
+    "parameters": [{
+        "name": "timeout", "value": 106
+       },{
+        "name": "testbed","value": "urn-testbed0"
+    }],
+    "frequency": 1488,
+    "planId": 0
+  },{
+    "definitionId": "ping",
+    "parameters": [{
+        "name": "timeout","value": 136
+      },{
+        "name": "testbed","value": "urn-testbed1"
+    }],
+    "frequency": 575,
+    "planId": 1
+  },{
+    "definitionId": "ping",
+    "parameters": [{
+        "name": "timeout","value": 106
+      },{
+        "name": "testbed","value": "urn-testbed2"
+    }],
+    "frequency": 1637,
+    "planId": 2
+  },{
+    "definitionId": "stitching",
+    "parameters": [{
+        "name": "topology","value": "ring"
+      },{
+        "name": "testbeds",
+        "value": [
+          "urn-testbed0","urn-testbed3"
+    ]}],
+    "frequency": 9362,
+    "planId": 3
+  },
+ \end{verbatim}
+ \clearpage
+ \begin{verbatim}
+ {
+    "definitionId": "stitching",
+    "parameters": [{
+        "name": "topology","value": "ring"
+      },{
+        "name": "testbeds",
+        "value": [
+          "urn-testbed0","urn-testbed3"
+    ]}],
+    "frequency": 6991,
+    "planId": 4
+  },{
+    "definitionId": "stitching",
+    "parameters": [{
+        "name": "topology","value": "ring"
+      },{
+        "name": "testbeds",
+        "value": [
+          "urn-testbed0","urn-testbed3"
+    ]}],
+    "frequency": 8458,
+    "planId": 5
+}]
+\end{verbatim}
+
+\subsubsection{testPlan?Plan=2}
+Deze call geeft het plan terug met id 2.
+\begin{verbatim}
+{
+  "definitionId": "ping",
+  "parameters": [
+    {
+      "name": "timeout",
+      "value": 108
+    },
+    {
+      "name": "testbed",
+      "value": "urn-testbed2"
+    }
+  ],
+  "frequency": 3046,
+  "planId": 2
 }
 \end{verbatim}
 
-TIMESTAMPS!
+\clearpage
+\section{Return waarden}
+Er kan gekozen worden tussen xml en json. Het verschil tussen xml en json is dat xml een boomstructuur beschrijft. De json voorstel komt meer overeen met een hashmap. Xml is meer geschikt voor grote geavanceerde structuren. Aangezien het hier om eenvoudige monitoring informatie gaat, is het gebruik van xml af te raden. Verder dient te worden opgemerkt dat een xml-notatie van een object langer is dan de overeenkomstige json. Ook is het parsen van json eenvoudiger. Bijgevolg zal hier dus geen xml, maar json gebruikt worden. Door de mvc opbouw die ik hier zal gebruiken, zal het echter niet moeilijk zijn om xml functionaliteiten te voorzien. Dit kan achteraf eventueel toegevoegd worden.\\
 
-\subsubsection{list?testbed=urn-testbed0\&test=ping}
-Deze call geeft een lijst van alle pingwaarden terug
+Merk op dat de huidige situatie niet voorziet in een webservice. De website maakt rechtstreeks verbinding met de databank. Het tussenvoegen van een webservice kan overhead veroorzaken. Door calls te bundelen, zodat een call direct alle resultaten van een testbed teruggeeft, wordt deze overhead tot een minimum beperkt.\\
+
+Sommige opvragen geven langere antwoorden terug. Zo is de status van een stitching test multivalued. Een stitching test zal proberen om connectie te maken met een testbed. Vervolgens zal hij aanmelden en een testnetwerk opzetten. Eenmaal het testnetwerk opgezet is zal hij proberen om te pingen tussen de verschillende nodes. Een stitching test kan bij elke stap mislopen. Daarom zal er in de status duidelijk vermeld moeten worden welke stappen gelukt zijn en welke niet. Zo kan het zijn dat een stitching test niet kan aanmelden, wat niet verwonderlijk is als hij bv. ook niet kan pingen naar een testbed. De status van een stitching test zal dan ook overeen komen met een lijst van statussen.\\
+
+De teruggegeven data zal ook generiek gemaakt worden als een soort geneste hash/array waarin alle waarden zitten. Dit geeft het voordeel dat we ons geen zorgen moeten maken over attributen die niet ingevuld zijn, deze worden dan gewoon weggelaten. Het dan ook aan de client om de teruggegeven data om te zetten naar klassen, indien nodig.
 
 
 \end{document}
