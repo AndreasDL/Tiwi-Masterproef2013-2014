@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage{a4wide}
+\begin{document}
+\title{Automated testbed Monitoring for jFed}
+\author{Andreas De Lille}
+\maketitle
+
+\section{Inhoud}
+Dit document gaat dieper in op het ontwerp van de webservice.
+Zo zullen de verschillende mogelijke calls uitgelegd worden. Ook de interne werking van de webservice en de opbouw van de achterliggende database komen aan bod.
+Het is de bedoeling dat ook het actualiseren van de monitoring informatie via deze service verloopt.
+
+\section{Api Calls}
+We kunnen de calls op delen in 2 grote groepen. 
+\begin{itemize}
+\item Resultaten : Het opvragen van resultaten van een test.
+\item Configuratie : Het opvragen, aanpassen en aanmaken van testen en de bijhorende configuratie.
+\end{itemize}
+
+\section{Calls - Resultaten}
+Voor het opvragen van resultaten wordt gebruik gemaakt van een generische functie.
+
+\subsection{Functies}
+Er zijn een aantal functies voorzien voor het opvragen van de resultaten.
+\begin{itemize}
+\item last : Deze functie geeft het laatste/ de laatste resultaat/resultaten terug (per test,testbed).
+\item list : Deze functie geeft een lijst resultaten die voldoen aan de opgegeven parameters. 
+Zo kan deze lijst bijvoorbeeld beperkt worden tot een resultaten die overeenkomen met een bepaalde status of vallen tussen bepaalde data.
+\item average : Deze functie geeft het gemiddelde van de resultaten (per test,testbed) tussen een periode.
+\item detail : Deze functie geeft een detailweergave terug van een test. Deze detail weergave kan bijvoorbeeld ook logfiles bevatten om debugging te vergemakkelijken.
+\end{itemize}
+
+\subsection{Parameters}
+Hier worden de parameters besproken. Deze parameters zullen het resultaat van de funties hierboven filteren.
+
+\begin{itemize}
+\item tests : Deze paramater duidt een of meerdere testen aan.
+\item testbeds : Deze parameter duidt een of meerdere testbeds aan.
+\item count : Deze parameter geeft het aantal laatste resultaten aan dat teruggegeven moet worden. 
+Ook wanneer er enkel een till opgegeven is, worden de laatste resultaten voor de opgegeven tijd teruggegeven.
+Wanneer er enkel een from parameter opgegeven is, dan worden de eerste x resultaten startend vanaf de from terug gegeven.
+\item from : Geeft aan vanaf welke timestamp er gezocht moet worden.
+\item till : Geeft aan tot welke timestamp de resultaten gezocht moeten worden.
+\item status : Geeft aan welke status de resultaten moeten hebben, bijvoorbeeld Fail,Warn of Succes.
+\item resultid : Geeft het id van een testresultaat waarvan men een detail weergave wil.
+\item testname : De naam van de test. Dit is ENKEL nodig bij stitching tests, omdat deze over meerdere testbeds gaan. 
+\end{itemize}
+Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven.
+
+\subsection{Return waarden}
+Er kan gekozen worden tussen xml en json. Het verschil tussen xml en json is dat xml een boomstructuur beschrijft. De json voorstel komt meer overeen met een hashmap. Xml is meer geschikt voor grote geavanceerde structuren. Aangezien het hier om eenvoudige monitoring informatie gaat, is het gebruik van xml af te raden. Verder dient te worden opgemerkt dat een xml-notatie van een object langer is dan de overeenkomstige json. Ook is het parsen van json eenvoudiger. Bijgevolg zal hier dus geen xml, maar json gebruikt worden. Door de mvc opbouw die ik hier zal gebruiken, zal het echter niet moeilijk zijn om xml functionaliteiten te voorzien. Dit kan achteraf eventueel toegevoegd worden.\\
+
+Merk op dat de huidige situatie niet voorziet in een webservice. De website maakt rechtstreeks verbinding met de databank. Het tussenvoegen van een webservice kan overhead veroorzaken. Door calls te bundelen, zodat een call direct alle resultaten van een testbed teruggeeft, wordt deze overhead tot een minimum beperkt.\\
+
+Sommige opvragen geven langere antwoorden terug. Zo is de status van een stitching test multivalued. Een stitching test zal proberen om connectie te maken met een testbed. Vervolgens zal hij aanmelden en een testnetwerk opzetten. Eenmaal het testnetwerk opgezet is zal hij proberen om te pingen tussen de verschillende nodes. Een stitching test kan bij elke stap mislopen. Daarom zal er in de status duidelijk vermeld moeten worden welke stappen gelukt zijn en welke niet. Zo kan het zijn dat een stitching test niet kan aanmelden, wat niet verwonderlijk is als hij bv. ook niet kan pingen naar een testbed. De status van een stitching test zal dan ook overeen komen met een lijst van statussen.\\
+
+De teruggegeven data zal ook generiek gemaakt worden als een soort geneste hash/array waarin alle waarden zitten. Dit geeft het voordeel dat we ons geen zorgen moeten maken over attributen die niet ingevuld zijn, deze worden dan gewoon weggelaten. Het dan ook aan de client om de teruggegeven data om te zetten naar klassen, indien nodig.
+
+\subsection{Voorbeelden}
+Hieronder zal ik een aantal voorbeelden van calls en bijhorende antwoorden geven.
+Voorlopig zijn deze voorbeelden enkel beperkt tot het opvragen van data met behulp van HTTP GET requests.
+
+\clearpage
+\subsubsection{last?testbed=ALL\&test=ping}
+Deze call geeft voor elk testbed de laatste ping resultaten terug.
+\begin{verbatim}
+[
+  {
+    "testname": "ping",
+    "testbedId": "urn-testbed0",
+    "planId": 103,
+    "resultId": 1452,
+    "log": "http://www.urn-testbed0com/Logs/ping/log1452",
+    "results": [
+      {
+        "name": "pingValue",
+        "value": 64
+      }
+    ]
+  },{
+    "testname": "ping",
+    "testbedId": "urn-testbed1",
+    "planId": 104,
+    "resultId": 1453,
+    "log": "http://www.urn-testbed1com/Logs/ping/log1453",
+    "results": [
+      {
+        "name": "pingValue",
+        "value": 61
+      }
+    ]
+  },{
+    "testname": "ping",
+    "testbedId": "urn-testbed2",
+    "planId": 105,
+    "resultId": 1454,
+    "log": "http://www.urn-testbed2com/Logs/ping/log1454",
+    "results": [
+      {
+        "name": "pingValue",
+        "value": 27
+      }
+    ]
+  }
+]
+\end{verbatim}
+\clearpage
+
+\subsubsection{Detail?test=stitching\&testname=stitching-name2}
+Deze functie geeft een detail resultaat terug van de stitchingtest met naam 'stitching-name2'.
+\begin{verbatim}
+{
+  "testname": "stitching-name2",
+  "testbeds": [
+    "urn-testbed0",
+    "urn-testbed1",
+    "urn-testbed2"
+  ],
+  "planId": 80,
+  "resultId": 2360,
+  "log": "http://www.stitching-name2com/Logs/stitching-name2/log2360",
+  "results": [{
+      "name": "setup",
+      "value": "succes"
+    },{
+      "name": "getUserCredential",
+      "value": "succes"
+    },{
+      "name": "generateRspec",
+      "value": "succes"
+    },{
+      "name": "createSlice",
+      "value": "succes"
+    },{
+      "name": "initStitching",
+      "value": "succes"
+    },{
+      "name": "callSCS",
+      "value": "succes"
+    },{
+      "name": "callCreateSlivers",
+      "value": "succes"
+    },{
+      "name": "waitForAllReady",
+      "value": "succes"
+    },{
+      "name": "loginAndPing",
+      "value": "succes"
+    },{
+      "name": "callDeletes",
+      "value": "succes"
+    }]
+}
+\end{verbatim}
+\clearpage
+
+\subsubsection{Average?testbed=urn-testbed0\&test=ping}
+Deze call geeft het gemiddelde van alle waarden van de ping test op testbed0 terug.
+\begin{verbatim}
+{
+  "testname": "ping-average",
+  "testbedId": "urn-testbed0",
+  "results": [
+    {
+      "name": "average-pingValue",
+      "value": 60.333333333333
+    }
+  ]
+}
+\end{verbatim}
+
+TIMESTAMPS!
+
+\subsubsection{list?testbed=urn-testbed0\&test=ping}
+Deze call geeft een lijst van alle pingwaarden terug
+
+
+\end{document}
