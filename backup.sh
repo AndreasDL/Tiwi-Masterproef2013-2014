@@ -7,3 +7,5 @@ cp -vr site/service/* playground/service/;
 rm -rvf playground/monitoringSite/*;
 cp -vr site/monitoringSite/* playground/monitoringSite/;
 
+rm playground/filldatabase.php;
+cp -vr site/filldatabase.php playground/;

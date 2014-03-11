@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/srv/http/service/index.php</file>
-            <file>file:/srv/http/service/controllers/TestDescriptionController.php</file>
-            <file>file:/srv/http/service/controllers/ListController.php</file>
-            <file>file:/srv/http/service/controllers/TestPlanListController.php</file>
-            <file>file:/srv/http/service/database/AccessDatabase.php</file>
-            <file>file:/srv/http/service/controllers/TestDescriptionListController.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
