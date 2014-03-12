@@ -66,7 +66,7 @@
 	for ($i = 0 ; $i < $aantalpinginstances; $i++){ 
 		$data = array("ping",300,json_encode(array(
 			array('name' => 'timeout' , 'value' => '240'),
-			array('name' => 'testbed' , 'value' => "testbed$i")
+			array('name' => 'testbed' , 'value' => "urn-testbed$i")
 		)));
 		pg_query_params($con,$query,$data);
 	}
@@ -77,7 +77,7 @@
 			json_encode(array(
 				array('name' => 'topology' , 'value' => 'ring'),
 				array('name' => 'testbeds' , 'value' => json_encode(
-					array("testbed".$i%$aantalTestbeds , "testbed".($i+1)%$aantalTestbeds , "testbed".($i+2)%$aantalTestbeds)
+					array("urn-testbed".$i%$aantalTestbeds , "urn-testbed".($i+1)%$aantalTestbeds , "urn-testbed".($i+2)%$aantalTestbeds)
 				))
 			)));
 		pg_query_params($con,$query,$data);

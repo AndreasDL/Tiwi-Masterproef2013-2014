@@ -6,7 +6,7 @@ error_reporting(-1);
 
 include (__DIR__."/../database/AccessDatabase.php");
 
-class TestPlanController implements iController{
+class TestInstanceController implements iController{
     private $dbo;
     
     public function __construct(){
@@ -14,7 +14,7 @@ class TestPlanController implements iController{
     }
     
     public function get($params){
-        return json_encode($this->dbo->getTestPlan($params));
+        return json_encode($this->dbo->getTestInstance($params));
     }
 
 }

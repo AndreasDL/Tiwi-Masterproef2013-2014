@@ -18,14 +18,14 @@
     #request method
     $verb = $_SERVER['REQUEST_METHOD'];
     
-    /* Debug
-    print "Controller stuffs: <br>";
+    /*//Debug
+    print "<b>Controller stuffs: </b><br>";
     print "$verb<br>";
     print "$controller_name<br>";
     */
     
     #parameters parsen enkel nog get params
-    //print "Params<br>";
+    print "<b>Params</b><br>";
     $parameters = array();
     if (isset($_SERVER['QUERY_STRING'])) {
         parse_str($_SERVER['QUERY_STRING'], $parameters);
@@ -34,11 +34,12 @@
         }
     }
     #lijst met kommas omzetten naar arrays
-    //print_r($parameters);
+    print_r($parameters);
+    print "<br><br>";
     
     //redirect to controller
     if (class_exists($controller_name)){
-        //print "redirecting... ";
+        print "<b>redirecting to $controller_name... </b><br>";
         $controller = new $controller_name();
         echo $controller->get($parameters);
     }

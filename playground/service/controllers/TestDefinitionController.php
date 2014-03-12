@@ -6,15 +6,15 @@ error_reporting(-1);
 
 include (__DIR__."/../database/AccessDatabase.php");
 
-class TestDescriptionListController implements iController{
-private $dbo;
+class TestDefinitionController implements iController{
+
+    private $dbo;
     
     public function __construct(){
-        $this->dbo = new AccessDatabase;
+        $this->dbo = new AccessDatabase();
     }
     
     public function get($params){
-        return json_encode($this->dbo->getTestDescriptionList());
+        return json_encode($this->dbo->getTestDefinition($params));
     }
-
 }

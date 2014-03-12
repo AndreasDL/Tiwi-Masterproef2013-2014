@@ -1,188 +1,165 @@
 <?php
 
-//new databaseAccess();
+include (__DIR__ . "/../config.php"); //database config
 
 class AccessDatabase {
 
-    //todo vars from property file
-    private $login;
-    private $pass;
-    private $dbname;
-    //database on localhost
-    private $conString;
-    private $data;
-
     public function __construct() {
-        $this->login = 'postgres';
-        $this->pass = "post";
-        $this->dbname = "testdb";
-        $this->conString = "dbname=" . $this->dbname . " user=" . $this->login . " password=" . $this->pass;
-
-        $this->data = array();
-
-        #pings from diff testbeds
-        $temp = array();
-        for ($i = 0; $i < 3; $i++) {
-            $test = array();
-            $test['testname'] = 'ping';
-            $test['testbedId'] = "urn-testbed$i";
-            $test['planId'] = 103 + $i;
-            $test['resultId'] = 1452 + $i;
-            $test['log'] = "http://www." . $test['testbedId'] . "com/Logs/" . $test['testname'] . "/log" . $test['resultId'];
-            $test['results'] = array();
-            $test['timestamp'] = "2014-03-14 18:03:".(37+$i);
-            $subResult = array();
-            $subResult['name'] = 'pingValue';
-            $subResult['value'] = rand(20, 73);
-            array_push($test['results'], $subResult);
-            array_push($temp, $test);
-        }
-        $this->data['difpings'] = $temp;
-
-        #pings from same testbed
-        $temp = array();
-        for ($i = 0; $i < 3; $i++) {
-            $test = array();
-            $test['testname'] = 'ping';
-            $test['testbedId'] = "urn-testbed0";
-            $test['planId'] = 103;
-            $test['resultId'] = 1498 + $i;
-            $test['log'] = "http://www." . $test['testbedId'] . "com/Logs/" . $test['testname'] . "/log" . $test['resultId'];
-            $test['results'] = array();
-            $test['timestamp'] = "2014-03-14 18:08:".(37+$i);
-            $subResult = array();
-            $subResult['name'] = 'pingValue';
-            $subResult['value'] = rand(20, 93);
-            array_push($test['results'], $subResult);
-            array_push($temp, $test);
-        }
-        $this->data['pings'] = $temp;
-
-        #stitches
-        $temp = array();
-        for ($i = 0; $i < 3; $i++) {
-            $test = array();
-            $test['testname'] = 'stitching-name' . $i;
-            $test['testbeds'] = array();
-            for ($j = 0; $j < 3; $j++) {
-                array_push($test['testbeds'], "urn-testbed$j");
-            }
-            $test['planId'] = 78 + $i;
-            $test['resultId'] = 2358 + $i;
-            $test['log'] = "http://www." . $test['testname'] . "com/Logs/" . $test['testname'] . "/log" . $test['resultId'];
-            $test['results'] = array();
-            $test['timestamp'] = "2014-03-14 18:03:".(37+$i);
-            $subs = array('setup', 'getUserCredential', 'generateRspec', 'createSlice', 'initStitching', 'callSCS', 'callCreateSlivers', 'waitForAllReady', 'loginAndPing', 'callDeletes');
-            for ($j = 0; $j < sizeof($subs); $j++) {
-                $subResult = array();
-                $subResult['name'] = $subs[$j];
-                $subResult['value'] = 'succes';
-                array_push($test['results'], $subResult);
-            }
-            array_push($temp, $test);
-        }
-        $this->data['stitching'] = $temp;
-
-        #tests
-        #description
-        $temp = array();
-        $test = array();
-        $test['definitionId'] = 'ping';
-        $test['command'] = 'ping';
-        $test['parameters'] = array(array('name' => 'timeout', 'type' => 'int'),
-            array('name' => 'testbed', 'type', 'string'));
-        $test['return'] = array(array('name' => 'pingValue',
-                'type' => 'int',
-                'description' => 'pingValue'));
-        array_push($temp, $test);
-        $test = array();
-        $test['definitionId'] = 'stitching';
-        $test['command'] = 'stitch';
-        $test['parameters'] = array(array('name' => 'topology', 'type' => 'string'),
-            array('name' => 'testbeds', 'type' => 'testbed[]'));
-        $test['return'] = array(
-            array('name' => 'setup', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'getUserCredential', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'generateRspec', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'createSlice', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'initStitching', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'callSCS', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'callCreateSlivers', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'waitForAllReady', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'loginAndPing', 'type' => 'string', 'description' => 'succes?'),
-            array('name' => 'callDeletes', 'type' => 'string', 'description' => 'succes?'));
-        array_push($temp, $test);
-        $this->data['testDescription'] = $temp;
-
-        #testplan
-        $temp = array();
-        for ($i = 0; $i < 3; $i++) {
-            $test = array();
-            $test['definitionId'] = 'ping';
-            $test['parameters'] = array(array('name' => 'timeout', 'value' => rand(100, 136)),
-                array('name' => 'testbed', 'value' => 'urn-testbed' . $i));
-            $test['frequency'] = rand(60, 3600);
-            $test['planId'] = $i;
-            array_push($temp, $test);
-        }
-        for ($i = 3; $i < 6; $i++) {
-            $test = array();
-            $test['definitionId'] = 'stitching';
-            $test['parameters'] = array(array('name' => 'topology', 'value' => 'ring'),
-                array('name' => 'testbeds', 'value' => array('urn-testbed0', 'urn-testbed3')));
-            $test['frequency'] = rand(3600, 10800);
-            $test['planId'] = $i;
-            array_push($temp, $test);
-        }
-        $this->data['testplan'] = $temp;
-
-        $this->data['parameterGroup'] = $temp;
+        
     }
 
+    //Result Calls
     public function getLast($params) {
-        return $this->data['difpings'];
-    }
-
-    public function getDetail($params) {
-        return $this->data['stitching'][2];
-    }
-
-    public function getAverage($param) {
-        $avg = 0;
-        foreach ($this->data['pings'] as $ping) {
-            $avg += $ping['results'][0]['value'];
+        //last => indien count niet gezet => op 1 zetten
+        if (!isset($params['count'])) {
+            $params['count'] = array(1);
         }
-        $test = array();
-        $test['testname'] = 'ping-average';
-        $test['testbedId'] = "urn-testbed0";
-        $test['results'] = array();
-            $subResult = array();
-            $subResult['name'] = 'average-pingValue';
-            $subResult['value'] = $avg / sizeof($this->data['pings']);
-        array_push($test['results'], $subResult);
-        $test['from'] = "2014-03-1 18:03:37";
-        $test['till'] = "2014-03-11 18:03:37";
-        return $test;
+        
+        return $this->getList($params);
+    }
+    public function getDetail($params) {
+        //later te maken => alle koloms aanwezig in tabel
+        //=> beslissen welke dan extra worden meegegeven.
+    }
+    public function getAverage($params) {
+        
+    }
+    public function getList($params) {
+        $query = "select * from "
+                . "(select * ,"
+                . " rank() over(partition by r1.TestInstanceId order by r1.timestamp desc) "
+                . "from results r1"
+                . " join (select testname,testinstanceId from testinstances) instance "
+                . "on instance.testinstanceId = r1.testinstanceId) tabel";
+
+        return $this->buildAndExecuteQuery($query, $params);
     }
 
-    public function getList($param) {
-        return $this->data['pings'];
+    //Config Calls
+    public function getTestDefinition($params) {
+        $query = "select * from testdefinitions";
+        return $this->buildAndExecuteQuery($query, $params);
+    }
+    public function getTestInstance($params) {
+        $query = "select * from testInstances";       
+        return $this->buildAndExecuteQuery($query,$params);
     }
 
-    public function getTestDescription($testDescriptionId) {
-        return $this->data['testDescription'][1];
+    
+    
+    //fix connection
+    private function getConnection() {
+        $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");
+        return $con;
+    }
+    private function closeConnection($con) {
+        pg_close($con);
     }
 
-    public function getTestPlan($testPlanId) {
-        return $this->data['testplan'][2];
-    }
+    //fix query
+    private function buildAndExecuteQuery(&$query, &$params) {
+        //Builds a query by adding where clauses
+        //gets start query
 
-    public function getTestDescriptionList() {
-        return $this->data['testDescription'];
-    }
+        $paramsForUse = array(); //used to pushback used params        
+        //test
+        $colName = "testName"; //colum in database
+        $paramName = "testType"; //name of parameter
+        $this->addWhereInIfNeeded($query, $colName, $paramName, $params, $paramsForUse);
 
-    public function getTestPlanList() {
-        return $this->data['testplan'];
-    }
+        ///testbeds
+        //$colName = "testbed";
+        //$paramName = "testbed";
+        //$query = $this->addWhereIfNeeded($query, $colName, $paramName, $params, $paramsForUse);
+        //=> nog niet mogelijk want want testbed zit in parameters & parameters is hardcoded
+        
+        //between
+        //from
+        $this->addWhereGreaterThanIfNeeded($query,"timestamp", "from", $params, $paramsForUse);
+        //till
+        $this->addWhereSmallerThanIfNeeded($query,"timestamp", "till", $params, $paramsForUse);
+        
+        //count
+        $this->addWhereSmallerThanIfNeeded($query,"rank", "count", $params, $paramsForUse);
+        
+        //status
+        //zit in results list en die is opgeslagen als json
+        //NOTE hoe status van stitch?
+        
+        //stitching testname
+        //in params
 
+        echo "$query<br><br><br>";
+        return $this->execQueryAndMakeDataStructure($query, $paramsForUse);
+    }
+    
+    //make where clause
+    private function addWhereInIfNeeded(&$query, $colName, $paramName, &$params, &$paramsForUse) {
+        //adds a where clause to query based on colom name and values in params
+        ////where ... in (.. , .. , ..)
+        //sql injection not possible via $colName, because $colName is hardcoded
+        
+        if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
+            //handle first one (add where/and keyword if needed)
+            array_push($paramsForUse, $params[$paramName][0]);
+            if (sizeof($paramsForUse) == 1) {
+                $query .= " where $colName in ( \$";
+            } else {
+                $query .= " and $colName in ( \$";
+            }
+            $query .= sizeof($paramsForUse); //NEEDS TO BE 2 LINES OR IT WON'T WORK
+
+
+            for ($index = 2; $index <= sizeof($params[$paramName]); $index++) {
+                array_push($paramsForUse, $params[$paramName][$index - 1]);
+                $query .= " , \$";
+                $query .= sizeof($paramsForUse); //NEEDS TO BE 2 LINES OR IT WON'T WORK
+            }
+            $query .= " )";
+        }
+
+        //return $query;
+    }
+    private function addWhereSmallerThanIfNeeded(&$query,$colName,$paramName, &$params,&$paramsForUse){
+        if (isset($params[$paramName])) {
+            //echo "count detected!!!!!!!!!!!!!!!!!!";
+            array_push($paramsForUse, $params[$paramName][0]);
+            if (sizeof($paramsForUse) == 1) {
+                $query .= " WHERE ";
+            } else {
+                $query .= " AND ";
+            }
+            $query .= $colName." <= \$" . sizeof($paramsForUse);
+        }
+    }
+    private function addWhereGreaterThanIfNeeded(&$query,$colName,$paramName, &$params,&$paramsForUse){
+        if (isset($params[$paramName])) {
+            //echo "count detected!!!!!!!!!!!!!!!!!!";
+            array_push($paramsForUse, $params[$paramName][0]);
+            if (sizeof($paramsForUse) == 1) {
+                $query .= " WHERE ";
+            } else {
+                $query .= " AND ";
+            }
+            $query .= $colName." >= \$" . sizeof($paramsForUse);
+        }
+    }
+    
+    private function execQueryAndMakeDataStructure($query, $paramsForUse) {
+        //executes query and puts results in a hash-array structure
+        $con = $this->getConnection();
+        $result = pg_query_params($con, $query, $paramsForUse);
+
+        //put in datastructure
+        $data = array();
+        while ($row = pg_fetch_assoc($result)) {
+            array_push($data, $row);
+        }
+        print_r($data);
+
+        //close connection
+        $this->closeConnection($con);
+        //return 
+        return $data;
+    }
 }
