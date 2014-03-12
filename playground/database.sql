@@ -23,7 +23,7 @@ CREATE TABLE testInstances(
 DROP TABLE results;
 CREATE TABLE results(
 	resultId serial PRIMARY KEY,
-	testInstance integer NOT NULL,
+	testInstanceId integer NOT NULL,
 	results character varying NOT NULL,
 	log character varying NOT NULL,
 	timestamp timestamp default current_timestamp
