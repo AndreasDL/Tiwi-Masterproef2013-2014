@@ -11,9 +11,11 @@
 
 	//connectie maken
 	$con = pg_Connect($conString) or die('connection failed');
+        echo "connection established\n";
 
 	//in pompen
 	//testbeds
+        echo "Creating Testbeds\n";
 	$query = "insert into testbeds (testbedid,name) values($1,$2);";
 	for ($i = 0 ; $i < $aantalTestbeds ; $i++){
 		$data = array("urn-testbed$i","testbed$i");
@@ -21,7 +23,9 @@
 	}
 
 	//testdefinitions
-	$query = "insert into testdefinitions (testname,testcommand,parameters,return) values($1,$2,$3,$4);";
+        echo "Creating TestDefinitions\n";
+	$query = "insert into testdefinitions (testtype,testcommand,parameters,return) values($1,$2,$3,$4);";
+        echo "\tCreating Ping test\n";
 	$data = array('ping',
 		'ping',
 		json_encode(
@@ -36,7 +40,8 @@
 		)
 	);
 	pg_query_params($con,$query,$data);
-	$data = array('Stitching',
+        echo "\tCreating Stitching test\n";
+	$data = array('stitch',
 		'stitch',
 		json_encode(
 			array(
@@ -61,32 +66,34 @@
 	pg_query_params($con,$query,$data);
 
 	//testinstances
+        echo "Creating TestInstances\n";
 	//ping
-	$query = "insert into testinstances (testname,frequency,parameters) values ($1,$2,$3);";
+        echo "\tCreating Ping testInstances\n";
+	$query = "insert into testinstances (testname,testtype,frequency,parameters) values ($1,$2,$3,$4);";
 	for ($i = 0 ; $i < $aantalpinginstances; $i++){ 
-		$data = array("ping",300,json_encode(array(
-			array('name' => 'timeout' , 'value' => '240'),
-			array('name' => 'testbed' , 'value' => "urn-testbed$i")
-		)));
+		$data = array("ping",
+                        "ping",
+                        300,
+                        '{240,urn-testbed'.$i.'}'
+		);
 		pg_query_params($con,$query,$data);
 	}
 	//stitching
-	$query = "insert into testinstances (testname,frequency,parameters) values ($1,$2,$3);";
+        echo "\tCreating stitching testinstances\n";
+	//$query = "insert into testinstances (testname,testType,frequency,parameters) values ($1,$2,$3);";
 	for ($i = 0 ; $i < $aantalstitchinstances ; $i++){
-		$data = array("stitchingtest$i",3600,
-			json_encode(array(
-				array('name' => 'topology' , 'value' => 'ring'),
-				array('name' => 'testbeds' , 'value' => json_encode(
-					array("urn-testbed".$i%$aantalTestbeds , "urn-testbed".($i+1)%$aantalTestbeds , "urn-testbed".($i+2)%$aantalTestbeds)
-				))
-			)));
+		$data = array("stitchingtest$i","stitch",3600,
+			'{ring,urn-testbed'.$i%$aantalTestbeds.',urn-testbed'.($i+1)%$aantalTestbeds.',urn-testbed'.($i+2)%$aantalTestbeds.'}'
+			);
 		pg_query_params($con,$query,$data);
 	}
 
 	//results
+        echo "creating results\n";
+        echo "!!Warning this may take some time because the script sleeps for 10 seconds after every round to get different timestamps\n";
 	$query = "insert into results (testinstanceid,results,log) values ($1,$2,$3);";
 	for ($j = 1 ; $j < $resultsPerInstances ; $j++){
-		echo  "round $j <br>";
+		echo  "\tround $j \n";
 		$instanceid = 1;
 		//pings
 		for ($i = 0 ; $i < $aantalpinginstances; $i++){
@@ -127,7 +134,8 @@
 	}
 
 
-
+        
 	//connectie sluiten
 	pg_close($con);
-	echo "done";
+	echo "done\n";
+?>
