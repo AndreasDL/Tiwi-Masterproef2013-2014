@@ -25,7 +25,7 @@ DROP TABLE results;
 CREATE TABLE results(
     resultId serial PRIMARY KEY,
     testInstanceId integer NOT NULL,
-    results text NOT NULL,
+    results text[] NOT NULL,
     log text NOT NULL,
     timestamp timestamp default current_timestamp
 );

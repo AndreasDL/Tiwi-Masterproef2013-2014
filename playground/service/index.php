@@ -48,9 +48,9 @@ error_reporting(-1);
         $controller = new $controller_name();
         
         //pretty print
-        echo "<pre>";
+        //echo "<pre>";
         echo json_encode(json_decode($controller->get($parameters)),JSON_PRETTY_PRINT);
-        echo "</pre>";
+        //echo "</pre>";
     }else{
         ?>
     <!DOCTYPE html>

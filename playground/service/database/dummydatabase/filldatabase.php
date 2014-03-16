@@ -1,4 +1,5 @@
 <?php
+include (__DIR__ . "/../config.php"); //database config
 	$aantalTestbeds = 17;
 	$aantalpinginstances = $aantalTestbeds;
 	$aantalstitchinstances = 5;
@@ -99,9 +100,7 @@
 		for ($i = 0 ; $i < $aantalpinginstances; $i++){
 			$data = array(
 				"$instanceid",
-				json_encode(array(
-					array('value' => rand(0,240))
-				)),
+				'{'.rand(0,240).'}',
 				"http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/rand(0-10000)"
 			);
 			pg_query_params($con,$query,$data);
@@ -111,19 +110,7 @@
 		for ($i = 0 ; $i < $aantalstitchinstances ; $i++){
 			$data = array(
 				"$instanceid",
-				json_encode(
-					array(
-						array('name' => 'setup' , 'value' => 'Success'),
-						array('name' => 'getUserCredential', 'value' => 'Success'),
-						array('name' => 'generateRspec' , 'value' => 'Success'),
-						array('name' => 'createSlice' , 'value' => 'Success'),
-						array('name' => 'initStitching' , 'value' => 'Success'),
-						array('name' => 'callSCS' , 'value' => 'Succes'),
-						array('name' => 'callCreateSlivers' , 'value' => 'Success'),
-						array('name' => 'waitForAllReady' , 'value' => 'Success'),
-						array('name' => 'loginAndPing' , 'value' => 'Warn'),
-						array('name' => 'callDeletes' , 'value' => 'Warn')
-				)),
+				"{'Success','Success','Success','Success','Success','Success','Success','Success','Warn','Warn'}",
 				"http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/rand(0-10000)"
 			);
 			$instanceid++;

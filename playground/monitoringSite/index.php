@@ -20,19 +20,16 @@
   <tr>
    <th>Testbed Name</th>
    <th>Ping latency (ms)</th>
-   <th>GetVersion Status</th>
-   <th>Free Resources</th>
   </tr>
   <?php
     //todo webservice via config file
-    $data = json_decode(file_get_contents("http://localhost/service/index.php/last"),true);
+    $data = json_decode(file_get_contents("http://localhost/service/index.php/last?testtype=ping"),true);
     //print_r($data);
     foreach ($data as $row){
         echo "<tr>"
-            . "<td>".$row['testbedid']."</td>"
-            . "<td>".$row['pingvalue']."</td>"
-            . "<td>".$row['getversionstatus']."</td>"
-            . "<td>".$row['freeresources']."</td>";
+            . "<td>".$row['testbed']."</td>"
+            . "<td>".$row['value']."</td>"
+            ."</tr>";
     }
   ?>
   </table>

@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . "/../config.php"); //database config
+include (__DIR__ . "/config.php"); //database config
 
 class AccessDatabase {
 
@@ -25,7 +25,7 @@ class AccessDatabase {
     }
     public function getList($params) {
         $query = "select * from "
-                . "(select * ,"
+                . "(select *,parameters[2] as testbed ,results[1] as value,"
                 . " rank() over(partition by r1.TestInstanceId order by r1.timestamp desc) "
                 . "from results r1"
                 . " join (select * from testinstances) instance "
@@ -166,6 +166,7 @@ class AccessDatabase {
         //put in datastructure
         $data = array();
         while ($row = pg_fetch_assoc($result)) {
+            //print $row['parameters'][1];
             array_push($data, $row);
         }
         //print_r($data);
