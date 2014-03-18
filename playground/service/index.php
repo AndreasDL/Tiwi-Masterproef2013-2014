@@ -20,7 +20,7 @@ error_reporting(-1);
     #controller bepalen
     $controller_name = "";
     if (isset ($_SERVER['PATH_INFO'])){
-        $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]);
+        $controller_name = ucfirst(explode('/',$_SERVER['PATH_INFO'])[1]);
     }
     $controller_name .= 'Controller';
     
@@ -107,6 +107,10 @@ error_reporting(-1);
                 <td>De laatste 3 stitching resultaten van elk testbed1</td>
             </tr>
             <tr>
+                <td><a href="./index.php/list?format=PrettyJson&from=2014-03-18T19:29:06&till=2014-03-18T19:29:10">/index.php/list?from=2014-03-18T19:29:06&till=2014-03-18T19:29:10</a></td>
+                <td>De Alle testen tussen 18/03/2014 19:29:06 tot 18/03/2014 19:29:10</td>
+            </tr>
+            <tr>
                 <td><a href="./index.php/testDefinition?testtype=stitch&format=PrettyJson">/testdefinition?testtype=stitch</a></td>
                 <td>Beschrijving van de stitchtest</td>
             </tr>            
@@ -114,6 +118,7 @@ error_reporting(-1);
                 <td><a href="./index.php/testInstance?testtype=stitch&format=PrettyJson">/testInstance?testtype=stitch</a></td>
                 <td>Geeft alle geplande tests weer van het type stitch</td>
             </tr>
+            
         </table>
     </body>
 </html>
