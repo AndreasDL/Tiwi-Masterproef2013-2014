@@ -11,6 +11,10 @@ error_reporting(-1);
             include __DIR__ . '/controllers/' . $classname . '.php';
             return true;
         }
+        else if (preg_match('/[a-zA-Z]+Formatter$/' , $classname)){
+            include __DIR__."/formatters/" . $classname . '.php';
+            return true;
+        }
     }
     
     #controller bepalen
@@ -38,19 +42,27 @@ error_reporting(-1);
             $parameters[$key] = explode(',',$value);
         }
     }
-    #lijst met kommas omzetten naar arrays
     //print_r($parameters);
-    //print "<br><br>";
     
+    //echo $parameters['format'];
     //redirect to controller
+    $data = null;
     if (class_exists($controller_name)){
         //print "<b>redirecting to $controller_name... </b><br>";
         $controller = new $controller_name();
-        
-        //pretty print
-        echo "<pre>";
-        echo json_encode(json_decode($controller->get($parameters)),JSON_PRETTY_PRINT);
-        echo "</pre>";
+        $data = $controller->get($parameters);
+    }
+    if( isset($data) ){
+        $formatter;
+        if(isset($parameters['format']) && class_exists(ucfirst($parameters['format'][0]).'Formatter')){
+            $formatterName  = ucfirst($parameters['format'][0]);
+            $formatterName .= 'Formatter';
+            $formatter = new $formatterName();
+        }else{
+            //echo "dan maar json";
+            $formatter = new JsonFormatter();
+        } 
+        echo $formatter->format($data);
     }else{
         ?>
     <!DOCTYPE html>
@@ -58,7 +70,6 @@ error_reporting(-1);
       <head>
         <meta charset="utf-8">
        <title>International federation Monitor</title>
-            <!--<meta http-equiv="refresh" content="5" >-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -80,27 +91,27 @@ error_reporting(-1);
         <table border="1">
             <tr><th>call</th><th>uitleg</th></tr>
             <tr>
-                <td><a href="./index.php/last">/last</a></td>
+                <td><a href="./index.php/last?format=PrettyJson">/last</a></td>
                 <td>de alle laatste resultaten van elk testbed</td>
             </tr>
             <tr>
-                <td><a href="./index.php/last?testtype=stitch">/last?testtype=stitch</a></td>
+                <td><a href="./index.php/last?testtype=stitch&format=PrettyJson">/last?testtype=stitch</a></td>
                 <td>de alle laatste stitching resultaten van elk testbed</td>
             </tr>
             <tr>
-                <td><a href="./index.php/last?testbed=urn-testbed1&testtype=ALL">/last?testbed=urn-testbed1&testtype=ALL</a></td>
+                <td><a href="./index.php/last?testbed=urn-testbed1&testtype=ALL&format=PrettyJson">/last?testbed=urn-testbed1&testtype=ALL</a></td>
                 <td>Laatste resultaten van alle tests op testbed1</td>
             </tr>
             <tr>
-                <td><a href="./index.php/list?testtype=stitch&testbed=urn-testbed1&count=3">/list?testtype=stitch&testbed=urn-testbed1&count=3</a></td>
+                <td><a href="./index.php/list?testtype=stitch&testbed=urn-testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=urn-testbed1&count=3</a></td>
                 <td>De laatste 3 stitching resultaten van elk testbed1</td>
             </tr>
             <tr>
-                <td><a href="./index.php/testDefinition?testtype=stitch">/testdefinition?testtype=stitch</a></td>
+                <td><a href="./index.php/testDefinition?testtype=stitch&format=PrettyJson">/testdefinition?testtype=stitch</a></td>
                 <td>Beschrijving van de stitchtest</td>
             </tr>            
             <tr>
-                <td><a href="./index.php/testInstance?testtype=stitch">/testInstance?testtype=stitch</a></td>
+                <td><a href="./index.php/testInstance?testtype=stitch&format=PrettyJson">/testInstance?testtype=stitch</a></td>
                 <td>Geeft alle geplande tests weer van het type stitch</td>
             </tr>
         </table>

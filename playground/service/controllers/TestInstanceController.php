@@ -9,7 +9,7 @@ class TestInstanceController implements iController{
     }
     
     public function get($params){
-        return json_encode($this->dbo->getTestInstance($params));
+        return $this->dbo->getTestInstance($params);
     }
 
 }

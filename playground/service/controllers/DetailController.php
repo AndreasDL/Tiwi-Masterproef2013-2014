@@ -9,6 +9,6 @@ private $dbo;
     }
     
     public function get($params){
-        return json_encode($this->dbo->getDetail($params));
+        return $this->dbo->getDetail($params);
     }
 }

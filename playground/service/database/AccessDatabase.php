@@ -7,7 +7,6 @@ class AccessDatabase {
     public function __construct() {
         
     }
-
     //Result Calls
     public function getLast($params) {
         //last => indien count niet gezet => op 1 zetten
@@ -85,12 +84,16 @@ class AccessDatabase {
     }
     //Config Calls
     public function getTestDefinition($params) {
-        $query = "select * from testdefinitions t "
-                . "join (select * from parameterdefinitions) p on p.testtype = t.testtype "
-                . "join (select * from returndefinitions)    r on r.testtype = t.testtype ";
+        $query = "with view as ("
+                    . "select *,t.testtype tetyp from testdefinitions t "
+                        . "join (select * from parameterdefinitions) p on p.testtype = t.testtype "
+                        . "join (select * from returndefinitions)    r on r.testtype = t.testtype"
+                . ") "
+                . "select * from view";
         
         $paramsForUse = array();
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname","testname");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "tetyp");
         
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -104,15 +107,13 @@ class AccessDatabase {
                     'return'      => array()
                 );
             }
-            array_push($data[$row['testtype']]['parameters'],array(
-                $row['parametername']=>
-                    array('type'=>$row['parametertype'],
-                        'description' => $row['parameterdescription'])
-            ));
-            array_push($data[$row['testtype']]['return'],array($row['returnname']=>
-                    array('type'=>$row['returntype'],
-                        'description' => $row['returndescription'])
-            ));
+            $data[$row['testtype']]['parameters'][$row['parametername']]
+                    =array('type'=>$row['parametertype'],
+                        'description' => $row['parameterdescription']);
+            
+            $data[$row['testtype']]['return'][$row['returnname']]
+                    =array('type'=>$row['returntype'],
+                        'description' => $row['returndescription']);
         }
         
         $this->closeConnection($con);
@@ -156,6 +157,7 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
+    
     //fix connection
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");
@@ -170,9 +172,9 @@ class AccessDatabase {
         //not sure if this works 2 times on the same query
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0){
-                $query .= "where ";
+                $query .= " where ";
             }else{
-                $query .= "and ";
+                $query .= " and ";
             }
             $query .= $colName."=any(select ".$colName." from view where parametervalue IN (";
 
@@ -192,9 +194,9 @@ class AccessDatabase {
         
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0){
-                $query .= "where ";
+                $query .= " where ";
             } else {
-                $query .= "and ";
+                $query .= " and ";
             }
 
             $query .= $colName." IN (";

@@ -10,7 +10,7 @@ private $dbo;
     }
     
     public function get($params){
-        return json_encode($this->dbo->getList($params));
+        return $this->dbo->getList($params);
     }
 
 }

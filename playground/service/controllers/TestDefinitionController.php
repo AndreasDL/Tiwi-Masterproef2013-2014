@@ -15,6 +15,6 @@ class TestDefinitionController implements iController{
     }
     
     public function get($params){
-        return json_encode($this->dbo->getTestDefinition($params));
+        return $this->dbo->getTestDefinition($params);
     }
 }

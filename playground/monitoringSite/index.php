@@ -23,12 +23,12 @@
   </tr>
   <?php
     //todo webservice via config file
-    $data = json_decode(file_get_contents("http://localhost/service/index.php/last?testtype=ping"),true);
+    $data = json_decode(file_get_contents("http://localhost/service/index.php/last?testtype=pingcontrolkijken"),true);
     //print_r($data);
-    foreach ($data as $row){
+    foreach ($data as $key => $row){
         echo "<tr>"
-            . "<td>".$row['testbed']."</td>"
-            . "<td>".$row['value']."</td>"
+            . "<td>".$row['testbeds'][0]."</td>"
+            . "<td>".$row['results']['pingValue']."</td>"
             ."</tr>";
     }
   ?>

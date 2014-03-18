@@ -11,6 +11,6 @@ class LastController implements iController{
     }
     
     public function get($params){
-        return json_encode($this->dbo->getLast($params));
+        return $this->dbo->getLast($params);
     }
 }
