@@ -89,7 +89,7 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
     );
     pg_query_params($con, $subQuery, $data);
     $data = array(
-        'testbed',
+        'testbedId',
         'urn-testbed' . $i
     );
     pg_query_params($con, $subQuery, $data);
