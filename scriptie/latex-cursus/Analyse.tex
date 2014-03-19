@@ -1,0 +1,72 @@
+\newpage
+\chapter{Analyse}
+\section{Bestaande uitwerking}
+\npar
+De oplossing van dit probleem en tevens het onderwerp van mijn thesis is een webservice die de monitoring automatiseerd. Hierbij komen een aantal vragen naar boven. Welke informatie moet bijgehouden worden? 
+Wat bepaald de betrouwbaarheid van een testbed? Hoe nauwkeurig moet deze informatie bijgehouden worden? 
+\npar
+De ontwikkeling van de huidige situatie is door de sneller ontwikkeling, minder gestructureerd verlopen.
+Hierdoor bestaat de software uit een basis versie gevolgd door een aantal \quotes{quick and dirty} toevoegingen. Er moet opgemerkt worden dat de huidige situatie werkt, maar het kan beter. Het gemist van structuur in opbouw zal op lange termijn leiden tot code die zeer moeilijk aan te passen is.
+\subsection{Databanken}
+\npar
+De huidige situatie voorziet niet in een centrale webservice.
+Wat er wel bestaat is een verzameling websites die rechtstreeks verbinding maken met een of meerdere databanken. Er zijn 3 databanken voorzien:
+\begin{enumerate}
+\item flsmonitoring
+\item flsmonitoring-international
+\item scenarios
+\end{enumerate}
+\newpage
+\subsubsection{flsmonitoring databank}
+\npar
+In de eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de locale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
+\begin{itemize}
+\item testbedid
+\item testbedname
+\item testbedurl
+\item pinglatency
+\item getversionstatus
+\item aggregatetestbedstate
+\item last-check
+\end{itemize}
+ De eerste 3 parameters zijn duidelijk. \quotes{Pinglatency} houdt de waarde van de pingtest bij.
+De kolommen \quotes{getversionsStatus} en \quotes{aggregatetestbedstate} worden gebruikt om de uitkomst van de getVersion test bij te houden. Deze test bevat o.a. het versie nummer van de aggregate manager. Doordat er geen ssl authenticatie nodig is voor deze test, wordt hij vaak gebruikt om de status van een server op te vragen. De kolom \quotes{last-check} bevat een timestamp om bij te houden waneer de lijn laatste werd aangepast.
+\subsubsection{scenario databank}
+\npar
+De laatste databank bestaat uit 3 tabellen. Het doel ervan is het bijhouden van informatie over de scenariotesten. Scenariotesten of stitchingtesten zijn complexe testen die uit meerdere subtesten bestaan. Eenvoudig gezegd zal een stitching test de verbinding tussen verschillende testbeds testen. Hiervoor worden op elk testbed meerdere resources aangevraagd. Deze zullen dan trachten naar elkaar te pingen. Indien een testbed offline is wordt de volledige test afgebroken. Hieronder staan de opeenvolgende stappen die een stitching of scenariotest doorloopt.
+\begin{enumerate}
+\item setUp
+\item getUserCredential
+\item generateRspec
+\item createSlice
+\item initStitching
+\item callSCS
+\item callCreateSlivers
+\item waitForAllReady
+\item loginAndPing
+\item callDeletes
+\end{enumerate}
+De inhoud van elke subtest wordt hier buiten beschouwing gelaten.
+Wat wel opgemerkt kan worden is dat we de tests kunnen opdelen in 3 groepen. Zo zijn testen 1-6 voorbereidende testen. Ze dienen om de configuratie voor testen 7-9 klaar te zetten. Test 10 is de cleanup die de opgebouwde configuratie van stappen 1-6 terug ongedaan maakt.
+Elke subtest heeft een resultaat. Een stitching test zou dus minstens 10 resultaten hebben. In de huidige versie zijn er slechts 3 statussen gedefini\"eerd. De stitching test is volledig gelukt, dit komt overeen met 10 geslaagde subtests. De status is gedeeltelijk gelukt, dit komt overeen met de voorbereiding die wel gelukt is, maar de stappen 7-9 zijn niet of slechts gedeeltelijk gelukt. De laatste status geeft aan dat alle subtests mislukt zijn.
+\npar
+De database is opgebouwd uit 3 tabellen.
+\begin{itemize}
+\item test-results
+\item test-context
+\item testbeds
+\end{itemize}
+De eerste resultaat houdt informatie bij over de testresultaten. De tweede tabel houdt de context van de test bij. De laatste tabel houdt de testbeds bij. De concrete invulling van de tabellen zou ons te ver leiden.
+\clearpage
+\section{Problemen in de huidige uitwerking}
+\npar
+Een eerste situatie die beter kan is het bijhouden van de laatste resultaten.
+Deze resultaten zitten in een databank, die voor elke testbed een lijn bevat. Nieuwe waarde overschrijven die lijn. Meteen kan opgemerkt worden dat het niet mogelijk is om statistieken over een lange termijn weer te geven.Het aanpassen van de monitoring waarden gebeurd door shell scripts. Deze worden periodiek uitgevoerd en lezen een configuratiefile in. Indien het testbed waarop de test uitgevoerd moet worden al in de databank zit is het id vermeld in de configuratiefile. Indien er geen id staat zal het script zelf een nieuwe lijn aanmaken en vervolgens de id wegschrijven naar de file. Eenmaal uitgevoerd, geeft de test een resultaat terug in de vorm van een xmlfile die door ge\"instaleerde commando\rq s geparset wordt. Vervolgens wordt de data weggeschreven naar de databank.
+\npar
+
+
+\section{aanpassingen}
+opdeling van internation <-> gwn weg
+opdeling flsmoni <-> scenarios weg
+
+\section{besluit}
