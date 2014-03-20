@@ -19,7 +19,7 @@ Wat er wel bestaat is een verzameling websites die rechtstreeks verbinding maken
 \newpage
 \subsubsection{flsmonitoring databank}
 \npar
-In de eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de locale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
+In de eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de lokale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
 \begin{itemize}
 \item testbedid
 \item testbedname
@@ -48,7 +48,7 @@ De laatste databank bestaat uit 3 tabellen. Het doel ervan is het bijhouden van 
 \end{enumerate}
 De inhoud van elke subtest wordt hier buiten beschouwing gelaten.
 Wat wel opgemerkt kan worden is dat we de tests kunnen opdelen in 3 groepen. Zo zijn testen 1-6 voorbereidende testen. Ze dienen om de configuratie voor testen 7-9 klaar te zetten. Test 10 is de cleanup die de opgebouwde configuratie van stappen 1-6 terug ongedaan maakt.
-Elke subtest heeft een resultaat. Een stitching test zou dus minstens 10 resultaten hebben. In de huidige versie zijn er slechts 3 statussen gedefini\"eerd. De stitching test is volledig gelukt, dit komt overeen met 10 geslaagde subtests. De status is gedeeltelijk gelukt, dit komt overeen met de voorbereiding die wel gelukt is, maar de stappen 7-9 zijn niet of slechts gedeeltelijk gelukt. De laatste status geeft aan dat alle subtests mislukt zijn.
+Elke subtest heeft een resultaat. Een stitching test zou dus minstens 10 resultaten hebben. In de huidige versie zijn er slechts 3 statussen gedefini\"eerd. De stitching test is volledig gelukt, dit komt overeen met 10 geslaagde subtesten. De status is gedeeltelijk gelukt, dit komt overeen met de voorbereiding die wel gelukt is, maar de stappen 7-9 zijn niet of slechts gedeeltelijk gelukt. De laatste status geeft aan dat alle subtesten mislukt zijn.
 \npar
 De database is opgebouwd uit 3 tabellen.
 \begin{itemize}
@@ -56,17 +56,34 @@ De database is opgebouwd uit 3 tabellen.
 \item test-context
 \item testbeds
 \end{itemize}
-De eerste resultaat houdt informatie bij over de testresultaten. De tweede tabel houdt de context van de test bij. De laatste tabel houdt de testbeds bij. De concrete invulling van de tabellen zou ons te ver leiden.
+De eerste resultaat houdt informatie bij over de testresultaten. De tweede tabel houdt de context van de test bij. De laatste tabel houdt de testbeds bij. De concrete invulling van de tabellen is van minder belang en wordt hier niet vermeld.
 \clearpage
-\section{Problemen in de huidige uitwerking}
+\subsection{Webpagina\rq s}
+\npar
+In de huidige versie zijn een aantal webinterfaces voorzien. 
+Er is een webinterface die enkel de status van de lokale testbeds weergeeft. Daarnaast er een webinterface die de internationale testbeds weergeeft. 
+Deze 2 webinterfaces geven de naam van het testbeds met de ping, een veld dat aanduid of de getVersion call gelukt is en het aantal beschikbare resources.
+\npar
+De laatste webinterface geeft de resultaten van de scenariotesten weer. Er is ook de mogelijkheid om de log files van een test te bekijken. Tevens is het ook mogelijk om de geschiedenis van een scenariotest te bekijken.
+\section{Wat kan anders}
+\subsection{Samenvoegen databases}
 \npar
 Een eerste situatie die beter kan is het bijhouden van de laatste resultaten.
 Deze resultaten zitten in een databank, die voor elke testbed een lijn bevat. Nieuwe waarde overschrijven die lijn. Meteen kan opgemerkt worden dat het niet mogelijk is om statistieken over een lange termijn weer te geven.Het aanpassen van de monitoring waarden gebeurd door shell scripts. Deze worden periodiek uitgevoerd en lezen een configuratiefile in. Indien het testbed waarop de test uitgevoerd moet worden al in de databank zit is het id vermeld in de configuratiefile. Indien er geen id staat zal het script zelf een nieuwe lijn aanmaken en vervolgens de id wegschrijven naar de file. Eenmaal uitgevoerd, geeft de test een resultaat terug in de vorm van een xmlfile die door ge\"instaleerde commando\rq s geparset wordt. Vervolgens wordt de data weggeschreven naar de databank.
 \npar
-
-
-\section{aanpassingen}
-opdeling van internation <-> gwn weg
-opdeling flsmoni <-> scenarios weg
+Door nieuwe resultaten toe te voegen op een nieuwe lijn kunnen we wel statistieken over langere termijn bijhouden.
+Ook de configuratiefiles kunnen opnemen in de databank. Toevoegen van een nieuwe test is dan eenmalig een entry toevoegen aan de database.
+Deze entry bevat dan het commando en de benodigde commando's.
+\npar
+Een tweede punt is de opdeling flsmonitoring en flsmonitoring-international. Deze 2 databanken zijn eigenlijk gelijk en kunnen gemakkelijk ondergebracht worden in een database.
+Dit kan door een extra punt toe te voegen dat weergeeft in welke categorie het testbed zich bevind. Een andere mogelijkheid is de internationale testbeds hardcoderen op de monitoring site.
+\npar
+Door de databanken scenario\rq s en flsmonitoring in een databank onder te brengen, kunnen we het beheer vereenvoudigen.
+Beide gegevens zijn eenmaal resultaten van testen. Deze meer generische aanpak zal er toe leiden dat testen eenvoudiger gedefini\"eerd kunnen worden.
+\subsection{Webservice uitbouwen}
+\npar
+Doordat de webinterfaces rechtstreeks contact maken met de databank is er minder overhead. Als de databank ook vanuit jFed bereikbaar moet zijn, is het beter om een webservice tussen te voegen. Dit vermijd codeduplicatie. De service dan de complexere zaken zoals het filteren van resultaten voorzien. Daardoor kan zowel jFed als de webinterfaces en eventuele toekomstige toepassingen met een eenvoudige call de informatie ophalen.
 
 \section{besluit}
+\npar
+Er zullen twee grote veranderingen gebeuren. De eerste eerst is het samenvoegen van de databanken. De tweede operatie is een meer generische structuur defini\"eren
