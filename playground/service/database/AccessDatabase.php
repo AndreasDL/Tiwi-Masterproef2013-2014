@@ -23,6 +23,9 @@ class AccessDatabase {
         //gaat nog niet want resultaat zit in json codering
     }
     public function getList($params) {
+        //TODO resultid
+        //TODO testname?
+      
         $query = "with view as ( "
                 . "select *,r.resultid id from results r "
                     . "join (select * from subresults) sr on r.resultid = sr.resultid "

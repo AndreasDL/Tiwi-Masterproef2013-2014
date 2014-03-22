@@ -1,0 +1,88 @@
+\newpage
+\chapter{Ontwerp Databank}
+In dit hoofdstuk wordt de interface van de databank besproken.
+
+\section{Tabellen}
+De database zal bestaan uit volgende tabellen.
+\begin{itemize}
+\item testbeds: Deze tabel zal informatie over de testbeds bijhouden.
+
+\item testDefinitions: Deze tabel zal de testbeschrijving bijhouden.
+\item parameterDefinitions: Deze tabel houdt de parameters bij die de test nodig heeft.
+\item returnDefinitions: Deze tabel houdt de returnwaardes bij die een test genereert.
+
+\item testInstances: Hier worden de instanties van de testdefinities bijgehouden. Deze tabel zorgt voor de link tussen de testdefinitie en de ingevulde parameters.
+\item parameterInstances: Deze tabel houdt de ingevulde waarden van de parameters bij.
+
+\item results: Deze tabel zorgt voor de link tussen de testinstantie en de subresults.
+\item subResults: Deze tabel houdt de verschillende resultaten van een testbij.
+\end{itemize}
+
+Merk hier ook de opsplitsing testDefinition $<$=$>$ testInstance. TestDefinition is een definitie van een test, testinstantie is de test met de ingevulde waarden.
+
+\section{Testbeds}
+Deze tabel houdt de verschillende testbeds bij en bevat volgende kolommen :
+\begin{itemize}
+\item testbedId: Het id van het testbed. Aangezien elk testbed een uniek urn heeft zal dit waarschijnlijk gebruikt worden als testbedid. Een nadeel is wel dat een urn moeilijk te onthouden is, wat gebruik van de service zal bemoeilijken.
+\item name: de naam van het testbed.
+\end{itemize}
+
+\section{TestDefinitions}
+Deze tabel houdt de definities van de tests bij.
+Hierbij wordt een test abstract omschreven als een commando met een aantal parameters en een of meerdere return waarden. De tabel bevat volgende kolommen:
+\begin{itemize}
+\item testtype : Dit is de naam van een testtype en moet tevens uniek zijn.
+\item testcommand : Het commando (of script) dat uitgevoerd moet worden.
+\end{itemize}
+\section{ParameterDefinitions}
+Deze tabel houdt bij welke parameters een test nodig heeft. Hierbij wordt de naam, het type en een beschrijving van een parameter opgeslagen. De tabel bevat volgende kolommen:
+\begin{itemize}
+\item testtype: Houdt bij voor welke testtype de parameters van toepassing zijn.
+\item parameterName: De naam van de parameter.
+\item parameterType: Het type van de parameter.
+\item parameterDescrition: De beschrijving van een parameter.
+\end{itemize}
+\section{ReturnDefinitions}
+Deze tabel bevat de returnwaarden die bij een testtype horen. De tabel bevat volgende kolommen:
+\begin{itemize}
+\item testtype: Houdt bij voor welke testtype de returnwaarden van toepassing zijn.
+\item returnName: Naam van de returnwaarde.
+\item returnType: Type van de returnwaarde.
+\item returnDescription: Beschrijving van de returnwaarde.
+\end{itemize}
+
+\section{TestInstances}
+Deze tabel zal later de testdefinition koppelen aan de tabel met parameters. In de eerste versie zal hij de waarden hardgecodeerd bevatten.
+In deze tabel wordt er bijgehouden der er om de 5 minuten een ping test uitgevoerd moet worden op een testbedX met een timeout Y.
+De tabel bevat volgende kolommen: 
+\begin{itemize}
+\item testInstanceId: Een id om de testinstance mee aan te duiden.
+\item testtype: Geeft het testtype aan.
+\item testname: Geeft de naam van een test aan.
+\item Frequency : De frequentie waarmee de test uitgevoerd moet worden.
+\end{itemize}
+\section{ParameterInstances}
+Deze tabel houdt de ingevulde waarden van de parameters bij voor een testinstantie.
+De tabel bevat volgende kolommen:
+\begin{itemize}
+\item testinstanceId: Geeft aan voor welke instantie de waarde geld.
+\item parameterName: De naam van de parameter.
+\item parameterValue: De waarde van de parameter.
+\end{itemize}
+
+\section{Results}
+Deze tabel vormt de link tussen de testinstantie en de subResults.
+De tabel bevat volgende kolommen:
+\begin{itemize}
+\item resultid : Later gebruikt om detail weergave op te vragen van een resultaat.
+\item testInstanceId: Geeft aan van welke testinstantie deze resultaten afkomstig zijn.
+\item log : De link naar de link van de log file. Deze zal beschikbaar staan op het testbed, via de url is het mogelijk om hem op te vragen.
+\item timestamp : Geeft aan wanneer die resultaat is bepaald.
+\end{itemize}
+\section{SubResults}
+Deze tabel bevat de ingevulde resultaten.
+\begin{itemize}
+\item resultId: Geeft aan bij welk resultaat deze waarden horen.
+\item name: Geeft de naam van het resultaat aan.
+\item value: Geeft de waarde voor het resultaat aan.
+\end{itemize}

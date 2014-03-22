@@ -1,12 +1,14 @@
 \newpage
 \chapter{Analyse}
+
 \section{Bestaande uitwerking}
-\npar
-De oplossing van dit probleem en tevens het onderwerp van mijn thesis is een webservice die de monitoring automatiseerd. Hierbij komen een aantal vragen naar boven. Welke informatie moet bijgehouden worden? 
-Wat bepaald de betrouwbaarheid van een testbed? Hoe nauwkeurig moet deze informatie bijgehouden worden? 
 \npar
 De ontwikkeling van de huidige situatie is door de sneller ontwikkeling, minder gestructureerd verlopen.
 Hierdoor bestaat de software uit een basis versie gevolgd door een aantal \quotes{quick and dirty} toevoegingen. Er moet opgemerkt worden dat de huidige situatie werkt, maar het kan beter. Het gemist van structuur in opbouw zal op lange termijn leiden tot code die zeer moeilijk aan te passen is.
+\npar
+De oplossing van dit probleem en tevens het onderwerp van mijn masterproef is een webservice die de monitoring automatiseert. Hierbij komen een aantal vragen naar boven. Welke informatie moet bijgehouden worden? 
+Wat bepaald de betrouwbaarheid van een testbed? Hoe nauwkeurig moet deze informatie bijgehouden worden? 
+
 \subsection{Databanken}
 \npar
 De huidige situatie voorziet niet in een centrale webservice.
@@ -17,7 +19,7 @@ Wat er wel bestaat is een verzameling websites die rechtstreeks verbinding maken
 \item scenarios
 \end{enumerate}
 \newpage
-\subsubsection{flsmonitoring databank}
+\subsubsection{Flsmonitoring en flsmonitoring-internation databank}
 \npar
 In de eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de lokale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
 \begin{itemize}
@@ -31,7 +33,7 @@ In de eerste en de tweede databank bestaan uit een tabel waarin de laatste resul
 \end{itemize}
  De eerste 3 parameters zijn duidelijk. \quotes{Pinglatency} houdt de waarde van de pingtest bij.
 De kolommen \quotes{getversionsStatus} en \quotes{aggregatetestbedstate} worden gebruikt om de uitkomst van de getVersion test bij te houden. Deze test bevat o.a. het versie nummer van de aggregate manager. Doordat er geen ssl authenticatie nodig is voor deze test, wordt hij vaak gebruikt om de status van een server op te vragen. De kolom \quotes{last-check} bevat een timestamp om bij te houden waneer de lijn laatste werd aangepast.
-\subsubsection{scenario databank}
+\subsubsection{Scenario databank}
 \npar
 De laatste databank bestaat uit 3 tabellen. Het doel ervan is het bijhouden van informatie over de scenariotesten. Scenariotesten of stitchingtesten zijn complexe testen die uit meerdere subtesten bestaan. Eenvoudig gezegd zal een stitching test de verbinding tussen verschillende testbeds testen. Hiervoor worden op elk testbed meerdere resources aangevraagd. Deze zullen dan trachten naar elkaar te pingen. Indien een testbed offline is wordt de volledige test afgebroken. Hieronder staan de opeenvolgende stappen die een stitching of scenariotest doorloopt.
 \begin{enumerate}
@@ -80,10 +82,21 @@ Dit kan door een extra punt toe te voegen dat weergeeft in welke categorie het t
 \npar
 Door de databanken scenario\rq s en flsmonitoring in een databank onder te brengen, kunnen we het beheer vereenvoudigen.
 Beide gegevens zijn eenmaal resultaten van testen. Deze meer generische aanpak zal er toe leiden dat testen eenvoudiger gedefini\"eerd kunnen worden.
+
+\subsection{Structuur database}
+\npar
+De huidige opbouw van de databanken is niet flexibel genoeg. Als we de databanken zouden samenvoegen is er een complexere structuur nodig die meer flexibiliteit toelaat.
+Het moet mogelijk zijn dat een tests meerdere argumenten meekrijgt. Dit aantal is verschillend per type tests, werken met extra kolommen is dus niet aangeraden.
+Ook geven sommige testen meerdere resultaten terug. Dit aantal is ook variabel en afhankelijk van het type test dat gebruikt wordt.
+De structuur van de databank wordt later in deze scriptie verder uitgewerkt.
+
 \subsection{Webservice uitbouwen}
 \npar
-Doordat de webinterfaces rechtstreeks contact maken met de databank is er minder overhead. Als de databank ook vanuit jFed bereikbaar moet zijn, is het beter om een webservice tussen te voegen. Dit vermijd codeduplicatie. De service dan de complexere zaken zoals het filteren van resultaten voorzien. Daardoor kan zowel jFed als de webinterfaces en eventuele toekomstige toepassingen met een eenvoudige call de informatie ophalen.
-
-\section{besluit}
+Doordat de webinterfaces rechtstreeks contact maken met de databank is er minder overhead. Als de databank echter ook vanuit jFed bereikbaar moet zijn, is het beter om een webservice tussen te voegen. Dit vermijd duplicatie van code. Deze service zal complexere zaken zoals filteren van resultaten voorzien. Daardoor kan zowel jFed als de webinterfaces en eventuele toekomstige toepassingen met een eenvoudige call de informatie ophalen en moet niet elke mogelijke applicatie terug zelf de filtering voorzien.
 \npar
-Er zullen twee grote veranderingen gebeuren. De eerste eerst is het samenvoegen van de databanken. De tweede operatie is een meer generische structuur defini\"eren
+Eenmaal de webservice uitgebouwd is kunnen er sites gemaakt worden die deze webservice contacteren om informatie op te halen. De huidige webinterfaces moeten dus ook vervangen worden door nieuwe versies die wel gebruik maken van de webservice. Er kan ook integratie in jFed voorzien worden. Dit kan als een onderdeel van de masterproef, of als een latere uitbreiding voor jFed.
+
+\section{Besluit}
+\npar
+Om aan de verwachten te voldoen zijn er 2 grote veranderingen nodig. 
+Er zullen twee grote veranderingen gebeuren. De eerste eerst is het samenvoegen van de databanken. Om het beheer van de data te vereenvoudigen zou 1 grote databank het werk van de 3 kleinere databanken over nemen. Deze zou zo opgebouwd zijn dat we testen met een variabel aantal argumenten en resultaten kunnen toevoegen, zonder iets te wijzigen aan de structuur van de databank. Zowel de configuratie van de testen als de resultaten zouden in deze databank opgenomen zijn.
