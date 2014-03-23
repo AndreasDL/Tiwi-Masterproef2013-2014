@@ -167,7 +167,7 @@ Deze calls hebben het doel om de configuratie van een test op te vragen.
 Er zijn (uiteraard) ook een aantal functies voor het opvragen van de testconfiguratie.
 \begin{itemize}
 \item TestDefinition : Geeft de definitie van een testweer. Deze bevat informatie over de naam, het commando. Verder duidt deze definitie ook aan welke parameters er nodig zijn en welke waarden er terug gegeven worden. Deze waarden zijn echter niet ingevuld. Het is de bedoel om hier bijvoorbeeld te defini\"eren dat een pingtest bijvoorbeeld bestaat uit een ping commando en dat deze een time-out en een testbed moet meekrijgen. Samengevat kan gesteld worden dat dit de beschrijving van een type test is.
-\item TestInstance : Hierbij wordt een instance teruggegeven. Dit is de concrete invulling van een testDescription. Daarbij wordt de test gecombineerd met de ingevulde parameters. Zo zal hier ingevuld worden dat er op testbed2 om de 5 minuten een pingtest moet uitgevoerd worden.
+\item Testbed: Geeft een of meerdere testbeds aan waarop de testinstantie gedefini\"eerd moet worden.
 \end{itemize}
 
 Deze opsplitsing is noodzakelijk om flexibiliteit aan te bieden. 
@@ -177,7 +177,7 @@ Een ping test wordt op meerdere testbeds uitgevoerd. Door deze opbouw moet een p
 
 \begin{itemize}
 \item testtype: Deze parameter duidt aan welke testtype opgevraagd wordt.
-\item testdefinitionId / testinstanceId: Deze parameter duidt aan welke definitie of instance opgevraagd wordt.
+\item testinstanceId: Deze parameter duidt aan welke instance opgevraagd wordt. Er is geen equivalente variant voor testdefinition, omdat het testtype daar de unieke id voorstelt.
 \end{itemize}
 Het is ook mogelijk om als waarde ALL of een lijst van id's op te geven.
 
@@ -289,10 +289,4 @@ Deze call geeft alle geplande tests terug.
     },
     ...
 }
-\end{verbatim}
-
-\subsubsection{testInstance?Plan=2}
-Deze call geeft de instance met id 2 terug.
-\begin{verbatim}
-Voorbeeld invoegen
 \end{verbatim}

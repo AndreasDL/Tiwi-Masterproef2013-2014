@@ -23,24 +23,15 @@ class AccessDatabase {
         //gaat nog niet want resultaat zit in json codering
     }
     public function getList($params) {
-        //TODO resultid
-        //TODO testname?
-      
-        $query = "with view as ( "
-                . "select *,r.resultid id from results r "
-                    . "join (select * from subresults) sr on r.resultid = sr.resultid "
-                    . "join (select * from testinstances) ti on ti.testinstanceid = r.testinstanceid "
-                    . "join (select * from parameterinstances) pi on pi.testinstanceid = r.testinstanceid "
-                . ") "
-                . "select * from ( "
-                    . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from view"
-                . ") vv ";
+        $query = "select * from ("
+                    . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from list"
+                . ") vv";
         
         $paramsForUse = array();
         $eindhaakje = "";
         
         //testbeds
-        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed");
+        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed","list");
         if(sizeof($paramsForUse) > 0){
             $eindhaakje=')';
         }
@@ -48,6 +39,10 @@ class AccessDatabase {
         $this->addInIfNeeded($query, $params, $paramsForUse, "testtype","testtype");
         //status => per subtest nu !!
         $this->addInIfNeeded($query, $params, $paramsForUse, "status", "value");
+        //resultid
+        $this->addInIfNeeded($query, $params, $paramsForUse, "resultId", "id");
+        //testname
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
         //from
         $this->addGreaterThanIfNeeded($query, $params, $paramsForUse, "from","timestamp");
         //till
@@ -56,6 +51,8 @@ class AccessDatabase {
         $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "count", "rank");
         //haakje van any
         $query.=$eindhaakje;
+        
+        print $query;
         
         $con = $this->getConnection();
         $result = pg_query_params($con,$query,$paramsForUse);
@@ -87,15 +84,9 @@ class AccessDatabase {
     }
     //Config Calls
     public function getTestDefinition($params) {
-        $query = "with view as ("
-                    . "select *,t.testtype tetyp from testdefinitions t "
-                        . "join (select * from parameterdefinitions) p on p.testtype = t.testtype "
-                        . "join (select * from returndefinitions)    r on r.testtype = t.testtype"
-                . ") "
-                . "select * from view";
+        $query = "select * from definitions";
         
         $paramsForUse = array();
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testname","testname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "tetyp");
         
         $con = $this->getConnection();
@@ -124,18 +115,16 @@ class AccessDatabase {
         
     }
     public function getTestInstance($params) {
-        $query = "with view as ("
-                . "select t.testinstanceid as id,* from testinstances t "
-                . "join (select * from parameterInstances) p on t.testinstanceid = p.testinstanceid) "
-                . "select * from view ";
+        $query = "select * from instances ";
         $paramsForUse = array();
         $eindhaakje = "";
         
-        $this->addAnyIfNeeded($query,$params, $paramsForUse, "testbed");
+        $this->addAnyIfNeeded($query,$params, $paramsForUse, "testbed", "instances");
         if(sizeof($paramsForUse) > 0){
             $eindhaakje=')';
         }
         $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        
         $query .= $eindhaakje;
         
         $con = $this->getConnection();
@@ -171,7 +160,7 @@ class AccessDatabase {
     }
     
     //fix query
-    private function addAnyIfNeeded(&$query,&$params,&$paramsForUse,$paramName,$colName='id'){
+    private function addAnyIfNeeded(&$query,&$params,&$paramsForUse,$paramName,$viewName,$colName='id'){
         //not sure if this works 2 times on the same query
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0){
@@ -179,7 +168,7 @@ class AccessDatabase {
             }else{
                 $query .= " and ";
             }
-            $query .= $colName."=any(select ".$colName." from view where parametervalue IN (";
+            $query .= $colName."=any(select ".$colName." from ".$viewName." where parametervalue IN (";
 
             array_push($paramsForUse, $params[$paramName][0]);
             $query .= '$';
@@ -244,118 +233,3 @@ class AccessDatabase {
         } 
     }
 }
-/*
-      //fix query
-      private function buildAndExecuteQuery(&$query, &$params) {
-      //Builds a query by adding where clauses
-      //gets start query
-
-      $paramsForUse = array(); //used to pushback used params
-      //testname (for stitching tests, useless for ping tests)
-      $this->addWhereInIfNeeded($query, "testname", "testname", $params, $paramsForUse);
-      //testType
-      $this->addWhereInIfNeeded($query, "testtype", "testtype", $params, $paramsForUse);
-
-      //between
-      //from
-      $this->addWhereGreaterThanIfNeeded($query, "timestamp", "from", $params, $paramsForUse);
-      //till
-      $this->addWhereSmallerThanIfNeeded($query, "timestamp", "till", $params, $paramsForUse);
-
-      //count
-      $this->addWhereSmallerThanIfNeeded($query, "rank", "count", $params, $paramsForUse);
-
-      //status
-      //zit in results list en die is opgeslagen als json
-      //NOTE hoe status van stitch?
-      //stitching testname
-      //in params
-      //echo "$query<br><br><br>";
-      return $this->execQueryAndMakeDataStructure($query, $paramsForUse);
-      }
-
-      //make where clause
-      private function addWhereInIfNeeded(&$query, $colName, $paramName, &$params, &$paramsForUse) {
-      //adds a where clause to query based on colom name and values in params
-      ////where ... in (.. , .. , ..)
-      //sql injection not possible via $colName, because $colName is hardcoded
-
-      if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
-      //handle first one (add where/and keyword if needed)
-      array_push($paramsForUse, $params[$paramName][0]);
-      if (sizeof($paramsForUse) == 1) {
-      $query .= " where $colName in ( \$";
-      } else {
-      $query .= " and $colName in ( \$";
-      }
-      $query .= sizeof($paramsForUse); //NEEDS TO BE 2 LINES OR IT WON'T WORK
-
-
-      for ($index = 2; $index <= sizeof($params[$paramName]); $index++) {
-      array_push($paramsForUse, $params[$paramName][$index - 1]);
-      $query .= " , \$";
-      $query .= sizeof($paramsForUse); //NEEDS TO BE 2 LINES OR IT WON'T WORK
-      }
-      $query .= " )";
-      }
-
-      //return $query; => input/output param otherwise duplication => less efficient
-      //so forcing user to use output param
-      }
-
-      private function addWhereSmallerThanIfNeeded(&$query, $colName, $paramName, &$params, &$paramsForUse) {
-      if (isset($params[$paramName])) {
-      //echo "count detected!!!!!!!!!!!!!!!!!!";
-      array_push($paramsForUse, $params[$paramName][0]);
-      if (sizeof($paramsForUse) == 1) {
-      $query .= " WHERE ";
-      } else {
-      $query .= " AND ";
-      }
-      $query .= $colName . " <= \$" . sizeof($paramsForUse);
-      }
-      }
-
-      private function addWhereGreaterThanIfNeeded(&$query, $colName, $paramName, &$params, &$paramsForUse) {
-      if (isset($params[$paramName])) {
-      //echo "count detected!!!!!!!!!!!!!!!!!!";
-      array_push($paramsForUse, $params[$paramName][0]);
-      if (sizeof($paramsForUse) == 1) {
-      $query .= " WHERE ";
-      } else {
-      $query .= " AND ";
-      }
-      $query .= $colName . " >= \$" . sizeof($paramsForUse);
-      }
-      }
-
-      //parse data
-      private function execQueryAndMakeDataStructure($query, $paramsForUse) {
-      //executes query and puts results in a hash-array structure
-      $con = $this->getConnection();
-      $result = pg_query_params($con, $query, $paramsForUse);
-
-      //put in datastructure
-      //put testbeds and tests together before returning
-      $data = array();
-      while ($row = pg_fetch_assoc($result)) {
-      //print $row['parameters'][1];
-      /*
-      if (! isset($data[$row['testbed']])){
-      $data[$row['testbed']] = array();
-      }
-      if (! isset($data[$row['testbed']][$row['testtype']]) ){
-      $data[$row['testbed']][$row['testtype']] = array();
-      }
-      array_push($data[$row['testbed']][$row['testtype']], $row);
-     * 
-
-      array_push($data, $row);
-      }
-      print_r($data);
-
-      //close connection
-      $this->closeConnection($con);
-      //return $data;
-      }
-     */
