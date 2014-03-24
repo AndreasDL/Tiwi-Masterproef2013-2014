@@ -25,7 +25,7 @@ class AccessDatabase {
     public function getList($params) {
         $query = "select * from ("
                     . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from list"
-                . ") vv";
+                . ") vv ";
         
         $paramsForUse = array();
         $eindhaakje = "";
@@ -52,7 +52,7 @@ class AccessDatabase {
         //haakje van any
         $query.=$eindhaakje;
         
-        print $query;
+        //print $query;
         
         $con = $this->getConnection();
         $result = pg_query_params($con,$query,$paramsForUse);

@@ -20,6 +20,10 @@
 \usepackage[Gray,squaren,thinqspace,thinspace]{SIunits} % Om elegant eenheden te zetten
 \usepackage[version=3]{mhchem}          % Voor elegante scheikundige formules
 
+\usepackage{nomencl}
+\makenomenclature %update bij every run
+\renewcommand{\nomname}{Lijst van afkortingen}
+
 % Volgend package is niet echt nodig. Het laat echter toe om gemakkelijk elektronisch
 % te navigeren in je pdf-document. Deze package moet altijd als laatste ingeladen worden.
 \usepackage[a4paper,plainpages=false]{hyperref}    % Om hyperlinks te hebben in het pdfdocument.
@@ -151,7 +155,7 @@
 }
 
 %quoten
-\newcommand{\quotes}[1]{\lq #1\rq\ }
+\newcommand{\quotes}[1]{\lq #1\rq\xspace}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nieuwe wiskunde operatoren
@@ -217,6 +221,16 @@
 % Voor een echte thesis, komt hier de samenvatting...
 \input{Abstract-nl}                            % ...in het Nederlands en...
 \input{Abstract-en}                            % ...in het Engels.
+%voorwoord?
+%dankwoord?/back	
+
+%afkortingen
+\printnomenclature
+
+%figuren
+\listoffigures
+%tabellen
+\listoftables
 
 % De lijnen van de inhoudsopgave iets dichter op elkaar, niet echt nodig voor de thesis, maar 
 % voor dit werk kregen we anders een laatste bladzijde met 3 items op.
@@ -230,6 +244,7 @@
 
 % De verschillende hoofdstukken:
 \input{Inleiding}
+%achtergrond?
 \input{Analyse}
 %use cases?
 \input{OntwerpService}
@@ -249,7 +264,8 @@
 
 \bibliography{lc-bibliografie}
 
-\printindex                             % Om de index af te printen, niet bij een thesis.
+%\printindex                             % Om de index af te printen, niet bij een thesis.
+
 
 \end{document}
 
