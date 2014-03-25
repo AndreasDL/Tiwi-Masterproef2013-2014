@@ -6,9 +6,9 @@
 \nomenclatureentry{aGUI@[{GUI}]\begingroup graphical user interface\nomeqref {1.0}|nompageref}{3}
 \nomenclatureentry{aSSH@[{SSH}]\begingroup secure shell\nomeqref {1.0}|nompageref}{3}
 \nomenclatureentry{abash@[{bash}]\begingroup bourne again shell\nomeqref {1.0}|nompageref}{3}
-\nomenclatureentry{aXML@[{XML}]\begingroup extensible markup language \nomeqref {2.0}|nompageref}{7}
-\nomenclatureentry{ajson@[{json}]\begingroup javascript object notation\nomeqref {5.0}|nompageref}{21}
-\nomenclatureentry{asql@[{sql}]\begingroup structured query language\nomeqref {5.0}|nompageref}{22}
-\nomenclatureentry{aOS@[{OS}]\begingroup operating system\nomeqref {5.0}|nompageref}{23}
-\nomenclatureentry{aphp@[{php}]\begingroup hypertext preprocessor\nomeqref {5.0}|nompageref}{23}
-\nomenclatureentry{ahtml@[{html}]\begingroup HyperText Markup Language\nomeqref {5.0}|nompageref}{23}
+\nomenclatureentry{aXML@[{XML}]\begingroup extensible markup language \nomeqref {2.0}|nompageref}{9}
+\nomenclatureentry{ajson@[{json}]\begingroup javascript object notation\nomeqref {5.0}|nompageref}{23}
+\nomenclatureentry{asql@[{sql}]\begingroup structured query language\nomeqref {5.0}|nompageref}{24}
+\nomenclatureentry{aOS@[{OS}]\begingroup operating system\nomeqref {5.0}|nompageref}{25}
+\nomenclatureentry{aphp@[{php}]\begingroup hypertext preprocessor\nomeqref {5.0}|nompageref}{25}
+\nomenclatureentry{ahtml@[{html}]\begingroup HyperText Markup Language\nomeqref {5.0}|nompageref}{25}

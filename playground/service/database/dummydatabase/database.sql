@@ -13,7 +13,8 @@ DROP TABLE subResults;
 
 CREATE TABLE testbeds (
     testbedId character varying NOT NULL PRIMARY KEY,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    url  character varying
 );
 
 CREATE TABLE testDefinitions(

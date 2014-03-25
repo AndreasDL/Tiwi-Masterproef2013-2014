@@ -18,9 +18,9 @@ echo "connection established\n";
 //in pompen
 //testbeds
 echo "Creating Testbeds\n";
-$query = "insert into testbeds (testbedid,name) values($1,$2);";
+$query = "insert into testbeds (testbedid,name,url) values($1,$2,$3);";
 for ($i = 0; $i < $aantalTestbeds; $i++) {
-    $data = array("urn-testbed$i", "testbed$i");
+    $data = array("urn-testbed$i", "testbed$i", "http://site-testbed$i.com");
     pg_query_params($con, $query, $data);
 }
 
@@ -143,8 +143,11 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
             "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000)
         );
         pg_query_params($con, $query, $data);
-
-        $data = array('pingValue', rand(0, 240));
+        $pingVal = rand(30,240);
+        if ($pingVal%7 == 0){//kans van 1 op 7 voor fatals
+            $pingVal = -1;
+        }
+        $data = array('pingValue', $pingVal);
         pg_query_params($con, $subQuery, $data);
 
         $instanceid++;
@@ -157,45 +160,53 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
             "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000)
         );
         pg_query_params($con, $query, $data);
-
+        
+        $status= (rand(0,7)==1)?"Good":"Warn";
         $data = array(
             'setUp',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
+        
+        $status= (rand(0,7)==1)?"Warn":"Good";
         $data = array(
             'getUserCredential',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
+        
+        $status= (rand(0,7)==1)?"Warn":"Good";
         $data = array(
             'generateRspec',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
+        $status= (rand(0,7)==1)?"Warn":"Good";
         $data = array(
             'createSlice',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
+        $status= (rand(0,7)==1)?"Warn":"Good";
         $data = array(
             'initStitching',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
+        $status= (rand(0,7)==1)?"Warn":"Good";
         $data = array(
             'callSCS',
-            'Good'
+            $status
         );
         pg_query_params($con, $subQuery, $data);
         $data = array(
             'callCreateSlivers',
-            'Good'
+            'FATAL'
         );
         pg_query_params($con, $subQuery, $data);
         $data = array(
             'waitForAllReady',
-            'FATAL'
+            'SKIP'
         );
         pg_query_params($con, $subQuery, $data);
         $data = array(
@@ -204,7 +215,7 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
         );
         pg_query_params($con, $subQuery, $data);
         $data = array(
-            'CALLDeletes',
+            'callDeletes',
             'Warn'
         );
         pg_query_params($con, $subQuery, $data);

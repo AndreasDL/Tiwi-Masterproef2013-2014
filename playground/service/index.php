@@ -7,13 +7,15 @@ error_reporting(-1);
     #autoload classes
     spl_autoload_register('apiAutoload');
     function apiAutoload($classname){
-        if (preg_match('/[a-zA-Z]+Controller$/', $classname)) {
+        if (preg_match('/[a-zA-Z]+Controller$/', $classname) && file_exists(__DIR__.'/controllers/'.$classname.'.php')) {
             include __DIR__ . '/controllers/' . $classname . '.php';
             return true;
         }
-        else if (preg_match('/[a-zA-Z]+Formatter$/' , $classname)){
+        else if (preg_match('/[a-zA-Z]+Formatter$/' , $classname) && file_exists(__DIR__.'/formatters/'.$classname.'.php')){
             include __DIR__."/formatters/" . $classname . '.php';
             return true;
+        }else{
+            return false;
         }
     }
     
@@ -22,49 +24,78 @@ error_reporting(-1);
     if (isset ($_SERVER['PATH_INFO'])){
         $controller_name = ucfirst(explode('/',$_SERVER['PATH_INFO'])[1]);
     }
-    $controller_name .= 'Controller';
-    
-    #request method
-    $verb = $_SERVER['REQUEST_METHOD'];
-    
-    /*//Debug
-    print "<b>Controller stuffs: </b><br>";
-    print "$verb<br>";
-    print "$controller_name<br>";
-    */
-    
-    #parameters parsen enkel nog get params
-    //print "<b>Params</b><br>";
-    $parameters = array();
-    if (isset($_SERVER['QUERY_STRING'])) {
-        parse_str($_SERVER['QUERY_STRING'], $parameters);
-        foreach ($parameters as $key => $value){
-            $parameters[$key] = explode(',',$value);
+    if ($controller_name != ""){//controller gegeven
+        $controller_name .= 'Controller';
+
+        #request method
+        $verb = $_SERVER['REQUEST_METHOD'];
+
+        /*//Debug
+        print "<b>Controller stuffs: </b><br>";
+        print "$verb<br>";
+        print "$controller_name<br>";
+        */
+
+        #parameters parsen (enkel get)
+        //print "<b>Params</b><br>";
+        $parameters = array();
+        if (isset($_SERVER['QUERY_STRING'])) {
+            //parameter gegeven
+            parse_str($_SERVER['QUERY_STRING'], $parameters);
+
+            //check if params are valid
+            //no from/till met count
+            //so also not with last => (last sets count at 1 if not given in databaseAccess)
+            $valid = True;
+            if (isset($parameters['from']) || isset($parameters['till'])){
+                if(isset($parameters['count'])){
+                    //fout : count bij from en/of till
+                    echo "Error: count and from/till clause not allowed simultaneously!";
+                    $valid=false;
+                }else if ($controller_name == 'LastController'){
+                    //fout : count bij last
+                    echo "Error: Last and from/till clause not allowed simultaneously!";
+                    $valid=false;
+                }
+            }
+            
+            //pas parsen als't geldig is
+            if ($valid){
+                //parameters gegeven & geldig
+                //arrays van params parsen
+                foreach ($parameters as $key => $value){
+                    $parameters[$key] = explode(',',$value);
+                }
+                //print_r($parameters);
+
+                //echo $parameters['format'];
+                //redirect to controller
+                $data = null;
+                if (class_exists($controller_name)){
+                    //print "<b>redirecting to $controller_name... </b><br>";
+                    $controller = new $controller_name();
+                    $data = $controller->get($parameters);
+                }else{
+                    echo "Error: $controller_name is not a valid function!";
+                }
+
+                if( isset($data) ){
+                    $formatter;
+                    if(isset($parameters['format']) && class_exists(ucfirst($parameters['format'][0]).'Formatter')){
+                        $formatterName  = ucfirst($parameters['format'][0]);
+                        $formatterName .= 'Formatter';
+                        $formatter = new $formatterName();
+                    }else{
+                        //echo "dan maar json";
+                        //if format doesn't exists => use json
+                        $formatter = new JsonFormatter();
+                    } 
+                    echo $formatter->format($data);
+                }
+            }
         }
-    }
-    //print_r($parameters);
-    
-    //echo $parameters['format'];
-    //redirect to controller
-    $data = null;
-    if (class_exists($controller_name)){
-        //print "<b>redirecting to $controller_name... </b><br>";
-        $controller = new $controller_name();
-        $data = $controller->get($parameters);
-    }
-    if( isset($data) ){
-        $formatter;
-        if(isset($parameters['format']) && class_exists(ucfirst($parameters['format'][0]).'Formatter')){
-            $formatterName  = ucfirst($parameters['format'][0]);
-            $formatterName .= 'Formatter';
-            $formatter = new $formatterName();
-        }else{
-            //echo "dan maar json";
-            $formatter = new JsonFormatter();
-        } 
-        echo $formatter->format($data);
     }else{
-        ?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -117,6 +148,10 @@ error_reporting(-1);
             <tr>
                 <td><a href="./index.php/testInstance?testtype=stitch&format=PrettyJson">/testInstance?testtype=stitch</a></td>
                 <td>Geeft alle geplande tests weer van het type stitch</td>
+            </tr>
+            <tr>
+                <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>
+                <td>Geeft alle testbeds weer.</td>
             </tr>
             
         </table>

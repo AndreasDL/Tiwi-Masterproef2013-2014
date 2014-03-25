@@ -149,7 +149,26 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
-    
+    public function getTestbed($params){
+        $query = "select * from testbeds";
+        $paramsForUse = array();
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testbed", "testbedid");
+        
+        $con = $this->getConnection();
+        $result = pg_query_params($con, $query, $paramsForUse);
+        $data = array();
+        while ($row = pg_fetch_assoc($result)) {
+            //array_push($data, $row);
+            if (!isset($data[$row['testbedid']])){
+                $data[$row['testbedid']] = 
+                    array ('name' => $row['name'],
+                        'url' => $row['url']
+                    );
+            }
+        }
+        $this->closeConnection($con);
+        return $data;
+    }
     //fix connection
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");

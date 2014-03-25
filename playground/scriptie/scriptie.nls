@@ -13,20 +13,20 @@
   \item [{GUI}]\begingroup graphical user interface\nomeqref {1.0}
 		\nompageref{3}
   \item [{html}]\begingroup HyperText Markup Language\nomeqref {5.0}
-		\nompageref{23}
+		\nompageref{25}
   \item [{jFed}]\begingroup java Federation\nomeqref {0}\nompageref{i}
   \item [{json}]\begingroup javascript object notation\nomeqref {5.0}
-		\nompageref{21}
+		\nompageref{23}
   \item [{OS}]\begingroup operating system\nomeqref {5.0}
-		\nompageref{23}
+		\nompageref{25}
   \item [{php}]\begingroup hypertext preprocessor\nomeqref {5.0}
-		\nompageref{23}
+		\nompageref{25}
   \item [{sql}]\begingroup structured query language\nomeqref {5.0}
-		\nompageref{22}
+		\nompageref{24}
   \item [{SSH}]\begingroup secure shell\nomeqref {1.0}\nompageref{3}
   \item [{SSL}]\begingroup secure sockets layer\nomeqref {1.0}
 		\nompageref{2}
   \item [{XML}]\begingroup extensible markup language \nomeqref {2.0}
-		\nompageref{7}
+		\nompageref{9}
 
 \end{thenomenclature}
