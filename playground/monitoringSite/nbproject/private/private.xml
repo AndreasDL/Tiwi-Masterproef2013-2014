@@ -5,6 +5,8 @@
         <group>
             <file>file:/srv/http/monitoringSite/history.php</file>
             <file>file:/srv/http/monitoringSite/config.php</file>
+            <file>file:/srv/http/monitoringSite/index_international.php</file>
+            <file>file:/srv/http/monitoringSite/scenarios.php</file>
         </group>
     </open-files>
 </project-private>

@@ -20,6 +20,8 @@
 \usepackage[Gray,squaren,thinqspace,thinspace]{SIunits} % Om elegant eenheden te zetten
 \usepackage[version=3]{mhchem}          % Voor elegante scheikundige formules
 
+\usepackage{pdfpages}					% Pdf includeren
+
 \usepackage{nomencl}
 \makenomenclature %update bij every run
 \renewcommand{\nomname}{Lijst van afkortingen}
@@ -213,10 +215,10 @@
 
 \frontmatter
 
-%\input{lc-titel}                            % Algemene versie
+\includepdf[pages={1}]on gwnitelblad.pdf}       %titelblad
 
-%\input{copyright-thesis}                   % Voor een echte thesis.
-%\input{lc-woordvooraf}                      % Algemene versie
+%\input{copyright-thesis}                   	% Voor een echte thesis.
+%\input{lc-woordvooraf}                      	% Algemene versie
 
 % Voor een echte thesis, komt hier de samenvatting...
 \input{Abstract-nl}                            % ...in het Nederlands en...
