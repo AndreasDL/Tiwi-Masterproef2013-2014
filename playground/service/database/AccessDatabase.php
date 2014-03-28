@@ -72,7 +72,7 @@ class AccessDatabase {
         }
         
         $this->closeConnection($con);
-        return array("list" => $data);
+        return $data;
         
     }
     //Config Calls
@@ -104,7 +104,7 @@ class AccessDatabase {
         }
         
         $this->closeConnection($con);
-        return array("testDefinitions" => $data);
+        return $data;
         
     }
     public function getTestInstance($params) {
@@ -139,7 +139,7 @@ class AccessDatabase {
         }
 
         $this->closeConnection($con);
-        return array("testinstances" => $data);
+        return $data;
     }
     public function getTestbed($params){
         $query = "select * from testbeds";
@@ -159,7 +159,7 @@ class AccessDatabase {
             }
         }
         $this->closeConnection($con);
-        return array("testbeds" => $data);
+        return $data;
     }
     //fix connection
     private function getConnection() {

@@ -27,10 +27,10 @@
     //todo webservice via config file
     Include ( __DIR__.'/config.php');
     
-    $data = json_decode(file_get_contents($GLOBALS['urlLocal']),true);
-    $data = $data['list'];
+    $data = json_decode(file_get_contents($GLOBALS['urlInternational']),true);
+    $data = $data['data'];
     $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
-    $testbedurls = $testbedurls['testbeds'];
+    $testbedurls = $testbedurls['data'];
     //print_r($data);
     foreach ($data as $key => $row){
         echo "<tr>";

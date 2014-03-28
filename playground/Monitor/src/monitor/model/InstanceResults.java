@@ -12,10 +12,12 @@ import java.util.HashMap;
  *
  * @author drew
  */
-public class TestInstances {
-    private HashMap<String,TestInstance> testinstances;
+public class InstanceResults {
+    private int Status;
+    private String msg;
+    private HashMap<String,TestInstance> data;
 
     public HashMap<String, TestInstance> getTests() {
-        return testinstances;
+        return data;
     }
 }

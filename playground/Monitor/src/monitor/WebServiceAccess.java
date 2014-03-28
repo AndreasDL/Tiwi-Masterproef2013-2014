@@ -6,7 +6,6 @@
 package monitor;
 
 import monitor.model.TestInstance;
-import monitor.model.TestInstances;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import monitor.model.InstanceResults;
+import monitor.model.Results;
 
 public class WebServiceAccess {
     //TODO configuratie file
@@ -34,9 +35,10 @@ public class WebServiceAccess {
             String jsonText = readAll(rd);
             //System.out.println(jsonText);
             
+            //parse json string
             Gson g = new Gson();
-            TestInstances t = g.fromJson(jsonText,TestInstances.class);
             
+            InstanceResults t = g.fromJson(jsonText,InstanceResults.class);
             System.out.println(t.getTests().size());
             for (TestInstance te : t.getTests().values()){
                 System.out.println(te.getTestname());
@@ -48,7 +50,16 @@ public class WebServiceAccess {
                 }
             }
             
-            //parse json string
+            /*
+            Results<TestInstance> t = g.fromJson(jsonText,Results.class);
+            System.out.println(t.getData().size());
+            for(String s : t.getData().keySet()){
+                System.out.println(s);
+                System.out.println(t.getData().get(s));
+                
+            }
+            */
+            
             //run test
             //send to database
             return null;
@@ -68,5 +79,4 @@ public class WebServiceAccess {
         }
         return sb.toString();
     }
-
 }

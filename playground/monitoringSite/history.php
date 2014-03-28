@@ -34,7 +34,7 @@
     date_default_timezone_set('CET');
     
     $data = json_decode(file_get_contents($GLOBALS['webservice'].'/list?testname='.$testname),true);
-    $data = $data['list'];
+    $data = $data['data'];
     //print_r($data);
     $subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
     foreach ($data as $key => $row){
