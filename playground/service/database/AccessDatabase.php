@@ -15,13 +15,6 @@ class AccessDatabase {
         }
         return $this->getList($params);
     }
-    public function getDetail($params) {
-        //later te maken => alle koloms aanwezig in tabel
-        //=> beslissen welke dan extra worden meegegeven.
-    }
-    public function getAverage($params) {
-        //gaat nog niet want resultaat zit in json codering
-    }
     public function getList($params) {
         $query = "select * from ("
                     . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from list"
@@ -79,7 +72,7 @@ class AccessDatabase {
         }
         
         $this->closeConnection($con);
-        return $data;
+        return array("list" => $data);
         
     }
     //Config Calls
@@ -111,7 +104,7 @@ class AccessDatabase {
         }
         
         $this->closeConnection($con);
-        return $data;
+        return array("testDefinitions" => $data);
         
     }
     public function getTestInstance($params) {
@@ -145,9 +138,8 @@ class AccessDatabase {
             );
         }
 
-        
         $this->closeConnection($con);
-        return $data;
+        return array("testinstances" => $data);
     }
     public function getTestbed($params){
         $query = "select * from testbeds";
@@ -167,7 +159,7 @@ class AccessDatabase {
             }
         }
         $this->closeConnection($con);
-        return $data;
+        return array("testbeds" => $data);
     }
     //fix connection
     private function getConnection() {

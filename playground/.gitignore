@@ -28,3 +28,5 @@ nbproject/*
 !nbproject/project.properties
 !nbproject/project.xml
 /Monitor/nbproject/private/
+/Monitor/build/
+/Monitor/dist/

@@ -6,11 +6,14 @@ package monitor;
  * @author drew
  */
 public class Monitor {
-
-    /**
-     * @param args the command line arguments
-     */
+    private WebServiceAccess webAccess;
+    
     public static void main(String[] args) {
+        new Monitor();
+        //kleine hoeveelheid data veel nodig => caches bij opstarten?
+        //testdefinities cachen
+        //testbeds caches
+        
         //vraag ping test op van webservice
         
         //zet params goed 
@@ -21,9 +24,9 @@ public class Monitor {
         
         //stuur terug
     }
-    
-    
-    private void getTest(){
-        
+
+    public Monitor() {
+        webAccess = new WebServiceAccess();
+        webAccess.getTests();
     }
 }
