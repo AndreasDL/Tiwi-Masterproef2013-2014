@@ -1,6 +1,13 @@
 
 package monitor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import monitor.model.TestForExecution;
+import monitor.model.TestDefinition;
+import monitor.model.TestInstance;
+import monitor.model.Testbed;
+
 /**
  *
  * @author drew
@@ -8,25 +15,41 @@ package monitor;
 public class Monitor {
     private WebServiceAccess webAccess;
     
+    private HashMap<String,Testbed> testbeds;
+    private HashMap<String,TestDefinition> testDefinitions;
+    
+    
     public static void main(String[] args) {
         new Monitor();
-        //kleine hoeveelheid data veel nodig => caches bij opstarten?
-        //testdefinities cachen
-        //testbeds caches
-        
-        //vraag ping test op van webservice
-        
-        //zet params goed 
-        
-        //voor uit
-                
-        //parse
-        
-        //stuur terug
     }
 
     public Monitor() {
-        webAccess = new WebServiceAccess();
-        webAccess.getTests();
+        this.webAccess       = new WebServiceAccess();
+        //chache testbeds & testdefinitions
+        //i don't want to call the service all the time and i don't wan't to make complexer view too so, caching sounds great!
+        
+        this.testbeds        = webAccess.getTestBeds();
+        this.testDefinitions = webAccess.getTestDefinitions();
+        getTestInstances();
+    }
+    
+    public ArrayList<TestForExecution> getTestInstances(){
+        //pingstest only
+        HashMap<String,TestInstance> instances = webAccess.getTestInstances();
+        
+        for (TestInstance ti : instances.values()){
+            //test
+            TestForExecution t = new TestForExecution(
+                    testDefinitions.get(ti.getTesttype()).getTestcommand(),
+                    ti.getParameters()
+                );
+            
+            //execute?
+            t.run();
+            
+        }
+        
+        return null;
+        
     }
 }

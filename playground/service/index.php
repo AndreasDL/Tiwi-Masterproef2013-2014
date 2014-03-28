@@ -22,7 +22,7 @@ function apiAutoload($classname) {
 #controller bepalen
 $data = null;
 $status = '200';
-$msg = 'Good!';
+$msg ='';//= 'Good!';
 
 $formatter = new JsonFormatter(); //Default formatter
 //getcontroller => no controller => show info page

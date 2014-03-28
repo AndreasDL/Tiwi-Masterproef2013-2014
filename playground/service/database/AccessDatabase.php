@@ -91,14 +91,14 @@ class AccessDatabase {
                 $data[$row['testtype']] = array(
                     'testcommand' => $row['testcommand'],
                     'parameters'  => array(),
-                    'return'      => array()
+                    'returnValues'      => array()
                 );
             }
             $data[$row['testtype']]['parameters'][$row['parametername']]
                     =array('type'=>$row['parametertype'],
                         'description' => $row['parameterdescription']);
             
-            $data[$row['testtype']]['return'][$row['returnname']]
+            $data[$row['testtype']]['returnValues'][$row['returnname']]
                     =array('type'=>$row['returntype'],
                         'description' => $row['returndescription']);
         }
@@ -133,9 +133,11 @@ class AccessDatabase {
                     'parameters' => array()
                 );
             }
-            array_push($data[$row['id']]['parameters'],
-                array($row['parametername']=>$row['parametervalue'])
-            );
+            if (!isset($data[$row['id']]['parameters'][$row['parametername']])){
+                $data[$row['id']]['parameters'][$row['parametername']] = array();
+            }
+            
+            array_push($data[$row['id']]['parameters'][$row['parametername']],$row['parametervalue']);
         }
 
         $this->closeConnection($con);

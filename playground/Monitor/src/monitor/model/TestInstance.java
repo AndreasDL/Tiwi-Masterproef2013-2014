@@ -16,22 +16,8 @@ import java.util.HashMap;
 public class TestInstance {
     private String testname,testtype;
     private int frequency;
-    private ArrayList<HashMap<String,String>> parameters;
+    private HashMap<String,ArrayList<String>> parameters;
 
-    public TestInstance(String testname, String testtype, int frequency, ArrayList<HashMap<String, String>> parameters) {
-        this.testname = testname;
-        this.testtype = testtype;
-        this.frequency = frequency;
-        this.parameters = parameters;
-    }
-
-    public ArrayList<HashMap<String, String>> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(ArrayList<HashMap<String, String>> parameters) {
-        this.parameters = parameters;
-    }
 
     public String getTestname() {
         return testname;
@@ -56,4 +42,16 @@ public class TestInstance {
     public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
+
+    public HashMap<String, ArrayList<String>> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(HashMap<String, ArrayList<String>> parameters) {
+        this.parameters = parameters;
+    }
+
+
+
+
 }

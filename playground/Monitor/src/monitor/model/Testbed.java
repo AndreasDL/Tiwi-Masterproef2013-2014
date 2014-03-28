@@ -6,18 +6,19 @@
 
 package monitor.model;
 
-import java.util.HashMap;
-
 /**
  *
  * @author drew
  */
-public class InstanceResults {
-    private int Status;
-    private String msg;
-    private HashMap<String,TestInstance> data;
+public class Testbed {
+    private String name,url;
 
-    public HashMap<String, TestInstance> getTests() {
-        return data;
+    public String getName() {
+        return name;
     }
+
+    public String getUrl() {
+        return url;
+    }
+    
 }
