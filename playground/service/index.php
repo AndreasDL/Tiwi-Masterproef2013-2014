@@ -22,7 +22,8 @@ function apiAutoload($classname) {
 #controller bepalen
 $data = null;
 $status = '200';
-$msg = '';
+$msg = 'Good!';
+
 $formatter = new JsonFormatter(); //Default formatter
 //getcontroller => no controller => show info page
 $controller_name = "";
@@ -41,7 +42,7 @@ if ($controller_name != "") {
         $controller = new $controller_name();
     } else {
         $status = '404';
-        $msg = "Error: $controller_name is not a valid function!";
+        $msg .= "Error: $controller_name is not a valid function!";
         $valid = False;
     }
 
@@ -59,14 +60,15 @@ if ($controller_name != "") {
         }
 
         //GetFormat from params
-        if (isset($parameters['format']) && class_exists(ucfirst($parameters['format'][0]) . 'Formatter')) {
-            $formatterName = ucfirst($parameters['format'][0]);
-            $formatterName .= 'Formatter';
-            $formatter = new $formatterName();
-        } else {
-            //don't set status=> 200 by default, this will work since it will also trigger when no format is given
-            $msg .= (sizeof($msg) > 0) ? '' : ' | ';
-            $msg .= "Warn : Format not set or found, using Json instead";
+        if (isset($parameters['format'])) {
+            if (class_exists(ucfirst($parameters['format'][0]) . 'Formatter')) {
+                $formatterName = ucfirst($parameters['format'][0]);
+                $formatterName .= 'Formatter';
+                $formatter = new $formatterName();
+            } else {
+                //don't set status=> 200 by default, this will work since it will also trigger when no format is given
+                $msg = "Warn : Format not found, using Json instead";
+            }
         }
 
         //check if params are valid
@@ -76,14 +78,12 @@ if ($controller_name != "") {
             if (isset($parameters['count'])) {
                 //fout : count bij from en/of till
                 $status = '400';
-                $msg .= (sizeof($msg) > 0) ? ' | ' : '';
                 $msg = "Error: count and from/till clause not allowed simultaneously!";
                 $valid = false;
             } else if ($controller_name == 'LastController') {
                 //fout : count bij last
                 $status = '400';
-                $msg .= (sizeof($msg) > 0) ? ' | ' : '';
-                $msg .= "Error: Last and from/till clause not allowed simultaneously!";
+                $msg = "Error: Last and from/till clause not allowed simultaneously!";
                 $valid = false;
             }
         }
@@ -92,11 +92,9 @@ if ($controller_name != "") {
         if ($valid) {
             //print "<b>redirecting to $controller_name... </b><br>";
             $data = $controller->get($parameters);
-            $msg = 'Good!';
         }
-
-        echo $formatter->format($data, $status, $msg);
     }
+    echo $formatter->format($data, $status, $msg);
 } else {
     ?>
     <!DOCTYPE html>
