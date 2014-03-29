@@ -26,7 +26,7 @@ public class Monitor {
     public Monitor() {
         this.webAccess       = new WebServiceAccess();
         //chache testbeds & testdefinitions
-        //i don't want to call the service all the time and i don't wan't to make complexer view too so, caching sounds great!
+        //i don't want to call the service all the time and i don't wan't to make complexer view too so, caching suddenly seems like a good idea.
         
         this.testbeds        = webAccess.getTestBeds();
         this.testDefinitions = webAccess.getTestDefinitions();
@@ -45,8 +45,7 @@ public class Monitor {
                 );
             
             //execute?
-            t.run();
-            
+            t.run(testbeds,testDefinitions);
         }
         
         return null;
