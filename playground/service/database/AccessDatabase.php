@@ -86,7 +86,6 @@ class AccessDatabase {
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
         while ($row = pg_fetch_assoc($result)) {
-            //array_push($data, $row);
             if (!isset($data[$row['testtype']])){
                 $data[$row['testtype']] = array(
                     'testcommand' => $row['testcommand'],
@@ -96,7 +95,9 @@ class AccessDatabase {
             }
             $data[$row['testtype']]['parameters'][$row['parametername']]
                     =array('type'=>$row['parametertype'],
-                        'description' => $row['parameterdescription']);
+                        'description' => $row['parameterdescription'],
+                        'property' => $row['parameterproperty']
+                    );
             
             $data[$row['testtype']]['returnValues'][$row['returnname']]
                     =array('type'=>$row['returntype'],

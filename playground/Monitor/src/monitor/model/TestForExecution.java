@@ -30,16 +30,16 @@ public class TestForExecution {
         this.parameters = parametes;
     }
 
-    public void run(HashMap<String,Testbed> testbeds,HashMap<String,TestDefinition> testDefinitions) {
+    public void run() {
         //swap params for real values
         //run shell command
-        System.out.print("Exec " + Command + " with => ");
+        System.out.print("Exec " + Command + " => ");
         for (String key : parameters.keySet()) {
             System.out.print(key + " = ");
             for (String value : parameters.get(key)) {
                 System.out.print(value + " ");
             }
-            System.out.print("  |  ");
+            System.out.print(" |  ");
         }
         System.out.println("");
 

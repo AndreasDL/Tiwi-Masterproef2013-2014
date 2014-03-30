@@ -25,6 +25,7 @@ CREATE TABLE parameterDefinitions(
     testType character varying NOT NULL,
     parameterName text NOT NULL,
     parameterType text NOT NULL,
+    parameterProperty text NOT NULL,
     parameterDescription text
 );
 CREATE TABLE returnDefinitions(
@@ -85,3 +86,5 @@ ALTER TABLE public.results OWNER TO postgres;
 ALTER TABLE public.subResults OWNER TO postgres;
 
 ALTER TABLE public.list OWNER TO postgres;
+ALTER TABLE public.definitions OWNER TO postgres;
+ALTER TABLE public.instances OWNER TO postgres;

@@ -116,7 +116,7 @@ public class WebServiceAccess {
 
 
 
-
+//needed for json extraction
 private class TestbedResults {
     private int status;
     private String msg;

@@ -26,14 +26,14 @@ for ($i = 0; $i < $aantalTestbeds; $i++) {
 
 //testdefinitions
 echo "Creating TestDefinitions\n";
-$subQuery = "insert into parameterDefinitions (testType,parameterName,parameterType,parameterDescription) values ($1,$2,$3,$4);";
+$subQuery = "insert into parameterDefinitions (testType,parameterName,parameterType,parameterProperty,parameterDescription) values ($1,$2,$3,$4,$5);";
 $retQuery = "insert into returnDefinitions (testType,returnName,returnType,returnDescription) values ($1,$2,$3,$4);";
 $query = "insert into testdefinitions (testtype,testcommand) values($1,$2);";
 
 echo "\tCreating Ping test\n";
-$data = array("ping", "timeout", "integer", "timeout for ping test");
+$data = array("ping", "timeout", "integer", "value", "timeout for ping test");
 pg_query_params($con, $subQuery, $data);
-$data = array("ping", "testbedId", "testbedId", "testbed for ping test");
+$data = array("ping", "testbed", "testbed", "url", "url of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array('ping', 'ping');
 pg_query_params($con, $query, $data);
@@ -41,9 +41,9 @@ $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array("stitch", "topology", "string", "ring | line");
+$data = array("stitch", "topology", "string", "value", "ring | line");
 pg_query_params($con, $subQuery, $data);
-$data = array("stitch", "testbedId", "testbedId[]", "multiple testbeds for ping test");
+$data = array("stitch", "testbedId", "testbedId[]", "value", "multiple testbeds for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array('stitch', 'stitch');
 pg_query_params($con, $query, $data);
@@ -89,7 +89,7 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
     );
     pg_query_params($con, $subQuery, $data);
     $data = array(
-        'testbedId',
+        'testbed',
         'urn-testbed' . $i
     );
     pg_query_params($con, $subQuery, $data);
