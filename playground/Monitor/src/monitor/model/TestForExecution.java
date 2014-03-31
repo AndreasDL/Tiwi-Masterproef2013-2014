@@ -18,14 +18,25 @@ public class TestForExecution {
 
     //omzetten naar interface en concrete tests => probleem met toevoegen
     private String command;
+    private TestInstance test;
 
-    public TestForExecution(String Command) {
+    public TestForExecution(String Command,TestInstance test) {
         this.command = Command;
+        this.test = test;
     }
 
     public String getCommand() {
         return command;
     }
+
+    public TestInstance getTest() {
+        return test;
+    }
+    
+    public String getTestType(){
+        return test.getTesttype();
+    }
+    
 
     public String run() throws IOException, InterruptedException {
         //swap params for real values

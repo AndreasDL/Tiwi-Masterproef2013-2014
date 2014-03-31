@@ -17,6 +17,15 @@ public class TestInstance {
     private String testname,testtype;
     private int frequency;
     private HashMap<String,ArrayList<String>> parameters;
+    private String instanceId;
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
 
 
     public String getTestname() {

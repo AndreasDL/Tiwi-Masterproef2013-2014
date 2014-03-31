@@ -41,8 +41,10 @@ public class WebServiceAccess {
         ArrayList<TestForExecution> tests = new ArrayList<>();
         
         Pattern p = Pattern.compile("<([^>]*)>");
-        for (TestInstance ti : getTestInstances().values()) {
-            //System.out.println(ti.getTestname());
+        for (String instanceId : getTestInstances().keySet()){
+            TestInstance ti = getTestInstances().get(instanceId);
+            ti.setInstanceId(instanceId);
+
             //parse command
             StringBuffer stibu = new StringBuffer();
             Matcher m = p.matcher(testDefinitions.get(ti.getTesttype()).getTestcommand());
@@ -54,7 +56,7 @@ public class WebServiceAccess {
             }
             m.appendTail(stibu);
             
-            TestForExecution t = new TestForExecution(stibu.toString());
+            TestForExecution t = new TestForExecution(stibu.toString(),ti);
             tests.add(t);
         }
         return tests;
@@ -130,6 +132,10 @@ public class WebServiceAccess {
 
         return (t == null) ? null : t.getData();
     }
+    public void addResult(String result,TestForExecution t){
+        //String url
+    }
+    
     
     public void updateCache() {
         //cache => testbeds and testdefinitions

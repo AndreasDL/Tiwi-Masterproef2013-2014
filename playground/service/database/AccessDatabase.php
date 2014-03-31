@@ -8,14 +8,14 @@ class AccessDatabase {
         
     }
     //Result Calls
-    public function getLast($params) {
+    public function getLast(&$params) {
         //last => indien count niet gezet => op 1 zetten
         if (!isset($params['count'])) {
             $params['count'] = array(1);
         }
         return $this->getList($params);
     }
-    public function getList($params) {
+    public function getList(&$params) {
         $query = "select * from ("
                     . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from list"
                 . ") vv ";
@@ -76,7 +76,7 @@ class AccessDatabase {
         
     }
     //Config Calls
-    public function getTestDefinition($params) {
+    public function getTestDefinition(&$params) {
         $query = "select * from definitions";
         
         $paramsForUse = array();
@@ -107,7 +107,7 @@ class AccessDatabase {
         return $data;
         
     }
-    public function getTestInstance($params) {
+    public function getTestInstance(&$params) {
         $query = "select * from instances ";
         $paramsForUse = array();
         $eindhaakje = "";
@@ -143,7 +143,7 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
-    public function getTestbed($params){
+    public function getTestbed(&$params){
         $query = "select * from testbeds";
         $paramsForUse = array();
         $this->addInIfNeeded($query, $params, $paramsForUse, "testbed", "testbedid");
@@ -163,6 +163,33 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
+    //push calls
+    public function addResult(&$params){
+        print "Adding Result<br><br>";
+        print_r($params);
+        
+        $query = "insert into results (testinstanceid,log) values ($1,$2);";
+        $subQuery = "insert into subresults(resultId,name,value) values(lastval(),$1,$2);";
+        $con = $this->getConnection();
+        
+        $data = array(
+            $params['instanceid'][0],
+            'http://f4f-mon-dev.intec.ugent.be/logs/'.$params['instanceid'][0].'/'.rand(0, 10000)
+        );
+        pg_query_params($con, $query, $data);
+        print_r($data);
+        
+        if ($params['testtype'][0] == 'ping'){
+            $data = array('pingValue', $params['pingVal'][0]);
+            pg_query_params($con, $subQuery, $data);
+        }
+        print_r($data);
+        
+        $this->closeConnection($con);
+        print "done";
+        return;
+    }
+    
     //fix connection
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");
