@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . "/../config.php"); //database config
+//include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 17;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 5;
