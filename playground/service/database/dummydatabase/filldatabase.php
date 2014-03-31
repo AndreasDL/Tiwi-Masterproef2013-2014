@@ -20,7 +20,7 @@ echo "connection established\n";
 echo "Creating Testbeds\n";
 $query = "insert into testbeds (testbedid,name,url) values($1,$2,$3);";
 for ($i = 0; $i < $aantalTestbeds; $i++) {
-    $data = array("urn-testbed$i", "testbed$i", "http://site-testbed$i.com");
+    $data = array("urn-testbed$i", "testbed$i", "facebook.com");
     pg_query_params($con, $query, $data);
 }
 
@@ -35,7 +35,7 @@ $data = array("ping", "timeout", "integer", "value", "timeout for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array("ping", "testbed", "testbed", "url", "url of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
-$data = array('ping', 'ping');
+$data = array('ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
 $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
@@ -43,7 +43,7 @@ pg_query_params($con, $retQuery, $data);
 echo "\tCreating Stitching test\n";
 $data = array("stitch", "topology", "string", "value", "ring | line");
 pg_query_params($con, $subQuery, $data);
-$data = array("stitch", "testbedId", "testbedId[]", "value", "multiple testbeds for ping test");
+$data = array("stitch", "testbed", "testbed[]", "value", "multiple testbeds for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array('stitch', 'stitch');
 pg_query_params($con, $query, $data);
@@ -112,17 +112,17 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
     );
     pg_query_params($con, $subQuery, $data);
     $data = array(
-        'testbedId',
+        'testbed',
         'urn-testbed' . $i
     );
     pg_query_params($con, $subQuery, $data);
     $data = array(
-        'testbedId',
+        'testbed',
         'urn-testbed' . ($i + 1) % $aantalTestbeds
     );
     pg_query_params($con, $subQuery, $data);
     $data = array(
-        'testbedId',
+        'testbed',
         'urn-testbed' . ($i + 2) % $aantalTestbeds
     );
     pg_query_params($con, $subQuery, $data);

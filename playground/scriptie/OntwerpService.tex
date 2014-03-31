@@ -17,8 +17,7 @@ Voor het opvragen van resultaten wordt gebruik gemaakt van een generische functi
 Er zijn een aantal functies voorzien voor het opvragen van de resultaten.
 \begin{itemize}
 \item last: Deze functie geeft het laatste/ de laatste resultaat/resultaten terug (per test,testbed).
-\item list: Deze functie geeft een lijst resultaten die voldoen aan de opgegeven parameters. 
-Zo kan deze lijst bijvoorbeeld beperkt worden tot een resultaten die overeenkomen met een bepaalde status of vallen tussen bepaalde data.
+\item list: Deze functie geeft een lijst resultaten die voldoen aan de opgegeven parameters. Deze lijst kan gefilterd worden, bijvoorbeeld enkel resultaten opvragen die tussen bepaalde data vallen.
 %average weggelaten => enkel nuttig bij ping test dus mss niet nuttig
 \item detail: Deze functie geeft een detailweergave terug van een test. Deze detail weergave kan bijvoorbeeld ook logfiles bevatten om debugging te vergemakkelijken.
 \end{itemize}
@@ -30,9 +29,7 @@ Hier worden de parameters besproken. Deze parameters zullen het resultaat van de
 \item testbed: Deze parameter duidt een of meerdere testbeds aan.
 \item testtype: Deze parameter duidt het type van de test aan.
 \item status: Deze parameter duidt de status aan. Let op dit is per subtest.
-\item count: Deze parameter geeft het aantal laatste resultaten aan dat teruggegeven moet worden. 
-Ook wanneer er enkel een till opgegeven is, worden de laatste resultaten voor de opgegeven tijd teruggegeven.
-Wanneer er enkel een from parameter opgegeven is, dan worden de eerste x resultaten startend vanaf de from terug gegeven.
+\item count: Deze parameter geeft het aantal laatste resultaten aan dat teruggegeven wordt. 
 \item from: Geeft aan vanaf welke timestamp er gezocht moet worden.
 \item till: Geeft aan tot welke timestamp de resultaten gezocht moeten worden.
 \item resultid: Geeft een of meerdere id\rq s van een testresultaat.
@@ -40,12 +37,12 @@ Wanneer er enkel een from parameter opgegeven is, dan worden de eerste x resulta
 \item instanceId: Filteren op de testinstantie, gelijkaardig aan de testname.
 \item format: Deze parameter dient niet om de resultaten te filteren, maar om het formaat van het resultaat te bepalen. Standaard is dit json, later kan eventueel xml en/of csv toegevoegd worden.
 \end{itemize}
-Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven. Ook opgeven van lijsten is mogelijk. Zo kunnen de resultaten van pingtest voor 2 verschillende testbeds opvraagd worden met een call, zie ook voorbeelden.
+Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven. Ook is het mogelijk om meerdere waarden te bundelen, zie bij de voorbeelden.
 \clearpage
 
 \subsection{Voorbeelden}
 Hieronder worden een aantal voorbeelden van calls en bijhorende antwoorden geven.
-Voorlopig zijn de voorbeelden beperkt tot het opvragen van data met behulp van HTTP GET requests.
+
 \subsubsection{last?testbed=urn-testbed0\&testtype=ping\&count=2}
 Deze call geeft voor testbed0 de laatste 2 ping resultaten terug.
 \begin{verbatim}
@@ -120,12 +117,6 @@ Deze call geeft voor elk testbed de laatste ping resultaten terug.
 }
 \end{verbatim}
 
-\subsubsection{last?testname=stitching2}
-Deze functie geeft een detail resultaat terug van de stitchingtest met naam 'stitching2'.
-\begin{verbatim}
-Voorbeeld invoegen
-\end{verbatim}
-
 \subsubsection{list?from=2014-03-18T19:29:00\&till=2014-03-18T19:29:10\&testtype=ping\&testbed=urn-testbed1}
 Deze call geeft een lijst van de pingtests tussen 2014-03-18 19:29:00 en 2014-03-18 19u29:10 op testbed1 terug.
 \begin{verbatim}
@@ -159,14 +150,14 @@ Deze call geeft een lijst van de pingtests tussen 2014-03-18 19:29:00 en 2014-03
     ...
 }
 \end{verbatim}
-
+\clearpage
 \section{Calls - configuration}
 Deze calls hebben het doel om de configuratie van een test op te vragen.
 
 \subsection{Functies}
 Er zijn (uiteraard) ook een aantal functies voor het opvragen van de testconfiguratie.
 \begin{itemize}
-\item TestDefinition : Geeft de definitie van een testweer. Deze bevat informatie over de naam, het commando. Verder duidt deze definitie ook aan welke parameters er nodig zijn en welke waarden er terug gegeven worden. Deze waarden zijn echter niet ingevuld. Het is de bedoel om hier bijvoorbeeld te defini\"eren dat een pingtest bijvoorbeeld bestaat uit een ping commando en dat deze een time-out en een testbed moet meekrijgen. Samengevat kan gesteld worden dat dit de beschrijving van een type test is.
+\item TestDefinition : Geeft de definitie van een testweer. Deze bevat informatie over de naam, het commando. Verder duidt deze definitie ook aan welke parameters er nodig zijn en welke waarden er terug gegeven worden. Het is de bedoel om hier te defini\"eren dat een pingtest bijvoorbeeld bestaat uit een ping commando en dat deze een time-out en een testbed moet meekrijgen. 
 \item Testbed: Geeft een of meerdere testbeds aan waarop de testinstantie gedefini\"eerd moet worden.
 \end{itemize}
 
@@ -182,7 +173,7 @@ Een ping test wordt op meerdere testbeds uitgevoerd. Door deze opbouw moet een p
 Het is ook mogelijk om als waarde ALL of een lijst van id's op te geven.
 
 \subsection{Voorbeelden}
-Hieronder worden een aantal mogelijke calls weergegeven. Voorlopig zijn deze voorbeelden beperkt tot het opvragen van data via http get requests.
+Hieronder worden een aantal mogelijke calls weergegeven. 
 
 \clearpage
 \subsubsection{testDefinition?testtype=stitch}
@@ -223,7 +214,7 @@ Deze call geeft de beschrijving van een stitching test terug.
 \end{verbatim}
 \clearpage
 \subsubsection{testInstance?testbed=urn-testbed1,urn-testbed2}
-Hierbij worden alle testinstanties van testbed1 en testbed2 teruggegeven. Dit zijn dus de testen die effectief draaien op testbed1 en/of testbed2.
+Hierbij worden alle testinstanties van testbed1 en testbed2 teruggegeven. Dit zijn de testen die effectief draaien op testbed1 en/of testbed2.
 \begin{verbatim}
 {    "2": {
         "testname": "ping voor testbed1",

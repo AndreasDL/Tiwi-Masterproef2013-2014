@@ -23,7 +23,7 @@ Merk hier ook de opsplitsing testDefinition $<$=$>$ testInstance. TestDefinition
 \section{Testbeds}
 Deze tabel houdt de verschillende testbeds bij en bevat volgende kolommen :
 \begin{itemize}
-\item testbedId: Het id van het testbed. Aangezien elk testbed een uniek urn heeft zal dit waarschijnlijk gebruikt worden als testbedid. Een nadeel is wel dat een urn moeilijk te onthouden is, wat gebruik van de service zal bemoeilijken.
+\item testbedId: Het id van het testbed. Dit veld moet uniek zijn voor elk testbed.
 \item name: de naam van het testbed.
 \end{itemize}
 
@@ -52,8 +52,8 @@ Deze tabel bevat de returnwaarden die bij een testtype horen. De tabel bevat vol
 \end{itemize}
 
 \section{TestInstances}
-Deze tabel zal later de testdefinition koppelen aan de tabel met parameters. In de eerste versie zal hij de waarden hardgecodeerd bevatten.
-In deze tabel wordt er bijgehouden der er om de 5 minuten een ping test uitgevoerd moet worden op een testbedX met een timeout Y.
+Deze tabel zal later de testdefinitions koppelen aan de tabel met parameters. 
+In deze tabel wordt er bijgehouden dat er om de 5 minuten een ping test uitgevoerd moet worden op een testbedX met een timeout Y.
 De tabel bevat volgende kolommen: 
 \begin{itemize}
 \item testInstanceId: Een id om de testinstance mee aan te duiden.

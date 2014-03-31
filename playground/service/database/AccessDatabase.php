@@ -64,7 +64,7 @@ class AccessDatabase {
                     'results'        => array()
                 );
             }
-            if ($row['parametername'] == 'testbedId' && !in_array($row['parametervalue'],$data[$row['resultid']]['testbeds'])){
+            if ($row['parametername'] == 'testbed' && !in_array($row['parametervalue'],$data[$row['resultid']]['testbeds'])){
                 array_push($data[$row['resultid']]['testbeds'],$row['parametervalue']);
             }
             $data[$row['resultid']]['results'][$row['name']] = $row['value'];

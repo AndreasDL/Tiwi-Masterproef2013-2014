@@ -18,37 +18,67 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import monitor.model.Testbed;
 import monitor.model.TestDefinition;
+import monitor.model.TestForExecution;
 
 public class WebServiceAccess {
 
     private Gson g;
+    private HashMap<String, Testbed> testbeds;
+    private HashMap<String, TestDefinition> testDefinitions;
+    //TODO configuratie file
 
     public WebServiceAccess() {
         this.g = new Gson();
+        updateCache();
     }
 
-    //TODO configuratie file
+    public ArrayList<TestForExecution> getTests(){
+        //pingstest only atm => limited in testinstance
+        ArrayList<TestForExecution> tests = new ArrayList<>();
+        
+        Pattern p = Pattern.compile("<([^>]*)>");
+        for (TestInstance ti : getTestInstances().values()) {
+            //System.out.println(ti.getTestname());
+            //parse command
+            StringBuffer stibu = new StringBuffer();
+            Matcher m = p.matcher(testDefinitions.get(ti.getTesttype()).getTestcommand());
+            while (m.find()){
+                //parse param
+                String[] s = m.group(1).split("\\.");
+                //get values
+                m.appendReplacement(stibu, getParamValue(ti,s[0],s[1]));
+            }
+            m.appendTail(stibu);
+            
+            TestForExecution t = new TestForExecution(stibu.toString());
+            tests.add(t);
+        }
+        return tests;
+    }
+    
     public HashMap<String, TestInstance> getTestInstances() {
         TestInstanceResults t = null;
         try {
-            String jsonText = getFromURL("http://localhost/service/index.php/testInstance");
+            String jsonText = getFromURL("http://localhost/service/index.php/testInstance?testtype=ping");
 
             //parse json string
             t = g.fromJson(jsonText, TestInstanceResults.class);
             /*
-            for (TestInstance ti : t.getData().values()){
+            for (TestInstance ti : t.getData().values()) {
                 System.out.println(ti.getTestname());
-                HashMap<String,ArrayList<String>> h = ti.getParameters();
-                for (String key : h.keySet()){
+                HashMap<String, ArrayList<String>> h = ti.getParameters();
+                for (String key : h.keySet()) {
                     System.out.println("\t" + key);
-                    for (String val : h.get(key)){
+                    for (String val : h.get(key)) {
                         System.out.println("\t\t" + val);
                     }
                 }
-            }*/
-
+            }
+*/
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -65,9 +95,9 @@ public class WebServiceAccess {
             //parse json string
             t = g.fromJson(jsonText, TestbedResults.class);
             /*System.out.println(t.getData().size());
-            for (TestBed te : t.getData().values()) {
-                System.out.println(te.getName());
-            }*/
+             for (TestBed te : t.getData().values()) {
+             System.out.println(te.getName());
+             }*/
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -76,7 +106,7 @@ public class WebServiceAccess {
 
         return (t == null) ? null : t.getData();
     }
-    public HashMap<String, TestDefinition> getTestDefinitions(){
+    public HashMap<String, TestDefinition> getTestDefinitions() {
         TestDefinitionResults t = null;
         try {
             String jsonText = getFromURL("http://localhost/service/index.php/testDefinition");
@@ -85,12 +115,12 @@ public class WebServiceAccess {
             //parse json string
             t = g.fromJson(jsonText, TestDefinitionResults.class);
             /*System.out.println(t.getData().size());
-            for (TestDefinition te : t.getData().values()) {
-                System.out.println(te.getTestcommand());
-                for (String s : te.getParameters().keySet()){
-                    System.out.println(s);
-                }
-            }*/
+             for (TestDefinition te : t.getData().values()) {
+             System.out.println(te.getTestcommand());
+             for (String s : te.getParameters().keySet()){
+             System.out.println(s);
+             }
+             }*/
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,6 +131,11 @@ public class WebServiceAccess {
         return (t == null) ? null : t.getData();
     }
     
+    public void updateCache() {
+        //cache => testbeds and testdefinitions
+        this.testbeds = getTestBeds();
+        this.testDefinitions = getTestDefinitions();
+    }
     private static String getFromURL(String url) throws MalformedURLException, IOException {
         URL ur = new URL(url);
         InputStream is = ur.openStream();
@@ -113,49 +148,69 @@ public class WebServiceAccess {
         }
         return sb.toString();
     }
-
-
-
-//needed for json extraction
-private class TestbedResults {
-    private int status;
-    private String msg;
-    private HashMap<String,Testbed> data;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public HashMap<String, Testbed> getData() {
-        return data;
+    private String getParamValue(TestInstance t,String parameterName,String property){
+        String ret = "";
+        TestDefinition def = testDefinitions.get(t.getTesttype());
+        String paramType = def.getParameters().get(parameterName).get("type");
+        
+        if (paramType.equals("testbed")){
+            if (property.equals("url")){
+                for (String testbed : t.getParameters().get("testbed")){
+                    ret = testbeds.get(testbed).getUrl();
+                }
+            }
+        }else{
+            //later
+        }
+        
+        
+        
+        return ret;
     }
     
-}
-private class TestInstanceResults {
-    private int Status;
-    private String msg;
-    private HashMap<String,TestInstance> data;
+    //needed for json extraction
+    private class TestbedResults {
 
-    public HashMap<String, TestInstance> getData() {
-        return data;
-    }
+        private int status;
+        private String msg;
+        private HashMap<String, Testbed> data;
 
-    public int getStatus() {
-        return Status;
-    }
+        public int getStatus() {
+            return status;
+        }
 
-    public String getMsg() {
-        return msg;
+        public String getMsg() {
+            return msg;
+        }
+
+        public HashMap<String, Testbed> getData() {
+            return data;
+        }
+
     }
-}
-private class TestDefinitionResults{
-    private int status;
-    private String msg;
-    private HashMap<String,TestDefinition> data;
+    private class TestInstanceResults {
+
+        private int Status;
+        private String msg;
+        private HashMap<String, TestInstance> data;
+
+        public HashMap<String, TestInstance> getData() {
+            return data;
+        }
+
+        public int getStatus() {
+            return Status;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+    }
+    private class TestDefinitionResults {
+
+        private int status;
+        private String msg;
+        private HashMap<String, TestDefinition> data;
 
         public int getStatus() {
             return status;
@@ -168,6 +223,6 @@ private class TestDefinitionResults{
         public HashMap<String, TestDefinition> getData() {
             return data;
         }
-    
-}
+
+    }
 }
