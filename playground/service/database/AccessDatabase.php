@@ -95,8 +95,7 @@ class AccessDatabase {
             }
             $data[$row['testtype']]['parameters'][$row['parametername']]
                     =array('type'=>$row['parametertype'],
-                        'description' => $row['parameterdescription'],
-                        'property' => $row['parameterproperty']
+                        'description' => $row['parameterdescription']
                     );
             
             $data[$row['testtype']]['returnValues'][$row['returnname']]

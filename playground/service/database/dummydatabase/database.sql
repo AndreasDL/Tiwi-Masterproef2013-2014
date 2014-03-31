@@ -25,7 +25,6 @@ CREATE TABLE parameterDefinitions(
     testType character varying NOT NULL,
     parameterName text NOT NULL,
     parameterType text NOT NULL,
-    parameterProperty text NOT NULL,
     parameterDescription text
 );
 CREATE TABLE returnDefinitions(

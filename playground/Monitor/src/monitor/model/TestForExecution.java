@@ -30,7 +30,7 @@ public class TestForExecution {
     public String run() throws IOException, InterruptedException {
         //swap params for real values
         //run shell command
-        //System.out.println("Exec " + command);
+        System.out.println("Exec " + command);
         ArrayList<String> commands = new ArrayList<>();
         commands.add("/usr/bin/sh");
         commands.add("-c");

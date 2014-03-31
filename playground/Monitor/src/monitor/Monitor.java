@@ -28,7 +28,8 @@ public class Monitor {
             //System.out.println(tests.get(i).getCommand());
             
             try {
-                System.out.println(i + "  " + tests.get(i).run());
+                //System.out.println(i + "  " + tests.get(i).run());
+                System.out.println(tests.get(i).run());
             } catch (IOException ex) {
                 Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {

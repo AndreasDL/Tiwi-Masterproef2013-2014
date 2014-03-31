@@ -4,7 +4,7 @@ include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 17;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 5;
-$resultsPerInstances = 10;
+$resultsPerInstances = 50;
 
 $login = 'postgres';
 $pass = "post";
@@ -20,20 +20,20 @@ echo "connection established\n";
 echo "Creating Testbeds\n";
 $query = "insert into testbeds (testbedid,name,url) values($1,$2,$3);";
 for ($i = 0; $i < $aantalTestbeds; $i++) {
-    $data = array("urn-testbed$i", "testbed$i", "facebook.com");
+    $data = array("urn-testbed$i", "testbed$i", "iminds.be");
     pg_query_params($con, $query, $data);
 }
 
 //testdefinitions
 echo "Creating TestDefinitions\n";
-$subQuery = "insert into parameterDefinitions (testType,parameterName,parameterType,parameterProperty,parameterDescription) values ($1,$2,$3,$4,$5);";
+$subQuery = "insert into parameterDefinitions (testType,parameterName,parameterType,parameterDescription) values ($1,$2,$3,$4);";
 $retQuery = "insert into returnDefinitions (testType,returnName,returnType,returnDescription) values ($1,$2,$3,$4);";
 $query = "insert into testdefinitions (testtype,testcommand) values($1,$2);";
 
 echo "\tCreating Ping test\n";
-$data = array("ping", "timeout", "integer", "value", "timeout for ping test");
+$data = array("ping", "timeout", "integer", "timeout for ping test");
 pg_query_params($con, $subQuery, $data);
-$data = array("ping", "testbed", "testbed", "url", "url of testbed for ping test");
+$data = array("ping", "testbed", "testbed",  "url of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array('ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
@@ -41,9 +41,9 @@ $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array("stitch", "topology", "string", "value", "ring | line");
+$data = array("stitch", "topology", "string", "ring | line");
 pg_query_params($con, $subQuery, $data);
-$data = array("stitch", "testbed", "testbed[]", "value", "multiple testbeds for ping test");
+$data = array("stitch", "testbed", "testbed[]", "multiple testbeds for stitching test");
 pg_query_params($con, $subQuery, $data);
 $data = array('stitch', 'stitch');
 pg_query_params($con, $query, $data);
@@ -130,8 +130,8 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
 
 //results &subresults
 echo "creating results\n";
-echo "!!Warning this may take some time because the script sleeps after every round to get different timestamps\n";
-$query = "insert into results (testinstanceid,log) values ($1,$2);";
+//echo "!!Warning this may take some time because the script sleeps after every round to get different timestamps\n";
+$query = "insert into results (testinstanceid,log,timestamp) values ($1,$2,$3);";
 $subQuery = "insert into subresults(resultId,name,value) values(lastval(),$1,$2);";
 for ($j = 1; $j < $resultsPerInstances; $j++) {
     echo "\tround $j \n";
@@ -140,7 +140,8 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
     for ($i = 0; $i < $aantalpinginstances; $i++) {
         $data = array(
             "$instanceid",
-            "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000)
+            "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000),
+            "2014-03-".rand(1,25)."T".rand(1,23).":".rand(0,59).":".rand(0,59)
         );
         pg_query_params($con, $query, $data);
         $pingVal = rand(30,240);
@@ -157,7 +158,8 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
     for ($i = 0; $i < $aantalstitchinstances; $i++) {
         $data = array(
             "$instanceid",
-            "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000)
+            "http://f4f-mon-dev.intec.ugent.be/logs/$instanceid/" . rand(0, 10000),
+            "2014-03-".rand(1,25)."T".rand(1,23).":".rand(0,59).":".rand(0,59)
         );
         pg_query_params($con, $query, $data);
         
@@ -224,7 +226,7 @@ for ($j = 1; $j < $resultsPerInstances; $j++) {
         $instanceid++;
     }
 
-    sleep(3); //timestamps verschillend maken
+    //sleep(3); //timestamps verschillend maken
 }
 
 //connectie sluiten

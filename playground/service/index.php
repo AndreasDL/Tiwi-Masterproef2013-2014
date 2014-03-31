@@ -114,45 +114,46 @@ if ($controller_name != "") {
         <body>
             <div id="header"></div>
             <div class="container" id="content"><h1>jFed Monitoring Webservice - beta</h1>
-                Dit is de beta versie van de jFed monitoring webservice.<br>
-                Hieronder vindt je een aantal voorbeeld calls.<br>
-                De return waarde is momenteel altijd json & dummy waarden.<br>
-                Er zijn momenteel 2 testen gedefinieerd, ping & stitching.<br>
-                De testbeds zijn momenteel identificeerbaar met de urn , voorgesteld door bv. urn-testbed1 voor testbed1.<br>
+                Welcome!<br>
+                This is the beta version of the jFed monitoring Service.<br>
+                On this page there a few example calls. These calls use dummy data.<br>
+                There are only 2 tests defined at the moment, a ping tests and a stitching test.<br>
+                Testbeds are currently identified by their urn eg. urn-testbed1 for testbed1.<br>
+                This might change in the future, since urn's are hard to remember.<br>
                 <br><br>
                 <table border="1">
-                    <tr><th>call</th><th>uitleg</th></tr>
+                    <tr><th>call</th><th>explanation</th></tr>
                     <tr>
                         <td><a href="./index.php/last?format=PrettyJson">/last</a></td>
-                        <td>de alle laatste resultaten van elk testbed</td>
+                        <td>Last results for each testbed</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/last?testtype=stitch&format=PrettyJson">/last?testtype=stitch</a></td>
-                        <td>de alle laatste stitching resultaten van elk testbed</td>
+                        <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/last?testbed=urn-testbed1&testtype=ALL&format=PrettyJson">/last?testbed=urn-testbed1&testtype=ALL</a></td>
-                        <td>Laatste resultaten van alle tests op testbed1</td>
+                        <td>All Last results for testbed1</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/list?testtype=stitch&testbed=urn-testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=urn-testbed1&count=3</a></td>
-                        <td>De laatste 3 stitching resultaten van elk testbed1</td>
+                        <td>Last 3 stitching results for testbed1</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/list?format=PrettyJson&from=2014-03-18T19:29:06&till=2014-03-18T19:29:10">/index.php/list?from=2014-03-18T19:29:06&till=2014-03-18T19:29:10</a></td>
-                        <td>De Alle testen tussen 18/03/2014 19:29:06 tot 18/03/2014 19:29:10</td>
+                        <td><a href="./index.php/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00&format=PrettyJson">/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00</a></td>
+                        <td>All tests between 18/03/2014 19:29:06 and 25/03/2014 20:00:00</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/testDefinition?testtype=stitch&format=PrettyJson">/testdefinition?testtype=stitch</a></td>
-                        <td>Beschrijving van de stitchtest</td>
+                        <td>Definition of a stitching test</td>
                     </tr>            
                     <tr>
                         <td><a href="./index.php/testInstance?testtype=stitch&format=PrettyJson">/testInstance?testtype=stitch</a></td>
-                        <td>Geeft alle geplande tests weer van het type stitch</td>
+                        <td>All testinstance for testtype=stitching test</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>
-                        <td>Geeft alle testbeds weer.</td>
+                        <td>View all testbeds</td>
                     </tr>
 
                 </table>
