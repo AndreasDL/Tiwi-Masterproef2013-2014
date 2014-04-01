@@ -54,10 +54,29 @@ if ($controller_name != "") {
     $parameters = array();
     if ($valid && isset($_SERVER['QUERY_STRING'])) {
         //parse all params
+        //GET
         parse_str($_SERVER['QUERY_STRING'], $parameters);
+        //POST
+        $body = file_get_contents("php://input");
+        $content_type = false;
+        if (isset($_SERVER['CONTENT_TYPE'])) {
+            $content_type = $_SERVER['CONTENT_TYPE'];
+        }
+        switch ($content_type) {
+            case "application/json":
+                $body_params = json_decode($body);
+                if ($body_params) {
+                    foreach ($body_params as $param_name => $param_value) {
+                        $parameters[$param_name] = $param_value;
+                    }
+                }
+        }
         foreach ($parameters as $key => $value) {
             $parameters[$key] = explode(',', $value);
         }
+        //print_r($parameters);
+        
+        
 
         //GetFormat from params
         if (isset($parameters['format'])) {
@@ -132,8 +151,8 @@ if ($controller_name != "") {
                         <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testbed=urn-testbed1&testtype=ALL&format=PrettyJson">/last?testbed=urn-testbed1&testtype=ALL</a></td>
-                        <td>All Last results for testbed1</td>
+                        <td><a href="./index.php/last?testbed=urn-testbed1,urn-testbed5&testtype=ALL&format=PrettyJson">/last?testbed=urn-testbed1,urn-testbed5&testtype=ALL</a></td>
+                        <td>All Last results for testbed1 and testbed5</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/list?testtype=stitch&testbed=urn-testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=urn-testbed1&count=3</a></td>
