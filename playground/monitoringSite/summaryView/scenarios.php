@@ -8,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico">
   </head>
   <body>
@@ -28,7 +28,7 @@
   </tr>
   <?php
     //todo webservice via config file
-    Include ( __DIR__.'/config.php');
+    Include ( __DIR__.'/../config.php');
     
     $data = json_decode(file_get_contents($GLOBALS['urlStiching']),true);
     $data = $data['data'];

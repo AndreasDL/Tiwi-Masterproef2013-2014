@@ -1,7 +1,7 @@
 <?php
 
 class JsonFormatter implements iFormatter{
-    public function format($data, $status = 200, $msg = 'Good!') {
-        return json_encode(array('status' => $status , 'msg' => $msg, "data" => $data));
+    public function format($req){
+        return json_encode(array('status' => $req->getStatus() , 'msg' => $req->getMsg(), "data" => $req->getData()));
     }
 }

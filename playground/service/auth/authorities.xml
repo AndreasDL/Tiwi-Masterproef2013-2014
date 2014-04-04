@@ -1,0 +1,1460 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<authorities xmlns="http://jfed.iminds.be/authority">
+    <authority xmlns="http://jfed.iminds.be/authority">
+        <urn>urn:publicid:IDN+emulab.larc.usp.br+authority+cm</urn>
+        <hrn>emulab.larc.usp.br.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://www.emulab.larc.usp.br:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://www.emulab.larc.usp.br:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://www.emulab.larc.usp.br:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIDxDCCAy2gAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgawxCzAJBgNVBAYTAkJ
+            SMQswCQYDVQQIEwJTUDESMBAGA1UEBxMJU2FvIFBhdWxvMRMwEQYDVQQKEwpFbX
+            VsYWIgVVNQMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBgNVB
+            AMTF2Jvc3MuZW11bGFiLmxhcmMudXNwLmJyMSUwIwYJKoZIhvcNAQkBFhZlbXVs
+            YWItb3BzQGxhcmMudXNwLmJyMB4XDTEzMDIyNzE0MjczNloXDTE4MDgyMDE0Mjc
+            zNlowgYsxCzAJBgNVBAYTAkJSMQswCQYDVQQIEwJTUDETMBEGA1UEChMKRW11bG
+            FiIFVTUDESMBAGA1UECxMJV2ViU2VydmVyMR8wHQYDVQQDExZ3d3cuZW11bGFiL
+            mxhcmMudXNwLmJyMSUwIwYJKoZIhvcNAQkBFhZlbXVsYWItb3BzQGxhcmMudXNw
+            LmJyMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9vgGrSbYKNahG0ktnI4W
+            OouHIy+O1upmQDg1l1KAlyCRHxDT2iFUWKAfJavuXRPza0a6fxgM4zkQE037c8s
+            TtEXiDNLuh6WRbxEIm/InC81S0ZriLPDikV7J4doIoZYdOTlpA3ncHw1pcHzBRs
+            /X6dEKbr+HH3ZiOSyCvYBf1OQIDAQABo4IBEjCCAQ4wCQYDVR0TBAIwADAdBgNV
+            HQ4EFgQUIqUAqBx8HrVWc2qPL4xdPojMSfswgeEGA1UdIwSB2TCB1oAU4uEYnv8
+            /bb17Cbn7JCVONXJy11ihgbKkga8wgawxCzAJBgNVBAYTAkJSMQswCQYDVQQIEw
+            JTUDESMBAGA1UEBxMJU2FvIFBhdWxvMRMwEQYDVQQKEwpFbXVsYWIgVVNQMR4wH
+            AYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBgNVBAMTF2Jvc3MuZW11
+            bGFiLmxhcmMudXNwLmJyMSUwIwYJKoZIhvcNAQkBFhZlbXVsYWItb3BzQGxhcmM
+            udXNwLmJyggkAsAVNNqxBqSIwDQYJKoZIhvcNAQEEBQADgYEAV0a6g1MshqhZRG
+            WrksRek1FpLI7ac4pWtr73TGFLP3HUcD4C4FheNasAi9bO6dVF43XFtDpp1PBJY
+            Vy+DtdJecdgJp2ZIEMtPhMr8k7mKO1kFtEelceKXQewfIqNOYFMgxmFtjYuiql0
+            WpZSmNjfPK7G+OvccOpP4LIlKtVy1O0=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net+authority+cm</urn>
+        <hrn>Orca ExoSM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://geni.renci.org:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICRzCCAbCgAwIBAgIEURwLyjANBgkqhkiG9w0BAQUFADBoMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEXMBUGA1UEAxMOZ2VuaS5yZW5jaS5vcmcwH
+            hcNMTMwMjEzMjE1NTIyWhcNMjMwMjExMjE1NTIyWjBoMQswCQYDVQQGEwJVUzEL
+            MAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEwVSRU5
+            DSTENMAsGA1UECxMETlJJRzEXMBUGA1UEAxMOZ2VuaS5yZW5jaS5vcmcwgZ8wDQ
+            YJKoZIhvcNAQEBBQADgY0AMIGJAoGBAIAg6/vfTW42W2VfeGrd/gXH7FUyTcO63
+            tsi+39KHSgmpPyLwllHGAs4y1iEwf/A+hx5JO3M9nX2tgXgzbz2KVAF+1NMdvG/
+            v7I+hb0QId5truJcvAZWMJg6eF9EH2MKpd0FReVVszSJBaKq2A4udmXJBqK/5Xl
+            20xqBWWd3YKOrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAAm0EV20A1A7hkD0GYw
+            uiPRXI1vuGlNSMU1cHAk05XnK2nqBFbHdNpsw6bJr+/Zwy91vj7lCA+M8mrqpLe
+            QdlYkNsE7OhM3bob4wHTQMOu1wuD7R7eJVRESdmw3I6irerTINb0j7B1XzgGIku
+            NHyA2BCPI/aG5yaL+cw+xbwzNYg=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:rcivmsite+authority+cm</urn>
+        <hrn>Orca RCI SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://rci-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICTzCCAbigAwIBAgIEURksDDANBgkqhkiG9w0BAQUFADBsMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEbMBkGA1UEAxMScmNpLWhuLmV4b2dlbmkub
+            mV0MB4XDTEzMDIxMTE3MzYxMloXDTIzMDIwOTE3MzYxMlowbDELMAkGA1UEBhMC
+            VVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1UEChM
+            FUkVOQ0kxDTALBgNVBAsTBE5SSUcxGzAZBgNVBAMTEnJjaS1obi5leG9nZW5pLm
+            5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAiAhyJ/1X13VCYLtIII+rI
+            Zt9HRVYzguF28l8cxyLvSepYcrBc9TkRDAz0LLCRPhGCJ9Dj91YdQGvtltJPFRy
+            pOC2YiiEB+NbttGuk1wspEixPFK8eCukDN4oowBrHD4hWrWHcnZFcqvvXoKSMtR
+            9lJRpzgj48BgrDXwKmnLiPS0CAwEAATANBgkqhkiG9w0BAQUFAAOBgQAgaW9XCC
+            K8VV68bl0jUhdQJ/+5I0uKMF5WExlrgqONpVdNp/wW0owJPxKnk7+u3KAiJe1ud
+            JkBVImWo+GAyDb4x/6hKdQ+VYHkDDl+LULhZRUZb+uWyvsULstnrvRN2TDCZx4a
+            +P7YU63N8AGJV0Jm18uvwO/xRmC9oZck6gkevw==
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:bbnvmsite+authority+cm</urn>
+        <hrn>Orca BBN SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://bbn-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICTzCCAbigAwIBAgIEURlVDTANBgkqhkiG9w0BAQUFADBsMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEbMBkGA1UEAxMSYmJuLWhuLmV4b2dlbmkub
+            mV0MB4XDTEzMDIxMTIwMzEwOVoXDTIzMDIwOTIwMzEwOVowbDELMAkGA1UEBhMC
+            VVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1UEChM
+            FUkVOQ0kxDTALBgNVBAsTBE5SSUcxGzAZBgNVBAMTEmJibi1obi5leG9nZW5pLm
+            5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAsPa3jgTGJKo0JSIazuBUn
+            0jot7+6gLvsLiGE1JH5hu0BHMf5rcCTp8qyc2gmDqFPCF/IfB8Wix5zZC7AkigX
+            0df4djm4jxLANjhly/Z+mw01mQ6eJmhfjJBauXlt7SS/69CbEwySVieQaA/zbEz
+            1TdbF4eYiMIC3bbnq4Y3AiKsCAwEAATANBgkqhkiG9w0BAQUFAAOBgQAsh2261o
+            wC/DHVg8FNPgyGdg38b0Oxu5v3ulrPaZIMRCyz8YID0Z53BJp3lxY8xsDYqGDT8
+            QkOyv+DNbCgoIiE6woWMMLQNHHf9yk5E8Z5CDR2Wf5EdObeyEzUuVASGDHjo/iJ
+            e90rd0W1tRg1EYL97QKoJ7sc/x08+MDkszj6DQ==
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:fiuvmsite+authority+cm</urn>
+        <hrn>Orca FIU SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://fiu-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICTzCCAbigAwIBAgIEUaQixjANBgkqhkiG9w0BAQUFADBsMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEbMBkGA1UEAxMSZml1LWhuLmV4b2dlbmkub
+            mV0MB4XDTEzMDUyODAzMjE0MloXDTIzMDUyNjAzMjE0MlowbDELMAkGA1UEBhMC
+            VVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1UEChM
+            FUkVOQ0kxDTALBgNVBAsTBE5SSUcxGzAZBgNVBAMTEmZpdS1obi5leG9nZW5pLm
+            5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAnPEUnG5XMsZqNKlrnQJy4
+            R4ROp3LAa90qe0wppNesf1Xgcm34acJVUnOhtPEUQdCogUSKEtrq5PpxDDisUCI
+            15y6LFEalRNsoWxcfb7Reg6BCKuntKDLjEUlAC6lQFz0yyi0b4Py8w6MlYmZIPd
+            Hpa8HXQI7O3h2DbyVAG5Nx+0CAwEAATANBgkqhkiG9w0BAQUFAAOBgQBHOgWWHD
+            +mwbz7qCpfu3BZKAYYrZyGznNuwJ3GvRzz8+rK2cJZYhP3zrZ9CQHLrXtDPqGJw
+            xoL6rvahvI/lZ9z9l3hI58IKYRnjzd1KE2c+kyh63sPEQA3kfdpSIx124lgzuly
+            vpLvl60BVQs7hVWJ/KchCbBRotJ6mYbmt4B8mw==
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:uhvmsite+authority+cm</urn>
+        <hrn>Orca UH SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://uh-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICTTCCAbagAwIBAgIEUaQiojANBgkqhkiG9w0BAQUFADBrMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEaMBgGA1UEAxMRdWgtaG4uZXhvZ2VuaS5uZ
+            XQwHhcNMTMwNTI4MDMyMTA2WhcNMjMwNTI2MDMyMTA2WjBrMQswCQYDVQQGEwJV
+            UzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEwV
+            SRU5DSTENMAsGA1UECxMETlJJRzEaMBgGA1UEAxMRdWgtaG4uZXhvZ2VuaS5uZX
+            QwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAIsjZDAY5tLBL96OXRjNiGtwo
+            VpkOzM6SK7ylyiJJh5S+POFoqtcP5xHoFpLDc+akB26g4ga8Ms8Ynw3O2xWOLcB
+            z8OlLklxn9vQXlcHm0nCyfJ94eqLZvDIZ9ojOjfs46dtZV2E9Z/WE0/QyDbZGcO
+            2t4zAIWDUr1G8zlkREgB/AgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAgLwNYZIWii
+            AKKvmDQxaxqyWsQIK6dcyfBOirNYRvbcpLBk5EJWMPHxryd5gawu1868e7pDWrw
+            rC77He15qN96NCSdE3zlSv4p1+X+2sQJHZCBanyRIn8G65F9jKravYaAwhFvzTa
+            iyOa/IpyOb424j/XOE7MTYWgg1m5ga8m0CE=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:dukevmsite+authority+cm</urn>
+        <hrn>Orca Duke SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://dbc1-16.nicl.cs.duke.edu:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICUTCCAbqgAwIBAgIEUaQkkzANBgkqhkiG9w0BAQUFADBtMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEcMBoGA1UEAxMTZHVrZS1obi5leG9nZW5pL
+            m5ldDAeFw0xMzA1MjgwMzI5MjNaFw0yMzA1MjYwMzI5MjNaMG0xCzAJBgNVBAYT
+            AlVTMQswCQYDVQQIEwJOQzEUMBIGA1UEBxMLQ2hhcGVsIEhpbGwxDjAMBgNVBAo
+            TBVJFTkNJMQ0wCwYDVQQLEwROUklHMRwwGgYDVQQDExNkdWtlLWhuLmV4b2dlbm
+            kubmV0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuRBn1q4eaHP/bmkM6R
+            fERU8y85bRG809nI/WUww+KhupDrPUHxwH/leQ+iICdKA7S5sveK/bTFBTww5yw
+            9s4ovMn3UV77aB321mRr5gVvox/FsrKvID27IxpkG+3yS3XLzUQCazBa1L1Ep6J
+            iPGu/sJe/pULPixiObJV3FC7OaQIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAHXaGs
+            lAEjydjC24UDMh2TLlgYPRfhd5U3uneRuPabVuU09ZcTVJq1lvrDZWzFT0f3rON
+            LabaOCPWLgcTqFof7w/FTuj35t8Wfl5sFPr2+WWdVKSTqaeaOW3eW1r08gO7o9n
+            lNLY85ZEOQI9deJY/xYIL6VlFDQo5OdHyV8N5Jt/
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>duke-hn.exogeni.net</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:nictavmsite+authority+cm</urn>
+        <hrn>Orca NICTA SM</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://nicta-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIICUzCCAbygAwIBAgIEUZpbNzANBgkqhkiG9w0BAQUFADBuMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEdMBsGA1UEAxMUbmljdGEtaG4uZXhvZ2Vua
+            S5uZXQwHhcNMTMwNTIwMTcxOTUxWhcNMjMwNTE4MTcxOTUxWjBuMQswCQYDVQQG
+            EwJVUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQ
+            KEwVSRU5DSTENMAsGA1UECxMETlJJRzEdMBsGA1UEAxMUbmljdGEtaG4uZXhvZ2
+            VuaS5uZXQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALKVCX1mCwJppYuVN
+            Ne7oUJbgyd57kVzorusdvb1bDnDo2pyCTemVps39g4acE7LkswEquojTEjJt31W
+            kShcHx94r8FM0IrLTIvkPYaPJtR/7OkCo1OpvXd44bW32WlmEAmGTCG+RMMtcl3
+            +diF7XScj0e0G1cwZK2eR/MNrYi5nAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAW9
+            j6Ycn1xfpw4DFwgG0LPvqfvlNYFg5uBLDTgS5Qt7gaDcmKmxgy3EFcW/KwgfAMe
+            REu/3ig+xBpjaTHebxG2fvDJhhDSC7qxP2kI7Y3Egzk/QIlaOAD5S4yV0Hh+4zI
+            epuPCA+NbV/V79b/qGswKSliFSFGZrYrjzhr8uBIJo4=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+exogeni.net:uvanlvmsite+authority+cm</urn>
+        <hrn>Orca UvA NL</hrn>
+        <type>orca</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://uva-nl-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIDfTCCAmWgAwIBAgIEUXKdqTANBgkqhkiG9w0BAQsFADBvMQswCQYDVQQGEwJ
+            VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+            VSRU5DSTENMAsGA1UECxMETlJJRzEeMBwGA1UEAxMVdXZhLW5sLWhuLmV4b2dlb
+            mkubmV0MB4XDTEzMDYwMzE5MTUwNVoXDTIzMDYwMTE5MTUwNVowbzELMAkGA1UE
+            BhMCVVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1U
+            EChMFUkVOQ0kxDTALBgNVBAsTBE5SSUcxHjAcBgNVBAMTFXV2YS1ubC1obi5leG
+            9nZW5pLm5ldDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMBqvzK6w
+            09dMa9RoQujUKL3c0aVivPQ+535fB+8xr8n3b3Ft/Q869LsbgZDAJXxC8FqYVdi
+            Y87Y++qAghhk7BhGSlOWqZC29/uVBTBgA98Jo/234AKQAHbDHAlHApXwurHKSdQ
+            juJTx6NIvVVLEISlJ00VoB6wkcUTL/27l6cyeqQSsfkp2vROaBWvxaa5oJVG7Io
+            TQT6Bzm9oeBK8inkpT8Taf8WWf1bCVi0vYW+wkkOrlA+b90n3KSSlU05Ecjw/dQ
+            upyaV+bzLEUo95SnbbGBLVaZWHXf+5nOq15vRIBUd7rC7S4tztUvHzB+wtr9M45
+            YvJR/LM6oPRgoN1xNwMCAwEAAaMhMB8wHQYDVR0OBBYEFDOZTAcDCBl+9j5UK0w
+            G6KIdrDjfMA0GCSqGSIb3DQEBCwUAA4IBAQATWhCqwRqTp5vOEdUWjl8JGcTo5n
+            osYJ5q+67gdEbrutt55VmScZYjvxjpF3+Z1EFDpRenOvbUdkUl60h0HiM78GPsB
+            UBW4QFTu3PEvP+X01CSf2uYb55VwqlyNWtZBKmlgSyv33wTFJ1v78ODqHaUV78p
+            SKNzYq5ueZ4X9V5rV0gIIuOe8vU5o1cG5dWIyu6LT1XuqoKSO2rXaU0f2flWVi8
+            9JRRNd2k8iBJiVkis5RmvFU0E5HMBa+8P7gdNwKSmcnmiXS+npxdGEuhrcexfFs
+            0z+tPLnKrm5egjuLXhud6aDEDhZAjXESzOUnIsmnEQvAm4NnCcLLbQEeB7zW4N
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.northwestern.edu+authority+cm</urn>
+        <hrn>Instageni NorthWestern</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://www.instageni.northwestern.edu/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://www.instageni.northwestern.edu/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+        </urls>
+        <type>instageni</type>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIEezCCA+SgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgewxCzAJBgNVBAYTAlV
+            TMREwDwYDVQQIEwhJbGxpbm9pczEfMB0GA1UEBxMWTm9ydGh3ZXN0ZXJuIEluc3
+            RhR2VuaTEkMCIGA1UEChMbTm9ydGh3ZXN0ZXJuIEluc3RhR2VuaSBSYWNrMR4wH
+            AYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxKDAmBgNVBAMTH2Jvc3MuaW5z
+            dGFnZW5pLm5vcnRod2VzdGVybi5lZHUxOTA3BgkqhkiG9w0BCQEWKnRlc3RiZWQ
+            tb3BzQG9wcy5pbnN0YWdlbmkubm9ydGh3ZXN0ZXJuLmVkdTAeFw0xMzAxMzAxNz
+            A0MDZaFw0xODA3MjMxNzA0MDZaMIG/MQswCQYDVQQGEwJVUzERMA8GA1UECBMIS
+            WxsaW5vaXMxJDAiBgNVBAoTG05vcnRod2VzdGVybiBJbnN0YUdlbmkgUmFjazES
+            MBAGA1UECxMJV2ViU2VydmVyMSgwJgYDVQQDEx9ib3NzLmluc3RhZ2VuaS5ub3J
+            0aHdlc3Rlcm4uZWR1MTkwNwYJKoZIhvcNAQkBFip0ZXN0YmVkLW9wc0BvcHMuaW
+            5zdGFnZW5pLm5vcnRod2VzdGVybi5lZHUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AM
+            IGJAoGBAMhO3woRoB9lq3W9s+jMkdVEnMUGWa4O5uSb3EgJA6rIRcSA3+v4thRk
+            mz8hPIrHclY8DTOVY8j99HUS17Zrrwiby6/PmayCdAzXJrnEN65gRNpjqIFmfpt
+            pNWNQpl/p8ctLpBNYAAf76+elaAM+jX5xOwtxLZRyMUzMIIUjOh4RAgMBAAGjgg
+            FVMIIBUTAJBgNVHRMEAjAAMB0GA1UdDgQWBBQjN2sFbIsiHDWL1AG1Jpi3i2qaR
+            zCCASMGA1UdIwSCARowggEWgBSpJ23KYGJ+qYn4Upstpm9baMMLOKGB8qSB7zCB
+            7DELMAkGA1UEBhMCVVMxETAPBgNVBAgTCElsbGlub2lzMR8wHQYDVQQHExZOb3J
+            0aHdlc3Rlcm4gSW5zdGFHZW5pMSQwIgYDVQQKExtOb3J0aHdlc3Rlcm4gSW5zdG
+            FHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEoMCYGA
+            1UEAxMfYm9zcy5pbnN0YWdlbmkubm9ydGh3ZXN0ZXJuLmVkdTE5MDcGCSqGSIb3
+            DQEJARYqdGVzdGJlZC1vcHNAb3BzLmluc3RhZ2VuaS5ub3J0aHdlc3Rlcm4uZWR
+            1ggkAhj1fjzs3JBQwDQYJKoZIhvcNAQEEBQADgYEAf9/awP2EefVSeGBoKccrZY
+            utKQJyCmUwwWZry5dA7iCLlU4UOpUZ/rNyuoPTC8c+GUw2g7UECNzWcw5FS+dQy
+            BvxLB0BUDtWrDl9XnezvDJqhaSnGRpWYzW7ZM1o0ZvduGHWqVLhAk2Tdl7Z5jUU
+            5M7rYzzcxlbPbUyutb2Cjiw=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.northwestern.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+lan.sdn.uky.edu+authority+cm</urn>
+        <hrn>Instageni lan sdn UKY</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://lan.sdn.uky.edu/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://lan.sdn.uky.edu/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+        </urls>
+        <type>instageni</type>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIEIzCCA4ygAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgc4xCzAJBgNVBAYTAlV
+            TMREwDwYDVQQIEwhLZW50dWNreTEbMBkGA1UEBxMSS2VudHVja3kgSW5zdGFHZW
+            5pMSAwHgYDVQQKExdLZW50dWNreSBJbnN0YUdlbmkgUmFjazEeMBwGA1UECxMVQ
+            2VydGlmaWNhdGUgQXV0aG9yaXR5MR0wGwYDVQQDExRib3NzLmxhbi5zZG4udWt5
+            LmVkdTEuMCwGCSqGSIb3DQEJARYfdGVzdGJlZC1vcHNAb3BzLmxhbi5zZG4udWt
+            5LmVkdTAeFw0xMzAyMDgxNzE4NDdaFw0xODA4MDExNzE4NDdaMIGlMQswCQYDVQ
+            QGEwJVUzERMA8GA1UECBMIS2VudHVja3kxIDAeBgNVBAoTF0tlbnR1Y2t5IEluc
+            3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlXZWJTZXJ2ZXIxHTAbBgNVBAMTFGJvc3Mu
+            bGFuLnNkbi51a3kuZWR1MS4wLAYJKoZIhvcNAQkBFh90ZXN0YmVkLW9wc0BvcHM
+            ubGFuLnNkbi51a3kuZWR1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9li
+            Iw6ICWFEM+AtGw1od8CoDcQTzMkZWpbXnfpsh9yXuyfrusClVziD75dQH2AQItf
+            6Py6J01GwpBmtkZk2r56F0UPyg/6JXPRdrLpYiKJ3NtKLUvoRZqaAmsdez1Tvfd
+            p7yRKq87z/PY5gRA5IInKvoU4Z0NIq2rWuNgfukTkwIDAQABo4IBNTCCATEwCQY
+            DVR0TBAIwADAdBgNVHQ4EFgQUrUkTN9aFm11lLJdKv9q/Rd+BOg4wggEDBgNVHS
+            MEgfswgfiAFOX9QCKK817WimB7cT7KcObebHUZoYHUpIHRMIHOMQswCQYDVQQGE
+            wJVUzERMA8GA1UECBMIS2VudHVja3kxGzAZBgNVBAcTEktlbnR1Y2t5IEluc3Rh
+            R2VuaTEgMB4GA1UEChMXS2VudHVja3kgSW5zdGFHZW5pIFJhY2sxHjAcBgNVBAs
+            TFUNlcnRpZmljYXRlIEF1dGhvcml0eTEdMBsGA1UEAxMUYm9zcy5sYW4uc2RuLn
+            VreS5lZHUxLjAsBgkqhkiG9w0BCQEWH3Rlc3RiZWQtb3BzQG9wcy5sYW4uc2RuL
+            nVreS5lZHWCCQCCC0IQlRWTnjANBgkqhkiG9w0BAQQFAAOBgQA1TBQsQhGMSg+a
+            MoFZZAcGZKQYMnNeq/nvZQSPYeHvjcHDJQu8wg7NmxAexkOzP5neBSbt47frIcJ
+            maiKtFtVWI9SO9huVUMoj8DI9/rnX7crVyxAtjrvceNrIv5CksEslGeFLm3Vhbi
+            JHAPmeO2obLE8OIXP1BadCxxA/I++OMw==
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.lan.sdn.uky.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.illinois.edu+authority+cm</urn>
+        <hrn>Instageni Illinois</hrn>
+        <type>instageni</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.illinois.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.illinois.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.illinois.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIE5zCCBFCgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwggEIMQswCQYDVQQGEwJ
+            VUzENMAsGA1UECBMEVXRhaDEzMDEGA1UEBxMqVW5pdmVyc2l0eSBvZiBJbGxpbm
+            9pcyBhdCBVcmJhbmEtQ2hhbXBhaWduMTgwNgYDVQQKEy9Vbml2ZXJzaXR5IG9mI
+            ElsbGlub2lzIGF0IFVyYmFuYS1DaGFtcGFpZ24gUmFjazEeMBwGA1UECxMVQ2Vy
+            dGlmaWNhdGUgQXV0aG9yaXR5MSQwIgYDVQQDExtib3NzLmluc3RhZ2VuaS5pbGx
+            pbm9pcy5lZHUxNTAzBgkqhkiG9w0BCQEWJnRlc3RiZWQtb3BzQG9wcy5pbnN0YW
+            dlbmkuaWxsaW5vaXMuZWR1MB4XDTEzMDkyNjIxMTczNFoXDTE5MDMxOTIxMTczN
+            FowgccxCzAJBgNVBAYTAlVTMQ0wCwYDVQQIEwRVdGFoMTgwNgYDVQQKEy9Vbml2
+            ZXJzaXR5IG9mIElsbGlub2lzIGF0IFVyYmFuYS1DaGFtcGFpZ24gUmFjazESMBA
+            GA1UECxMJV2ViU2VydmVyMSQwIgYDVQQDExtib3NzLmluc3RhZ2VuaS5pbGxpbm
+            9pcy5lZHUxNTAzBgkqhkiG9w0BCQEWJnRlc3RiZWQtb3BzQG9wcy5pbnN0YWdlb
+            mkuaWxsaW5vaXMuZWR1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmio4W
+            uTI6qFhnAYQOq7DVGNVBuPe42Ag9K4fOiDv8E166r8tOiRXJ1S4PKPblz1oUj3w
+            Yhksw5hhdgKGLJgA1XK9K42ZcMbg/eqS8QcPqpxC68K0aJO0oQyOK6ZD2EbXsR8
+            cNutAnBzNsP5oZc8Hv843finiZvcTuyE3zgncdvQIDAQABo4IBnDCCAZgwCQYDV
+            R0TBAIwADAdBgNVHQ4EFgQUiqDoB7LIwbxxmClyrGsk7SmXieQwggFCBgNVHSME
+            ggE5MIIBNYAURuUXS3ZVmTyPr+ciPRdY89RPz3ihggEQpIIBDDCCAQgxCzAJBgN
+            VBAYTAlVTMQ0wCwYDVQQIEwRVdGFoMTMwMQYDVQQHEypVbml2ZXJzaXR5IG9mIE
+            lsbGlub2lzIGF0IFVyYmFuYS1DaGFtcGFpZ24xODA2BgNVBAoTL1VuaXZlcnNpd
+            Hkgb2YgSWxsaW5vaXMgYXQgVXJiYW5hLUNoYW1wYWlnbiBSYWNrMR4wHAYDVQQL
+            ExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxJDAiBgNVBAMTG2Jvc3MuaW5zdGFnZW5
+            pLmlsbGlub2lzLmVkdTE1MDMGCSqGSIb3DQEJARYmdGVzdGJlZC1vcHNAb3BzLm
+            luc3RhZ2VuaS5pbGxpbm9pcy5lZHWCCQC8pPg7nIFMyTAmBgNVHREEHzAdghtib
+            3NzLmluc3RhZ2VuaS5pbGxpbm9pcy5lZHUwDQYJKoZIhvcNAQEEBQADgYEAXfYV
+            CxzidgTJeiBh2FYlurzWrBcC5x3bSsPG7ZDaKmOnbqU0ZPQ7UzWpVwT+Jz2EesN
+            +2GKu9uzxw+162hU9ggVj2m63w2+Msp2/JFmvLY1a11N7CUDqwMm6K4vI4Seu1k
+            +uDRnUBR06Vf8vhqFuCfaDILncD0U8xejUItY3TQU=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.illinois.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.maxgigapop.net+authority+cm</urn>
+        <hrn>Instageni MAX</hrn>
+        <type>instageni</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.maxgigapop.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.maxgigapop.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.maxgigapop.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIEQjCCA6ugAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdYxCzAJBgNVBAYTAlV
+            TMREwDwYDVQQIEwhNYXJ5bGFuZDEWMBQGA1UEBxMNTUFYIEluc3RhR2VuaTEbMB
+            kGA1UEChMSTUFYIEluc3RhR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0Z
+            SBBdXRob3JpdHkxJjAkBgNVBAMTHWJvc3MuaW5zdGFnZW5pLm1heGdpZ2Fwb3Au
+            bmV0MTcwNQYJKoZIhvcNAQkBFih0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLm1
+            heGdpZ2Fwb3AubmV0MB4XDTEzMDcyMjE3NTgxN1oXDTE5MDExMjE3NTgxN1owgb
+            IxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNYXJ5bGFuZDEbMBkGA1UEChMSTUFYI
+            Eluc3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlXZWJTZXJ2ZXIxJjAkBgNVBAMTHWJv
+            c3MuaW5zdGFnZW5pLm1heGdpZ2Fwb3AubmV0MTcwNQYJKoZIhvcNAQkBFih0ZXN
+            0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLm1heGdpZ2Fwb3AubmV0MIGfMA0GCSqGSI
+            b3DQEBAQUAA4GNADCBiQKBgQC0M3vblIt/M/G5ScccFjtTQsRfFAEu5V+7ksTd5
+            e702JEsR2jCtF1OSPkAyyvQlPkxz77ZTR8F2r2qu6dT8FSruvD4lHUzv5wHuv4v
+            cJE4p+WnetW9qIJjI2Pa2/BWFmy/otySA3+rIcmWE6bfo9978pICvgO6Ys0kV6E
+            SlCqe0QIDAQABo4IBPzCCATswCQYDVR0TBAIwADAdBgNVHQ4EFgQUxQQWsSde+r
+            oH0G8LqGIbtD0xIi8wggENBgNVHSMEggEEMIIBAIAUgm4qhc364LUVfLr4WNqj4
+            kb916ihgdykgdkwgdYxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNYXJ5bGFuZDEW
+            MBQGA1UEBxMNTUFYIEluc3RhR2VuaTEbMBkGA1UEChMSTUFYIEluc3RhR2VuaSB
+            SYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxJjAkBgNVBAMTHW
+            Jvc3MuaW5zdGFnZW5pLm1heGdpZ2Fwb3AubmV0MTcwNQYJKoZIhvcNAQkBFih0Z
+            XN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLm1heGdpZ2Fwb3AubmV0ggkA0IsK7QAn
+            I90wDQYJKoZIhvcNAQEEBQADgYEAPO9iENIyiZooD3qZ1iKycprE6CnsCk9T4DJ
+            jdjM3j4sI5XnpbmUfQF60qSCx1sJeANujPH72/77ortjFXe54bh85eGtbDsGQkw
+            kPKyNw3Q/c9bg8W1gn4MUI9DHX5YqoBQAkaFh31aH74F94dzA47BlpYt3xslkZn
+            NvZGGrNIUI=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.maxgigapop.net</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.cs.princeton.edu+authority+cm</urn>
+        <hrn>Instageni Princeton</hrn>
+        <type>instageni</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.cs.princeton.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.cs.princeton.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.cs.princeton.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIEqzCCBBSgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgf4xCzAJBgNVBAYTAlV
+            TMRMwEQYDVQQIEwpOZXcgSmVyc2V5MScwJQYDVQQHEx5QcmluY2V0b24gVW5pdm
+            Vyc2l0eSBJbnN0YUdlbmkxLDAqBgNVBAoTI1ByaW5jZXRvbiBVbml2ZXJzaXR5I
+            Eluc3RhR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkx
+            KDAmBgNVBAMTH2Jvc3MuaW5zdGFnZW5pLmNzLnByaW5jZXRvbi5lZHUxOTA3Bgk
+            qhkiG9w0BCQEWKnRlc3RiZWQtb3BzQG9wcy5pbnN0YWdlbmkuY3MucHJpbmNldG
+            9uLmVkdTAeFw0xMzAzMjYxODMxNDdaFw0xODA5MTYxODMxNDdaMIHJMQswCQYDV
+            QQGEwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEsMCoGA1UEChMjUHJpbmNldG9u
+            IFVuaXZlcnNpdHkgSW5zdGFHZW5pIFJhY2sxEjAQBgNVBAsTCVdlYlNlcnZlcjE
+            oMCYGA1UEAxMfYm9zcy5pbnN0YWdlbmkuY3MucHJpbmNldG9uLmVkdTE5MDcGCS
+            qGSIb3DQEJARYqdGVzdGJlZC1vcHNAb3BzLmluc3RhZ2VuaS5jcy5wcmluY2V0b
+            24uZWR1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDD88jI9WPzsw98jHdq
+            Z8ohKp71akBrlnvkqVIa3j/ArgPa9rSDRe/jNHLFIKGyTG9a9xkI2KMtLT52mID
+            hyqazVNFDAL1zt2irCEyqcYBPk+SEcvoYkE2e0yv+29d7dvHFoDd/658qF6bXxN
+            MDiPZOLflZEXBk8nk9/eYYXfp7ewIDAQABo4IBaTCCAWUwCQYDVR0TBAIwADAdB
+            gNVHQ4EFgQU8rq7e0eGjA4SIIbbsSfMG3mOMBcwggE3BgNVHSMEggEuMIIBKoAU
+            dtlTYj+IOJsm0auk1xHlf6I/4mWhggEFpIIBATCB/jELMAkGA1UEBhMCVVMxEzA
+            RBgNVBAgTCk5ldyBKZXJzZXkxJzAlBgNVBAcTHlByaW5jZXRvbiBVbml2ZXJzaX
+            R5IEluc3RhR2VuaTEsMCoGA1UEChMjUHJpbmNldG9uIFVuaXZlcnNpdHkgSW5zd
+            GFHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEoMCYG
+            A1UEAxMfYm9zcy5pbnN0YWdlbmkuY3MucHJpbmNldG9uLmVkdTE5MDcGCSqGSIb
+            3DQEJARYqdGVzdGJlZC1vcHNAb3BzLmluc3RhZ2VuaS5jcy5wcmluY2V0b24uZW
+            R1ggkAsJyh6ZqBhwQwDQYJKoZIhvcNAQEEBQADgYEAId/Gra/C9WVRWyGHzj7fk
+            OXLly5bkXSemVCh1FIDQP11OED2gJ/mmBZLPqRThOmSqhHbI+w1//KblA7y+/Af
+            eNDtIwTfuTY4vVNMl1Hik+i1PUERtr3d5Ats3uKb9o8+lHxjrglMhnPsXaDRs1m
+            5uPC2DSg6vn22uhUWZy6WLIk=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.cs.princeton.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.gpolab.bbn.com+authority+cm</urn>
+        <hrn>Instageni BBN</hrn>
+        <type>instageni</type>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.gpolab.bbn.com:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.gpolab.bbn.com:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.gpolab.bbn.com:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+            MIIEUTCCA7qgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdsxCzAJBgNVBAYTAlV
+            TMRYwFAYDVQQIEw1NYXNzYWNodXNldHRzMRYwFAYDVQQHEw1CQk4gSW5zdGFHZW
+            5pMRswGQYDVQQKExJCQk4gSW5zdGFHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZ
+            mljYXRlIEF1dGhvcml0eTEmMCQGA1UEAxMdYm9zcy5pbnN0YWdlbmkuZ3BvbGFi
+            LmJibi5jb20xNzA1BgkqhkiG9w0BCQEWKHRlc3RiZWQtb3BzQG9wcy5pbnN0YWd
+            lbmkuZ3BvbGFiLmJibi5jb20wHhcNMTIxMjExMjAyNDE0WhcNMTgwNjAzMjAyND
+            E0WjCBtzELMAkGA1UEBhMCVVMxFjAUBgNVBAgTDU1hc3NhY2h1c2V0dHMxGzAZB
+            gNVBAoTEkJCTiBJbnN0YUdlbmkgUmFjazESMBAGA1UECxMJV2ViU2VydmVyMSYw
+            JAYDVQQDEx1ib3NzLmluc3RhZ2VuaS5ncG9sYWIuYmJuLmNvbTE3MDUGCSqGSIb
+            3DQEJARYodGVzdGJlZC1vcHNAb3BzLmluc3RhZ2VuaS5ncG9sYWIuYmJuLmNvbT
+            CBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAlW6xHyogfFcsly3YgStZsAgTr
+            cTb3oQEzl83TB07j3lrQGUnOg4aBjKXKh3N6bS/liIQsYLnCD2e50saR7HvbVBk
+            TuJ1ApEgAyd2to7MW+VozlxGi6ra+1wRsdL7MPO8aFdAVGqvdyrtpM9DfrOH0NK
+            kw84QOxVk+UcJp7jAtB0CAwEAAaOCAUQwggFAMAkGA1UdEwQCMAAwHQYDVR0OBB
+            YEFNzeQYtfLdbnNySuigRhb5rj8rPVMIIBEgYDVR0jBIIBCTCCAQWAFE5w6moDU
+            /ayp5WUERmFiVFKiLh6oYHhpIHeMIHbMQswCQYDVQQGEwJVUzEWMBQGA1UECBMN
+            TWFzc2FjaHVzZXR0czEWMBQGA1UEBxMNQkJOIEluc3RhR2VuaTEbMBkGA1UEChM
+            SQkJOIEluc3RhR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3
+            JpdHkxJjAkBgNVBAMTHWJvc3MuaW5zdGFnZW5pLmdwb2xhYi5iYm4uY29tMTcwN
+            QYJKoZIhvcNAQkBFih0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLmdwb2xhYi5i
+            Ym4uY29tggkAjFXYp/VauIowDQYJKoZIhvcNAQEEBQADgYEAVpcOg6y1WGkC1TZ
+            1wfZvxy2S5f7l8z8yYmt8EE2hOGX0fc0PJ9XEs9nozMKUmqYZaqccYBjIy9HcEv
+            npiuMFl5jWWWvHttLb1wq628vOcUQRzjzfr9EpsNSDb5JU2OqgFBigkYwAXZ+i9
+            qyOxt6ERYjNFLulBUTlIQz3n8fVArc=
+            -----END CERTIFICATE-----
+        </pemSslTrustCert>
+    </authority>
+
+    <authority>
+        <urn>urn:publicid:IDN+instageni.nysernet.org+authority+cm</urn>
+        <hrn>nysernet-ig.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.nysernet.org:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.nysernet.org:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.nysernet.org:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEdzCCA+CgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdwxCzAJBgNVBAYTAlV
+TMREwDwYDVQQIEwhOZXcgWW9yazEbMBkGA1UEBxMSTllTRVJORVQgSW5zdGFHZW
+5pMSAwHgYDVQQKExdOWVNFUk5FVCBJbnN0YUdlbmkgUmFjazEeMBwGA1UECxMVQ
+2VydGlmaWNhdGUgQXV0aG9yaXR5MSQwIgYDVQQDExtib3NzLmluc3RhZ2VuaS5u
+eXNlcm5ldC5vcmcxNTAzBgkqhkiG9w0BCQEWJnRlc3RiZWQtb3BzQG9wcy5pbnN
+0YWdlbmkubnlzZXJuZXQub3JnMB4XDTEzMDkxMDE3MzIwN1oXDTE5MDMwMzE3Mz
+IwN1owgbMxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhOZXcgWW9yazEgMB4GA1UEC
+hMXTllTRVJORVQgSW5zdGFHZW5pIFJhY2sxEjAQBgNVBAsTCVdlYlNlcnZlcjEk
+MCIGA1UEAxMbYm9zcy5pbnN0YWdlbmkubnlzZXJuZXQub3JnMTUwMwYJKoZIhvc
+NAQkBFiZ0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLm55c2VybmV0Lm9yZzCBnz
+ANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAvx2tbNTKiwQwb0nFf6kzpRkFQAl6Y
++5QUq/qr3fLKUxC3TEOKv13RaYgZKOu/dewiNf0AyXfvGjX6yRRjAXhRGnEeNJI
+CkSzVGvGBFFehCkNck4qw6n0UWPaAlF9zZV+MIqZM3K9ZdU+OomwDaxX0OcoA38
+g3bLoReXbKLvYuP0CAwEAAaOCAW0wggFpMAkGA1UdEwQCMAAwHQYDVR0OBBYEFE
+lSZ06MLw0as1zLWtFaZW8sovJDMIIBEwYDVR0jBIIBCjCCAQaAFCuxBW8CSBjqs
+aDAT19JV8YGPNcqoYHipIHfMIHcMQswCQYDVQQGEwJVUzERMA8GA1UECBMITmV3
+IFlvcmsxGzAZBgNVBAcTEk5ZU0VSTkVUIEluc3RhR2VuaTEgMB4GA1UEChMXTll
+TRVJORVQgSW5zdGFHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dG
+hvcml0eTEkMCIGA1UEAxMbYm9zcy5pbnN0YWdlbmkubnlzZXJuZXQub3JnMTUwM
+wYJKoZIhvcNAQkBFiZ0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLm55c2VybmV0
+Lm9yZ4IJAIsSixPCPgCzMCYGA1UdEQQfMB2CG2Jvc3MuaW5zdGFnZW5pLm55c2V
+ybmV0Lm9yZzANBgkqhkiG9w0BAQQFAAOBgQBVjN/VYLHeYF/TBt1vL2pPzx6+vn
+iCYQVx2duz4epdq7+Dqwe4AgYN3WSGC0yrbqWL6Qkfa3MHwn/rmqRXs4CzhxwCK
+jk9vZ2h7zGtsHO/TsqC8sUx1cG7BtTqGWh58Gmy1J1p92AR6x7r9zK2XzBEAx7q
+PNs0uMTLMir18pbsBg==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.nysernet.org</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.rnet.missouri.edu+authority+cm</urn>
+        <hrn>missouri-ig.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.rnet.missouri.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.rnet.missouri.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.rnet.missouri.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEmjCCBAOgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgeYxCzAJBgNVBAYTAlV
+TMREwDwYDVQQIEwhNaXNzb3VyaTEbMBkGA1UEBxMSTWlzc291cmkgSW5zdGFHZW
+5pMSAwHgYDVQQKExdNaXNzb3VyaSBJbnN0YUdlbmkgUmFjazEeMBwGA1UECxMVQ
+2VydGlmaWNhdGUgQXV0aG9yaXR5MSkwJwYDVQQDEyBib3NzLmluc3RhZ2VuaS5y
+bmV0Lm1pc3NvdXJpLmVkdTE6MDgGCSqGSIb3DQEJARYrdGVzdGJlZC1vcHNAb3B
+zLmluc3RhZ2VuaS5ybmV0Lm1pc3NvdXJpLmVkdTAeFw0xMzA5MjQxNzIzMDhaFw
+0xOTAzMTcxNzIzMDhaMIG9MQswCQYDVQQGEwJVUzERMA8GA1UECBMITWlzc291c
+mkxIDAeBgNVBAoTF01pc3NvdXJpIEluc3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlX
+ZWJTZXJ2ZXIxKTAnBgNVBAMTIGJvc3MuaW5zdGFnZW5pLnJuZXQubWlzc291cmk
+uZWR1MTowOAYJKoZIhvcNAQkBFit0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLn
+JuZXQubWlzc291cmkuZWR1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCa+
+O6L2vGZoGpEjIYZjj4udaaI1JDiLzY2r9SlNJ2qdzfVqgvd1R/A9GaIaFz5wz6c
+gyQro7nqzOt8hXtspRjT+d66IDg45Jg3oO1t0jg58hiR4EcQJC9Srd69FAfX0TY
+AZWtsEYD/87yoZzdQA2gXU/KM9Hd+spzBHwkzetALBQIDAQABo4IBfDCCAXgwCQ
+YDVR0TBAIwADAdBgNVHQ4EFgQUtMAGqIk80cy9x15M2KzgQmcHRJwwggEdBgNVH
+SMEggEUMIIBEIAUTT71UFKPn78efR1P85YjnfoMWhOhgeykgekwgeYxCzAJBgNV
+BAYTAlVTMREwDwYDVQQIEwhNaXNzb3VyaTEbMBkGA1UEBxMSTWlzc291cmkgSW5
+zdGFHZW5pMSAwHgYDVQQKExdNaXNzb3VyaSBJbnN0YUdlbmkgUmFjazEeMBwGA1
+UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSkwJwYDVQQDEyBib3NzLmluc3RhZ
+2VuaS5ybmV0Lm1pc3NvdXJpLmVkdTE6MDgGCSqGSIb3DQEJARYrdGVzdGJlZC1v
+cHNAb3BzLmluc3RhZ2VuaS5ybmV0Lm1pc3NvdXJpLmVkdYIJAPGzmrNzGn/QMCs
+GA1UdEQQkMCKCIGJvc3MuaW5zdGFnZW5pLnJuZXQubWlzc291cmkuZWR1MA0GCS
+qGSIb3DQEBBAUAA4GBAJDHAw6c/3gaiG99TP7hbgyfQu+dsRUaypcwpXl/rglqz
+LAB+QZLjyESUpU9o+1KANninzPuh/EKJhCzQRO+8KhPVrHBIQh6fjEdkV33EquQ
+siTKd+Px3hPAVWhsWFlg+qiI4k7lGUBZWlWdDtm1NlpbNMt6WrDqrIwCDW0RdjW
+A
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.rnet.missouri.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.sox.net+authority+cm</urn>
+        <hrn>soxatlanta.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.sox.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.sox.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.sox.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEWTCCA8KgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdcxCzAJBgNVBAYTAlV
+TMRAwDgYDVQQIEwdHZW9yZ2lhMSUwIwYDVQQHExxTb3V0aGVybiBDcm9zc3JvYW
+RzIEdlbmlSYWNrMRwwGgYDVQQKExNTb3V0aGVybiBDcm9zc3JvYWRzMR4wHAYDV
+QQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxHzAdBgNVBAMTFmJvc3MuaW5zdGFn
+ZW5pLnNveC5uZXQxMDAuBgkqhkiG9w0BCQEWIXRlc3RiZWQtb3BzQG9wcy5pbnN
+0YWdlbmkuc294Lm5ldDAeFw0xMzA5MTAxNTUwMDBaFw0xOTAzMDMxNTUwMDBaMI
+GkMQswCQYDVQQGEwJVUzEQMA4GA1UECBMHR2VvcmdpYTEcMBoGA1UEChMTU291d
+Ghlcm4gQ3Jvc3Nyb2FkczESMBAGA1UECxMJV2ViU2VydmVyMR8wHQYDVQQDExZi
+b3NzLmluc3RhZ2VuaS5zb3gubmV0MTAwLgYJKoZIhvcNAQkBFiF0ZXN0YmVkLW9
+wc0BvcHMuaW5zdGFnZW5pLnNveC5uZXQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMI
+GJAoGBALtGd5ymaVZMs91Kre6+dnjuE7ec7PK5tOp/8tWHumtrVTakwIIeR7gsf
+FcmSM7lwY6+6Lh5MvRl34nPoaxtl1bVfFsO9ePRQ8YgBA3XRMcVvhX5RN/4nXZz
+vQSHc/0keH2WvKXQk6Th6A2CPHv6XvvAigOjY3UhN4MLkYFYSmFvAgMBAAGjggF
+jMIIBXzAJBgNVHRMEAjAAMB0GA1UdDgQWBBQGeDTgRXy5tKpud/mKu8AHqGNR2z
+CCAQ4GA1UdIwSCAQUwggEBgBTngjGWnb8GHGiXZX3g3Gc0vd3WKaGB3aSB2jCB1
+zELMAkGA1UEBhMCVVMxEDAOBgNVBAgTB0dlb3JnaWExJTAjBgNVBAcTHFNvdXRo
+ZXJuIENyb3Nzcm9hZHMgR2VuaVJhY2sxHDAaBgNVBAoTE1NvdXRoZXJuIENyb3N
+zcm9hZHMxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEfMB0GA1UEAx
+MWYm9zcy5pbnN0YWdlbmkuc294Lm5ldDEwMC4GCSqGSIb3DQEJARYhdGVzdGJlZ
+C1vcHNAb3BzLmluc3RhZ2VuaS5zb3gubmV0ggkAiUTxQfKSJu4wIQYDVR0RBBow
+GIIWYm9zcy5pbnN0YWdlbmkuc294Lm5ldDANBgkqhkiG9w0BAQQFAAOBgQDHhzz
+zeEzYdKLvmANPJR4Be0IPQ8Rma8pG/fjeUUtDogfDKejSYHpwfTK71/pZy5x3fY
+qy5N6y/h2sou4Ee1hd8Xf+HpTjPvSWKKx1SOethg532rMgB14d6kHIcSEMaKnIa
+s4vjkg8RdWa50G1+CClASMR7YTKMv/5N+HEp0xOrQ==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.sox.net</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.rnoc.gatech.edu+authority+cm</urn>
+        <hrn>gatechinstageni.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.rnoc.gatech.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.rnoc.gatech.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.rnoc.gatech.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEcjCCA9ugAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgekxCzAJBgNVBAYTAlV
+TMRAwDgYDVQQIEwdHZW9yZ2lhMR8wHQYDVQQHExZHZW9yZ2lhIFRlY2ggSW5zdG
+FHZW5pMSQwIgYDVQQKExtHZW9yZ2lhIFRlY2ggSW5zdGFHZW5pIFJhY2sxHjAcB
+gNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEnMCUGA1UEAxMeYm9zcy5pbnN0
+YWdlbmkucm5vYy5nYXRlY2guZWR1MTgwNgYJKoZIhvcNAQkBFil0ZXN0YmVkLW9
+wc0BvcHMuaW5zdGFnZW5pLnJub2MuZ2F0ZWNoLmVkdTAeFw0xMzAzMTIxNjU2NT
+haFw0xODA5MDIxNjU2NThaMIG8MQswCQYDVQQGEwJVUzEQMA4GA1UECBMHR2Vvc
+mdpYTEkMCIGA1UEChMbR2VvcmdpYSBUZWNoIEluc3RhR2VuaSBSYWNrMRIwEAYD
+VQQLEwlXZWJTZXJ2ZXIxJzAlBgNVBAMTHmJvc3MuaW5zdGFnZW5pLnJub2MuZ2F
+0ZWNoLmVkdTE4MDYGCSqGSIb3DQEJARYpdGVzdGJlZC1vcHNAb3BzLmluc3RhZ2
+VuaS5ybm9jLmdhdGVjaC5lZHUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBA
+Lh8ODoV575bavXjear6iavMOe+PdrirHU9Hh9wRfnPC2tqHwzi6/Tx9SMBtsEq1
+RUztc6lFhkLLzzF43c4DNkzvA89jfF9j5x21ecANosvAeBPO9DV2K8q8zsqWoQm
+19ssicQIxvh8isgtIEkBwmwdGiJCayQX+ThbIAgvE/o1lAgMBAAGjggFSMIIBTj
+AJBgNVHRMEAjAAMB0GA1UdDgQWBBRNoR/Q/mNP3tKKDF8skJzYSdoOMjCCASAGA
+1UdIwSCARcwggETgBTq/M4CkYei8DQfLtkuRU101XiNwqGB76SB7DCB6TELMAkG
+A1UEBhMCVVMxEDAOBgNVBAgTB0dlb3JnaWExHzAdBgNVBAcTFkdlb3JnaWEgVGV
+jaCBJbnN0YUdlbmkxJDAiBgNVBAoTG0dlb3JnaWEgVGVjaCBJbnN0YUdlbmkgUm
+FjazEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MScwJQYDVQQDEx5ib
+3NzLmluc3RhZ2VuaS5ybm9jLmdhdGVjaC5lZHUxODA2BgkqhkiG9w0BCQEWKXRl
+c3RiZWQtb3BzQG9wcy5pbnN0YWdlbmkucm5vYy5nYXRlY2guZWR1ggkArEIa3TY
+IUfkwDQYJKoZIhvcNAQEEBQADgYEAdwqOpO+mPVf8CHOxDBg21WHoyan0u5fXsO
+ehENcLfXCgEPYgkozC6W19CkMhKCk+pfaFRjBlOOvSoSRvZ8GhiJYK0dbMIzknh
+rIzgJWJYpDgRUcp1w5R/wEwuboycOadZDZMBGHVqjEuTaZRM5v7zlfVDxNuybZX
+pXJUFJi6XyI=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.rnoc.gatech.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+instageni.clemson.edu+authority+cm</urn>
+        <hrn>clemson.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.instageni.clemson.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.instageni.clemson.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.instageni.clemson.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEVjCCA7+gAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgd4xCzAJBgNVBAYTAlV
+TMRcwFQYDVQQIEw5Tb3V0aCBDYXJvbGluYTEaMBgGA1UEBxMRQ2xlbXNvbiBJbn
+N0YUdlbmkxHzAdBgNVBAoTFkNsZW1zb24gSW5zdGFHZW5pIFJhY2sxHjAcBgNVB
+AsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEjMCEGA1UEAxMaYm9zcy5pbnN0YWdl
+bmkuY2xlbXNvbi5lZHUxNDAyBgkqhkiG9w0BCQEWJXRlc3RiZWQtb3BzQG9wcy5
+pbnN0YWdlbmkuY2xlbXNvbi5lZHUwHhcNMTMwMzI2MjExNDAxWhcNMTgwOTE2Mj
+ExNDAxWjCBtjELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDlNvdXRoIENhcm9saW5hM
+R8wHQYDVQQKExZDbGVtc29uIEluc3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlXZWJT
+ZXJ2ZXIxIzAhBgNVBAMTGmJvc3MuaW5zdGFnZW5pLmNsZW1zb24uZWR1MTQwMgY
+JKoZIhvcNAQkBFiV0ZXN0YmVkLW9wc0BvcHMuaW5zdGFnZW5pLmNsZW1zb24uZW
+R1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUMTrua+wYDLEQ/XuMybcq0
+UaiM0HGB33cAQMk/QpDzHrrxsdJlh6iKSTg5mHgxQBfcgtnonkteg0v97+WcNGO
+1VDjB94JHdbPSk7ZLtB8zB48eGfDDUBoXR6XZ0tWQCQPTL/yw4+yaXeXICOxVXK
+F4BM3mf3gZ1AuXYeyRJyUfQIDAQABo4IBRzCCAUMwCQYDVR0TBAIwADAdBgNVHQ
+4EFgQUDVe1rD0OC6v+2Eq+CwLDOYlSLZowggEVBgNVHSMEggEMMIIBCIAUbpIVu
+SFEis+pWP2+1K8c4ehGGLKhgeSkgeEwgd4xCzAJBgNVBAYTAlVTMRcwFQYDVQQI
+Ew5Tb3V0aCBDYXJvbGluYTEaMBgGA1UEBxMRQ2xlbXNvbiBJbnN0YUdlbmkxHzA
+dBgNVBAoTFkNsZW1zb24gSW5zdGFHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZm
+ljYXRlIEF1dGhvcml0eTEjMCEGA1UEAxMaYm9zcy5pbnN0YWdlbmkuY2xlbXNvb
+i5lZHUxNDAyBgkqhkiG9w0BCQEWJXRlc3RiZWQtb3BzQG9wcy5pbnN0YWdlbmku
+Y2xlbXNvbi5lZHWCCQCzDo7nKI7o0jANBgkqhkiG9w0BAQQFAAOBgQCWDG0qi2v
+86mjd0cRiKAp1Or/xudaW1+KNSJD5V2XeWiyAsx+vHk1qEFKWYnBgOAHW3WzsRe
+rkFDc2BKlShrf86dl2Rda45CFsCwOPbv14EntBXbuwGV0SWlGrUmZLKFW6leCaB
+Ss6n9FYSxlv9TXtNLT6BK0ORh9/pwxqUFt1bg==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.instageni.clemson.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+ <authority>
+        <urn>urn:publicid:IDN+utahddc.geniracks.net+authority+cm</urn>
+        <hrn>utahddcinstageni.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.utahddc.geniracks.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.utahddc.geniracks.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.utahddc.geniracks.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEPTCCA6agAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdYxCzAJBgNVBAYTAlV
+TMQ0wCwYDVQQIEwRVdGFoMRswGQYDVQQHExJVdGFoIEREQyBJbnN0YUdlbmkxID
+AeBgNVBAoTF1V0YWggRERDIEluc3RhR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0a
+WZpY2F0ZSBBdXRob3JpdHkxIzAhBgNVBAMTGmJvc3MudXRhaGRkYy5nZW5pcmFj
+a3MubmV0MTQwMgYJKoZIhvcNAQkBFiV0ZXN0YmVkLW9wc0BvcHMudXRhaGRkYy5
+nZW5pcmFja3MubmV0MB4XDTEzMDcxOTE2NDQyMFoXDTE5MDEwOTE2NDQyMFowga
+0xCzAJBgNVBAYTAlVTMQ0wCwYDVQQIEwRVdGFoMSAwHgYDVQQKExdVdGFoIEREQ
+yBJbnN0YUdlbmkgUmFjazESMBAGA1UECxMJV2ViU2VydmVyMSMwIQYDVQQDExpi
+b3NzLnV0YWhkZGMuZ2VuaXJhY2tzLm5ldDE0MDIGCSqGSIb3DQEJARYldGVzdGJ
+lZC1vcHNAb3BzLnV0YWhkZGMuZ2VuaXJhY2tzLm5ldDCBnzANBgkqhkiG9w0BAQ
+EFAAOBjQAwgYkCgYEAt/seon7MXnejzt6Y8obbGhkjs2cCtuIkreI2srMzIRQvv
+onjb8olm59j7AUGXR2Z3iM48i3Ig1yF4dPRxAivKSlCSV1FtFyWy2wit/5LvcR+
+ZhnxK/LofSeIyYB59rr7OXMgjLdlTvVd8PZ8zLqTC+lGh99U/C4eZhezT36+sXE
+CAwEAAaOCAT8wggE7MAkGA1UdEwQCMAAwHQYDVR0OBBYEFHs+yZGQOXXu8kAmww
+DbjNUKq5QdMIIBDQYDVR0jBIIBBDCCAQCAFDk7qyiX3tIx7tEHKB2pzyd+Ql0Wo
+YHcpIHZMIHWMQswCQYDVQQGEwJVUzENMAsGA1UECBMEVXRhaDEbMBkGA1UEBxMS
+VXRhaCBEREMgSW5zdGFHZW5pMSAwHgYDVQQKExdVdGFoIEREQyBJbnN0YUdlbmk
+gUmFjazEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQDEx
+pib3NzLnV0YWhkZGMuZ2VuaXJhY2tzLm5ldDE0MDIGCSqGSIb3DQEJARYldGVzd
+GJlZC1vcHNAb3BzLnV0YWhkZGMuZ2VuaXJhY2tzLm5ldIIJAKXegZ+Cu7dOMA0G
+CSqGSIb3DQEBBAUAA4GBAGNUUTBdFHom+tg30We5wPdaMsBcZMZeCirIWkxc1n2
+TF5qzmD94OHuO493QfBaSrEHzzDPOqcK9CZAYftDLsabYA+SfcLdHYabAhhUIat
+K1Ri+jSqDopMI7eyL4rqo7HxTZXs4OwsXLa3vdUVCbD/xVH2q2zjBSJYhnfH6QU
+yld
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.utahddc.geniracks.net</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+geni.kettering.edu+authority+cm</urn>
+        <hrn>ketteringu.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEPDCCA6WgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdYxCzAJBgNVBAYTAlV
+TMREwDwYDVQQIEwhNaWNoaWdhbjEcMBoGA1UEBxMTS2V0dGVyaW5nIEluc3RhR2
+VuaTEhMB8GA1UEChMYS2V0dGVyaW5nIEluc3RhR2VuaSBSYWNrMR4wHAYDVQQLE
+xVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBgNVBAMTF2Jvc3MuZ2VuaS5rZXR0
+ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0ZXN0YmVkLW9wc0BvcHMuZ2VuaS5
+rZXR0ZXJpbmcuZWR1MB4XDTEzMDIyODE5MjIwNloXDTE4MDgyMTE5MjIwNlowga
+wxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNaWNoaWdhbjEhMB8GA1UEChMYS2V0d
+GVyaW5nIEluc3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlXZWJTZXJ2ZXIxIDAeBgNV
+BAMTF2Jvc3MuZ2VuaS5rZXR0ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0ZXN
+0YmVkLW9wc0BvcHMuZ2VuaS5rZXR0ZXJpbmcuZWR1MIGfMA0GCSqGSIb3DQEBAQ
+UAA4GNADCBiQKBgQDAU4JFySwM+XDioZP9YQluzjx3MTf7NKaNvQ6fwd7D9I1gd
+a9j6QSk7C3L6qeBAizBE1pgeV1M4Mlo8xlF1KCj6IuvSlinYnmWajyeucajBRLu
+ZloroJdM+ANGaIlgBZKrdr7TJew5AvgloSVXnIXHB6ATxfMu635pqrk0IMBqrQI
+DAQABo4IBPzCCATswCQYDVR0TBAIwADAdBgNVHQ4EFgQUT0JRUbBj4etVt90gUu
+PbkFrAL9swggENBgNVHSMEggEEMIIBAIAUpMkYjSYhG+rfF/OLVJYZTps1K0Ohg
+dykgdkwgdYxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNaWNoaWdhbjEcMBoGA1UE
+BxMTS2V0dGVyaW5nIEluc3RhR2VuaTEhMB8GA1UEChMYS2V0dGVyaW5nIEluc3R
+hR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBg
+NVBAMTF2Jvc3MuZ2VuaS5rZXR0ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0Z
+XN0YmVkLW9wc0BvcHMuZ2VuaS5rZXR0ZXJpbmcuZWR1ggkA45i0ebpCslAwDQYJ
+KoZIhvcNAQEEBQADgYEAGxlwYLurgoWaLNG2fa7JYd7IeDdJE+6Au/zSvgs/mPj
+vZFJMfzF5WlLaCtwYmaO+IrvcqnuEU5SlCJRtiQoi4MVejBkKHPKVSAfpO3e+U9
+UsI61mbgcTuCLWqbKZEIcudN5TEODapJeBapk8gv53VwMdBZc7+/pBGlafTeMgS
+Zc=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.geni.kettering.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+
+    <authority>
+        <urn>urn:publicid:IDN+omf+authority+sa</urn>
+        <hrn>Nitos SFA Wrap</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://sfa-omf.pl.sophia.inria.fr:12346/</url>
+            </serverurl>
+        </urls>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIICAjCCAWugAwIBAgIBAzANBgkqhkiG9w0BAQQFADAOMQwwCgYDVQQDEwNvbWYw
+HhcNMTIxMDAyMDkwMzMwWhcNMTcxMDAxMDkwMzMwWjAOMQwwCgYDVQQDEwNvbWYw
+gZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMS+BCEf4CV6FM+O47huP+fkeU6x
+SWxVrN9u5gmvCZZEvgRL2lKGVQJqWE6T+XcEbLeagNz5fZUi2AIF5eQ1+cNiJr6D
+BfTEwm/QVDCC+mpj2aQQ/zy2DBR6CHgUV4Zta6HzQJIq4/0z77a90721CvO7/hCI
+7QC1c0PRK/2B2Q7NAgMBAAGjcDBuMA8GA1UdEwEB/wQFMAMBAf8wWwYDVR0RBFQw
+UoYhdXJuOnB1YmxpY2lkOklETitvbWYrYXV0aG9yaXR5K3Nhhi11cm46dXVpZDo2
+NDFkMWU1OS03NDliLTQ3Y2YtODc3OC1iYzczNzM5YjhmNDQwDQYJKoZIhvcNAQEE
+BQADgYEAd444XPqGyBVbNZcKB4HHRvuWqWzLkBzDXTneprZceI/HxzweTKWEAybs
+G1CGkmG2kSfZ0O4+gHeraUssyXC7nI1jN36g5CX3pSnoTy86LqCM6YXgQ0F8DVRE
+ZCJGwF1MfMuxS73PbtzUB2OCO906vLOUQwh1HcvxTyZH2qNHTf8=
+-----END CERTIFICATE-----</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>omf</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+<authority>
+        <urn>urn:publicid:IDN+exogeni.net:osfvmsite+authority+cm</urn>
+        <hrn>osf-hn.exogeni.net</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://osf-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <type>orca</type>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIICTzCCAbigAwIBAgIEUmbKuTANBgkqhkiG9w0BAQUFADBsMQswCQYDVQQGEwJ
+VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+VSRU5DSTENMAsGA1UECxMETlJJRzEbMBkGA1UEAxMSb3NmLWhuLmV4b2dlbmkub
+mV0MB4XDTEzMTAyMjE4NTgwMVoXDTIzMTAyMDE4NTgwMVowbDELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1UEChM
+FUkVOQ0kxDTALBgNVBAsTBE5SSUcxGzAZBgNVBAMTEm9zZi1obi5leG9nZW5pLm
+5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAjSj1TU0ZJiNPW7HhImSo1
+PgxDyGInWbeceomg66IK2yYjqBb0h5wwcWrWLj/sPpAbc+hxs1ExDH9k0OHdG7k
+ldiEimyQcHCBf4MHovewLZpj0pdRM07uslg2P9bdu+LNXOmR8O0EvxqIAlA386o
+lzUp3h/9Fa7EfFX/irXlX2dUCAwEAATANBgkqhkiG9w0BAQUFAAOBgQAiGDP2uC
+Gmj8qXLWES0KakQwUiV/MQCX5/UAVFB5G/6cQh7ek2UCkUQUXarlXjpJeNdIRuI
+/rfid8vAHRnRDkO1NeBFCo51/SfHjpL2b/X2oCv38/ghqYlwueATilJwF0LFo/I
+CRL0wVsDd2cI3H7VVXqHf3emXfTdaNF9x41BFw==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+    </authority>
+<authority>
+        <urn>urn:publicid:IDN+exogeni.net:uflvmsite+authority+cm</urn>
+        <hrn>ufl-hn.exogeni.net</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://ufl-hn.exogeni.net:11443/orca/xmlrpc</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <type>orca</type>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIICTzCCAbigAwIBAgIEUlU0fzANBgkqhkiG9w0BAQUFADBsMQswCQYDVQQGEwJ
+VUzELMAkGA1UECBMCTkMxFDASBgNVBAcTC0NoYXBlbCBIaWxsMQ4wDAYDVQQKEw
+VSRU5DSTENMAsGA1UECxMETlJJRzEbMBkGA1UEAxMSdWZsLWhuLmV4b2dlbmkub
+mV0MB4XDTEzMTAwOTEwNDgzMVoXDTIzMTAwNzEwNDgzMVowbDELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAk5DMRQwEgYDVQQHEwtDaGFwZWwgSGlsbDEOMAwGA1UEChM
+FUkVOQ0kxDTALBgNVBAsTBE5SSUcxGzAZBgNVBAMTEnVmbC1obi5leG9nZW5pLm
+5ldDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAtwP4bsDQ97Ldr0yDyk75o
+RAsKvUmiR6Iw9lc1fXSVxYHc28HnxvErRE/a+lW1IoIxBNxPDSWtYH2QXwd7Q9x
+WisWEkKuW63lcZHpFNrGX5z2PKHUkv0FANyfst2w7hTsSyUlRmN3BL8sug5K0NV
+Q9kxhWrX9nfy3w5XVN3mJEAsCAwEAATANBgkqhkiG9w0BAQUFAAOBgQCcxvNc91
+KGXGV8Vq+5itTiX5eWULvLdx64bLLWgvVIO6qgsEC7quogqIEFDjvnyBGJnHNPe
+ukkB4OGJF7Kp2hGGJM67fLgTJUnbpUCuire1HPxfa7LMhJAFlqPBoeuXZBZ/9sT
+2/xS6XK6JN2AgDuhe1ZNet0/PllwJfGdR7MTXA==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+    </authority>
+
+
+
+
+
+
+
+<authority xmlns="http://jfed.iminds.be/authority">
+    <urn>urn:publicid:IDN+cron.loni.org+authority+cm</urn>
+    <hrn>cron.loni.org.cm</hrn>
+    <urls>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="1"/>
+            <url>https://www.cron.loni.org:12369/protogeni/xmlrpc/am/1.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="2"/>
+            <url>https://www.cron.loni.org:12369/protogeni/xmlrpc/am/2.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="3"/>
+            <url>https://www.cron.loni.org:12369/protogeni/xmlrpc/am/3.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Slice Authority" version="1"/>
+            <url>https://www.cron.loni.org/protogeni/xmlrpc/sa</url>
+        </serverurl>
+    </urls>
+    <source>Clearinghouse</source>
+    <reconnectEachTime>false</reconnectEachTime>
+    <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIDGTCCAoKgAwIBAgICAIswDQYJKoZIhvcNAQEEBQAwgcMxCzAJBgNVBAYTAlV
+TMRIwEAYDVQQIEwlMb3Vpc2lhbmExFDASBgNVBAcTC0JhdG9uIFJvdWdlMSMwIQ
+YDVQQKExpMb3Vpc2lhbmEgU3RhdGUgVW5pdmVyc2l0eTEeMBwGA1UECxMVQ2Vyd
+GlmaWNhdGUgQXV0aG9yaXR5MRswGQYDVQQDExJib3NzLmNyb24ubG9uaS5vcmcx
+KDAmBgkqhkiG9w0BCQEWGXRlc3RiZWQtb3BzQGNyb24ubG9uaS5vcmcwHhcNMTI
+wMjE2MjEzNDI1WhcNMTcwODA4MjIzNDI1WjCBqzELMAkGA1UEBhMCVVMxEjAQBg
+NVBAgTCUxvdWlzaWFuYTEjMCEGA1UEChMaTG91aXNpYW5hIFN0YXRlIFVuaXZlc
+nNpdHkxHTAbBgNVBAsTFFByb3RvR0VOSSBSUEMgU2VydmVyMRowGAYDVQQDExF3
+d3cuY3Jvbi5sb25pLm9yZzEoMCYGCSqGSIb3DQEJARYZdGVzdGJlZC1vcHNAY3J
+vbi5sb25pLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAz402c5dzi2
+QUoT8PYDN373L5jjv/iQAG9s23Ib9WiGYNK64NGC2ar0Xgwk3PBZ1clxT4LvZoU
+ZdIaDpFrrGTNOeTxGnEHI6XWRcCCTAot9SFTkTDS7ftfILQxpudPhyK6iDIzAjr
+r8lgZ0XMUZ2okV6kovkFJz6qW22eoclcyP8CAwEAAaMyMDAwHQYDVR0OBBYEFBl
+c8XVJtxSjqdaVvOSgXy3Hus3zMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQ
+EEBQADgYEAaQiXiWhxzOXzlXqxX5XmRUu0dOxxgeIyQcoxPEZ0GFxFmtO35Tgln
+kdcRLOsXYn9gRF3Ssegr8VEbAMpHc2JbUm2B4v10hy9LAfei5NOqmIsK5Z2yNnP
+CLIfgbF01+E2KPk1JvJyiU4/GLWs7UZKEeyGS2vlJFUvavhUXRIn1LE=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+</authority>
+    <authority>
+        <urn>urn:publicid:IDN+uky.emulab.net+authority+cm</urn>
+        <hrn>ukgeni.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://www.uky.emulab.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://www.uky.emulab.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://www.uky.emulab.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIDMjCCApugAwIBAgIDAIU2MA0GCSqGSIb3DQEBBAUAMIHOMQswCQYDVQQGEwJ
+VUzERMA8GA1UECBMIS2VudHVja3kxEjAQBgNVBAcTCUxleGluZ3RvbjEvMC0GA1
+UEChMmVW5pdmVyc2l0eSBvZiBLZW50dWNreSBOZXR3b3JrIFRlc3RiZWQxHjAcB
+gNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEcMBoGA1UEAxMTYm9zcy51a3ku
+ZW11bGFiLm5ldDEpMCcGCSqGSIb3DQEJARYadGVzdGJlZC1vcHNAdWt5LmVtdWx
+hYi5uZXQwHhcNMTExMDA1MjIwMjMxWhcNMTcwMzI3MjMwMjMxWjCBuDELMAkGA1
+UEBhMCVVMxETAPBgNVBAgTCEtlbnR1Y2t5MS8wLQYDVQQKEyZVbml2ZXJzaXR5I
+G9mIEtlbnR1Y2t5IE5ldHdvcmsgVGVzdGJlZDEdMBsGA1UECxMUUHJvdG9HRU5J
+IFJQQyBTZXJ2ZXIxGzAZBgNVBAMTEnd3dy51a3kuZW11bGFiLm5ldDEpMCcGCSq
+GSIb3DQEJARYadGVzdGJlZC1vcHNAdWt5LmVtdWxhYi5uZXQwgZ8wDQYJKoZIhv
+cNAQEBBQADgY0AMIGJAoGBAMGS1YACLupWkox4OS8A+Jqk9F9FTb+29iMDIK1gu
+2qssK9DChNQ3jN5GHocpn8tysnYaNWOn3BXxPupyJge7CA6SNuLlrJhJtN7MdU+
+t4lmVW6+nsk6mFShS+haTM66XSXwrGEXj2U21Bjgb263QKZM14H8KKs474t8GQ2
+ye8XxAgMBAAGjMjAwMB0GA1UdDgQWBBToFkrtmnDYHCwWMMwuCADFidLWCjAPBg
+NVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBAUAA4GBAEMyu8ILPBt9JI+XQTnhJ
+BdsCc/txkjt/PKle9U9hMCKMJrBRUHcwMRCOrISjwwub1EGd7Cd6hDTCaUPgKhH
+JG/syd6YZLK0g8oYfRoAgHb2NBauboyzMmy3gg9XT2D2quAFtDAoEHOCl460qVn
+chzgcvV6vw7+PuZsiEkYcKPMg
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+pgeni.gpolab.bbn.com+authority+cm</urn>
+        <hrn>bbn-pgeni.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://www.pgeni.gpolab.bbn.com:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://www.pgeni.gpolab.bbn.com:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIDNTCCAp6gAwIBAgICC6gwDQYJKoZIhvcNAQEEBQAwgdAxCzAJBgNVBAYTAlV
+TMRYwFAYDVQQIEw1NYXNzYWNodXNldHRzMRIwEAYDVQQHEwlDYW1icmlkZ2UxHD
+AaBgNVBAoTE0dFTkkgUHJvamVjdCBPZmZpY2UxHjAcBgNVBAsTFUNlcnRpZmljY
+XRlIEF1dGhvcml0eTEiMCAGA1UEAxMZYm9zcy5wZ2VuaS5ncG9sYWIuYmJuLmNv
+bTEzMDEGCSqGSIb3DQEJARYkdGVzdGJlZC1vcHNAb3BzLnBnZW5pLmdwb2xhYi5
+iYm4uY29tMB4XDTEyMDIxMzEwNTEzMVoXDTE3MDgwNTExNTEzMVowgboxCzAJBg
+NVBAYTAlVTMRYwFAYDVQQIEw1NYXNzYWNodXNldHRzMRwwGgYDVQQKExNHRU5JI
+FByb2plY3QgT2ZmaWNlMR0wGwYDVQQLExRQcm90b0dFTkkgUlBDIFNlcnZlcjEh
+MB8GA1UEAxMYd3d3LnBnZW5pLmdwb2xhYi5iYm4uY29tMTMwMQYJKoZIhvcNAQk
+BFiR0ZXN0YmVkLW9wc0BvcHMucGdlbmkuZ3BvbGFiLmJibi5jb20wgZ8wDQYJKo
+ZIhvcNAQEBBQADgY0AMIGJAoGBAMMPPaNz8CMu5bBwShHypWtNhbBYvHJJMhzKF
+sL0XT24soiDhLkIVZ0hyx+zWVY053H/j7QrNLZbvapFx9ycDrREVBCNLMZ0mNQ+
+KUvw6PErqpqjOPCb7GLsgxV7YomBLAPhaq4mNr+m2iIzvNh9Lp7ZWWBgNyGSFrm
+5vZYVKG87AgMBAAGjMjAwMB0GA1UdDgQWBBS5ps7tSv+2qUF06jPhQMWlfKp/1j
+APBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBAUAA4GBAGf6RUhzD3eYL5QXW
+bUJo7FD9m6qE6dm3SKEta+UirqHDlKwC90g38JKko0hYuCXfNJT15G/msDjbcvv
+u/RsNJdgJGH5sw8myLGGeKDpRBCDtYrZLO+VA/rHFN9B51WWuFvrwqWHECjoHr4
+PmWxTCFQj5a/4aAnuSCZS42aYRJ9h
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+myelab.testbed.emulab.net+authority+cm</urn>
+        <hrn>myemulab.net.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://myboss.myelab.testbed.emulab.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://myboss.myelab.testbed.emulab.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://myboss.myelab.testbed.emulab.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEZDCCA82gAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgeMxCzAJBgNVBAYTAlV
+TMQ0wCwYDVQQIEwRVdGFoMRswGQYDVQQHExJTYWx0IExha2UgU2ltIENpdHkxIT
+AfBgNVBAoTGFV0YWggTmV0d29yayBTZWNvbmQgTGlmZTEeMBwGA1UECxMVQ2Vyd
+GlmaWNhdGUgQXV0aG9yaXR5MSkwJwYDVQQDEyBteWJvc3MubXllbGFiLnRlc3Ri
+ZWQuZW11bGFiLm5ldDE6MDgGCSqGSIb3DQEJARYrdGVzdGJlZC1vcHNAbXlvcHM
+ubXllbGFiLnRlc3RiZWQuZW11bGFiLm5ldDAeFw0xMjEyMjAyMDQ4NTBaFw0xOD
+A2MTIyMDQ4NTBaMIG6MQswCQYDVQQGEwJVUzENMAsGA1UECBMEVXRhaDEhMB8GA
+1UEChMYVXRhaCBOZXR3b3JrIFNlY29uZCBMaWZlMRIwEAYDVQQLEwlXZWJTZXJ2
+ZXIxKTAnBgNVBAMTIG15Ym9zcy5teWVsYWIudGVzdGJlZC5lbXVsYWIubmV0MTo
+wOAYJKoZIhvcNAQkBFit0ZXN0YmVkLW9wc0BteW9wcy5teWVsYWIudGVzdGJlZC
+5lbXVsYWIubmV0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZGHvRk116F
+ZuoZqdJgXyubeLpfEhvH6kw57kbKqRoaQ5D1uFjBDi/+a15kn9hou1lPfBhSMdg
+/AHmJUxYGa9jhXsriqgnR+QG65bJ7uv2mlBz4A0CTI/Bu5ladGzUIjy65zFKsNO
+LFQcTjwYOFrJGlQDmbSQnhSJudwzHKlcQ5QIDAQABo4IBTDCCAUgwCQYDVR0TBA
+IwADAdBgNVHQ4EFgQUS+EE55Afwy0mPOXFZYK5bXRzhB4wggEaBgNVHSMEggERM
+IIBDYAUTCCjC+wsPQyomlZ2PYFSk4sqkQOhgemkgeYwgeMxCzAJBgNVBAYTAlVT
+MQ0wCwYDVQQIEwRVdGFoMRswGQYDVQQHExJTYWx0IExha2UgU2ltIENpdHkxITA
+fBgNVBAoTGFV0YWggTmV0d29yayBTZWNvbmQgTGlmZTEeMBwGA1UECxMVQ2VydG
+lmaWNhdGUgQXV0aG9yaXR5MSkwJwYDVQQDEyBteWJvc3MubXllbGFiLnRlc3RiZ
+WQuZW11bGFiLm5ldDE6MDgGCSqGSIb3DQEJARYrdGVzdGJlZC1vcHNAbXlvcHMu
+bXllbGFiLnRlc3RiZWQuZW11bGFiLm5ldIIJAIFrwYK92fliMA0GCSqGSIb3DQE
+BBAUAA4GBAHfuz4MflfZii6p3pNAhB4FYBT5cSEiA+ihhcROUYeyJnc4mjZ/blJ
+zDnTEvjhU8Cvo9PHSmnxceJ4onuxCMyQfEK9lL63MeREoFzIlk1sB+YJQ9i67Fd
+HtGLz0KYV4vNM1tDNpC8Al5Z8KtDZMXl29fVFg7nGBMo0K27AQR8XYS
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+geni.kettering.edu+authority+cm</urn>
+        <hrn>ketteringu.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.geni.kettering.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEPDCCA6WgAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdYxCzAJBgNVBAYTAlV
+TMREwDwYDVQQIEwhNaWNoaWdhbjEcMBoGA1UEBxMTS2V0dGVyaW5nIEluc3RhR2
+VuaTEhMB8GA1UEChMYS2V0dGVyaW5nIEluc3RhR2VuaSBSYWNrMR4wHAYDVQQLE
+xVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBgNVBAMTF2Jvc3MuZ2VuaS5rZXR0
+ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0ZXN0YmVkLW9wc0BvcHMuZ2VuaS5
+rZXR0ZXJpbmcuZWR1MB4XDTEzMDIyODE5MjIwNloXDTE4MDgyMTE5MjIwNlowga
+wxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNaWNoaWdhbjEhMB8GA1UEChMYS2V0d
+GVyaW5nIEluc3RhR2VuaSBSYWNrMRIwEAYDVQQLEwlXZWJTZXJ2ZXIxIDAeBgNV
+BAMTF2Jvc3MuZ2VuaS5rZXR0ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0ZXN
+0YmVkLW9wc0BvcHMuZ2VuaS5rZXR0ZXJpbmcuZWR1MIGfMA0GCSqGSIb3DQEBAQ
+UAA4GNADCBiQKBgQDAU4JFySwM+XDioZP9YQluzjx3MTf7NKaNvQ6fwd7D9I1gd
+a9j6QSk7C3L6qeBAizBE1pgeV1M4Mlo8xlF1KCj6IuvSlinYnmWajyeucajBRLu
+ZloroJdM+ANGaIlgBZKrdr7TJew5AvgloSVXnIXHB6ATxfMu635pqrk0IMBqrQI
+DAQABo4IBPzCCATswCQYDVR0TBAIwADAdBgNVHQ4EFgQUT0JRUbBj4etVt90gUu
+PbkFrAL9swggENBgNVHSMEggEEMIIBAIAUpMkYjSYhG+rfF/OLVJYZTps1K0Ohg
+dykgdkwgdYxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhNaWNoaWdhbjEcMBoGA1UE
+BxMTS2V0dGVyaW5nIEluc3RhR2VuaTEhMB8GA1UEChMYS2V0dGVyaW5nIEluc3R
+hR2VuaSBSYWNrMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxIDAeBg
+NVBAMTF2Jvc3MuZ2VuaS5rZXR0ZXJpbmcuZWR1MTEwLwYJKoZIhvcNAQkBFiJ0Z
+XN0YmVkLW9wc0BvcHMuZ2VuaS5rZXR0ZXJpbmcuZWR1ggkA45i0ebpCslAwDQYJ
+KoZIhvcNAQEEBQADgYEAGxlwYLurgoWaLNG2fa7JYd7IeDdJE+6Au/zSvgs/mPj
+vZFJMfzF5WlLaCtwYmaO+IrvcqnuEU5SlCJRtiQoi4MVejBkKHPKVSAfpO3e+U9
+UsI61mbgcTuCLWqbKZEIcudN5TEODapJeBapk8gv53VwMdBZc7+/pBGlafTeMgS
+Zc=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.geni.kettering.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+ion.internet2.edu+authority+cm</urn>
+        <hrn>ion.internet2.edu</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://geni-am.net.internet2.edu:12346</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIICLDCCAZWgAwIBAgIBAzANBgkqhkiG9w0BAQQFADAcMRowGAYDVQQDExFpb24
+uaW50ZXJuZXQyLmVkdTAeFw0xMzA1MDMyMDAxMTNaFw0xODA1MDIyMDAxMTNaMB
+wxGjAYBgNVBAMTEWlvbi5pbnRlcm5ldDIuZWR1MIGfMA0GCSqGSIb3DQEBAQUAA
+4GNADCBiQKBgQC9xiDaWN4Ga9CQ10q8KeYbML6IBfB3ApoaXCljoTUBvDEKpL0y
+TjDl5ooHu2IgpvlqBIDFz3oAzkQIFifUM+vSlcal7S4UiiSa2xBve5WV6by+GzQ
+IUr5BuwyPEWYDhBnAse8joVWvl+SxFxhLObHfoWGaEwQ3BbfzZrBeg045MQIDAQ
+ABo34wfDAPBgNVHRMBAf8EBTADAQH/MGkGA1UdEQRiMGCGL3VybjpwdWJsaWNpZ
+DpJRE4raW9uOmludGVybmV0MjplZHUrYXV0aG9yaXR5K3Nhhi11cm46dXVpZDo3
+ZGE1MzMwMy05MzUyLTQwNTYtYWFkOC1lOWM0Y2I1ZTYwOGQwDQYJKoZIhvcNAQE
+EBQADgYEAkd+dGbM3mK0XbOLalkIR5pvuabSCOp8GDosfITgT/4STp6QOA1YuT3
+jbgbQgnup+Ddh/qAR5HpVCV79l3NoZ+63WLqzcaJib+suyYRWnIqUICfZH8YCyE
+lKbW+N6y1W8scCjZJHMlfeAFftYeuwQg1t/PqLJcJwK/bKKvYODMX0=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>ion.internet2.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+genirack.nyu.edu+authority+cm</urn>
+        <hrn>nyugenirack.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.genirack.nyu.edu:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.genirack.nyu.edu:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.genirack.nyu.edu:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEMzCCA5ygAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgdYxCzAJBgNVBAYTAlV
+TMREwDwYDVQQIEwhOZXcgWW9yazElMCMGA1UEBxMcTmV3IFlvcmsgVW5pdmVyc2
+l0eSBHZW5pUmFjazEcMBoGA1UEChMTTmV3IFlvcmsgVW5pdmVyc2l0eTEeMBwGA
+1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MR4wHAYDVQQDExVib3NzLmdlbmly
+YWNrLm55dS5lZHUxLzAtBgkqhkiG9w0BCQEWIHRlc3RiZWQtb3BzQG9wcy5nZW5
+pcmFjay5ueXUuZWR1MB4XDTEzMDUyMzE3MDExNFoXDTE4MTExMzE3MDExNFowga
+MxCzAJBgNVBAYTAlVTMREwDwYDVQQIEwhOZXcgWW9yazEcMBoGA1UEChMTTmV3I
+FlvcmsgVW5pdmVyc2l0eTESMBAGA1UECxMJV2ViU2VydmVyMR4wHAYDVQQDExVi
+b3NzLmdlbmlyYWNrLm55dS5lZHUxLzAtBgkqhkiG9w0BCQEWIHRlc3RiZWQtb3B
+zQG9wcy5nZW5pcmFjay5ueXUuZWR1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQ
+KBgQDsEy6cRjUNQZgyLwkWOsYf1RsX3Njoz6vWRmhhWHQ0Qc9qd05ze7qu5my0r
+WSUCRz9+ISIKYuYnoGt8gRZ7eskiBm3t0+Z5c+L29NedyFYcrmUKFdD5DmaR0gS
+3AbSIcMIEEGIOpW6lElJU+Z7hK1RADmSvsul3cfCMSuW+Ko3RQIDAQABo4IBPzC
+CATswCQYDVR0TBAIwADAdBgNVHQ4EFgQUeh0fRvNoVrgqir55jbcPGrd4kj8wgg
+ENBgNVHSMEggEEMIIBAIAUSau6R+h2krgLH7QJyuSIz+B0SUmhgdykgdkwgdYxC
+zAJBgNVBAYTAlVTMREwDwYDVQQIEwhOZXcgWW9yazElMCMGA1UEBxMcTmV3IFlv
+cmsgVW5pdmVyc2l0eSBHZW5pUmFjazEcMBoGA1UEChMTTmV3IFlvcmsgVW5pdmV
+yc2l0eTEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MR4wHAYDVQQDEx
+Vib3NzLmdlbmlyYWNrLm55dS5lZHUxLzAtBgkqhkiG9w0BCQEWIHRlc3RiZWQtb
+3BzQG9wcy5nZW5pcmFjay5ueXUuZWR1ggkAgQGVseokivswDQYJKoZIhvcNAQEE
+BQADgYEAB0h3oPW+0d773egIoMuSPTRyq5Iba7FAZNckj75cmRQ1k4hzrZv0XcG
+VtWTL5dDUb8oQXvWAfFnWeME4ghPUliY5GHfhqz7h5Cs9AWbcEt94h01T16T7oW
+Cjf2+U1Ql1f/5MYTilQLzETuZ9TASNHlQjwjXZBPcIweYYcpgtCxI=
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.genirack.nyu.edu</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+    <authority>
+        <urn>urn:publicid:IDN+utah.geniracks.net+authority+cm</urn>
+        <hrn>utahgenirack.cm</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://boss.utah.geniracks.net:12369/protogeni/xmlrpc/am/1.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="3"/>
+                <url>https://boss.utah.geniracks.net:12369/protogeni/xmlrpc/am/3.0</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://boss.utah.geniracks.net:12369/protogeni/xmlrpc/am/2.0</url>
+            </serverurl>
+        </urls>
+        <type>instageni</type>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIEBTCCA26gAwIBAgICA+swDQYJKoZIhvcNAQEEBQAwgcMxCzAJBgNVBAYTAlV
+TMQ0wCwYDVQQIEwRVdGFoMRcwFQYDVQQHEw5Vb2ZVIFByb3RvR0VOSTEXMBUGA1
+UEChMOVW9mVSBHZW5pIFJhY2sxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvc
+ml0eTEgMB4GA1UEAxMXYm9zcy51dGFoLmdlbmlyYWNrcy5uZXQxMTAvBgkqhkiG
+9w0BCQEWInRlc3RiZWQtb3BzQG9wcy51dGFoLmdlbmlyYWNrcy5uZXQwHhcNMTI
+wMzA3MTk1MDMzWhcNMTcwODI4MTk1MDMzWjCBnjELMAkGA1UEBhMCVVMxDTALBg
+NVBAgTBFV0YWgxFzAVBgNVBAoTDlVvZlUgR2VuaSBSYWNrMRIwEAYDVQQLEwlXZ
+WJTZXJ2ZXIxIDAeBgNVBAMTF2Jvc3MudXRhaC5nZW5pcmFja3MubmV0MTEwLwYJ
+KoZIhvcNAQkBFiJ0ZXN0YmVkLW9wc0BvcHMudXRhaC5nZW5pcmFja3MubmV0MIG
+fMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzRmo7ZDbVYKGsrJZih+TmLLU1G2
++H5XQvid5KXHBslyB7eubON/RzD/37C88vsqilmqkboMMjVSvSKZp2/ZjxaQZR6
+lSDTFv/V77INpEKar25en6SUmWr2xtxHcASi5oVh9to1fPhaioe+BvTSDho4zVU
+wEZbIn0zmN/eL5Jy8wIDAQABo4IBKTCCASUwCQYDVR0TBAIwADAdBgNVHQ4EFgQ
+UkJVVvgFFiHDJkSNnVJiIIa1aezwwgfgGA1UdIwSB8DCB7YAUIL/fETn55ti7Hg
+uS4jRoNugP2dKhgcmkgcYwgcMxCzAJBgNVBAYTAlVTMQ0wCwYDVQQIEwRVdGFoM
+RcwFQYDVQQHEw5Vb2ZVIFByb3RvR0VOSTEXMBUGA1UEChMOVW9mVSBHZW5pIFJh
+Y2sxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEgMB4GA1UEAxMXYm9
+zcy51dGFoLmdlbmlyYWNrcy5uZXQxMTAvBgkqhkiG9w0BCQEWInRlc3RiZWQtb3
+BzQG9wcy51dGFoLmdlbmlyYWNrcy5uZXSCCQDc0Zyi7B4lwTANBgkqhkiG9w0BA
+QQFAAOBgQBZx3hC+GY/f8UvKCsTp0Sk3iUBgOxHkyYFPUYi+IgZwEytbvp0g8Oe
+MYNsto0fYqMNx0MO9Pinrc3lyocnkYz7/2KvL+Mb0MPX9faKcrC7euf/M0fujfr
+Ombj2Prdpaa7OL3n7rps1yBa5ziOLSXr0Fmw7Tb/SDV9Yyx8F+rzNfw==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>boss.utah.geniracks.net</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+<authority xmlns="http://jfed.iminds.be/authority">
+    <urn>urn:publicid:IDN+cis.fiu.edu+authority+cm</urn>
+    <hrn>cis.fiu.edu.cm</hrn>
+    <urls>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="1"/>
+            <url>https://pg-boss.cis.fiu.edu:12369/protogeni/xmlrpc/am/1.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="2"/>
+            <url>https://pg-boss.cis.fiu.edu:12369/protogeni/xmlrpc/am/2.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Aggregate Manager" version="3"/>
+            <url>https://pg-boss.cis.fiu.edu:12369/protogeni/xmlrpc/am/3.0</url>
+        </serverurl>
+        <serverurl>
+            <servertype role="Slice Authority" version="1"/>
+            <url>https://pg-boss.cis.fiu.edu:12369/protogeni/xmlrpc/sa</url>
+        </serverurl>
+    </urls>
+    <source>Clearinghouse</source>
+    <reconnectEachTime>false</reconnectEachTime>
+    <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIIDLzCCApigAwIBAgIBIjANBgkqhkiG9w0BAQQFADCByzELMAkGA1UEBhMCVVM
+xEDAOBgNVBAgTB0Zsb3JpZGExDjAMBgNVBAcTBU1pYW1pMTcwNQYDVQQKEy5Nb2
+RlbGluZyBhbmQgTmV0d29ya2luZyBTeXN0ZW1zIFJlc2VhcmNoIEdyb3VwMR4wH
+AYDVQQLExVDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxHDAaBgNVBAMTE3BnLWJvc3Mu
+Y2lzLmZpdS5lZHUxIzAhBgkqhkiG9w0BCQEWFG1lcmF6MDAxQGNpcy5maXUuZWR
+1MB4XDTExMTIwODE2MjYwN1oXDTE3MDUzMDE3MjYwN1owgboxCzAJBgNVBAYTAl
+VTMRAwDgYDVQQIEwdGbG9yaWRhMTcwNQYDVQQKEy5Nb2RlbGluZyBhbmQgTmV0d
+29ya2luZyBTeXN0ZW1zIFJlc2VhcmNoIEdyb3VwMR0wGwYDVQQLExRQcm90b0dF
+TkkgUlBDIFNlcnZlcjEcMBoGA1UEAxMTcGctYm9zcy5jaXMuZml1LmVkdTEjMCE
+GCSqGSIb3DQEJARYUbWVyYXowMDFAY2lzLmZpdS5lZHUwgZ8wDQYJKoZIhvcNAQ
+EBBQADgY0AMIGJAoGBAMlkp7AcrOUZLbHi6hI0MustCtpxQ2c4tj5K87AqDEqTE
+/UZLN0Tmfrf2ydgfYl/zsKTvSwma7wchsEJoTcnRxhA/V8Py+braVhsPwErDMmy
+yahzLe7xT1I83c20gKkcMVL/0Y6sYS6LLB5o76l4dqspw7vbvRIWx1qHgfYASB8
+bAgMBAAGjMjAwMB0GA1UdDgQWBBTVHmPeOF2In4PcfhpFD/BUFBLppTAPBgNVHR
+MBAf8EBTADAQH/MA0GCSqGSIb3DQEBBAUAA4GBAFTo816jZdlhTvM4Tx289IGba
+Deh6vtidWOQHgke7bPO33oZZl/KvbzjQ/yw4HlTNAEv40qIfYOtCjBfEjJRJ6YM
+MTAMEvJi1T6SpQ822VF94o2fRSiAlIqEE12OmbMCweB0FHOEdkqb4TujVNQQTCW
+qSJBQyBQDEZ6tuaO/wUwx
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+</authority>
+<authority>
+        <urn>urn:publicid:IDN+openflow:foam:10.1.0.61+authority+am</urn>
+        <hrn>Koren AM</hrn>
+        <urls>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="1"/>
+                <url>https://112.220.85.178:7071/foam/gapi/2</url>
+            </serverurl>
+            <serverurl>
+                <servertype role="Aggregate Manager" version="2"/>
+                <url>https://112.220.85.178:7071/foam/gapi/2</url>
+            </serverurl>
+        </urls>
+        <source>User</source>
+        <reconnectEachTime>false</reconnectEachTime>
+        <pemSslTrustCert>-----BEGIN CERTIFICATE-----
+MIICpjCCAY4CCQCflWyDJy4zgjANBgkqhkiG9w0BAQUFADAVMRMwEQYDVQQDEwp
+taW5pbmV0LXZtMB4XDTEzMDkzMDA5MTMxMloXDTIzMDkyODA5MTMxMlowFTETMB
+EGA1UEAxMKbWluaW5ldC12bTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCg
+gEBAOHwZz+IJGsy3Hdi7yAHBC7t/aMwl9ycPEJimDwQIn7H7gNp/jJ7HmOqL+vV
+HqHBB3EJDEfdO89DSlE1FGkv4vIMb8lwa+7Z8vhcDu8XEd1QG3C0hoHigSxHAgt
+YBd0m7yRhp8G2tVHQU7Bwtzf1pziZATT7S9wlWvYdMX+A3L668pGZT/3Qjjq19F
+fbqnG6qhiTBwqrttN0qNgTNrgYm3dD3Bxy56JUXIyIJ7HIrXw+M/pX9RUimSgTu
+lUZP3JGY2PNbNZSizR+TeYgBZJaG4YFzj/fkKw6R1YXE6tiZNKP7wBehcfYN9gE
+C+X9kxP132E+1TGltHN7kHSkfB1/OqsCAwEAATANBgkqhkiG9w0BAQUFAAOCAQE
+APE8308v7FgDcR+AZd4ewAm+5jIeyp0wkgC0Kyem2LzuQSIf4pGZA1zv4Q4plKs
+1M698waOmaof9ax+kyskdy25yWvv9TpdCqVT7KoQo0E1gq0HbhbC78tP8Job5gZ
+iwhlj7rd193t7nj/EOo15JiT3Z7bAJGeS1kxemyH7CwmZuRV94rtLJ/HVH9AGiC
+lmgZWJCb7RF6YvIbqX6mRehUj1vxRm9U8jrQhA+IgLCRmWZaWgCgX2b2mJBZbQP
+bTCzBoobAKgqg8HQc5VH7SGQByVSlSIh/OQi6sgVkf3YnNc1xng2XTH8MW05s6E
+Y/loKZhUyhvUelDLEF++Yx3pab3A==
+-----END CERTIFICATE-----
+</pemSslTrustCert>
+        <allowedCertificateHostnameAliases>
+            <alias>mininet-vm</alias>
+        </allowedCertificateHostnameAliases>
+    </authority>
+
+</authorities>

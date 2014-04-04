@@ -2,20 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-   <title>International federation Monitor</title>
+   <title>Local federation Monitor</title>
 	<meta http-equiv="refresh" content="10" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico">
   </head>
   <body>
     <div id="header"></div>
-    <div class="container" id="content"><h1>International Federation Monitoring</h1>
+    <div class="container" id="content"><h1>Local Federation Monitoring</h1>
   <table border="1">
   <tr>
    <th>Testbed Name</th>
@@ -28,7 +28,7 @@
   </tr>
   <?php
     //todo webservice via config file
-    Include ( __DIR__.'/config.php');
+    Include ( __DIR__.'/../config.php');
     
     $data = json_decode(file_get_contents($GLOBALS['urlLocal']),true);
     $data = $data['data'];
@@ -37,7 +37,7 @@
     date_default_timezone_set('CET');
     
     //print_r($data);
-    foreach ($data as $key => $row){
+    foreach ($data as $row){
         echo "<tr>";
             echo "<td><a href=".$testbedurls[$row['testbeds'][0]]['url'].">".$row['testbeds'][0]."</a></td>";
             echo "<td>".date('d/m/Y - H:i:s',strtotime($row['timestamp']))."</td>";

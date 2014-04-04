@@ -1,8 +1,7 @@
 <?php
-
 include (__DIR__."/../database/AccessDatabase.php");
 
-class AddResultController implements iController{
+class AddTestbedController implements iController{
     //handles all requests for /last
     
     private $dbo;
@@ -12,6 +11,7 @@ class AddResultController implements iController{
     }
     
     public function get($params){
-        return $this->dbo->addResult($params);
+        return $this->dbo->addTestbed($params);
     }
 }
+

@@ -11,9 +11,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico">
   </head>
   <body>
@@ -30,7 +30,7 @@
   </tr>
   <?php
     //todo webservice via config file
-    Include ( __DIR__.'/config.php');
+    Include ( __DIR__.'/../config.php');
     date_default_timezone_set('CET');
     
     $data = json_decode(file_get_contents($GLOBALS['webservice'].'/list?testname='.$testname),true);

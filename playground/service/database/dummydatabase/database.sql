@@ -10,11 +10,12 @@ DROP TABLE testInstances;
 DROP TABLE parameterInstances;
 DROP TABLE results;
 DROP TABLE subResults;
+DROP TABLE users;
 
 CREATE TABLE testbeds (
-    testbedId character varying NOT NULL PRIMARY KEY,
-    name character varying NOT NULL,
-    url  character varying
+    testbedName character varying NOT NULL PRIMARY KEY, 
+    url  character varying,
+    urn character varying --UNIQUE
 );
 
 CREATE TABLE testDefinitions(
@@ -59,6 +60,11 @@ CREATE TABLE subResults(
     primary key (resultId,name)
 );
 
+CREATE TABLE users(
+    keyid text NOT NULL,
+    key text NOT NULL
+);
+
 CREATE VIEW list AS 
     select *,r.resultid id from results r
         join subresults sr using (resultid)
@@ -83,6 +89,7 @@ ALTER TABLE public.testInstances OWNER TO postgres;
 ALTER TABLE public.parameterInstances OWNER TO postgres;
 ALTER TABLE public.results OWNER TO postgres;
 ALTER TABLE public.subResults OWNER TO postgres;
+ALTER TABLE public.users OWNER TO postgres;
 
 ALTER TABLE public.list OWNER TO postgres;
 ALTER TABLE public.definitions OWNER TO postgres;

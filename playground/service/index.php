@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
+include(__DIR__.'/Request.php');
 #autoload classes
 spl_autoload_register('apiAutoload');
 
@@ -14,7 +15,7 @@ function apiAutoload($classname) {
     } else if (preg_match('/[a-zA-Z]+Formatter$/', $classname) && file_exists(__DIR__ . '/formatters/' . $classname . '.php')) {
         include __DIR__ . "/formatters/" . $classname . '.php';
         return true;
-    } else {
+    }else {
         return false;
     }
 }
@@ -50,33 +51,53 @@ if ($controller_name != "") {
     $verb = $_SERVER['REQUEST_METHOD'];
 
     ////Parse params if request is valid & parameters are set
-    //only GET ATM
     $parameters = array();
-    if ($valid && isset($_SERVER['QUERY_STRING'])) {
+    if ($valid){
         //parse all params
         //GET
-        parse_str($_SERVER['QUERY_STRING'], $parameters);
+        if (isset($_SERVER['QUERY_STRING'])) {
+            parse_str($_SERVER['QUERY_STRING'], $parameters);
+        }
         //POST
-        $body = file_get_contents("php://input");
+        $body = file_get_contents('php://input');
         $content_type = false;
-        if (isset($_SERVER['CONTENT_TYPE'])) {
+        if(isset($_SERVER['CONTENT_TYPE'])) {
             $content_type = $_SERVER['CONTENT_TYPE'];
         }
-        switch ($content_type) {
+        switch($content_type) {
             case "application/json":
                 $body_params = json_decode($body);
-                if ($body_params) {
-                    foreach ($body_params as $param_name => $param_value) {
+                if($body_params) {
+                    foreach($body_params as $param_name => $param_value) {
                         $parameters[$param_name] = $param_value;
                     }
                 }
+                break;
+            case "application/x-www-form-urlencoded":
+                parse_str($body, $postvars);
+                foreach($postvars as $field => $value) {
+                    $parameters[$field] = $value;
+                }
+                break;
+            /*case "text/html":
+                $test = http_parse_headers($body);
+                print "<br>";
+                print_r($test);
+                print "<br>";
+                break;*/
+            default:
+                foreach ($_POST as $key => $value){
+                    $parameters[$key] = $value;
+                }
+                break;
         }
+        
+        //array of params (testbed=urn-testbed1,urn-testbed5) => 2 params!
         foreach ($parameters as $key => $value) {
             $parameters[$key] = explode(',', $value);
         }
+        
         //print_r($parameters);
-        
-        
 
         //GetFormat from params
         if (isset($parameters['format'])) {
@@ -106,14 +127,17 @@ if ($controller_name != "") {
                 $valid = false;
             }
         }
-
+        
+        $req = new Request($parameters,$status,$msg,$verb);
         //Only call database is request is valid
         if ($valid) {
             //print "<b>redirecting to $controller_name... </b><br>";
-            $data = $controller->get($parameters);
+            
+            //TODO kanproperder
+            $req->setData($controller->get($req));//parameters);
         }
     }
-    echo $formatter->format($data, $status, $msg);
+    echo $formatter->format($req);//$data, $status, $msg);
 } else {
     ?>
     <!DOCTYPE html>
@@ -137,8 +161,6 @@ if ($controller_name != "") {
                 This is the beta version of the jFed monitoring Service.<br>
                 On this page there a few example calls. These calls use dummy data.<br>
                 There are only 2 tests defined at the moment, a ping tests and a stitching test.<br>
-                Testbeds are currently identified by their urn eg. urn-testbed1 for testbed1.<br>
-                This might change in the future, since urn's are hard to remember.<br>
                 <br><br>
                 <table border="1">
                     <tr><th>call</th><th>explanation</th></tr>
@@ -151,11 +173,11 @@ if ($controller_name != "") {
                         <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testbed=urn-testbed1,urn-testbed5&testtype=ALL&format=PrettyJson">/last?testbed=urn-testbed1,urn-testbed5&testtype=ALL</a></td>
+                        <td><a href="./index.php/last?testbed=testbed1,testbed5&testtype=ALL&format=PrettyJson">/last?testbed=testbed1,testbed5&testtype=ALL</a></td>
                         <td>All Last results for testbed1 and testbed5</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/list?testtype=stitch&testbed=urn-testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=urn-testbed1&count=3</a></td>
+                        <td><a href="./index.php/list?testtype=stitch&testbed=testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=testbed1&count=3</a></td>
                         <td>Last 3 stitching results for testbed1</td>
                     </tr>
                     <tr>
@@ -174,7 +196,6 @@ if ($controller_name != "") {
                         <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>
                         <td>View all testbeds</td>
                     </tr>
-
                 </table>
         </body>
     </html>
