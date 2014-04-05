@@ -45,8 +45,8 @@ class Request{
         $this->status = $status;
     }
 
-    public function setMsg($msg) {
-        $this->msg = $msg;
+    public function addMsg($msg) {
+        $this->msg = $this->msg." | ".$msg;
     }
 
     public function setVerb($verb) {

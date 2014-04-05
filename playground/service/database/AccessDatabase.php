@@ -25,7 +25,6 @@ class AccessDatabase {
         $request->setParameters($params);
         return $this->getList($request);
     }
-
     public function getList(&$request) {
         $params = $request->getParameters();
         $query = "select * from ("
@@ -79,13 +78,13 @@ class AccessDatabase {
             if ($row['parametername'] == 'testbed' && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }
-            $data[$row['resultid']]['results'][$row['name']] = $row['value'];
+            //NOTE column names are ALWAYS LOWER CASE
+            $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
         }
         //echo $query;
         $this->closeConnection($con);
         return $data;
     }
-
     public function updateCache() {
         //NIET PROPER
         //$fakeReq = new Request();
@@ -95,7 +94,6 @@ class AccessDatabase {
         //$testDefinitions = json_decode();
         return;
     }
-
     //Config Calls
     public function getTestDefinition(&$request) {
         $params = $request->getParameters();
@@ -126,7 +124,6 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
-
     public function getTestInstance(&$request) {
         $params = $request->getParameters();
         $query = "select * from instances ";
@@ -164,7 +161,6 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
-
     public function getTestbed(&$request) {
         $params = $request->getParameters();
         $query = "select * from testbeds";
@@ -189,7 +185,9 @@ class AccessDatabase {
 
     //push calls
     public function addTestbed(&$request) {
+        
         $params = $request->getParameters();
+        
         print_r($params);
         $query = "insert into testbeds (testbedname,url,urn) values ($1,$2,$3);";
         $paramsForUse = array($params['testbedName'][0], $params['url'][0], $params['urn'][0]);
@@ -207,10 +205,11 @@ class AccessDatabase {
         //if ($request->getVerb() == 'POST'){
         $params = $request->getParameters();
         //print_r($params);
-        //testinstanceid given & existing? 
+        //testinstanceid given & existing?  => ook mogelijk in database
         $valid = FALSE;
         $returnVals;
-        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) && strtoupper($request->getVerb()) == 'POST') {
+        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]])
+                && strtoupper($request->getVerb()) == 'POST') {
             $valid = True;
             //kijk of alle return values opgegeven zijn
             $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testtype']]['returnValues'];
@@ -218,20 +217,16 @@ class AccessDatabase {
             foreach ($returnVals as $key => $val) {
                 if (!isset($params[$key][0])) {
                     $valid = False;
-                    $request->setMsg($key . " Not given");
+                    $request->addMsg($key . " Not given");
                     $request->setStatus(400);
                     break;
                 }
             }
-        } else {
-            //$valid=False;
-            $request->setMsg("testinstanceid not given or not valid! And/Or method not post");
-            $request->setStatus(400);
         }
         
         if ($valid) {
             $query = "insert into results (testinstanceid,log) values ($1,$2);";
-            $subQuery = "insert into subresults(resultId,name,value) values(lastval(),$1,$2);";
+            $subQuery = "insert into subresults(resultId,returnName,returnValue) values(lastval(),$1,$2);";
             $con = $this->getConnection();
 
             //result
@@ -239,15 +234,19 @@ class AccessDatabase {
                 $params['testinstanceid'][0],
                 'http://f4f-mon-dev.intec.ugent.be/logs/' . $params['testinstanceid'][0] . '/' . rand(0, 10000)
             );
-            pg_query_params($con, $query, $data);
+            print pg_query_params($con, $query, $data);
 
             //subresults
             foreach ($returnVals as $key => $val) {
                 $data = array($key, $params[$key][0]);
-                pg_query_params($con, $subQuery, $data);
+                print pg_query_params($con, $subQuery, $data);
             }
 
             $this->closeConnection($con);
+        }else {
+            //$valid=False;
+            $request->addMsg("testinstanceid not given or not valid! And/Or method not post");
+            $request->setStatus(400);
         }
 
         return;

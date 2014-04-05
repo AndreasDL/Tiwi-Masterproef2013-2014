@@ -11,7 +11,7 @@ package monitor.model;
  * @author drew
  */
 public class Testbed {
-    private String name,url;
+    private String name,url,urn;
 
     public String getName() {
         return name;
@@ -19,6 +19,10 @@ public class Testbed {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getUrn() {
+        return urn;
     }
     
 }

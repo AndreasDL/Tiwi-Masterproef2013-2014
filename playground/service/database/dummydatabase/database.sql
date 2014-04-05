@@ -3,18 +3,18 @@ DROP VIEW definitions;
 DROP VIEW instances;
 
 DROP TABLE testbeds;
-DROP TABLE testDefinitions;
+DROP TABLE users;
 DROP TABLE parameterDefinitions;
 DROP TABLE returnDefinitions;
-DROP TABLE testInstances;
 DROP TABLE parameterInstances;
-DROP TABLE results;
 DROP TABLE subResults;
-DROP TABLE users;
+DROP TABLE results;
+DROP TABLE testInstances;
+DROP TABLE testDefinitions;
 
 CREATE TABLE testbeds (
     testbedName character varying NOT NULL PRIMARY KEY, 
-    url  character varying,
+    url character varying,
     urn character varying --UNIQUE
 );
 
@@ -23,13 +23,13 @@ CREATE TABLE testDefinitions(
     testCommand character varying NOT NULL
 );
 CREATE TABLE parameterDefinitions(
-    testType character varying NOT NULL,
+    testType character varying NOT NULL references testDefinitions(testtype),
     parameterName text NOT NULL,
     parameterType text NOT NULL,
     parameterDescription text
 );
 CREATE TABLE returnDefinitions(
-    testType character varying NOT NULL,
+    testType character varying NOT NULL references testDefinitions(testtype),
     returnName text NOT NULL,
     returnType text NOT NULL,
     returnDescription text
@@ -37,27 +37,27 @@ CREATE TABLE returnDefinitions(
 
 CREATE TABLE testInstances(
     testinstanceId serial PRIMARY KEY,
-    testname character varying ,
-    testtype character varying NOT NULL,
+    testname character varying UNIQUE,
+    testtype character varying NOT NULL references testDefinitions(testtype),
     frequency integer
 );
 CREATE TABLE parameterInstances(
-    testinstanceId integer NOT NULL,
-    parameterName text NOT NULL,
+    testinstanceId integer NOT NULL references testInstances(testinstanceId),
+    parameterName text NOT NULL,-- references parameterDefinitions(parameterName),
     parameterValue text NOT NULL
 );
 
 CREATE TABLE results(
     resultId serial NOT NULL PRIMARY KEY,
-    testInstanceId integer NOT NULL,
+    testInstanceId integer NOT NULL references testInstances(testinstanceId),
     log character varying NOT NULL,
     timestamp timestamp default current_timestamp
 );
 CREATE TABLE subResults(
-    resultId integer NOT NULL,
-    name text NOT NULL,
-    value text NOT NULL,
-    primary key (resultId,name)
+    resultId integer NOT NULL references results(resultId),
+    returnName text NOT NULL, --references returnDefinitions(returnName),
+    returnValue text NOT NULL,
+    primary key (resultId,returnName)
 );
 
 CREATE TABLE users(

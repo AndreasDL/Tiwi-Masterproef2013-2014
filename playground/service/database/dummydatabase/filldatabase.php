@@ -39,22 +39,22 @@ $retQuery = "insert into returnDefinitions (testType,returnName,returnType,retur
 $query = "insert into testdefinitions (testtype,testcommand) values($1,$2);";
 
 echo "\tCreating Ping test\n";
+$data = array('ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
+pg_query_params($con, $query, $data);
 $data = array("ping", "timeout", "integer", "timeout for ping test");
 pg_query_params($con, $subQuery, $data);
 $data = array("ping", "testbed", "testbed",  "name of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
-$data = array('ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
-pg_query_params($con, $query, $data);
 $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
+$data = array('stitch', 'stitch');
+pg_query_params($con, $query, $data);
 $data = array("stitch", "topology", "string", "ring | line");
 pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "testbed", "testbed[]", "multiple testbeds for stitching test");
 pg_query_params($con, $subQuery, $data);
-$data = array('stitch', 'stitch');
-pg_query_params($con, $query, $data);
 
 $data = array('stitch', 'setUp', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
@@ -78,7 +78,7 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
-$data = array('login', 'java -ea -jar /work/jFed-bin/monitor/automated-testing-UNKNOWN_SVN_REVISION.jar --context-file /work/monitoring/contexts/login_scenarios/user=ftester-am=fiteagle_fuseco.properties --test-class be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager3 --group nodelogin --authorities-file /work/monitoring/authorities.xml --output-dir /work/monitoring/output/login_scenarios/user=ftester-am=fiteagle_fuseco/2014-04-02_15:35:47+02/test-output/');
+$data = array('login', 'java -ea -jar /work/jFed-bin/monitor/automated-testing-UNKNOWN_SVN_REVISION.jar --context-file <context-file> --test-class <test-class> --group <group> --authorities-file <authorities-file-path> --output-dir <output-dir>');
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", 'contextfile');
 pg_query_params($con, $subQuery, $data);
@@ -86,7 +86,7 @@ $data = array("login", "test-class", "class" , 'class of test');
 pg_query_params($con, $subQuery, $data);
 $data = array("login", "group", "String", 'what');
 pg_query_params($con, $subQuery, $data);
-$data = array("login", "authorities-file", "file" , 'authoritiesfile');
+$data = array("login", "authorities-file-path", "path" , 'path to authorities file');
 pg_query_params($con, $subQuery, $data);
 $data = array("login", "output-dir" , "directory", 'where to put output');
 pg_query_params($con, $subQuery, $data);
@@ -179,7 +179,7 @@ testedAggregateManagerUrn = urn:publicid:IDN+fiteagle+authority+am");
     $data=array("group","nodelogin");
     pg_execute($con,"subQuery",$data);
     
-    $data=array("authorities-file",$authDir);
+    $data=array("authorities-file-path",$authDir);
     pg_execute($con,"subQuery",$data);
     
     $data=array("output-dir",$outputDir);
@@ -193,7 +193,7 @@ echo "creating results\n";
 //echo "!!Warning this may take some time because the script sleeps after every round to get different timestamps\n";
 $query = "insert into results (testinstanceid,log,timestamp) values ($1,$2,$3);";
 pg_prepare($con,"query2",$query);
-$subQuery = "insert into subresults(resultId,name,value) values(lastval(),$1,$2);";
+$subQuery = "insert into subresults(resultId,returnName,returnValue) values(lastval(),$1,$2);";
 pg_prepare($con,"subQuery2",$subQuery);
 for ($j = 1; $j <= $resultsPerInstances; $j++) {
     echo "\tround $j \n";

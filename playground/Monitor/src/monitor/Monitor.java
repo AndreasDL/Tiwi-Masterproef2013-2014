@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.model.TestForExecution;
+import monitor.model.TestResult;
 
 /**
  *
@@ -29,7 +30,11 @@ public class Monitor {
             
             try {
                 //System.out.println(i + "  " + tests.get(i).run());
-                System.out.println(tests.get(i).run());
+                TestResult r = tests.get(i).run();
+                webAccess.addResult(r,tests.get(i));
+                for(String key : r.getResults().keySet()){
+                    System.out.println(key + " => " + r.getSubResult(key));
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {

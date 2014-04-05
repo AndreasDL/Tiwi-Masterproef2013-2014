@@ -38,7 +38,7 @@ public class TestForExecution {
     }
     
 
-    public String run() throws IOException, InterruptedException {
+    public TestResult run() throws IOException, InterruptedException {
         //swap params for real values
         //run shell command
         System.out.println("Exec " + command);
@@ -63,19 +63,14 @@ public class TestForExecution {
                 //System.out.println(line);
             }
         }
-        return out.toString();
-        /*
-        //Check result
-        if (p.waitFor() == 0) {
-            System.exit(0);
-            return line;
-        }else{
-            //Abnormal termination: Log command parameters and output and throw ExecutionException
-            System.err.println(command);
-            System.err.println(out.toString());
-            System.exit(1);
-            return null;
-        }*/
+        
+        //parse de rommel
+        
+        TestResult r = new TestResult();
+        r.setTestType(test.getTesttype());
+        r.addSubResult("pingValue", out.toString());
+        
+        return r;
     }
 
     private String executeCommand(String command) {
