@@ -135,6 +135,7 @@ class AccessDatabase {
             $eindhaakje = ')';
         }
         $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
 
         $query .= $eindhaakje;
 
@@ -252,6 +253,36 @@ class AccessDatabase {
         return;
     }
 
+    public function addTestInstance(&$request){
+        //post
+        $params = $request->getParameters();
+        print_r($params);
+        if ($request->getVerb() == 'POST' && isset($params['testtype']) && isset($this->testDefinitions[$params['testtype'][0]])){
+            //kjk of alle params ingevuld zijn
+            $valid = True;
+            foreach ($this->testDefinitions[$params['testtype'][0]]['parameters'] as $key => $value){
+                if (!isset($params[$key][0])){
+                    $valid=false;
+                    $request->addMsg($key . " Not given");
+                    $request->setStatus(400);
+                    break;
+                }
+            }
+            if ($valid){
+                /*
+                $query = "insert into testinstances (testname,testtype,frequency) values ($1,$2,$3);";
+                $data = array($params['testname'][0],$params['testtype'][0],$params['frequency']);
+                $con = $this->getConnection();*/
+                //rollback
+            }
+        }else{
+            $request->addMsg("Method not post and/or testtype not give or not valid");
+            $request->setStatus(400);
+        }
+        //meer dan een ping per testbed? eventueel wel, met vrs parameters
+        
+        return;
+    }
     //fix connection
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");

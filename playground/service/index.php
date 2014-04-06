@@ -24,6 +24,7 @@ function apiAutoload($classname) {
 $data = null;
 $status = '200';
 $msg ='';//= 'Good!';
+$parameters=array();
 
 $formatter = new JsonFormatter(); //Default formatter
 //getcontroller => no controller => show info page
@@ -49,9 +50,10 @@ if ($controller_name != "") {
 
     //define request method
     $verb = $_SERVER['REQUEST_METHOD'];
-
+    $req = new Request($parameters,$status,$msg,$verb);
+    
     ////Parse params if request is valid & parameters are set
-    $parameters = array();
+    //$parameters = array(); already declared
     if ($valid){
         //parse all params
         //GET
@@ -138,7 +140,7 @@ if ($controller_name != "") {
         }
     }
     echo $formatter->format($req);//$data, $status, $msg);
-} else {
+}else {
     ?>
     <!DOCTYPE html>
     <html lang="en">

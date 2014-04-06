@@ -15,8 +15,6 @@ class Request{
         $this->verb = $verb;
     }
     
-    
-    
     public function getData() {
         return $this->data;
     }
@@ -25,7 +23,7 @@ class Request{
         $this->data = $data;
     }
 
-        public function getParameters() {
+    public function getParameters() {
         return $this->parameters;
     }
 
@@ -46,7 +44,11 @@ class Request{
     }
 
     public function addMsg($msg) {
-        $this->msg = $this->msg." | ".$msg;
+        if (strlen($this->msg) == 0){
+            $this->msg = $msg;
+        }else{
+            $this->msg = $this->msg." | ".$msg;
+        }
     }
 
     public function setVerb($verb) {
