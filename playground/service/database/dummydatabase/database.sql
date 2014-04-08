@@ -39,6 +39,7 @@ CREATE TABLE testInstances(
     testinstanceId serial PRIMARY KEY,
     testname character varying UNIQUE,
     testtype character varying NOT NULL references testDefinitions(testtype),
+    enabled boolean NOT NULL default TRUE,
     frequency integer
 );
 CREATE TABLE parameterInstances(

@@ -1,5 +1,0 @@
-username = ftester
-passwordFilename = /work/monitoring/logins/ftester.pass
-pemKeyAndCertFilename = /work/monitoring/logins/ftester_wall2.pem
-userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-testedAggregateManagerUrn = urn:publicid:IDN+fiteagle+authority+am

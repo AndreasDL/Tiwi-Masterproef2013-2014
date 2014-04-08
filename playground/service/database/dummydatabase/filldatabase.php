@@ -3,9 +3,9 @@
 //include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 7;
 $aantalpinginstances = $aantalTestbeds;
-$aantalstitchinstances = 2;
-$aantallogininstances = 2;
-$resultsPerInstances = 50;
+$aantalstitchinstances = 10;
+$aantallogininstances = 1;
+$resultsPerInstances = 2;
 
 $login = 'postgres';
 $pass = "post";
@@ -15,8 +15,10 @@ $conString = "dbname=" . $dbname . " user=" . $login . " password=" . $pass;
 $puKey = "iminds";
 $prKey = "virtualWall";
 
-$authDir = "/home/drew/masterproef/site/service/auth/authorities.xml";
-$outputDir = "/home/drew/masterproef/site/service/output/";
+$paramDir = "/home/drew/masterproef/playground/Monitor/params/";
+$authFile = $paramDir."auth/authorities.xml";
+$outputDir = "/home/drew/masterproef/site/output/";
+$jarDir = $paramDir."jfed_cli/automated-testing-4.1.0-SNAPSHOT.jar";
 
 //connectie maken
 $con = pg_Connect($conString) or die('connection failed');
@@ -25,10 +27,13 @@ echo "connection established\n";
 //in pompen
 //testbeds
 $urls = array("iminds.be","facebook.Com","yahoo.com","google.com","hotmail.com");
+$urns = array("urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm",
+        "urn:publicid:IDN+emulab.net+authority+cm",
+        "urn:publicid:IDN+ple:ibbtple+authority+cm");
 echo "Creating Testbeds\n";
 $query = "insert into testbeds (testbedName,url,urn) values($1,$2,$3);";
 for ($i = 0; $i < $aantalTestbeds; $i++) {
-    $data = array("testbed$i", $urls[rand(0,sizeof($urls)-1)] , "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    $data = array("testbed$i", $urls[rand(0,sizeof($urls)-1)] , $urns[$i%sizeof($urns)]);
     pg_query_params($con, $query, $data);
 }
 
@@ -78,26 +83,47 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
-$data = array('login', 'java -ea -jar /work/jFed-bin/monitor/automated-testing-UNKNOWN_SVN_REVISION.jar --context-file <context-file> --test-class <test-class> --group <group> --authorities-file <authorities-file-path> --output-dir <output-dir>');
+$data = array('login', 'java -ea -jar '.$jarDir.' --context-file <context-file>');//tmp');// > '+$outputDir+'test.txt 2>&1'); opvangen in java code
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", 'contextfile');
 pg_query_params($con, $subQuery, $data);
-$data = array("login", "test-class", "class" , 'class of test');
-pg_query_params($con, $subQuery, $data);
-$data = array("login", "group", "String", 'what');
-pg_query_params($con, $subQuery, $data);
-$data = array("login", "authorities-file-path", "path" , 'path to authorities file');
-pg_query_params($con, $subQuery, $data);
-$data = array("login", "output-dir" , "directory", 'where to put output');
-pg_query_params($con, $subQuery, $data);
+//$data = array("login", "test-class", "class" , 'class of test');
+//pg_query_params($con, $subQuery, $data);
+//$data = array("login", "group", "String", 'what');
+//pg_query_params($con, $subQuery, $data);
+//$data = array("login", "authorities-file-path", "path" , 'path to authorities file');//ook verzetten?
+//pg_query_params($con, $subQuery, $data);
+//$data = array("login", "output-dir" , "directory", 'where to put output');
+//pg_query_params($con, $subQuery, $data);//TODO :: in class file steken
 
-$data = array('login', 'logfile', 'file','logfile');
+$data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
+$data = array('login', 'results-overview', 'file','results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'createTestSlices', 'string', 'create slices');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testAllocate', 'string', 'allocate test');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testProvision', 'string', 'testProvision');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testSliverBecomesProvisioned', 'string', 'test sliver becomes provisioned');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testPerformOperationalAction', 'string', 'test perform operational action');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testSliverBecomesStarted', 'string', 'test sliver becomes started');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testNodeLogin', 'string', 'test node login');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
+pg_query_params($con, $retQuery, $data);
+
+
+/*
 $data = array('login', 'exitStatus', 'file','exitstatus');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'consoleoutput', 'file','consoleoutput');
-pg_query_params($con, $retQuery, $data);
-
+*/
 //testinstances
 echo "Creating TestInstances\n";
 $query = "insert into testinstances (testname,testtype,frequency) values ($1,$2,$3);";
@@ -167,24 +193,14 @@ for ($i = 0; $i < $aantallogininstances; $i++){
     pg_execute($con,"query",$data);
     
     $data=array("context-file","username = ftester
-passwordFilename = /work/monitoring/logins/ftester.pass
-pemKeyAndCertFilename = /work/monitoring/logins/ftester_wall2.pem
+passwordFilename = ".$paramDir."auth/ftester.pass
+pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
 userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-testedAggregateManagerUrn = urn:publicid:IDN+fiteagle+authority+am");
-    pg_execute($con,"subQuery",$data);
+testedAggregateManagerUrn = urn:publicid:IDN+ple:ibbtple+authority+cm");
+//urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
+    //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
     
-    $data=array("test-class","be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager3");
     pg_execute($con,"subQuery",$data);
-    
-    $data=array("group","nodelogin");
-    pg_execute($con,"subQuery",$data);
-    
-    $data=array("authorities-file-path",$authDir);
-    pg_execute($con,"subQuery",$data);
-    
-    $data=array("output-dir",$outputDir);
-    pg_execute($con,"subQuery",$data);
-    
 }
 
 
@@ -216,7 +232,7 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
         $instanceid++;
     }
 
-    //testbeds
+    //stitch
     for ($i = 0; $i < $aantalstitchinstances; $i++) {
         $data = array(
             "$instanceid",

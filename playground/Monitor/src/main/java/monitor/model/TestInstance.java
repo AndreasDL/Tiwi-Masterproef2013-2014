@@ -17,14 +17,14 @@ public class TestInstance {
     private String testname,testtype;
     private int frequency;
     private HashMap<String,ArrayList<String>> parameters;
-    private String instanceId;
+    private String testinstanceid;
 
-    public String getInstanceId() {
-        return instanceId;
+    public String getTestInstanceId() {
+        return testinstanceid;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setTestInstanceId(String instanceId) {
+        this.testinstanceid = instanceId;
     }
 
 

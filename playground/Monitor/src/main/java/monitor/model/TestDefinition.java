@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author drew
  */
 public class TestDefinition {
-    private String testcommand;
+    private String testcommand;//don't use camel case, postgresql doesn't like camels
     private HashMap<String,HashMap<String,String>> parameters;
     private HashMap<String,HashMap<String,String>> returnValues;    
 

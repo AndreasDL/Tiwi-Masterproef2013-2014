@@ -4,6 +4,7 @@
     $queryInternational   = 'last?testtype=ping';
     $queryLocal           = 'last?testtype=ping&testbed=testbed3,testbed7,testbed5,testbed2,testbed11';
     $queryStiching        = 'last?testtype=stitch';
+    $queryLogin           = 'last?testtype=login';
     $queryTestbed         = 'testbed';
     $queryAddTestbed      = 'addTestbed';
     $queryAddTestInstance    = 'addTestInstance';
@@ -16,6 +17,7 @@
     global $urlAddTestbed;
     global $urlAddTestInstance;
     global $urlTestDefinitions;
+    global $urlLogin;
     $urlInternational   = $webservice.'/'.$queryInternational;
     $urlLocal           = $webservice.'/'.$queryLocal;
     $urlStiching        = $webservice.'/'.$queryStiching;
@@ -23,6 +25,7 @@
     $urlAddTestbed      = $webservice.'/'.$queryAddTestbed;
     $urlAddTestInstance = $webservice.'/'.$queryAddTestInstance;
     $urlTestDefinitions = $webservice.'/'.$queryTestDefinitions;
+    $urlLogin           = $webservice.'/'.$queryLogin;
     
     global $warnPing;
     global $fatalPing;

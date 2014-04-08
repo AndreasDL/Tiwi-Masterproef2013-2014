@@ -223,9 +223,14 @@ class AccessDatabase {
                     break;
                 }
             }
+        }else {
+            //$valid=False;
+            $request->addMsg("testinstanceid not given or not valid! And/Or method not post");
+            $request->setStatus(400);
         }
         
         if ($valid) {
+            //TODO transaction
             $query = "insert into results (testinstanceid,log) values ($1,$2);";
             $subQuery = "insert into subresults(resultId,returnName,returnValue) values(lastval(),$1,$2);";
             $con = $this->getConnection();
@@ -233,21 +238,22 @@ class AccessDatabase {
             //result
             $data = array(
                 $params['testinstanceid'][0],
-                'http://f4f-mon-dev.intec.ugent.be/logs/' . $params['testinstanceid'][0] . '/' . rand(0, 10000)
+                $params['log'][0]
             );
-            print pg_query_params($con, $query, $data);
+            pg_query($con,"BEGIN");
+            $success = pg_query_params($con, $query, $data);
 
             //subresults
             foreach ($returnVals as $key => $val) {
-                $data = array($key, $params[$key][0]);
-                print pg_query_params($con, $subQuery, $data);
+                $success = $success && pg_query_params($con, $subQuery, array($key, $params[$key][0]));
             }
-
+            
+            if(! ($success && pg_query($con,"COMMIT"))){
+                //committing failed?
+                pg_query($con,"ROLLBACK");
+            }
+            
             $this->closeConnection($con);
-        }else {
-            //$valid=False;
-            $request->addMsg("testinstanceid not given or not valid! And/Or method not post");
-            $request->setStatus(400);
         }
 
         return;
@@ -269,10 +275,26 @@ class AccessDatabase {
                 }
             }
             if ($valid){
-                /*
+                $con = $this->getConnection();
                 $query = "insert into testinstances (testname,testtype,frequency) values ($1,$2,$3);";
                 $data = array($params['testname'][0],$params['testtype'][0],$params['frequency']);
-                $con = $this->getConnection();*/
+                
+                pg_query($con,"BEGIN");
+                $success = pg_query_params($con,$query,$data);
+                
+                $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
+                pg_prepare($con,"subQuery",$subQuery);
+                
+                foreach ($this->testDefinitions[$params['testtype'][0]]['parameters'] as $key => $value){
+                    $success = $success && pq_execute($con,"subQuery",array($params[$key][0]));
+                }
+                
+                $success = $success && pg_query("COMMIT");
+                if (!$success){
+                    pg_query("ROLLBACK");
+                }
+                
+                
                 //rollback
             }
         }else{
