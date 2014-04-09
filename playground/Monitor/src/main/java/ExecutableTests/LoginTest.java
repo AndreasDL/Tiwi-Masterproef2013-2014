@@ -32,9 +32,9 @@ public class LoginTest extends JavaMainTest {
         commands.add("--test-class");
         commands.add("be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager3");
         commands.add("--group");
-        commands.add(" nodelogin");
+        commands.add("nodelogin");
         commands.add("--authorities-file");
-        commands.add(" /home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
+        commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
         commands.add("--output-dir");
         commands.add(super.makeTestOutputDir());
         

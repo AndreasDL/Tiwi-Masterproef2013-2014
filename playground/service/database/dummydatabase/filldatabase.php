@@ -83,7 +83,8 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
-$data = array('login', 'java -ea -jar '.$jarDir.' --context-file <context-file>');//tmp');// > '+$outputDir+'test.txt 2>&1'); opvangen in java code
+//'java -ea -jar '.$jarDir.' nu rechtstreeks aanroepen
+$data = array('login', '--context-file <context-file>');//tmp');// > '+$outputDir+'test.txt 2>&1'); opvangen in java code
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", 'contextfile');
 pg_query_params($con, $subQuery, $data);
