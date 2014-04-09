@@ -14,8 +14,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
@@ -39,10 +37,9 @@ public class JavaMainTest extends ExecutableTest {
         ArrayList<String> commands = getParameters(parsedCommand);
         String s[] = new String[commands.size()];
         String consoleOutput="";
-        PrintStream ps = new PrintStream("/home/drew/sample.txt");
-        //ByteArrayOutputStream os = new ByteArrayOutputStream();
-        //PrintStream ps = new PrintStream(os);
-        System.out.println("b4 redirect");
+        //catch output.
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
         PrintStream original = System.out;
         System.setOut(ps);//redirect std output
         
@@ -53,10 +50,10 @@ public class JavaMainTest extends ExecutableTest {
             ex.printStackTrace();
         }finally{
             System.setOut(original);
+            consoleOutput = os.toString("UTF-8");
+            System.out.println(consoleOutput);//print output so we don't notice difference :o
+            os.close();
             ps.close();
-            
-            //consoleOutput = os.toString("UTF-8");
-            System.out.println("hoi");
         }
 
         return handleResults(testOutputDir, consoleOutput);

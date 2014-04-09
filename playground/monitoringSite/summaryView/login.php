@@ -54,8 +54,8 @@
                     }
                     
                     echo "&nbsp&nbsp&nbsp</td>";
-                }*/
-            echo "</tr></table></td>";
+                }
+            echo "</tr></table></td>";*/
             echo "<td><a href=".$row['log'].">log</a></td>";
             
             echo "<td><a href=./history.php?testname=".$row['testname'].">history</a></td>";

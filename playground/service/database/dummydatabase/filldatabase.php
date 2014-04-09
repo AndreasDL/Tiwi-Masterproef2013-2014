@@ -99,7 +99,7 @@ pg_query_params($con, $subQuery, $data);
 
 $data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'results-overview', 'file','results in xml format');
+$data = array('login', 'result-overview', 'file','results in xml format');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);

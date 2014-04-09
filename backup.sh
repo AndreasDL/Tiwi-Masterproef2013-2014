@@ -6,3 +6,6 @@ cp -vr site/service/* playground/service/;
 
 rm -rvf playground/monitoringSite/*;
 cp -vr site/monitoringSite/* playground/monitoringSite/;
+
+rm -rvf playground/Monitor/*;
+cp -vr site/Monitor/* playground/Monitor/;

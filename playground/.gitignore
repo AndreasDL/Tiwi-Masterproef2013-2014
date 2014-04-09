@@ -31,3 +31,5 @@ nbproject/*
 /Monitor/build/
 /Monitor/dist/
 /Monitor/target/
+
+auth/
