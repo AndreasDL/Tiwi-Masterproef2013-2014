@@ -25,8 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.model.Testbed;
 import monitor.model.TestDefinition;
-import ExecutableTests.ExecutableTest;
-import ExecutableTests.TestFactory;
+import monitor.ExecutableTests.ExecutableTest;
+import monitor.ExecutableTests.TestFactory;
 import java.util.Properties;
 import monitor.model.TestResult;
 
@@ -49,7 +49,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            ExecutableTest t = TestFactory.makeTest(ti,testDefinitions.get(ti.getTesttype()),testbeds);
+            ExecutableTest t = TestFactory.makeTest(ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
             tests.add(t);
         }
         return tests;
@@ -86,8 +86,7 @@ public class WebServiceAccess {
     public HashMap<String, Testbed> getTestBeds() {
         TestbedResults t = null;
         try {
-            System.out.println("test:" + prop.getProperty("urlTestbeds"));
-            String jsonText = getFromURL("http://localhost/service/index.php/testbed");
+            String jsonText = getFromURL(prop.getProperty("urlTestbeds"));
             //System.out.println(jsonText);
 
             //parse json string

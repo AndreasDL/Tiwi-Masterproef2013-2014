@@ -27,16 +27,22 @@
    
    <th>Status</th>
    <th>log</th>
+   <th>resultHtml</th>
+   <th>result-overviewXml</th>
   </tr>
   <?php
     //todo webservice via config file
     Include ( __DIR__.'/../config.php');
     date_default_timezone_set('CET');
-    
+    //$testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
+    //$testDefinitions= $testDefinitions['data'];
     $data = json_decode(file_get_contents($GLOBALS['webservice'].'/list?testname='.$testname),true);
     $data = $data['data'];
     //print_r($data);
-    $subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
+    //$subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
+    //$subTests=$testDefinitions[$data['testtype']]['returnValues'];
+    //print_r($subTests);
+    
     foreach ($data as $key => $row){
         echo "<tr>";
             echo "<td>".$row['testname']."</td>";
@@ -45,22 +51,25 @@
             echo "<td> Not supported yet!</td>";
             
             echo "<td><table RULES=COLS><tr>";
-                foreach($subTests as $test){
-                    echo "<td bgcolor=";
-                    if ($row['results'][$test] == $GLOBALS['goodStitch']){
-                        echo "#00FF00>";
-                    }else if($row['results'][$test] == $GLOBALS['warnStitch']){
-                        echo "#FF9933>";
-                    }else if($row['results'][$test] == $GLOBALS['skipStitch']){
-                        echo "#2942FF>";
-                    }else{
-                        echo "#FF0000>";
+                foreach($row['results'] as $name => $value){
+                    if ($name != 'resultHtml' && $name != 'result-overview'){
+                        echo "<td bgcolor=";
+                        if ($value == $GLOBALS['good']){
+                            echo "#00FF00>";
+                        }else if($value == $GLOBALS['warn']){
+                            echo "#FF9933>";
+                        }else if($value == $GLOBALS['skip'] || $value == $GLOBALS['skipped']){
+                            echo "#2942FF>";
+                        }else{
+                            echo "#FF0000>";
+                        }
+                        echo "&nbsp&nbsp&nbsp</td>";
                     }
-                    
-                    echo "&nbsp&nbsp&nbsp</td>";
                 }
             echo "</tr></table></td>";
-            echo "<td><a href=".$row['log'].">log</a></td>";
+            echo "<td><a href=../../Monitor/".$row['log'].">log</a></td>";
+            echo "<td><a href=../../Monitor/".$row['results']['resultHtml'].">resultsHtml</a></td>";
+            echo "<td><a href=../../Monitor/".$row['results']['result-overview'].">overview</a></td>";
             
         echo "</tr>";
     }

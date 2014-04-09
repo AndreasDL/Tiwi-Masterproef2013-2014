@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ExecutableTests;
+package monitor.ExecutableTests;
 
 import be.iminds.ilabt.jfed.ui.cli.AutomatedTesterCli;
 import java.io.ByteArrayOutputStream;
@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Properties;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
@@ -24,10 +25,11 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class JavaMainTest extends ExecutableTest {
-
-    public JavaMainTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds) {
-        super(test, testDefinition, testbeds);
+    public JavaMainTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(test, testDefinition, testbeds, prop);
     }
+
+
     @Override
     public TestResult run() throws FileNotFoundException, UnsupportedEncodingException, IOException {
         //Parse

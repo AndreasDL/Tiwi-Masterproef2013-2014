@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package ExecutableTests;
+package monitor.ExecutableTests;
 
 import java.util.HashMap;
+import java.util.Properties;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.Testbed;
@@ -16,17 +17,17 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class TestFactory {
-    public static ExecutableTest makeTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds){
+    public static ExecutableTest makeTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
         ExecutableTest ret = null;
         switch(test.getTesttype()) {
             case "ping":
-                ret = new PingTest(test,testDefinition,testbeds);
+                ret = new PingTest(test,testDefinition,testbeds,prop);
                 break;
             case "login":
-                ret = new LoginTest(test, testDefinition, testbeds);
+                ret = new LoginTest(test, testDefinition, testbeds,prop);
                 break;
             default:
-                ret = new BashTest(test,testDefinition,testbeds);
+                ret = new BashTest(test,testDefinition,testbeds,prop);
         }
         return ret;
     }

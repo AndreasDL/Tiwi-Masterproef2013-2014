@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ExecutableTests;
+package monitor.ExecutableTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -31,10 +32,11 @@ import org.xml.sax.SAXException;
  * @author drew
  */
 public class LoginTest extends JavaMainTest {
-
-    public LoginTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds) {
-        super(test, testDefinition, testbeds);
+    public LoginTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(test, testDefinition, testbeds, prop);
     }
+
+
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> commands = super.getParameters(parsedCommand);

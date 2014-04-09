@@ -1,6 +1,6 @@
 package monitor;
 
-import ExecutableTests.ExecutableTest;
+import monitor.ExecutableTests.ExecutableTest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,11 +27,7 @@ public class Monitor {
 
     public Monitor() throws IOException {
         this.prop = new Properties();
-        FileReader f = new FileReader("config.properties");
-        prop.load(f);
-        System.out.println(prop.getProperty("urlTestbeds"));
-        System.out.println(prop.getProperty("urlAddResult"));
-        System.out.println(prop);
+        prop.load(new FileReader("config.properties"));
         this.webAccess = new WebServiceAccess(prop);
 
         for(ExecutableTest test : webAccess.getTests()){

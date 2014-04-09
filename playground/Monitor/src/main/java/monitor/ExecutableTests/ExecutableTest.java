@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ExecutableTests;
+package monitor.ExecutableTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -30,12 +31,13 @@ import monitor.model.Testbed;
 public abstract class ExecutableTest {
 
     //TODO properties file
-    private static final String outputDir = "/home/drew/masterproef/site/results/";
+    private final String outputDir;
 
     private final TestInstance test;
     private final TestDefinition testDefinition;
     private final HashMap<String, Testbed> testbeds;
     private String testOutputDir;
+    private Properties prop;
     
     public TestDefinition getTestDefinition() {
         return testDefinition;
@@ -47,10 +49,12 @@ public abstract class ExecutableTest {
         return test.getTesttype();
     }
 
-    public ExecutableTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds) {
+    public ExecutableTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
         this.test = test;
         this.testDefinition = testDefinition;
         this.testbeds = testbeds;
+        this.prop = prop;
+        this.outputDir = prop.getProperty("outputDir");
     }
 
     public abstract TestResult run() throws FileNotFoundException, UnsupportedEncodingException,IOException ;

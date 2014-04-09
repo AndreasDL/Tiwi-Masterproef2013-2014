@@ -32,11 +32,16 @@
     $warnPing = 190;
     $fatalPing = -1;//timeout
     
-    global $goodStitch;
-    global $warnStitch;
-    global $fatalStitch;
-    global $skipStitch;
-    $goodStitch  = 'Good';
-    $warnStitch  = 'Warn';
-    $skipStitch  = 'SKIP';
-    $fatalStitch = 'FATAL';
+    global $good;
+    global $warn;
+    global $fatal;
+    global $skip;
+    global $skipped;
+    global $failed;
+    $good  = 'Good';
+    $warn  = 'Warn';
+    $skip  = 'SKIP';
+    $skipped = 'SKIPPED';
+    $fatal = 'FATAL';
+    $failed = 'FAILED';
+    
