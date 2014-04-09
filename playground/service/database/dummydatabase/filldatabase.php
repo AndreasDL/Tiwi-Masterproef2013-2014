@@ -197,7 +197,7 @@ for ($i = 0; $i < $aantallogininstances; $i++){
 passwordFilename = ".$paramDir."auth/ftester.pass
 pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
 userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-testedAggregateManagerUrn = urn:publicid:IDN+ple:ibbtple+authority+cm");
+testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
 //urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
     //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
     

@@ -37,6 +37,7 @@ public class LoginTest extends JavaMainTest {
         commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
         commands.add("--output-dir");
         commands.add(super.makeTestOutputDir());
+        commands.add("-q"); //quiet => easier parsing
         
         
         return commands;

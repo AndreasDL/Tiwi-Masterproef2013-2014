@@ -7,15 +7,15 @@
             <loglines>
                 <logline>
                     <text>All tests will test regular credentials</text>
-                    <timeInMs>1397035278147</timeInMs>
+                    <timeInMs>1397038846647</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>setUp</methodName>
-            <startTimeInMs>1397035278117</startTimeInMs>
+            <startTimeInMs>1397038846592</startTimeInMs>
             <state>SUCCESS</state>
-            <stopTimeInMs>1397035278147</stopTimeInMs>
-            <durationInMs>30</durationInMs>
+            <stopTimeInMs>1397038846647</stopTimeInMs>
+            <durationInMs>55</durationInMs>
         </method>
         <method>
             <apicalls>
@@ -55,7 +55,7 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
                     <http_request>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;GetVersion&lt;/methodName&gt;&lt;params&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.0 200 OK</http_status_line>
                     <http_response_headers>Server: BaseHTTP/0.3 Python/2.7
-Date: Wed, 09 Apr 2014 09:22:49 GMT
+Date: Wed, 09 Apr 2014 10:22:17 GMT
 Content-type: text/xml
 Content-length: 11064
 
@@ -869,17 +869,17 @@ Content-length: 11064
 &quot;am_code&quot;: &quot;&quot;
 }</geni_code>
                     <geni_code_is_success>true</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:18.181+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:18.800+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:46.690+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:47.164+02:00</stop_time>
                 </apicall>
             </apicalls>
             <description></description>
             <loglines/>
             <methodName>testGetVersionXmlRpcCorrectness</methodName>
-            <startTimeInMs>1397035278152</startTimeInMs>
+            <startTimeInMs>1397038846653</startTimeInMs>
             <state>SUCCESS</state>
-            <stopTimeInMs>1397035278840</stopTimeInMs>
-            <durationInMs>688</durationInMs>
+            <stopTimeInMs>1397038847198</stopTimeInMs>
+            <durationInMs>545</durationInMs>
         </method>
         <method>
             <apicalls>
@@ -918,7 +918,7 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
 </http_request_headers>
                     <http_request>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;GetCredential&lt;/methodName&gt;&lt;params&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.1 200 OK</http_status_line>
-                    <http_response_headers>Date: Wed, 09 Apr 2014 09:22:49 GMT
+                    <http_response_headers>Date: Wed, 09 Apr 2014 10:22:17 GMT
 Server: Apache/2.2.22 (FreeBSD)
 Keep-Alive: timeout=15, max=100
 Connection: Keep-Alive
@@ -930,8 +930,8 @@ Content-Type: text/xml
 &lt;methodResponse&gt;
 &lt;params&gt;
 &lt;param&gt;&lt;value&gt;&lt;struct&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+656569ad0f01287faf9c4eea92580e51&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=656569ad0f01287faf9c4eea92580e51&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+3197e82a327eca086cc3d9b73d035ba6&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=3197e82a327eca086cc3d9b73d035ba6&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
 &lt;member&gt;&lt;name&gt;value&lt;/name&gt;&lt;value&gt;&lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; standalone=&amp;quot;no&amp;quot;?&amp;gt;
 &amp;lt;signed-credential xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:noNamespaceSchemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/credential.xsd&amp;quot; xsi:schemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&amp;quot;&amp;gt;
   &amp;lt;credential xml:id=&amp;quot;ref310F62B0C26FF4F9&amp;quot;&amp;gt;
@@ -1061,9 +1061,9 @@ AQAB
 </http_reply>
                     <xmlrpc_request>[ ]</xmlrpc_request>
                     <xmlrpc_reply>{
-&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=656569ad0f01287faf9c4eea92580e51&quot;,
+&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=3197e82a327eca086cc3d9b73d035ba6&quot;,
 &quot;output&quot;: &quot;&quot;,
-&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+656569ad0f01287faf9c4eea92580e51&quot;,
+&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+3197e82a327eca086cc3d9b73d035ba6&quot;,
 &quot;code&quot;: 0,
 &quot;value&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
               &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
@@ -1312,8 +1312,8 @@ AQAB
                     <geni_output>&quot;&quot;</geni_output>
                     <geni_code>0</geni_code>
                     <geni_code_is_success>true</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:18.849+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:19.684+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:47.206+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:47.943+02:00</stop_time>
                 </apicall>
                 <apicall>
                     <authority_urn>urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm</authority_urn>
@@ -1348,7 +1348,7 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
                     <http_request_line>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1</http_request_line>
                     <http_request_headers>
 </http_request_headers>
-                    <http_request>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Register&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;urn&lt;/name&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397035278&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;credential&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
+                    <http_request>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Register&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;urn&lt;/name&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397038847&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;credential&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
 &amp;lt;signed-credential&amp;#32;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&amp;#32;xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot;&amp;#32;xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1&amp;#32;http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref310F62B0C26FF4F9&quot;&amp;gt;
 &amp;#32;&amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
@@ -1469,7 +1469,7 @@ AQAB
 &amp;lt;/signed-credential&amp;gt;
 &lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;type&lt;/name&gt;&lt;value&gt;Slice&lt;/value&gt;&lt;/member&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/param&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.1 200 OK</http_status_line>
-                    <http_response_headers>Date: Wed, 09 Apr 2014 09:22:50 GMT
+                    <http_response_headers>Date: Wed, 09 Apr 2014 10:22:18 GMT
 Server: Apache/2.2.22 (FreeBSD)
 Keep-Alive: timeout=15, max=100
 Connection: Keep-Alive
@@ -1481,13 +1481,13 @@ Content-Type: text/xml
 &lt;methodResponse&gt;
 &lt;params&gt;
 &lt;param&gt;&lt;value&gt;&lt;struct&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+018681ff1d766f5d0dfc0c0476c994c3&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=018681ff1d766f5d0dfc0c0476c994c3&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+9cbe9653285fd975dbd130668a737b4d&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=9cbe9653285fd975dbd130668a737b4d&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
 &lt;member&gt;&lt;name&gt;value&lt;/name&gt;&lt;value&gt;&lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; standalone=&amp;quot;no&amp;quot;?&amp;gt;
 &amp;lt;signed-credential xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:noNamespaceSchemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/credential.xsd&amp;quot; xsi:schemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&amp;quot;&amp;gt;
-  &amp;lt;credential xml:id=&amp;quot;refF8218BB8B9E8574C&amp;quot;&amp;gt;
+  &amp;lt;credential xml:id=&amp;quot;ref83C747B027FAE480&amp;quot;&amp;gt;
  &amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
- &amp;lt;serial&amp;gt;50384&amp;lt;/serial&amp;gt;
+ &amp;lt;serial&amp;gt;50498&amp;lt;/serial&amp;gt;
  &amp;lt;owner_gid&amp;gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -1512,48 +1512,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &amp;lt;/owner_gid&amp;gt;
  &amp;lt;owner_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&amp;lt;/owner_urn&amp;gt;
- &amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRs4wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+ &amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRvgwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MVoXDTE5MDkz
-MDA5MjI1MVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzNTI3
-ODEtMCsGA1UEAxMkODYwZTYyZGYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIxOVoXDTE5MDkz
+MDEwMjIxOVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzODg0
+NzEtMCsGA1UEAxMkZDRjMzFjOWEtYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuB3IiX0cJd4pzFSa8fJFSX15t5nIGQM4
-eiypA9ZycA+lcuxxQHfMsKAuIyBC4WRdJ1mI0kvKua6NWfWB1nE+NwCdEv9NkL6n
-yfCrojAqExXPxpclua1XRIjKz3DAUKtV4JUoBgoZh9yaEUBrgZt2Hbd+2JXaJc7u
-iLhJcEjYQ6sCAwEAAaOBozCBoDAdBgNVHQ4EFgQUbe5vJVmpPEoVowQs0gKQJdAD
-f0YwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrbjM5NzAzNTI3OIYtdXJuOnV1aWQ6ODYwZTYyZGYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAno6AcQ1j7DprIWWaht3zGGfKaT52jSe2
+Kk3xIxB6aatW0SG0Bw9+ncWlOyue0lstun9A7cdLZMV+/acCHwBRB2rKd2LVRSqE
+VqDgp5aSay67Ex204pDSFHbD+9NbNeaVUvWxTINGQXyu7RCTrl1e4S21OJr7gtAY
+mh2uuUXJMYcCAwEAAaOBozCBoDAdBgNVHQ4EFgQUkrKHnX5+kcZk4P6I98g7Uf5Y
+xu8wcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrbjM5NzAzODg0N4YtdXJuOnV1aWQ6ZDRjMzFjOWEtYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAGjEeSncqb9FMzKXsWc1DFctCsLNdZY++vpKJfLpS3jTwzkXPokQmxvxO
-/DE13frnj8/5a+4B4fnSkzcA+eCSjLS1PW48/CNe+bks9NWOTdDDfvKKv9xoA8ec
-B/dWcUenCy2WIW99oGQZXm9inhkYILWFsYe2sVQWagvmp6VhH+s=
+BQADgYEAA/+aLOifpcbqyVfDN++LvCcs/qSTcBUTdlt/4kuGpNzoxwbJKw3edTB1
+YKLaWrWqLYUj9/8bWxbZ6e7b83Rt6pEg61TfwbwEMcxI9OWmV5fGSaI7HfHo7ul0
+qs/1MqsuDf72UB2eUJjzbzpS9zW3nT9J/LXOWm52vVOJC79vzs8=
 &amp;lt;/target_gid&amp;gt;
- &amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397035278&amp;lt;/target_urn&amp;gt;
- &amp;lt;uuid&amp;gt;8621dcc5-bfc8-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
- &amp;lt;expires&amp;gt;2014-04-09T11:22:51Z&amp;lt;/expires&amp;gt;
+ &amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397038847&amp;lt;/target_urn&amp;gt;
+ &amp;lt;uuid&amp;gt;d4dab01d-bfd0-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
+ &amp;lt;expires&amp;gt;2014-04-09T12:22:19Z&amp;lt;/expires&amp;gt;
   &amp;lt;privileges&amp;gt;
 &amp;lt;privilege&amp;gt;&amp;lt;name&amp;gt;*&amp;lt;/name&amp;gt;&amp;lt;can_delegate&amp;gt;1&amp;lt;/can_delegate&amp;gt;&amp;lt;/privilege&amp;gt;
 &amp;lt;/privileges&amp;gt;&amp;lt;/credential&amp;gt;
   &amp;lt;signatures&amp;gt;
-    &amp;lt;Signature xmlns=&amp;quot;http://www.w3.org/2000/09/xmldsig#&amp;quot; xml:id=&amp;quot;Sig_refF8218BB8B9E8574C&amp;quot;&amp;gt;
+    &amp;lt;Signature xmlns=&amp;quot;http://www.w3.org/2000/09/xmldsig#&amp;quot; xml:id=&amp;quot;Sig_ref83C747B027FAE480&amp;quot;&amp;gt;
  &amp;lt;SignedInfo&amp;gt;
   &amp;lt;CanonicalizationMethod Algorithm=&amp;quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&amp;quot;/&amp;gt;
   &amp;lt;SignatureMethod Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&amp;quot;/&amp;gt;
-  &amp;lt;Reference URI=&amp;quot;#refF8218BB8B9E8574C&amp;quot;&amp;gt;
+  &amp;lt;Reference URI=&amp;quot;#ref83C747B027FAE480&amp;quot;&amp;gt;
     &amp;lt;Transforms&amp;gt;
       &amp;lt;Transform Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&amp;quot;/&amp;gt;
     &amp;lt;/Transforms&amp;gt;
     &amp;lt;DigestMethod Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#sha1&amp;quot;/&amp;gt;
-    &amp;lt;DigestValue&amp;gt;qzBBHS43fZpAAwZw1M3kA3X+laQ=&amp;lt;/DigestValue&amp;gt;
+    &amp;lt;DigestValue&amp;gt;Ez8MZkcd4mUNFQy5l+5vVq7xgl4=&amp;lt;/DigestValue&amp;gt;
     &amp;lt;/Reference&amp;gt;
  &amp;lt;/SignedInfo&amp;gt;
- &amp;lt;SignatureValue&amp;gt;LlVV9nrIzj3fev6JvsT3wVcS5x4RoYlJ6BpLaKDaywYAKcJRlNwqAS+jFxNGGYaM
-qjIhntzw3Qc+SWDDsAjtklu9BS035mkkdfXTS576apT5ews7VHQv2VwIrQVuOPiI
-k3qAZaJhfyInOnkyyxqTfaTAzIlmTOka+gZJc0yNhKo=&amp;lt;/SignatureValue&amp;gt;
+ &amp;lt;SignatureValue&amp;gt;XuB8zRgyR+fiD36wi3OIK0BCVMC/3knOGfmfPmNY3qnTelGbd0Pdp7R8NOQX8zQc
+85FEZXSl8aMR/yallf+o47pr9CvU0eephoEbUuCoRhGM9753PEL559QLSQbkWtXO
+VZtuSrJRmBLJDpPfweAR3BoV7HWprDHU8wGoHqu/5XE=&amp;lt;/SignatureValue&amp;gt;
  &amp;lt;KeyInfo&amp;gt;
   &amp;lt;X509Data&amp;gt;
    
@@ -1611,7 +1611,7 @@ AQAB
 </http_reply>
                     <xmlrpc_request>[
 {
-   &quot;urn&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397035278&quot;,
+   &quot;urn&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397038847&quot;,
    &quot;credential&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
           &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
             &lt;credential xml:id=&quot;ref310F62B0C26FF4F9&quot;&gt;
@@ -1736,15 +1736,15 @@ AQAB
    }
 ]</xmlrpc_request>
                     <xmlrpc_reply>{
-&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=018681ff1d766f5d0dfc0c0476c994c3&quot;,
+&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=9cbe9653285fd975dbd130668a737b4d&quot;,
 &quot;output&quot;: &quot;&quot;,
-&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+018681ff1d766f5d0dfc0c0476c994c3&quot;,
+&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+9cbe9653285fd975dbd130668a737b4d&quot;,
 &quot;code&quot;: 0,
 &quot;value&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
               &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-                &lt;credential xml:id=&quot;refF8218BB8B9E8574C&quot;&gt;
+                &lt;credential xml:id=&quot;ref83C747B027FAE480&quot;&gt;
                &lt;type&gt;privilege&lt;/type&gt;
-               &lt;serial&gt;50384&lt;/serial&gt;
+               &lt;serial&gt;50498&lt;/serial&gt;
                &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
               MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
               IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -1769,48 +1769,48 @@ AQAB
               x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
               &lt;/owner_gid&gt;
                &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
-               &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs4wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+               &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvgwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
               MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
               IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
               Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-              bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MVoXDTE5MDkz
-              MDA5MjI1MVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-              aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzNTI3
-              ODEtMCsGA1UEAxMkODYwZTYyZGYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+              bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIxOVoXDTE5MDkz
+              MDEwMjIxOVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+              aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzODg0
+              NzEtMCsGA1UEAxMkZDRjMzFjOWEtYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
               MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-              BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuB3IiX0cJd4pzFSa8fJFSX15t5nIGQM4
-              eiypA9ZycA+lcuxxQHfMsKAuIyBC4WRdJ1mI0kvKua6NWfWB1nE+NwCdEv9NkL6n
-              yfCrojAqExXPxpclua1XRIjKz3DAUKtV4JUoBgoZh9yaEUBrgZt2Hbd+2JXaJc7u
-              iLhJcEjYQ6sCAwEAAaOBozCBoDAdBgNVHQ4EFgQUbe5vJVmpPEoVowQs0gKQJdAD
-              f0YwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-              ZHMuYmUrc2xpY2UrbjM5NzAzNTI3OIYtdXJuOnV1aWQ6ODYwZTYyZGYtYmZjOC0x
+              BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAno6AcQ1j7DprIWWaht3zGGfKaT52jSe2
+              Kk3xIxB6aatW0SG0Bw9+ncWlOyue0lstun9A7cdLZMV+/acCHwBRB2rKd2LVRSqE
+              VqDgp5aSay67Ex204pDSFHbD+9NbNeaVUvWxTINGQXyu7RCTrl1e4S21OJr7gtAY
+              mh2uuUXJMYcCAwEAAaOBozCBoDAdBgNVHQ4EFgQUkrKHnX5+kcZk4P6I98g7Uf5Y
+              xu8wcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+              ZHMuYmUrc2xpY2UrbjM5NzAzODg0N4YtdXJuOnV1aWQ6ZDRjMzFjOWEtYmZkMC0x
               MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-              BQADgYEAGjEeSncqb9FMzKXsWc1DFctCsLNdZY++vpKJfLpS3jTwzkXPokQmxvxO
-              /DE13frnj8/5a+4B4fnSkzcA+eCSjLS1PW48/CNe+bks9NWOTdDDfvKKv9xoA8ec
-              B/dWcUenCy2WIW99oGQZXm9inhkYILWFsYe2sVQWagvmp6VhH+s=
+              BQADgYEAA/+aLOifpcbqyVfDN++LvCcs/qSTcBUTdlt/4kuGpNzoxwbJKw3edTB1
+              YKLaWrWqLYUj9/8bWxbZ6e7b83Rt6pEg61TfwbwEMcxI9OWmV5fGSaI7HfHo7ul0
+              qs/1MqsuDf72UB2eUJjzbzpS9zW3nT9J/LXOWm52vVOJC79vzs8=
               &lt;/target_gid&gt;
-               &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397035278&lt;/target_urn&gt;
-               &lt;uuid&gt;8621dcc5-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
-               &lt;expires&gt;2014-04-09T11:22:51Z&lt;/expires&gt;
+               &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397038847&lt;/target_urn&gt;
+               &lt;uuid&gt;d4dab01d-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+               &lt;expires&gt;2014-04-09T12:22:19Z&lt;/expires&gt;
                 &lt;privileges&gt;
               &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
               &lt;/privileges&gt;&lt;/credential&gt;
                 &lt;signatures&gt;
-                  &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_refF8218BB8B9E8574C&quot;&gt;
+                  &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref83C747B027FAE480&quot;&gt;
                &lt;SignedInfo&gt;
                 &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
                 &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-                &lt;Reference URI=&quot;#refF8218BB8B9E8574C&quot;&gt;
+                &lt;Reference URI=&quot;#ref83C747B027FAE480&quot;&gt;
                   &lt;Transforms&gt;
                     &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
                   &lt;/Transforms&gt;
                   &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-                  &lt;DigestValue&gt;qzBBHS43fZpAAwZw1M3kA3X+laQ=&lt;/DigestValue&gt;
+                  &lt;DigestValue&gt;Ez8MZkcd4mUNFQy5l+5vVq7xgl4=&lt;/DigestValue&gt;
                   &lt;/Reference&gt;
                &lt;/SignedInfo&gt;
-               &lt;SignatureValue&gt;LlVV9nrIzj3fev6JvsT3wVcS5x4RoYlJ6BpLaKDaywYAKcJRlNwqAS+jFxNGGYaM
-              qjIhntzw3Qc+SWDDsAjtklu9BS035mkkdfXTS576apT5ews7VHQv2VwIrQVuOPiI
-              k3qAZaJhfyInOnkyyxqTfaTAzIlmTOka+gZJc0yNhKo=&lt;/SignatureValue&gt;
+               &lt;SignatureValue&gt;XuB8zRgyR+fiD36wi3OIK0BCVMC/3knOGfmfPmNY3qnTelGbd0Pdp7R8NOQX8zQc
+              85FEZXSl8aMR/yallf+o47pr9CvU0eephoEbUuCoRhGM9753PEL559QLSQbkWtXO
+              VZtuSrJRmBLJDpPfweAR3BoV7HWprDHU8wGoHqu/5XE=&lt;/SignatureValue&gt;
                &lt;KeyInfo&gt;
                 &lt;X509Data&gt;
                  
@@ -1865,9 +1865,9 @@ AQAB
                     <geni_method_name>Register</geni_method_name>
                     <geni_value>&quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
 &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-  &lt;credential xml:id=&quot;refF8218BB8B9E8574C&quot;&gt;
+  &lt;credential xml:id=&quot;ref83C747B027FAE480&quot;&gt;
  &lt;type&gt;privilege&lt;/type&gt;
- &lt;serial&gt;50384&lt;/serial&gt;
+ &lt;serial&gt;50498&lt;/serial&gt;
  &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -1892,48 +1892,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &lt;/owner_gid&gt;
  &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
- &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs4wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+ &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvgwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MVoXDTE5MDkz
-MDA5MjI1MVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzNTI3
-ODEtMCsGA1UEAxMkODYwZTYyZGYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIxOVoXDTE5MDkz
+MDEwMjIxOVowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIubjM5NzAzODg0
+NzEtMCsGA1UEAxMkZDRjMzFjOWEtYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuB3IiX0cJd4pzFSa8fJFSX15t5nIGQM4
-eiypA9ZycA+lcuxxQHfMsKAuIyBC4WRdJ1mI0kvKua6NWfWB1nE+NwCdEv9NkL6n
-yfCrojAqExXPxpclua1XRIjKz3DAUKtV4JUoBgoZh9yaEUBrgZt2Hbd+2JXaJc7u
-iLhJcEjYQ6sCAwEAAaOBozCBoDAdBgNVHQ4EFgQUbe5vJVmpPEoVowQs0gKQJdAD
-f0YwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrbjM5NzAzNTI3OIYtdXJuOnV1aWQ6ODYwZTYyZGYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAno6AcQ1j7DprIWWaht3zGGfKaT52jSe2
+Kk3xIxB6aatW0SG0Bw9+ncWlOyue0lstun9A7cdLZMV+/acCHwBRB2rKd2LVRSqE
+VqDgp5aSay67Ex204pDSFHbD+9NbNeaVUvWxTINGQXyu7RCTrl1e4S21OJr7gtAY
+mh2uuUXJMYcCAwEAAaOBozCBoDAdBgNVHQ4EFgQUkrKHnX5+kcZk4P6I98g7Uf5Y
+xu8wcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrbjM5NzAzODg0N4YtdXJuOnV1aWQ6ZDRjMzFjOWEtYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAGjEeSncqb9FMzKXsWc1DFctCsLNdZY++vpKJfLpS3jTwzkXPokQmxvxO
-/DE13frnj8/5a+4B4fnSkzcA+eCSjLS1PW48/CNe+bks9NWOTdDDfvKKv9xoA8ec
-B/dWcUenCy2WIW99oGQZXm9inhkYILWFsYe2sVQWagvmp6VhH+s=
+BQADgYEAA/+aLOifpcbqyVfDN++LvCcs/qSTcBUTdlt/4kuGpNzoxwbJKw3edTB1
+YKLaWrWqLYUj9/8bWxbZ6e7b83Rt6pEg61TfwbwEMcxI9OWmV5fGSaI7HfHo7ul0
+qs/1MqsuDf72UB2eUJjzbzpS9zW3nT9J/LXOWm52vVOJC79vzs8=
 &lt;/target_gid&gt;
- &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397035278&lt;/target_urn&gt;
- &lt;uuid&gt;8621dcc5-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
- &lt;expires&gt;2014-04-09T11:22:51Z&lt;/expires&gt;
+ &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+n397038847&lt;/target_urn&gt;
+ &lt;uuid&gt;d4dab01d-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+ &lt;expires&gt;2014-04-09T12:22:19Z&lt;/expires&gt;
   &lt;privileges&gt;
 &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
 &lt;/privileges&gt;&lt;/credential&gt;
   &lt;signatures&gt;
-    &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_refF8218BB8B9E8574C&quot;&gt;
+    &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref83C747B027FAE480&quot;&gt;
  &lt;SignedInfo&gt;
   &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
   &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-  &lt;Reference URI=&quot;#refF8218BB8B9E8574C&quot;&gt;
+  &lt;Reference URI=&quot;#ref83C747B027FAE480&quot;&gt;
     &lt;Transforms&gt;
       &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
     &lt;/Transforms&gt;
     &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-    &lt;DigestValue&gt;qzBBHS43fZpAAwZw1M3kA3X+laQ=&lt;/DigestValue&gt;
+    &lt;DigestValue&gt;Ez8MZkcd4mUNFQy5l+5vVq7xgl4=&lt;/DigestValue&gt;
     &lt;/Reference&gt;
  &lt;/SignedInfo&gt;
- &lt;SignatureValue&gt;LlVV9nrIzj3fev6JvsT3wVcS5x4RoYlJ6BpLaKDaywYAKcJRlNwqAS+jFxNGGYaM
-qjIhntzw3Qc+SWDDsAjtklu9BS035mkkdfXTS576apT5ews7VHQv2VwIrQVuOPiI
-k3qAZaJhfyInOnkyyxqTfaTAzIlmTOka+gZJc0yNhKo=&lt;/SignatureValue&gt;
+ &lt;SignatureValue&gt;XuB8zRgyR+fiD36wi3OIK0BCVMC/3knOGfmfPmNY3qnTelGbd0Pdp7R8NOQX8zQc
+85FEZXSl8aMR/yallf+o47pr9CvU0eephoEbUuCoRhGM9753PEL559QLSQbkWtXO
+VZtuSrJRmBLJDpPfweAR3BoV7HWprDHU8wGoHqu/5XE=&lt;/SignatureValue&gt;
  &lt;KeyInfo&gt;
   &lt;X509Data&gt;
    
@@ -1985,8 +1985,8 @@ AQAB
                     <geni_output>&quot;&quot;</geni_output>
                     <geni_code>0</geni_code>
                     <geni_code_is_success>true</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:20.019+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:21.320+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:48.080+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:49.351+02:00</stop_time>
                 </apicall>
                 <apicall>
                     <authority_urn>urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm</authority_urn>
@@ -2021,7 +2021,7 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
                     <http_request_line>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1</http_request_line>
                     <http_request_headers>
 </http_request_headers>
-                    <http_request>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Register&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;urn&lt;/name&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;credential&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
+                    <http_request>POST https://www.wall2.ilabt.iminds.be:12369/protogeni/xmlrpc/sa HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Register&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;urn&lt;/name&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;credential&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
 &amp;lt;signed-credential&amp;#32;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&amp;#32;xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot;&amp;#32;xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1&amp;#32;http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref310F62B0C26FF4F9&quot;&amp;gt;
 &amp;#32;&amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
@@ -2142,7 +2142,7 @@ AQAB
 &amp;lt;/signed-credential&amp;gt;
 &lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;type&lt;/name&gt;&lt;value&gt;Slice&lt;/value&gt;&lt;/member&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/param&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.1 200 OK</http_status_line>
-                    <http_response_headers>Date: Wed, 09 Apr 2014 09:22:51 GMT
+                    <http_response_headers>Date: Wed, 09 Apr 2014 10:22:19 GMT
 Server: Apache/2.2.22 (FreeBSD)
 Keep-Alive: timeout=15, max=100
 Connection: Keep-Alive
@@ -2154,13 +2154,13 @@ Content-Type: text/xml
 &lt;methodResponse&gt;
 &lt;params&gt;
 &lt;param&gt;&lt;value&gt;&lt;struct&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+0f8dd500b7ec111aa6399368413f52ab&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
-&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=0f8dd500b7ec111aa6399368413f52ab&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_log&lt;/name&gt;&lt;value&gt;&lt;string&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+log+ea0c7380c7f32382ef347c1a34f0d0b9&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
+&lt;member&gt;&lt;name&gt;protogeni_error_url&lt;/name&gt;&lt;value&gt;&lt;string&gt;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=ea0c7380c7f32382ef347c1a34f0d0b9&lt;/string&gt;&lt;/value&gt;&lt;/member&gt;
 &lt;member&gt;&lt;name&gt;value&lt;/name&gt;&lt;value&gt;&lt;string&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; standalone=&amp;quot;no&amp;quot;?&amp;gt;
 &amp;lt;signed-credential xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:noNamespaceSchemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/credential.xsd&amp;quot; xsi:schemaLocation=&amp;quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&amp;quot;&amp;gt;
-  &amp;lt;credential xml:id=&amp;quot;ref41009F518EB6F571&amp;quot;&amp;gt;
+  &amp;lt;credential xml:id=&amp;quot;ref2CF3E2FEB04DC406&amp;quot;&amp;gt;
  &amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
- &amp;lt;serial&amp;gt;50386&amp;lt;/serial&amp;gt;
+ &amp;lt;serial&amp;gt;50500&amp;lt;/serial&amp;gt;
  &amp;lt;owner_gid&amp;gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -2185,48 +2185,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &amp;lt;/owner_gid&amp;gt;
  &amp;lt;owner_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&amp;lt;/owner_urn&amp;gt;
- &amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+ &amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
 &amp;lt;/target_gid&amp;gt;
- &amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&amp;lt;/target_urn&amp;gt;
- &amp;lt;uuid&amp;gt;86e68ff3-bfc8-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
- &amp;lt;expires&amp;gt;2014-04-09T11:22:52Z&amp;lt;/expires&amp;gt;
+ &amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&amp;lt;/target_urn&amp;gt;
+ &amp;lt;uuid&amp;gt;d59733d2-bfd0-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
+ &amp;lt;expires&amp;gt;2014-04-09T12:22:20Z&amp;lt;/expires&amp;gt;
   &amp;lt;privileges&amp;gt;
 &amp;lt;privilege&amp;gt;&amp;lt;name&amp;gt;*&amp;lt;/name&amp;gt;&amp;lt;can_delegate&amp;gt;1&amp;lt;/can_delegate&amp;gt;&amp;lt;/privilege&amp;gt;
 &amp;lt;/privileges&amp;gt;&amp;lt;/credential&amp;gt;
   &amp;lt;signatures&amp;gt;
-    &amp;lt;Signature xmlns=&amp;quot;http://www.w3.org/2000/09/xmldsig#&amp;quot; xml:id=&amp;quot;Sig_ref41009F518EB6F571&amp;quot;&amp;gt;
+    &amp;lt;Signature xmlns=&amp;quot;http://www.w3.org/2000/09/xmldsig#&amp;quot; xml:id=&amp;quot;Sig_ref2CF3E2FEB04DC406&amp;quot;&amp;gt;
  &amp;lt;SignedInfo&amp;gt;
   &amp;lt;CanonicalizationMethod Algorithm=&amp;quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&amp;quot;/&amp;gt;
   &amp;lt;SignatureMethod Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&amp;quot;/&amp;gt;
-  &amp;lt;Reference URI=&amp;quot;#ref41009F518EB6F571&amp;quot;&amp;gt;
+  &amp;lt;Reference URI=&amp;quot;#ref2CF3E2FEB04DC406&amp;quot;&amp;gt;
     &amp;lt;Transforms&amp;gt;
       &amp;lt;Transform Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&amp;quot;/&amp;gt;
     &amp;lt;/Transforms&amp;gt;
     &amp;lt;DigestMethod Algorithm=&amp;quot;http://www.w3.org/2000/09/xmldsig#sha1&amp;quot;/&amp;gt;
-    &amp;lt;DigestValue&amp;gt;akrsKQd9cCRxOYEid+98tHqLdbI=&amp;lt;/DigestValue&amp;gt;
+    &amp;lt;DigestValue&amp;gt;dMIet3hjCDMfLNTXYf6okCMetVs=&amp;lt;/DigestValue&amp;gt;
     &amp;lt;/Reference&amp;gt;
  &amp;lt;/SignedInfo&amp;gt;
- &amp;lt;SignatureValue&amp;gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&amp;lt;/SignatureValue&amp;gt;
+ &amp;lt;SignatureValue&amp;gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&amp;lt;/SignatureValue&amp;gt;
  &amp;lt;KeyInfo&amp;gt;
   &amp;lt;X509Data&amp;gt;
    
@@ -2284,7 +2284,7 @@ AQAB
 </http_reply>
                     <xmlrpc_request>[
 {
-   &quot;urn&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&quot;,
+   &quot;urn&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&quot;,
    &quot;credential&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
           &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
             &lt;credential xml:id=&quot;ref310F62B0C26FF4F9&quot;&gt;
@@ -2409,15 +2409,15 @@ AQAB
    }
 ]</xmlrpc_request>
                     <xmlrpc_reply>{
-&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=0f8dd500b7ec111aa6399368413f52ab&quot;,
+&quot;protogeni_error_url&quot;: &quot;https://www.wall2.ilabt.iminds.be/spewlogfile.php3?logfile=ea0c7380c7f32382ef347c1a34f0d0b9&quot;,
 &quot;output&quot;: &quot;&quot;,
-&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+0f8dd500b7ec111aa6399368413f52ab&quot;,
+&quot;protogeni_error_log&quot;: &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+log+ea0c7380c7f32382ef347c1a34f0d0b9&quot;,
 &quot;code&quot;: 0,
 &quot;value&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
               &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-                &lt;credential xml:id=&quot;ref41009F518EB6F571&quot;&gt;
+                &lt;credential xml:id=&quot;ref2CF3E2FEB04DC406&quot;&gt;
                &lt;type&gt;privilege&lt;/type&gt;
-               &lt;serial&gt;50386&lt;/serial&gt;
+               &lt;serial&gt;50500&lt;/serial&gt;
                &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
               MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
               IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -2442,48 +2442,48 @@ AQAB
               x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
               &lt;/owner_gid&gt;
                &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
-               &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+               &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
               MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
               IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
               Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-              bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-              MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-              aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-              MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+              bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+              MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+              aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+              OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
               MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-              BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-              3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-              tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-              wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-              lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-              ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+              BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+              v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+              9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+              9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+              1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+              ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
               MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-              BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-              PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-              UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+              BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+              qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+              54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
               &lt;/target_gid&gt;
-               &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/target_urn&gt;
-               &lt;uuid&gt;86e68ff3-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
-               &lt;expires&gt;2014-04-09T11:22:52Z&lt;/expires&gt;
+               &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/target_urn&gt;
+               &lt;uuid&gt;d59733d2-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+               &lt;expires&gt;2014-04-09T12:22:20Z&lt;/expires&gt;
                 &lt;privileges&gt;
               &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
               &lt;/privileges&gt;&lt;/credential&gt;
                 &lt;signatures&gt;
-                  &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref41009F518EB6F571&quot;&gt;
+                  &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&gt;
                &lt;SignedInfo&gt;
                 &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
                 &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-                &lt;Reference URI=&quot;#ref41009F518EB6F571&quot;&gt;
+                &lt;Reference URI=&quot;#ref2CF3E2FEB04DC406&quot;&gt;
                   &lt;Transforms&gt;
                     &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
                   &lt;/Transforms&gt;
                   &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-                  &lt;DigestValue&gt;akrsKQd9cCRxOYEid+98tHqLdbI=&lt;/DigestValue&gt;
+                  &lt;DigestValue&gt;dMIet3hjCDMfLNTXYf6okCMetVs=&lt;/DigestValue&gt;
                   &lt;/Reference&gt;
                &lt;/SignedInfo&gt;
-               &lt;SignatureValue&gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-              Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-              JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&lt;/SignatureValue&gt;
+               &lt;SignatureValue&gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+              vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+              BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&lt;/SignatureValue&gt;
                &lt;KeyInfo&gt;
                 &lt;X509Data&gt;
                  
@@ -2538,9 +2538,9 @@ AQAB
                     <geni_method_name>Register</geni_method_name>
                     <geni_value>&quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
 &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-  &lt;credential xml:id=&quot;ref41009F518EB6F571&quot;&gt;
+  &lt;credential xml:id=&quot;ref2CF3E2FEB04DC406&quot;&gt;
  &lt;type&gt;privilege&lt;/type&gt;
- &lt;serial&gt;50386&lt;/serial&gt;
+ &lt;serial&gt;50500&lt;/serial&gt;
  &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -2565,48 +2565,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &lt;/owner_gid&gt;
  &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
- &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+ &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
 &lt;/target_gid&gt;
- &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/target_urn&gt;
- &lt;uuid&gt;86e68ff3-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
- &lt;expires&gt;2014-04-09T11:22:52Z&lt;/expires&gt;
+ &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/target_urn&gt;
+ &lt;uuid&gt;d59733d2-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+ &lt;expires&gt;2014-04-09T12:22:20Z&lt;/expires&gt;
   &lt;privileges&gt;
 &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
 &lt;/privileges&gt;&lt;/credential&gt;
   &lt;signatures&gt;
-    &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref41009F518EB6F571&quot;&gt;
+    &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&gt;
  &lt;SignedInfo&gt;
   &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
   &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-  &lt;Reference URI=&quot;#ref41009F518EB6F571&quot;&gt;
+  &lt;Reference URI=&quot;#ref2CF3E2FEB04DC406&quot;&gt;
     &lt;Transforms&gt;
       &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
     &lt;/Transforms&gt;
     &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-    &lt;DigestValue&gt;akrsKQd9cCRxOYEid+98tHqLdbI=&lt;/DigestValue&gt;
+    &lt;DigestValue&gt;dMIet3hjCDMfLNTXYf6okCMetVs=&lt;/DigestValue&gt;
     &lt;/Reference&gt;
  &lt;/SignedInfo&gt;
- &lt;SignatureValue&gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&lt;/SignatureValue&gt;
+ &lt;SignatureValue&gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&lt;/SignatureValue&gt;
  &lt;KeyInfo&gt;
   &lt;X509Data&gt;
    
@@ -2658,38 +2658,38 @@ AQAB
                     <geni_output>&quot;&quot;</geni_output>
                     <geni_code>0</geni_code>
                     <geni_code_is_success>true</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:21.348+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:22.613+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:49.367+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:50.590+02:00</stop_time>
                 </apicall>
             </apicalls>
             <description>Create the slices used in the next tests</description>
             <loglines>
                 <logline>
                     <text>For wall2.ilabt.iminds.be (18 non-dot chars), the maximum slice name length (taking into account planetlab and protogeni limits) is 10</text>
-                    <timeInMs>1397035278842</timeInMs>
+                    <timeInMs>1397038847200</timeInMs>
                     <type>NOTE</type>
                 </logline>
                 <logline>
-                    <text>Slice unique number is 1397035278 after making it shorter it, it is 397035278</text>
-                    <timeInMs>1397035278842</timeInMs>
+                    <text>Slice unique number is 1397038847 after making it shorter it, it is 397038847</text>
+                    <timeInMs>1397038847200</timeInMs>
                     <type>NOTE</type>
                 </logline>
                 <logline>
                     <text>For wall2.ilabt.iminds.be (18 non-dot chars), the maximum slice name length (taking into account planetlab and protogeni limits) is 10</text>
-                    <timeInMs>1397035281342</timeInMs>
+                    <timeInMs>1397038849361</timeInMs>
                     <type>NOTE</type>
                 </logline>
                 <logline>
-                    <text>Slice unique number is 1397035281 after making it shorter it, it is 397035281</text>
-                    <timeInMs>1397035281342</timeInMs>
+                    <text>Slice unique number is 1397038849 after making it shorter it, it is 397038849</text>
+                    <timeInMs>1397038849361</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>createTestSlices</methodName>
-            <startTimeInMs>1397035278841</startTimeInMs>
+            <startTimeInMs>1397038847199</startTimeInMs>
             <state>SUCCESS</state>
-            <stopTimeInMs>1397035282623</stopTimeInMs>
-            <durationInMs>3782</durationInMs>
+            <stopTimeInMs>1397038850601</stopTimeInMs>
+            <durationInMs>3402</durationInMs>
         </method>
         <method>
             <apicalls>
@@ -2726,11 +2726,11 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
                     <http_request_line>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1</http_request_line>
                     <http_request_headers>
 </http_request_headers>
-                    <http_request>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Allocate&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;geni_type&lt;/name&gt;&lt;value&gt;geni_sfa&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_version&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_value&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
+                    <http_request>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Allocate&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;geni_type&lt;/name&gt;&lt;value&gt;geni_sfa&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_version&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_value&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
 &amp;lt;signed-credential&amp;#32;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&amp;#32;xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot;&amp;#32;xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1&amp;#32;http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&amp;gt;
-&amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
-&amp;#32;&amp;lt;serial&amp;gt;50386&amp;lt;/serial&amp;gt;
+&amp;#32;&amp;lt;serial&amp;gt;50500&amp;lt;/serial&amp;gt;
 &amp;#32;&amp;lt;owner_gid&amp;gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -2755,48 +2755,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &amp;lt;/owner_gid&amp;gt;
 &amp;#32;&amp;lt;owner_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&amp;lt;/owner_urn&amp;gt;
-&amp;#32;&amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+&amp;#32;&amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
 &amp;lt;/target_gid&amp;gt;
-&amp;#32;&amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&amp;lt;/target_urn&amp;gt;
-&amp;#32;&amp;lt;uuid&amp;gt;86e68ff3-bfc8-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
-&amp;#32;&amp;lt;expires&amp;gt;2014-04-09T11:22:52Z&amp;lt;/expires&amp;gt;
+&amp;#32;&amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&amp;lt;/target_urn&amp;gt;
+&amp;#32;&amp;lt;uuid&amp;gt;d59733d2-bfd0-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
+&amp;#32;&amp;lt;expires&amp;gt;2014-04-09T12:22:20Z&amp;lt;/expires&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;privileges&amp;gt;
 &amp;lt;privilege&amp;gt;&amp;lt;name&amp;gt;*&amp;lt;/name&amp;gt;&amp;lt;can_delegate&amp;gt;1&amp;lt;/can_delegate&amp;gt;&amp;lt;/privilege&amp;gt;
 &amp;lt;/privileges&amp;gt;&amp;lt;/credential&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;signatures&amp;gt;
-&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Signature&amp;#32;xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&amp;#32;xml:id=&quot;Sig_ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Signature&amp;#32;xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&amp;#32;xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;lt;SignedInfo&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;CanonicalizationMethod&amp;#32;Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;SignatureMethod&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&amp;gt;
-&amp;#32;&amp;#32;&amp;lt;Reference&amp;#32;URI=&quot;#ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;lt;Reference&amp;#32;URI=&quot;#ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Transforms&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Transform&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;/Transforms&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestMethod&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&amp;gt;
-&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestValue&amp;gt;akrsKQd9cCRxOYEid+98tHqLdbI=&amp;lt;/DigestValue&amp;gt;
+&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestValue&amp;gt;dMIet3hjCDMfLNTXYf6okCMetVs=&amp;lt;/DigestValue&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;/Reference&amp;gt;
 &amp;#32;&amp;lt;/SignedInfo&amp;gt;
-&amp;#32;&amp;lt;SignatureValue&amp;gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&amp;lt;/SignatureValue&amp;gt;
+&amp;#32;&amp;lt;SignatureValue&amp;gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&amp;lt;/SignatureValue&amp;gt;
 &amp;#32;&amp;lt;KeyInfo&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;X509Data&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;
@@ -2856,7 +2856,7 @@ AQAB
 &amp;#32;&amp;#32;&amp;#32;&amp;lt;/rspec&amp;gt;&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/param&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.0 200 OK</http_status_line>
                     <http_response_headers>Server: BaseHTTP/0.3 Python/2.7
-Date: Wed, 09 Apr 2014 09:22:59 GMT
+Date: Wed, 09 Apr 2014 10:22:23 GMT
 Content-type: text/xml
 Content-length: 757
 
@@ -2868,7 +2868,7 @@ Content-length: 757
 &lt;value&gt;&lt;struct&gt;
 &lt;member&gt;
 &lt;name&gt;output&lt;/name&gt;
-&lt;value&gt;&lt;string&gt;Internal SFA API error: &amp;lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 09:22:52' not in the future&quot;&amp;gt;&lt;/string&gt;&lt;/value&gt;
+&lt;value&gt;&lt;string&gt;Internal SFA API error: &amp;lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 10:22:20' not in the future&quot;&amp;gt;&lt;/string&gt;&lt;/value&gt;
 &lt;/member&gt;
 &lt;member&gt;
 &lt;name&gt;geni_api&lt;/name&gt;
@@ -2901,16 +2901,16 @@ Content-length: 757
 &lt;/methodResponse&gt;
 </http_reply>
                     <xmlrpc_request>[
-&quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&quot;,
+&quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&quot;,
 [
    {
       &quot;geni_type&quot;: &quot;geni_sfa&quot;,
       &quot;geni_version&quot;: &quot;2&quot;,
       &quot;geni_value&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
              &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-               &lt;credential xml:id=&quot;ref41009F518EB6F571&quot;&gt;
+               &lt;credential xml:id=&quot;ref2CF3E2FEB04DC406&quot;&gt;
               &lt;type&gt;privilege&lt;/type&gt;
-              &lt;serial&gt;50386&lt;/serial&gt;
+              &lt;serial&gt;50500&lt;/serial&gt;
               &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
              MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
              IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -2935,48 +2935,48 @@ Content-length: 757
              x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
              &lt;/owner_gid&gt;
               &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
-              &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+              &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
              MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
              IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
              Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-             bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-             MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-             aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-             MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+             bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+             MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+             aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+             OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
              MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-             BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-             3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-             tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-             wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-             lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-             ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+             BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+             v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+             9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+             9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+             1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+             ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
              MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-             BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-             PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-             UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+             BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+             qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+             54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
              &lt;/target_gid&gt;
-              &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/target_urn&gt;
-              &lt;uuid&gt;86e68ff3-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
-              &lt;expires&gt;2014-04-09T11:22:52Z&lt;/expires&gt;
+              &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/target_urn&gt;
+              &lt;uuid&gt;d59733d2-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+              &lt;expires&gt;2014-04-09T12:22:20Z&lt;/expires&gt;
                &lt;privileges&gt;
              &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
              &lt;/privileges&gt;&lt;/credential&gt;
                &lt;signatures&gt;
-                 &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref41009F518EB6F571&quot;&gt;
+                 &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&gt;
               &lt;SignedInfo&gt;
                &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
                &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-               &lt;Reference URI=&quot;#ref41009F518EB6F571&quot;&gt;
+               &lt;Reference URI=&quot;#ref2CF3E2FEB04DC406&quot;&gt;
                  &lt;Transforms&gt;
                    &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
                  &lt;/Transforms&gt;
                  &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-                 &lt;DigestValue&gt;akrsKQd9cCRxOYEid+98tHqLdbI=&lt;/DigestValue&gt;
+                 &lt;DigestValue&gt;dMIet3hjCDMfLNTXYf6okCMetVs=&lt;/DigestValue&gt;
                  &lt;/Reference&gt;
               &lt;/SignedInfo&gt;
-              &lt;SignatureValue&gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-             Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-             JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&lt;/SignatureValue&gt;
+              &lt;SignatureValue&gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+             vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+             BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&lt;/SignatureValue&gt;
               &lt;KeyInfo&gt;
                &lt;X509Data&gt;
                 
@@ -3040,7 +3040,7 @@ Content-length: 757
 { }
 ]</xmlrpc_request>
                     <xmlrpc_reply>{
-&quot;output&quot;: &quot;Internal SFA API error: &lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 09:22:52' not in the future&quot;&gt;&quot;,
+&quot;output&quot;: &quot;Internal SFA API error: &lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 10:22:20' not in the future&quot;&gt;&quot;,
 &quot;geni_api&quot;: 3,
 &quot;code&quot;: {
              &quot;geni_code&quot;: 5,
@@ -3053,30 +3053,30 @@ Content-length: 757
                     <java_method_name>allocate</java_method_name>
                     <geni_method_name>Allocate</geni_method_name>
                     <geni_value>&quot;&quot;</geni_value>
-                    <geni_output>&quot;Internal SFA API error: &lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 09:22:52' not in the future&quot;&gt;&quot;</geni_output>
+                    <geni_output>&quot;Internal SFA API error: &lt;Fault 102: &quot;person_id 240748: UpdateSlice: Invalid argument: '2014-04-09 10:22:20' not in the future&quot;&gt;&quot;</geni_output>
                     <geni_code>{
 &quot;geni_code&quot;: 5,
 &quot;am_type&quot;: &quot;sfa&quot;,
 &quot;am_code&quot;: 5
 }</geni_code>
                     <geni_code_is_success>false</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:22.630+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:28.608+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:50.608+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:53.230+02:00</stop_time>
                 </apicall>
             </apicalls>
             <description></description>
             <loglines>
                 <logline>
                     <text>Allocate did not succeed -&gt; object are not equal: a=GeniAMResponseCode{code=5, description='Server Error'}b=GeniAMResponseCode{code=0, description='Success'}</text>
-                    <timeInMs>1397035288614</timeInMs>
+                    <timeInMs>1397038853234</timeInMs>
                     <type>FATAL_ERROR</type>
                 </logline>
             </loglines>
             <methodName>testAllocate</methodName>
-            <startTimeInMs>1397035282623</startTimeInMs>
+            <startTimeInMs>1397038850601</startTimeInMs>
             <state>FAILED</state>
-            <stopTimeInMs>1397035288614</stopTimeInMs>
-            <durationInMs>5991</durationInMs>
+            <stopTimeInMs>1397038853234</stopTimeInMs>
+            <durationInMs>2633</durationInMs>
         </method>
         <method>
             <apicalls/>
@@ -3084,14 +3084,14 @@ Content-length: 757
             <loglines>
                 <logline>
                     <text>Test method skipped because hard dependency has failed: testAllocate</text>
-                    <timeInMs>1397035288615</timeInMs>
+                    <timeInMs>1397038853234</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>testProvision</methodName>
-            <startTimeInMs>1397035288615</startTimeInMs>
+            <startTimeInMs>1397038853234</startTimeInMs>
             <state>SKIPPED</state>
-            <stopTimeInMs>1397035288615</stopTimeInMs>
+            <stopTimeInMs>1397038853234</stopTimeInMs>
             <durationInMs>0</durationInMs>
         </method>
         <method>
@@ -3100,14 +3100,14 @@ Content-length: 757
             <loglines>
                 <logline>
                     <text>Test method skipped because hard dependency has failed: testProvision</text>
-                    <timeInMs>1397035288616</timeInMs>
+                    <timeInMs>1397038853234</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>testSliverBecomesProvisioned</methodName>
-            <startTimeInMs>1397035288616</startTimeInMs>
+            <startTimeInMs>1397038853234</startTimeInMs>
             <state>SKIPPED</state>
-            <stopTimeInMs>1397035288616</stopTimeInMs>
+            <stopTimeInMs>1397038853234</stopTimeInMs>
             <durationInMs>0</durationInMs>
         </method>
         <method>
@@ -3116,14 +3116,14 @@ Content-length: 757
             <loglines>
                 <logline>
                     <text>Test method skipped because hard dependency has failed: testSliverBecomesProvisioned</text>
-                    <timeInMs>1397035288616</timeInMs>
+                    <timeInMs>1397038853235</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>testPerformOperationalAction</methodName>
-            <startTimeInMs>1397035288616</startTimeInMs>
+            <startTimeInMs>1397038853235</startTimeInMs>
             <state>SKIPPED</state>
-            <stopTimeInMs>1397035288616</stopTimeInMs>
+            <stopTimeInMs>1397038853235</stopTimeInMs>
             <durationInMs>0</durationInMs>
         </method>
         <method>
@@ -3132,14 +3132,14 @@ Content-length: 757
             <loglines>
                 <logline>
                     <text>Test method skipped because hard dependency has failed: testPerformOperationalAction</text>
-                    <timeInMs>1397035288616</timeInMs>
+                    <timeInMs>1397038853235</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>testSliverBecomesStarted</methodName>
-            <startTimeInMs>1397035288616</startTimeInMs>
+            <startTimeInMs>1397038853235</startTimeInMs>
             <state>SKIPPED</state>
-            <stopTimeInMs>1397035288616</stopTimeInMs>
+            <stopTimeInMs>1397038853235</stopTimeInMs>
             <durationInMs>0</durationInMs>
         </method>
         <method>
@@ -3148,14 +3148,14 @@ Content-length: 757
             <loglines>
                 <logline>
                     <text>Test method skipped because hard dependency has failed: testPerformOperationalAction</text>
-                    <timeInMs>1397035288616</timeInMs>
+                    <timeInMs>1397038853235</timeInMs>
                     <type>NOTE</type>
                 </logline>
             </loglines>
             <methodName>testNodeLogin</methodName>
-            <startTimeInMs>1397035288617</startTimeInMs>
+            <startTimeInMs>1397038853235</startTimeInMs>
             <state>SKIPPED</state>
-            <stopTimeInMs>1397035288617</stopTimeInMs>
+            <stopTimeInMs>1397038853235</stopTimeInMs>
             <durationInMs>0</durationInMs>
         </method>
         <method>
@@ -3193,11 +3193,11 @@ VrlqqPRPDu1AfyG17KMf2x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA
                     <http_request_line>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1</http_request_line>
                     <http_request_headers>
 </http_request_headers>
-                    <http_request>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Delete&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/value&gt;&lt;/data&gt;&lt;/array&gt;&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;geni_type&lt;/name&gt;&lt;value&gt;geni_sfa&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_version&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_value&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
+                    <http_request>POST https://sfa3.planet-lab.eu:12346 HTTP/1.1&lt;?xml version=&quot;1.0&quot;?&gt;&lt;methodCall&gt;&lt;methodName&gt;Delete&lt;/methodName&gt;&lt;params&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/value&gt;&lt;/data&gt;&lt;/array&gt;&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;array&gt;&lt;data&gt;&lt;value&gt;&lt;struct&gt;&lt;member&gt;&lt;name&gt;geni_type&lt;/name&gt;&lt;value&gt;geni_sfa&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_version&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/member&gt;&lt;member&gt;&lt;name&gt;geni_value&lt;/name&gt;&lt;value&gt;&amp;lt;?xml&amp;#32;version=&quot;1.0&quot;&amp;#32;encoding=&quot;UTF-8&quot;&amp;#32;standalone=&quot;no&quot;?&amp;gt;
 &amp;lt;signed-credential&amp;#32;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&amp;#32;xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot;&amp;#32;xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1&amp;#32;http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&amp;gt;
-&amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;lt;credential&amp;#32;xml:id=&quot;ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;lt;type&amp;gt;privilege&amp;lt;/type&amp;gt;
-&amp;#32;&amp;lt;serial&amp;gt;50386&amp;lt;/serial&amp;gt;
+&amp;#32;&amp;lt;serial&amp;gt;50500&amp;lt;/serial&amp;gt;
 &amp;#32;&amp;lt;owner_gid&amp;gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -3222,48 +3222,48 @@ S9A0iuXXq+nqz6s25rxx/6jrh1NOKmYxDfspIGk1egyVrlqqPRPDu1AfyG17KMf2
 x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
 &amp;lt;/owner_gid&amp;gt;
 &amp;#32;&amp;lt;owner_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&amp;lt;/owner_urn&amp;gt;
-&amp;#32;&amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+&amp;#32;&amp;lt;target_gid&amp;gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
 MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
 IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
 Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
 MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
 MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
 &amp;lt;/target_gid&amp;gt;
-&amp;#32;&amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&amp;lt;/target_urn&amp;gt;
-&amp;#32;&amp;lt;uuid&amp;gt;86e68ff3-bfc8-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
-&amp;#32;&amp;lt;expires&amp;gt;2014-04-09T11:22:52Z&amp;lt;/expires&amp;gt;
+&amp;#32;&amp;lt;target_urn&amp;gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&amp;lt;/target_urn&amp;gt;
+&amp;#32;&amp;lt;uuid&amp;gt;d59733d2-bfd0-11e3-b407-001517becdc1&amp;lt;/uuid&amp;gt;
+&amp;#32;&amp;lt;expires&amp;gt;2014-04-09T12:22:20Z&amp;lt;/expires&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;privileges&amp;gt;
 &amp;lt;privilege&amp;gt;&amp;lt;name&amp;gt;*&amp;lt;/name&amp;gt;&amp;lt;can_delegate&amp;gt;1&amp;lt;/can_delegate&amp;gt;&amp;lt;/privilege&amp;gt;
 &amp;lt;/privileges&amp;gt;&amp;lt;/credential&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;signatures&amp;gt;
-&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Signature&amp;#32;xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&amp;#32;xml:id=&quot;Sig_ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Signature&amp;#32;xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&amp;#32;xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;lt;SignedInfo&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;CanonicalizationMethod&amp;#32;Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;SignatureMethod&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&amp;gt;
-&amp;#32;&amp;#32;&amp;lt;Reference&amp;#32;URI=&quot;#ref41009F518EB6F571&quot;&amp;gt;
+&amp;#32;&amp;#32;&amp;lt;Reference&amp;#32;URI=&quot;#ref2CF3E2FEB04DC406&quot;&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Transforms&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;Transform&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;/Transforms&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestMethod&amp;#32;Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&amp;gt;
-&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestValue&amp;gt;akrsKQd9cCRxOYEid+98tHqLdbI=&amp;lt;/DigestValue&amp;gt;
+&amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;DigestValue&amp;gt;dMIet3hjCDMfLNTXYf6okCMetVs=&amp;lt;/DigestValue&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;&amp;#32;&amp;lt;/Reference&amp;gt;
 &amp;#32;&amp;lt;/SignedInfo&amp;gt;
-&amp;#32;&amp;lt;SignatureValue&amp;gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&amp;lt;/SignatureValue&amp;gt;
+&amp;#32;&amp;lt;SignatureValue&amp;gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&amp;lt;/SignatureValue&amp;gt;
 &amp;#32;&amp;lt;KeyInfo&amp;gt;
 &amp;#32;&amp;#32;&amp;lt;X509Data&amp;gt;
 &amp;#32;&amp;#32;&amp;#32;
@@ -3314,7 +3314,7 @@ AQAB
 &lt;/value&gt;&lt;/member&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/data&gt;&lt;/array&gt;&lt;/value&gt;&lt;/param&gt;&lt;param&gt;&lt;value&gt;&lt;struct&gt;&lt;/struct&gt;&lt;/value&gt;&lt;/param&gt;&lt;/params&gt;&lt;/methodCall&gt;</http_request>
                     <http_status_line>HTTP/1.0 200 OK</http_status_line>
                     <http_response_headers>Server: BaseHTTP/0.3 Python/2.7
-Date: Wed, 09 Apr 2014 09:23:02 GMT
+Date: Wed, 09 Apr 2014 10:22:25 GMT
 Content-type: text/xml
 Content-length: 629
 
@@ -3360,7 +3360,7 @@ Content-length: 629
 </http_reply>
                     <xmlrpc_request>[
 [
-   &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&quot;
+   &quot;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&quot;
    ],
 [
    {
@@ -3368,9 +3368,9 @@ Content-length: 629
       &quot;geni_version&quot;: &quot;2&quot;,
       &quot;geni_value&quot;: &quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
              &lt;signed-credential xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.protogeni.net/resources/credential/credential.xsd&quot; xsi:schemaLocation=&quot;http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd&quot;&gt;
-               &lt;credential xml:id=&quot;ref41009F518EB6F571&quot;&gt;
+               &lt;credential xml:id=&quot;ref2CF3E2FEB04DC406&quot;&gt;
               &lt;type&gt;privilege&lt;/type&gt;
-              &lt;serial&gt;50386&lt;/serial&gt;
+              &lt;serial&gt;50500&lt;/serial&gt;
               &lt;owner_gid&gt;MIIECzCCA3SgAwIBAgICLkswDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
              MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
              IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
@@ -3395,48 +3395,48 @@ Content-length: 629
              x2u1AF9kWxKvgVYUqDM2AG/igDHyvKtK9rKcHyDiaA==
              &lt;/owner_gid&gt;
               &lt;owner_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+user+Andlille&lt;/owner_urn&gt;
-              &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRs8wDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
+              &lt;target_gid&gt;MIIDgjCCAuugAwIBAgICRvkwDQYJKoZIhvcNAQEEBQAwgbUxCzAJBgNVBAYTAkJF
              MQswCQYDVQQIEwJPVjEOMAwGA1UEBxMFR2hlbnQxGDAWBgNVBAoTD2lNaW5kcyAt
              IGlsYWIudDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MSMwIQYDVQQD
              Expib3NzLndhbGwyLmlsYWJ0LmltaW5kcy5iZTEqMCgGCSqGSIb3DQEJARYbdndh
-             bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA4MjI1MloXDTE5MDkz
-             MDA5MjI1MlowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
-             aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzNTI4
-             MTEtMCsGA1UEAxMkODZjYzAyODYtYmZjOC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
+             bGwtb3BzQGF0bGFudGlzLnVnZW50LmJlMB4XDTE0MDQwOTA5MjIyMFoXDTE5MDkz
+             MDEwMjIyMFowgbAxCzAJBgNVBAYTAkJFMQswCQYDVQQIEwJPVjEYMBYGA1UEChMP
+             aU1pbmRzIC0gaWxhYi50MSAwHgYDVQQLExdpbWluZHMtd2FsbDIuczM5NzAzODg0
+             OTEtMCsGA1UEAxMkZDU3ZGU0NjctYmZkMC0xMWUzLWI0MDctMDAxNTE3YmVjZGMx
              MSkwJwYJKoZIhvcNAQkBFhphbmRyZWFzZGVsaWxsZUBob3RtYWlsLmNvbTCBnzAN
-             BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq/SP2FcyHYOD7mbS9Jk+vD+nh9h1SmTU
-             3TZWRYj/TujetAv5s45a8xcaJ4+qaeouriOBxggk8/4pbAebuVq9ABr1ou1rpaWD
-             tCr+UwyIMo7YQhxGL25H74Shn6eZc632Z6FxQMu10o/dJ2qO8VSjFYmVRtiFnXhh
-             wHR7xhm5VBMCAwEAAaOBozCBoDAdBgNVHQ4EFgQU9S99WbM3bmNvZqvv48ywPGG2
-             lTwwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
-             ZHMuYmUrc2xpY2UrczM5NzAzNTI4MYYtdXJuOnV1aWQ6ODZjYzAyODYtYmZjOC0x
+             BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0iURnyvlvJyC1ea/pK5ggJynZ2xzbbax
+             v49GCEo6aLhtskm1tI5Cms3YdIEZoIGaXlc3q4tDyPwooiIuZ0VJ9cZ7ORT3yyfQ
+             9VLJ/SE3B2xtgHgAOUrw/lZ50racmx/n46J2oSes/wo3YzCPMe2JmddLXAu4GqVr
+             9RlDUsO+yasCAwEAAaOBozCBoDAdBgNVHQ4EFgQUKc9tV/DOU2eYFlfkpOe+714f
+             1pIwcQYDVR0RBGowaIY3dXJuOnB1YmxpY2lkOklETit3YWxsMi5pbGFidC5pbWlu
+             ZHMuYmUrc2xpY2UrczM5NzAzODg0OYYtdXJuOnV1aWQ6ZDU3ZGU0NjctYmZkMC0x
              MWUzLWI0MDctMDAxNTE3YmVjZGMxMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEE
-             BQADgYEAZNhejPspawa/DK+5zbg9k1Gf3WlWmBcggxSGtwB/jD4r/Vug3R70ha+S
-             PEJz23RjV/F3vdeVMwFOMsZkZGhhWfJfitvcpU/3LBcxfr74DDlGDLj5dVOel0Ri
-             UE5Dcc0Y1jrg3J/JSeXprJ4IbeRuKFgsM9B2jfP0tG/uoSbBqro=
+             BQADgYEAmbzHb+QCo9OZxtV//CEsAPiWm4Ojmk0EaPf8zyRPT6F/de71YhfEKGZi
+             qv5stauJgbTgN5E26HmPQTaguQ0CMQP7OfXrcvX6kszSVouy/TiwqeV9Iq8CFbHP
+             54stAcllrch191az1WqLyYujDAs2Np0/Zr8C9AkK4TN7wHxFHl4=
              &lt;/target_gid&gt;
-              &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397035281&lt;/target_urn&gt;
-              &lt;uuid&gt;86e68ff3-bfc8-11e3-b407-001517becdc1&lt;/uuid&gt;
-              &lt;expires&gt;2014-04-09T11:22:52Z&lt;/expires&gt;
+              &lt;target_urn&gt;urn:publicid:IDN+wall2.ilabt.iminds.be+slice+s397038849&lt;/target_urn&gt;
+              &lt;uuid&gt;d59733d2-bfd0-11e3-b407-001517becdc1&lt;/uuid&gt;
+              &lt;expires&gt;2014-04-09T12:22:20Z&lt;/expires&gt;
                &lt;privileges&gt;
              &lt;privilege&gt;&lt;name&gt;*&lt;/name&gt;&lt;can_delegate&gt;1&lt;/can_delegate&gt;&lt;/privilege&gt;
              &lt;/privileges&gt;&lt;/credential&gt;
                &lt;signatures&gt;
-                 &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref41009F518EB6F571&quot;&gt;
+                 &lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xml:id=&quot;Sig_ref2CF3E2FEB04DC406&quot;&gt;
               &lt;SignedInfo&gt;
                &lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/TR/2001/REC-xml-c14n-20010315&quot;/&gt;
                &lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;
-               &lt;Reference URI=&quot;#ref41009F518EB6F571&quot;&gt;
+               &lt;Reference URI=&quot;#ref2CF3E2FEB04DC406&quot;&gt;
                  &lt;Transforms&gt;
                    &lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;
                  &lt;/Transforms&gt;
                  &lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;
-                 &lt;DigestValue&gt;akrsKQd9cCRxOYEid+98tHqLdbI=&lt;/DigestValue&gt;
+                 &lt;DigestValue&gt;dMIet3hjCDMfLNTXYf6okCMetVs=&lt;/DigestValue&gt;
                  &lt;/Reference&gt;
               &lt;/SignedInfo&gt;
-              &lt;SignatureValue&gt;fLwV2N5ANV5KH7Dm25m+t1Ibuyj2/5m1If6IN57DJzZQsUnEZtFT/8DbZZ3P5fzg
-             Eyt2mIVI7T7qptEIu0PouXfP/jr6U0rB2kjw0Di7bKv+ISuDkuIfVrPjVVUBsq4O
-             JBSEubsWYFXAUWyEwgphNg+UK51ZpjlNlipgwfa+rUE=&lt;/SignatureValue&gt;
+              &lt;SignatureValue&gt;VXF7gWU/ORKiZD3mjypwZqklpdUP3t9jW07ot+AFjA/pWoHjXHeyrx64pvjCEAp+
+             vOjChemd/uJTcvIjGdfxqtrJfn1gQ70CFYdf/G2rj2+/x74y/E5FCTrxxfAHBDFO
+             BQyKJpOeDXBQs31NVtEmJCYuJBLHRyr2eZKQyZYB2hU=&lt;/SignatureValue&gt;
               &lt;KeyInfo&gt;
                &lt;X509Data&gt;
                 
@@ -3510,23 +3510,23 @@ Content-length: 629
 &quot;am_code&quot;: &quot;&quot;
 }</geni_code>
                     <geni_code_is_success>true</geni_code_is_success>
-                    <start_time>2014-04-09T11:21:28.625+02:00</start_time>
-                    <stop_time>2014-04-09T11:21:32.320+02:00</stop_time>
+                    <start_time>2014-04-09T12:20:53.244+02:00</start_time>
+                    <stop_time>2014-04-09T12:20:55.573+02:00</stop_time>
                 </apicall>
             </apicalls>
             <description></description>
             <loglines>
                 <logline>
                     <text>should be exactly 1 sliver status -&gt; object are not equal: a=0b=1</text>
-                    <timeInMs>1397035292343</timeInMs>
+                    <timeInMs>1397038855578</timeInMs>
                     <type>FATAL_ERROR</type>
                 </logline>
             </loglines>
             <methodName>testDeleteSliver</methodName>
-            <startTimeInMs>1397035288617</startTimeInMs>
+            <startTimeInMs>1397038853235</startTimeInMs>
             <state>FAILED</state>
-            <stopTimeInMs>1397035292343</stopTimeInMs>
-            <durationInMs>3726</durationInMs>
+            <stopTimeInMs>1397038855578</stopTimeInMs>
+            <durationInMs>2343</durationInMs>
         </method>
     </methods>
 </overview>

@@ -6,8 +6,10 @@
 package ExecutableTests;
 
 import be.iminds.ilabt.jfed.ui.cli.AutomatedTesterCli;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,15 +38,28 @@ public class JavaMainTest extends ExecutableTest {
 
         ArrayList<String> commands = getParameters(parsedCommand);
         String s[] = new String[commands.size()];
-        String consoleOutput;
+        String consoleOutput="";
+        PrintStream ps = new PrintStream("/home/drew/sample.txt");
+        //ByteArrayOutputStream os = new ByteArrayOutputStream();
+        //PrintStream ps = new PrintStream(os);
+        System.out.println("b4 redirect");
+        PrintStream original = System.out;
+        System.setOut(ps);//redirect std output
+        
         try {
             AutomatedTesterCli.main(commands.toArray(s));
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JavaMainTest.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }finally{
+            System.setOut(original);
+            ps.close();
+            
+            //consoleOutput = os.toString("UTF-8");
+            System.out.println("hoi");
         }
 
-        return handleResults(testOutputDir, "");
+        return handleResults(testOutputDir, consoleOutput);
     }
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
