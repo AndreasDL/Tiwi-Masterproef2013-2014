@@ -1,12 +1,15 @@
 package monitor;
 
+import ExecutableTests.ExecutableTest;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ExecutableTests.ExecutableTest;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import monitor.model.TestResult;
 
 /**
@@ -16,13 +19,20 @@ import monitor.model.TestResult;
 public class Monitor {
 
     private WebServiceAccess webAccess;
+    private Properties prop;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Monitor();
     }
 
-    public Monitor() {
-        this.webAccess = new WebServiceAccess();
+    public Monitor() throws IOException {
+        this.prop = new Properties();
+        FileReader f = new FileReader("config.properties");
+        prop.load(f);
+        System.out.println(prop.getProperty("urlTestbeds"));
+        System.out.println(prop.getProperty("urlAddResult"));
+        System.out.println(prop);
+        this.webAccess = new WebServiceAccess(prop);
 
         for(ExecutableTest test : webAccess.getTests()){
             try {

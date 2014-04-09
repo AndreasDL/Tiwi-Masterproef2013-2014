@@ -27,21 +27,22 @@ import monitor.model.Testbed;
 import monitor.model.TestDefinition;
 import ExecutableTests.ExecutableTest;
 import ExecutableTests.TestFactory;
+import java.util.Properties;
 import monitor.model.TestResult;
 
 public class WebServiceAccess {
     private Gson g;
     private HashMap<String, Testbed> testbeds;
     private HashMap<String, TestDefinition> testDefinitions;
-    //TODO configuratie file
+    private Properties prop;
 
-    public WebServiceAccess() {
+    public WebServiceAccess(Properties prop) {
+        this.prop = prop;
         this.g = new Gson();
         updateCache();
     }
 
     public ArrayList<ExecutableTest> getTests() {
-        //pingstest only atm => limited in testinstance
         ArrayList<ExecutableTest> tests = new ArrayList<>();
         HashMap<String,TestInstance> testInstances = getTestInstances();
         
@@ -58,7 +59,7 @@ public class WebServiceAccess {
         TestInstanceResults t = null;
         try {
             //TODO alle tests
-            String jsonText = getFromURL("http://localhost/service/index.php/testInstance?testtype=ping,login");
+            String jsonText = getFromURL(prop.getProperty("urlTestInstances"));
 
             //parse json string
             t = g.fromJson(jsonText, TestInstanceResults.class);
@@ -85,6 +86,7 @@ public class WebServiceAccess {
     public HashMap<String, Testbed> getTestBeds() {
         TestbedResults t = null;
         try {
+            System.out.println("test:" + prop.getProperty("urlTestbeds"));
             String jsonText = getFromURL("http://localhost/service/index.php/testbed");
             //System.out.println(jsonText);
 
@@ -106,7 +108,7 @@ public class WebServiceAccess {
     public HashMap<String, TestDefinition> getTestDefinitions() {
         TestDefinitionResults t = null;
         try {
-            String jsonText = getFromURL("http://localhost/service/index.php/testDefinition");
+            String jsonText = getFromURL(prop.getProperty("urlTestDefinitions"));
             //System.out.println(jsonText);
 
             //parse json string
@@ -130,7 +132,7 @@ public class WebServiceAccess {
 
     public void addResult(TestResult result, ExecutableTest t) {
         try {
-            URL url = new URL("http://localhost/service/index.php/addResult");
+            URL url = new URL(prop.getProperty("urlAddResult"));
             StringBuilder postData = new StringBuilder();
             postData.append("testinstanceid=").append(t.getTest().getTestInstanceId());
             for (String key : result.getResults().keySet()) {
