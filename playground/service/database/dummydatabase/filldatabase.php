@@ -3,9 +3,9 @@
 //include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 7;
 $aantalpinginstances = $aantalTestbeds;
-$aantalstitchinstances = 10;
+$aantalstitchinstances = 1;
 $aantallogininstances = 1;
-$resultsPerInstances = 2;
+$resultsPerInstances = 10;
 
 $login = 'postgres';
 $pass = "post";
@@ -54,11 +54,13 @@ $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array('stitch', 'stitch');
+$data = array('stitch', "--context-file <context-file>");
 pg_query_params($con, $query, $data);
-$data = array("stitch", "topology", "string", "ring | line");
-pg_query_params($con, $subQuery, $data);
-$data = array("stitch", "testbed", "testbed[]", "multiple testbeds for stitching test");
+//$data = array("stitch", "topology", "string", "ring | line");
+//pg_query_params($con, $subQuery, $data);
+//$data = array("stitch", "testbed", "testbed[]", "multiple testbeds for stitching test");
+//pg_query_params($con, $subQuery, $data);
+$data = array("stitch", "context-file", "file", "contextfile");
 pg_query_params($con, $subQuery, $data);
 
 $data = array('stitch', 'setUp', 'string', 'status of subtest');
@@ -83,20 +85,10 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
-//'java -ea -jar '.$jarDir.' nu rechtstreeks aanroepen
-$data = array('login', '--context-file <context-file>');//tmp');// > '+$outputDir+'test.txt 2>&1'); opvangen in java code
+$data = array('login', '--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", 'contextfile');
 pg_query_params($con, $subQuery, $data);
-//$data = array("login", "test-class", "class" , 'class of test');
-//pg_query_params($con, $subQuery, $data);
-//$data = array("login", "group", "String", 'what');
-//pg_query_params($con, $subQuery, $data);
-//$data = array("login", "authorities-file-path", "path" , 'path to authorities file');//ook verzetten?
-//pg_query_params($con, $subQuery, $data);
-//$data = array("login", "output-dir" , "directory", 'where to put output');
-//pg_query_params($con, $subQuery, $data);//TODO :: in class file steken
-
 $data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'result-overview', 'file','results in xml format');
@@ -119,8 +111,6 @@ $data = array('login', 'testNodeLogin', 'string', 'test node login');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
-
-
 /*
 $data = array('login', 'exitStatus', 'file','exitstatus');
 pg_query_params($con, $retQuery, $data);
@@ -162,7 +152,7 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
         '3600'
     );
     pg_execute($con,"query", $data);
-
+/*
     $data = array(
         'topology',
         'ring'
@@ -182,7 +172,18 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
         'testbed',
         'testbed' . ($i + 2) % $aantalTestbeds
     );
-    pg_execute($con, "subQuery", $data);
+    pg_execute($con, "subQuery", $data);*/
+    
+    $data = array("context-file","username = ftester
+userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
+passwordFilename = ".$paramDir."auth/ftester.pass
+pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
+testedAggregateManagerUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
+stitchedAuthorityUrns = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm urn:publicid:IDN+utah.geniracks.net+authority+cm
+
+scsUrn = urn:publicid:IDN+geni.maxgigapop.net+auth+am
+scsUrl = http://geni.maxgigapop.net:8081/geni/xmlrpc");
+    pg_execute($con,"subQuery",$data);
 }
 //login
 echo "\tCreating login testinstances\n";

@@ -45,11 +45,11 @@
             echo "<td><table RULES=COLS><tr>";
                 foreach($subTests as $test){
                     echo "<td bgcolor=";
-                    if ($row['results'][$test] == $GLOBALS['goodStitch']){
+                    if ($row['results'][$test] == $GLOBALS['good']){
                         echo "#00FF00>";
-                    }else if($row['results'][$test] == $GLOBALS['warnStitch']){
+                    }else if($row['results'][$test] == $GLOBALS['warn']){
                         echo "#FF9933>";
-                    }else if($row['results'][$test] == $GLOBALS['skipStitch']){
+                    }else if($row['results'][$test] == $GLOBALS['skip'] || $row['results'][$test] == $GLOBALS['skipped']){
                         echo "#2942FF>";
                     }else{
                         echo "#FF0000>";

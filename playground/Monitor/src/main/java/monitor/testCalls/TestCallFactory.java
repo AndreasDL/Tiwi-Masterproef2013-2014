@@ -26,6 +26,9 @@ public class TestCallFactory {
             case "login":
                 ret = new LoginTestCall(test, testDefinition, testbeds,prop);
                 break;
+            case "stitch":
+                ret = new StitchingTestCall(test, testDefinition, testbeds, prop);
+                break;
             default:
                 ret = new BashTestCall(test,testDefinition,testbeds,prop);
         }
