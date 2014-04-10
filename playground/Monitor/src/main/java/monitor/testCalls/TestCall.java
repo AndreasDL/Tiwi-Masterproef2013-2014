@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package monitor.ExecutableTests;
+package monitor.testCalls;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -28,7 +29,7 @@ import monitor.model.Testbed;
  *
  * @author drew
  */
-public abstract class ExecutableTest {
+public abstract class TestCall implements Callable<TestResult>{
 
     //TODO properties file
     private final String outputDir;
@@ -49,7 +50,7 @@ public abstract class ExecutableTest {
         return test.getTesttype();
     }
 
-    public ExecutableTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
+    public TestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
         this.test = test;
         this.testDefinition = testDefinition;
         this.testbeds = testbeds;
@@ -57,7 +58,8 @@ public abstract class ExecutableTest {
         this.outputDir = prop.getProperty("outputDir");
     }
 
-    public abstract TestResult run() throws FileNotFoundException, UnsupportedEncodingException,IOException ;
+    @Override
+    public abstract TestResult call() throws FileNotFoundException, UnsupportedEncodingException,IOException ;
     protected abstract ArrayList<String> getParameters(String parsedCommand);
     
     protected String makeTestOutputDir() {
@@ -87,10 +89,9 @@ public abstract class ExecutableTest {
         return stibu.toString();
     }
     protected TestResult handleResults(String testOutputDir, String consoleOutput) throws FileNotFoundException, UnsupportedEncodingException,IOException {
-        TestResult t = new TestResult();
+        TestResult t = new TestResult(test);
         //t.addSubResult("testInstanceId", test.getInstanceId()); 
         //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues
-        t.setTestType(test.getTesttype());
         
         String fileName = testOutputDir + "console.log";
         //System.out.println("writing console output to " + fileName);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package monitor.ExecutableTests;
+package monitor.testCalls;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,8 +31,8 @@ import org.xml.sax.SAXException;
  *
  * @author drew
  */
-public class LoginTest extends JavaMainTest {
-    public LoginTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class LoginTestCall extends JavaMainTestCall {
+    public LoginTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(test, testDefinition, testbeds, prop);
     }
 
@@ -79,9 +79,9 @@ public class LoginTest extends JavaMainTest {
                 }
             }
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(LoginTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(LoginTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
         return r;

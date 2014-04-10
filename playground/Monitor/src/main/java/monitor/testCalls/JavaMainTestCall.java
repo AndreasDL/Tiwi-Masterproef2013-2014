@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package monitor.ExecutableTests;
+package monitor.testCalls;
 
 import be.iminds.ilabt.jfed.ui.cli.AutomatedTesterCli;
 import java.io.ByteArrayOutputStream;
@@ -24,36 +24,33 @@ import monitor.model.Testbed;
  *
  * @author drew
  */
-public class JavaMainTest extends ExecutableTest {
-    public JavaMainTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class JavaMainTestCall extends TestCall {
+    public JavaMainTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(test, testDefinition, testbeds, prop);
     }
 
 
     @Override
-    public TestResult run() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public TestResult call() throws FileNotFoundException, UnsupportedEncodingException, IOException {
         //Parse
         String testOutputDir = makeTestOutputDir();
         String parsedCommand = prepare(testOutputDir);
 
-        ArrayList<String> commands = getParameters(parsedCommand);
-        String s[] = new String[commands.size()];
         String consoleOutput="";
-        //catch output.
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(os);
-        PrintStream original = System.out;
-        System.setOut(ps);//redirect std output
         
         try {
-            AutomatedTesterCli.main(commands.toArray(s));
+            ArrayList<String> commands = getParameters(parsedCommand);
+            String s[] = new String[commands.size()];
+            AutomatedTesterCli.main_helper(commands.toArray(s),ps,ps,System.in);
             
         } catch (Exception ex) {
             ex.printStackTrace();
         }finally{
-            System.setOut(original);
+            //System.setOut(original);
             consoleOutput = os.toString("UTF-8");
-            System.out.println(consoleOutput);//print output so we don't notice difference :o
+            System.out.println(consoleOutput);
             os.close();
             ps.close();
         }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package monitor.ExecutableTests;
+package monitor.testCalls;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,8 +20,8 @@ import monitor.model.Testbed;
  *
  * @author drew
  */
-public class PingTest extends BashTest {
-    public PingTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class PingTestCall extends BashTestCall {
+    public PingTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(test, testDefinition, testbeds, prop);
     }
 

@@ -19,15 +19,16 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.model.Testbed;
 import monitor.model.TestDefinition;
-import monitor.ExecutableTests.ExecutableTest;
-import monitor.ExecutableTests.TestFactory;
+import monitor.testCalls.TestCall;
+import monitor.testCalls.TestCallFactory;
 import java.util.Properties;
+import java.util.Set;
 import monitor.model.TestResult;
 
 public class WebServiceAccess {
@@ -42,14 +43,14 @@ public class WebServiceAccess {
         updateCache();
     }
 
-    public ArrayList<ExecutableTest> getTests() {
-        ArrayList<ExecutableTest> tests = new ArrayList<>();
+    public Set<TestCall> getTests() {
+        Set<TestCall> tests = new HashSet<>();
         HashMap<String,TestInstance> testInstances = getTestInstances();
         
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            ExecutableTest t = TestFactory.makeTest(ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
+            TestCall t = TestCallFactory.makeTest(ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
             tests.add(t);
         }
         return tests;
@@ -129,11 +130,11 @@ public class WebServiceAccess {
         return (t == null) ? null : t.getData();
     }
 
-    public void addResult(TestResult result, ExecutableTest t) {
+    public void addResult(TestResult result) {
         try {
             URL url = new URL(prop.getProperty("urlAddResult"));
             StringBuilder postData = new StringBuilder();
-            postData.append("testinstanceid=").append(t.getTest().getTestInstanceId());
+            postData.append("testinstanceid=").append(result.getTestInstance().getTestInstanceId());
             for (String key : result.getResults().keySet()) {
                 try {
                     if (postData.length() != 0) postData.append('&');

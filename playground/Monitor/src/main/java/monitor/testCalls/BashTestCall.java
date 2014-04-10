@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package monitor.ExecutableTests;
+package monitor.testCalls;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -25,19 +25,18 @@ import monitor.model.Testbed;
  *
  * @author drew
  */
-public class BashTest extends ExecutableTest {
-    public BashTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class BashTestCall extends TestCall {
+    public BashTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(test, testDefinition, testbeds, prop);
     }
 
     @Override
-    public TestResult run() throws FileNotFoundException, UnsupportedEncodingException,IOException {
+    public TestResult call() throws FileNotFoundException, UnsupportedEncodingException,IOException {
 
                 //Parse
         String testOutputDir = makeTestOutputDir();
         String parsedCommand = prepare(testOutputDir);
         
-        TestResult r = new TestResult();
         //run shell command
         System.out.println("Exec " + parsedCommand);
         ArrayList<String> commands = getParameters(parsedCommand);
@@ -61,7 +60,7 @@ public class BashTest extends ExecutableTest {
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(ExecutableTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return handleResults(testOutputDir, out.toString());

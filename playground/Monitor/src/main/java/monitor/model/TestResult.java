@@ -13,19 +13,16 @@ import java.util.HashMap;
  */
 public class TestResult {
 
-    String testType;
     HashMap<String, String> results;
+    TestInstance ti;
 
-    public TestResult() {
+    public TestResult(TestInstance ti){
         results = new HashMap<>();
+        this.ti = ti;
     }
 
     public String getTestType() {
-        return testType;
-    }
-
-    public void setTestType(String testType) {
-        this.testType = testType;
+        return ti.getTesttype();
     }
 
     public void addSubResult(String subResultName, String subResultValue) {
@@ -38,5 +35,10 @@ public class TestResult {
     public HashMap<String, String> getResults() {
         return results;
     }
+    public TestInstance getTestInstance() {
+        return ti;
+    }
+    
+    
 
 }
