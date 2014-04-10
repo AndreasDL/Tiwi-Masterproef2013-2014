@@ -7,9 +7,7 @@
 package monitor.testCalls;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -18,6 +16,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
@@ -33,9 +32,10 @@ import org.xml.sax.SAXException;
  * @author drew
  */
 public class StitchingTestCall extends JavaMainTestCall{
-    public StitchingTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(test, testDefinition, testbeds, prop);
+    public StitchingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(resultUploader, test, testDefinition, testbeds, prop);
     }
+
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> commands = super.getParameters(parsedCommand);
@@ -52,7 +52,7 @@ public class StitchingTestCall extends JavaMainTestCall{
     }
     
     @Override
-    protected TestResult handleResults(String testOutputDir, String consoleOutput) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    protected TestResult handleResults(String testOutputDir, String consoleOutput) {
 
         TestResult r = super.handleResults(testOutputDir, consoleOutput);
         r.addSubResult("resultHtml", testOutputDir + "result.html");
@@ -77,10 +77,10 @@ public class StitchingTestCall extends JavaMainTestCall{
                             el.getElementsByTagName("state").item(0).getTextContent());
                 }
             }
-        } catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException | SAXException ex) {
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StitchingTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
         return r;

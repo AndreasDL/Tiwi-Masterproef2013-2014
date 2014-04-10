@@ -7,18 +7,16 @@
 package monitor.testCalls;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
-import monitor.model.TestResult;
 import monitor.model.Testbed;
 
 /**
@@ -26,12 +24,14 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class BashTestCall extends TestCall {
-    public BashTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(test, testDefinition, testbeds, prop);
+    public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(resultUploader, test, testDefinition, testbeds, prop);
     }
 
+
+
     @Override
-    public TestResult call() throws FileNotFoundException, UnsupportedEncodingException,IOException {
+    public void run() {
 
                 //Parse
         String testOutputDir = makeTestOutputDir();
@@ -63,9 +63,10 @@ public class BashTestCall extends TestCall {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return handleResults(testOutputDir, out.toString());
+        super.getResultUploader().addResultToQueue(handleResults(testOutputDir, out.toString()));
     }
     
+    @Override
     protected ArrayList<String> getParameters(String parsedCommand){
         ArrayList<String> commands = new ArrayList<>();
         commands.add("/usr/bin/bash");

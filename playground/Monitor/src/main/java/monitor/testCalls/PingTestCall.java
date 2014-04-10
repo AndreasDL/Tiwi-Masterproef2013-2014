@@ -6,11 +6,9 @@
 
 package monitor.testCalls;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Properties;
+import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
@@ -21,18 +19,15 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class PingTestCall extends BashTestCall {
-    public PingTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(test, testDefinition, testbeds, prop);
+    public PingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(resultUploader, test, testDefinition, testbeds, prop);
     }
 
 
-
     @Override
-    protected TestResult handleResults(String outputDir, String consoleOutput) throws FileNotFoundException, UnsupportedEncodingException,IOException {
+    protected TestResult handleResults(String outputDir, String consoleOutput) {
         TestResult r = super.handleResults(outputDir, consoleOutput);
         r.addSubResult("pingValue", consoleOutput);
         return r;
     }
-    
-    
 }

@@ -7,7 +7,6 @@ package monitor.testCalls;
 
 import be.iminds.ilabt.jfed.ui.cli.AutomatedTesterCli;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -15,9 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import monitor.Monitor;
+import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
-import monitor.model.TestResult;
 import monitor.model.Testbed;
 
 /**
@@ -25,13 +27,14 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class JavaMainTestCall extends TestCall {
-    public JavaMainTestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(test, testDefinition, testbeds, prop);
+    public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+        super(resultUploader, test, testDefinition, testbeds, prop);
     }
 
-
+    
+    
     @Override
-    public TestResult call() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void run() {
         //Parse
         String testOutputDir = makeTestOutputDir();
         String parsedCommand = prepare(testOutputDir);
@@ -48,14 +51,20 @@ public class JavaMainTestCall extends TestCall {
         } catch (Exception ex) {
             ex.printStackTrace();
         }finally{
-            //System.setOut(original);
-            consoleOutput = os.toString("UTF-8");
-            System.out.println(consoleOutput);
-            os.close();
-            ps.close();
+            try {
+                //System.setOut(original);
+                consoleOutput = os.toString("UTF-8");
+                System.out.println(consoleOutput);
+                os.close();
+                ps.close();
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
-        return handleResults(testOutputDir, consoleOutput);
+        //Monitor...
+        super.getResultUploader().addResultToQueue(handleResults(testOutputDir, consoleOutput));
     }
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {

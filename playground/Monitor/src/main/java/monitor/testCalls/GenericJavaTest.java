@@ -30,10 +30,11 @@ import org.xml.sax.SAXException;
  *
  * @author drew
  */
-public class LoginTestCall extends JavaMainTestCall {
-    public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class GenericJavaTest extends JavaMainTestCall {
+    public GenericJavaTest(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(resultUploader, test, testDefinition, testbeds, prop);
     }
+
 
 
 

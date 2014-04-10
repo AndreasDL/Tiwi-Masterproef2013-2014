@@ -8,6 +8,7 @@ package monitor.testCalls;
 
 import java.util.HashMap;
 import java.util.Properties;
+import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.Testbed;
@@ -17,20 +18,20 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class TestCallFactory {
-    public static TestCall makeTest(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
+    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
         TestCall ret = null;
         switch(test.getTesttype()) {
             case "ping":
-                ret = new PingTestCall(test,testDefinition,testbeds,prop);
+                ret = new PingTestCall(resup,test,testDefinition,testbeds,prop);
                 break;
             case "login":
-                ret = new LoginTestCall(test, testDefinition, testbeds,prop);
+                ret = new LoginTestCall(resup,test, testDefinition, testbeds,prop);
                 break;
             case "stitch":
-                ret = new StitchingTestCall(test, testDefinition, testbeds, prop);
+                ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop);
                 break;
             default:
-                ret = new BashTestCall(test,testDefinition,testbeds,prop);
+                ret = new BashTestCall(resup,test,testDefinition,testbeds,prop);
         }
         return ret;
     }

@@ -36,12 +36,18 @@ public class WebServiceAccess {
     private HashMap<String, Testbed> testbeds;
     private HashMap<String, TestDefinition> testDefinitions;
     private Properties prop;
+    private ResultUploader resultUploader;
 
     public WebServiceAccess(Properties prop) {
         this.prop = prop;
         this.g = new Gson();
         updateCache();
+        //make thread result submission
+        this.resultUploader = new ResultUploader(this);
+        Thread uploader = new Thread(resultUploader);
+        uploader.start();
     }
+    
 
     public Set<TestCall> getTests() {
         Set<TestCall> tests = new HashSet<>();
@@ -50,7 +56,10 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
+            if (this.resultUploader == null){
+                System.out.println("Warning resultUploader of WebServiceAccess not set nothing will be uploaded");
+            }
+            TestCall t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
             tests.add(t);
         }
         return tests;

@@ -1,19 +1,14 @@
 package monitor;
 
 import monitor.testCalls.TestCall;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.LinkedBlockingDeque;
 import monitor.model.TestResult;
 
 /**
@@ -29,7 +24,7 @@ public class Monitor {
     public static void main(String[] args) throws IOException {
         new Monitor();
     }
-
+    
     public Monitor() throws IOException {
         //load properties
         this.prop = new Properties();
@@ -41,24 +36,20 @@ public class Monitor {
         //create thread pool
         threadPool = Executors.newFixedThreadPool(10);
         
+        
         //threading!!
         Set<TestCall> tasks = webAccess.getTests();
-        Set<Future<TestResult>> set = new HashSet<>();
+        //Set<Future<TestResult>> set = new HashSet<>();
         for(TestCall test : tasks){
-            set.add(threadPool.submit(test));
-        }
-        
-        for(Future<TestResult> r : set){
-            try {
-                webAccess.addResult(r.get());
+            //set.add();
+            threadPool.submit(test);
+            /*try {
+                Thread.sleep(1000l);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ExecutionException ex) {
-                Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         }
         
         //threadpool stays running
-        System.exit(0);
+        //System.exit(0);
     }
 }

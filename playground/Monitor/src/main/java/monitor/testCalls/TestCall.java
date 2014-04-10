@@ -7,18 +7,17 @@ package monitor.testCalls;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import monitor.ResultUploader;
 import monitor.WebServiceAccess;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
@@ -29,7 +28,7 @@ import monitor.model.Testbed;
  *
  * @author drew
  */
-public abstract class TestCall implements Callable<TestResult>{
+public abstract class TestCall implements Runnable{
 
     //TODO properties file
     private final String outputDir;
@@ -39,6 +38,7 @@ public abstract class TestCall implements Callable<TestResult>{
     private final HashMap<String, Testbed> testbeds;
     private String testOutputDir;
     private Properties prop;
+    protected ResultUploader resultUploader;
     
     public TestDefinition getTestDefinition() {
         return testDefinition;
@@ -50,7 +50,8 @@ public abstract class TestCall implements Callable<TestResult>{
         return test.getTesttype();
     }
 
-    public TestCall(TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
+    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
+        this.resultUploader = resultUploader;
         this.test = test;
         this.testDefinition = testDefinition;
         this.testbeds = testbeds;
@@ -59,7 +60,7 @@ public abstract class TestCall implements Callable<TestResult>{
     }
 
     @Override
-    public abstract TestResult call() throws FileNotFoundException, UnsupportedEncodingException,IOException ;
+    public abstract void run();
     protected abstract ArrayList<String> getParameters(String parsedCommand);
     
     protected String makeTestOutputDir() {
@@ -88,18 +89,25 @@ public abstract class TestCall implements Callable<TestResult>{
 
         return stibu.toString();
     }
-    protected TestResult handleResults(String testOutputDir, String consoleOutput) throws FileNotFoundException, UnsupportedEncodingException,IOException {
+    protected TestResult handleResults(String testOutputDir, String consoleOutput){
+        PrintWriter writer = null;
         TestResult t = new TestResult(test);
-        //t.addSubResult("testInstanceId", test.getInstanceId()); 
-        //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues
-        
-        String fileName = testOutputDir + "console.log";
-        //System.out.println("writing console output to " + fileName);
-        PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-        writer.write(consoleOutput);
-        writer.close();
-        t.addSubResult("log",fileName);
-        
+        try {
+            //t.addSubResult("testInstanceId", test.getInstanceId());
+            //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues
+            String fileName = testOutputDir + "console.log";
+            writer = new PrintWriter(fileName, "UTF-8");
+            writer.write(consoleOutput);
+            writer.close();
+            t.addSubResult("log",fileName);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            writer.close();
+        }
         return t;
     }
     protected String getParamValue(TestInstance t, String propId,String testOutputDir) {
@@ -149,4 +157,9 @@ public abstract class TestCall implements Callable<TestResult>{
 
         return ret;
     }
+    public ResultUploader getResultUploader() {
+        return resultUploader;
+    }
+    
+    
 }
