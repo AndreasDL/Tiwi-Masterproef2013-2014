@@ -66,7 +66,7 @@ public abstract class TestCall implements Runnable{
     protected String makeTestOutputDir() {
         if(testOutputDir == null){
             Calendar now = Calendar.getInstance();
-            testOutputDir = outputDir + test.getTesttype() + test.getTestInstanceId() +"/" + now.get(Calendar.YEAR) + "/"
+            testOutputDir = outputDir + test.getTesttype() + "/"+ test.getTestInstanceId() +"/" + now.get(Calendar.YEAR) + "/"
                 + now.get(Calendar.MONTH) + "/"
                 + now.get(Calendar.DAY_OF_MONTH) + "/"
                 + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
@@ -87,7 +87,7 @@ public abstract class TestCall implements Runnable{
         while (m.find()) {
             //get values
             m.appendReplacement(stibu, getParamValue(m.group(1)));
-            System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
+            //System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
         }
         m.appendTail(stibu);
 
@@ -121,7 +121,6 @@ public abstract class TestCall implements Runnable{
         //TestDefinition def = testDefinitions.get(t.getTesttype());
         //System.out.println(s[0]);
         String paramType = testDefinition.getParameters().get(s[0]).get("type");
-
         if (s.length > 1) {
             //use property of parameter and not parameter itself
             if (paramType.equals("testbed")) {
@@ -136,10 +135,10 @@ public abstract class TestCall implements Runnable{
                 }
             }
         } else {
-            //ret = t.getParameters().get(s[0]).get(0);
             String fileName = testOutputDir + "context-file.txt";
             if (paramType.equals("file")) {
                 ret = parse(testDefinition.getParameters().get(s[0]).get("description"));
+                System.out.println(ret);
                 PrintWriter writer = null;
                 try {
                     writer = new PrintWriter(fileName, "UTF-8");
@@ -153,7 +152,8 @@ public abstract class TestCall implements Runnable{
                 } finally {
                     writer.close();
                 }
-
+            }else{
+                ret = test.getParameters().get(s[0]).get(0);
             }
 
         }

@@ -72,6 +72,7 @@ public class JavaMainTestCall extends TestCall {
         p.addAll(Arrays.asList(parsedCommand.split(" ")));
         p.add("--context-file");
         p.add(getParamValue("context-file"));
+        
 
         return p;
     }

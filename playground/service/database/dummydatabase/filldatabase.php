@@ -90,9 +90,15 @@ pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", "username = ftester
 passwordFilename = ".$paramDir."auth/ftester.pass
 pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
-userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
+userAuthorityUrn = <userAuthorityUrn>
+testedAggregateManagerUrn = <testedAggregateManagerUrn>");
 pg_query_params($con, $subQuery, $data);
+
+$data = array("login","userAuthorityUrn","urn","urn for authority");
+pg_query_params($con,$subQuery,$data);
+$data = array("login","testedAggregateManagerUrn","urn","urn for test AggregateManager");
+pg_query_params($con,$subQuery,$data);
+
 $data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'result-overview', 'file','results in xml format');
@@ -207,6 +213,11 @@ testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
     //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
     */
     //pg_execute($con,"subQuery",$data);
+
+$data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+pg_execute($con,"subQuery",$data);
+$data = array("testedAggregateManagerUrn","urn:publicid:IDN+omf+authority+sa");
+pg_execute($con,"subQuery",$data);
 }
 
 
