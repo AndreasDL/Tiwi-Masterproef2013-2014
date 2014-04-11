@@ -54,9 +54,9 @@ public class LoginTestCall extends JavaMainTestCall {
         return commands;
     }
     @Override
-    protected TestResult handleResults(String testOutputDir, String consoleOutput){
+    protected TestResult handleResults(String consoleOutput){
 
-        TestResult r = super.handleResults(testOutputDir, consoleOutput);
+        TestResult r = super.handleResults(consoleOutput);
         r.addSubResult("resultHtml", testOutputDir + "result.html");
         r.addSubResult("result-overview", testOutputDir + "result-overview.xml");
 

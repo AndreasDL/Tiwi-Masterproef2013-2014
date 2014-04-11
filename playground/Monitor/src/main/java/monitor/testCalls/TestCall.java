@@ -36,7 +36,7 @@ public abstract class TestCall implements Runnable{
     private final TestInstance test;
     private final TestDefinition testDefinition;
     private final HashMap<String, Testbed> testbeds;
-    private String testOutputDir;
+    protected String testOutputDir;
     private Properties prop;
     protected ResultUploader resultUploader;
     
@@ -66,7 +66,7 @@ public abstract class TestCall implements Runnable{
     protected String makeTestOutputDir() {
         if(testOutputDir == null){
             Calendar now = Calendar.getInstance();
-            testOutputDir = outputDir + test.getTesttype() + "/" + now.get(Calendar.YEAR) + "/"
+            testOutputDir = outputDir + test.getTesttype() + test.getTestInstanceId() +"/" + now.get(Calendar.YEAR) + "/"
                 + now.get(Calendar.MONTH) + "/"
                 + now.get(Calendar.DAY_OF_MONTH) + "/"
                 + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
@@ -77,19 +77,23 @@ public abstract class TestCall implements Runnable{
         return testOutputDir;
     }
     protected String prepare(String testOutputDir) {
+        return parse(testDefinition.getTestcommand());
+    }
+    public String parse(String text){
         Pattern p = Pattern.compile("<([^>]*)>");
         //parse command
         StringBuffer stibu = new StringBuffer();
-        Matcher m = p.matcher(testDefinition.getTestcommand());
+        Matcher m = p.matcher(text);
         while (m.find()) {
             //get values
-            m.appendReplacement(stibu, getParamValue(test, m.group(1),testOutputDir));
+            m.appendReplacement(stibu, getParamValue(m.group(1)));
+            System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
         }
         m.appendTail(stibu);
 
         return stibu.toString();
     }
-    protected TestResult handleResults(String testOutputDir, String consoleOutput){
+    protected TestResult handleResults(String consoleOutput){
         PrintWriter writer = null;
         TestResult t = new TestResult(test);
         try {
@@ -110,9 +114,7 @@ public abstract class TestCall implements Runnable{
         }
         return t;
     }
-    protected String getParamValue(TestInstance t, String propId,String testOutputDir) {
-        //you need to set the outputDir field before running this method.
-
+    protected String getParamValue(String propId) {
         //parse param
         String[] s = propId.split("\\.");
         String ret = null;
@@ -124,19 +126,20 @@ public abstract class TestCall implements Runnable{
             //use property of parameter and not parameter itself
             if (paramType.equals("testbed")) {
                 if (s[1].equals("url")) {
-                    for (String testbed : t.getParameters().get("testbed")) {
+                    for (String testbed : test.getParameters().get("testbed")) {
                         ret = testbeds.get(testbed).getUrl();
                     }
                 } else if (s[1].equals("urn")) {
-                    for (String testbed : t.getParameters().get("testbed")) {
+                    for (String testbed : test.getParameters().get("testbed")) {
                         ret = testbeds.get(testbed).getUrn();
                     }
                 }
             }
         } else {
-            ret = t.getParameters().get(s[0]).get(0);
+            //ret = t.getParameters().get(s[0]).get(0);
             String fileName = testOutputDir + "context-file.txt";
             if (paramType.equals("file")) {
+                ret = parse(testDefinition.getParameters().get(s[0]).get("description"));
                 PrintWriter writer = null;
                 try {
                     writer = new PrintWriter(fileName, "UTF-8");
@@ -157,6 +160,7 @@ public abstract class TestCall implements Runnable{
 
         return ret;
     }
+
     public ResultUploader getResultUploader() {
         return resultUploader;
     }

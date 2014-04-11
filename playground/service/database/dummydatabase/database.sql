@@ -79,7 +79,7 @@ CREATE VIEW definitions AS
 ;
 CREATE VIEW instances AS
     select t.testinstanceid as id,* from testinstances t
-        join parameterInstances p using(testinstanceid)
+        left join parameterInstances p using(testinstanceid)
 ;
 
 ALTER TABLE public.testbeds OWNER TO postgres;

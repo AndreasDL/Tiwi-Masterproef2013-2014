@@ -64,12 +64,14 @@ public class JavaMainTestCall extends TestCall {
             }
         }
         //Monitor...
-        super.getResultUploader().addResultToQueue(handleResults(testOutputDir, consoleOutput));
+        super.getResultUploader().addResultToQueue(handleResults(consoleOutput));
     }
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> p = new ArrayList<>();
         p.addAll(Arrays.asList(parsedCommand.split(" ")));
+        p.add("--context-file");
+        p.add(getParamValue("context-file"));
 
         return p;
     }

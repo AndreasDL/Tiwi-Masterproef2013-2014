@@ -85,9 +85,13 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
-$data = array('login', '--context-file <context-file>');
+$data = array('login', '');//--context-file <context-file>');
 pg_query_params($con, $query, $data);
-$data = array("login", "context-file", "file", 'contextfile');
+$data = array("login", "context-file", "file", "username = ftester
+passwordFilename = ".$paramDir."auth/ftester.pass
+pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
+userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
+testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
 pg_query_params($con, $subQuery, $data);
 $data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
@@ -194,15 +198,15 @@ for ($i = 0; $i < $aantallogininstances; $i++){
         );
     pg_execute($con,"query",$data);
     
-    $data=array("context-file","username = ftester
+    /*$data=array("context-file","");/*username = ftester
 passwordFilename = ".$paramDir."auth/ftester.pass
 pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
 userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
 testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
 //urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
     //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
-    
-    pg_execute($con,"subQuery",$data);
+    */
+    //pg_execute($con,"subQuery",$data);
 }
 
 

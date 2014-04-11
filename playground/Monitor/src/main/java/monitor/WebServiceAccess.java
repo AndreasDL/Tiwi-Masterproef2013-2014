@@ -56,9 +56,6 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            if (this.resultUploader == null){
-                System.out.println("Warning resultUploader of WebServiceAccess not set nothing will be uploaded");
-            }
             TestCall t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
             tests.add(t);
         }

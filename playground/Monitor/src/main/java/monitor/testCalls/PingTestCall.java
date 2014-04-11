@@ -25,8 +25,8 @@ public class PingTestCall extends BashTestCall {
 
 
     @Override
-    protected TestResult handleResults(String outputDir, String consoleOutput) {
-        TestResult r = super.handleResults(outputDir, consoleOutput);
+    protected TestResult handleResults(String consoleOutput) {
+        TestResult r = super.handleResults(consoleOutput);
         r.addSubResult("pingValue", consoleOutput);
         return r;
     }
