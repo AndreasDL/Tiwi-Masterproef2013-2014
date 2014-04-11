@@ -57,6 +57,7 @@ public abstract class TestCall implements Runnable{
         this.testbeds = testbeds;
         this.prop = prop;
         this.outputDir = prop.getProperty("outputDir");
+        makeTestOutputDir();
     }
 
     @Override
@@ -71,7 +72,6 @@ public abstract class TestCall implements Runnable{
                 + now.get(Calendar.DAY_OF_MONTH) + "/"
                 + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
                 + "." + now.get(Calendar.MILLISECOND) + "/";
-        //System.out.println(testOutputDir);
         (new File(testOutputDir)).mkdirs();
         }
         return testOutputDir;

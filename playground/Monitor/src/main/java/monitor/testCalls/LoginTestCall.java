@@ -34,10 +34,6 @@ public class LoginTestCall extends JavaMainTestCall {
     public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(resultUploader, test, testDefinition, testbeds, prop);
     }
-
-
-
-
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> commands = super.getParameters(parsedCommand);
@@ -48,7 +44,7 @@ public class LoginTestCall extends JavaMainTestCall {
         commands.add("--authorities-file");
         commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
         commands.add("--output-dir");
-        commands.add(super.makeTestOutputDir());
+        commands.add(makeTestOutputDir());
         commands.add("-q"); //quiet
 
         return commands;
@@ -84,6 +80,7 @@ public class LoginTestCall extends JavaMainTestCall {
         } catch (SAXException ex) {
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            System.out.println("hoi!");
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } 
 

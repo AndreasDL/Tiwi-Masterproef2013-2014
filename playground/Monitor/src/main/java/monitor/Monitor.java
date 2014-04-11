@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.cli.BasicParser;
@@ -70,7 +71,7 @@ public class Monitor {
         this.webAccess = new WebServiceAccess(prop);
         
         //create thread pool
-        threadPool = Executors.newFixedThreadPool(Integer.parseInt(line.getOptionValue("threads")));
+        threadPool = Executors.newFixedThreadPool(/*1);*/Integer.parseInt(line.getOptionValue("threads")));
         
         
         //threading!!
@@ -79,13 +80,21 @@ public class Monitor {
         for(TestCall test : tasks){
             //set.add();
             threadPool.submit(test);
-            try {
+            /*try {
                 Thread.sleep(Integer.parseInt(line.getOptionValue("wait-time")));
             } catch (InterruptedException ex) {
-            }
+            }*/
         }
         
-        //threadpool stays running
-        //System.exit(0);
+        try {
+            //wait for all tasks to be complete
+            threadPool.awaitTermination(1,TimeUnit.DAYS);
+            threadPool.shutdown();
+            webAccess.shutDownOnUploadComplete();
+            //threadpool stays running
+            System.exit(0);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

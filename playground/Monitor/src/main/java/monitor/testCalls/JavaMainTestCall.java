@@ -30,15 +30,14 @@ public class JavaMainTestCall extends TestCall {
     public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(resultUploader, test, testDefinition, testbeds, prop);
     }
-
-    
     
     @Override
     public void run() {
         //Parse
-        String testOutputDir = makeTestOutputDir();
+        makeTestOutputDir();
         String parsedCommand = prepare(testOutputDir);
-
+        System.out.println("Starting javamaintest " + getTest().getTestInstanceId());
+        
         String consoleOutput="";
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(os);
@@ -46,7 +45,7 @@ public class JavaMainTestCall extends TestCall {
         try {
             ArrayList<String> commands = getParameters(parsedCommand);
             String s[] = new String[commands.size()];
-            AutomatedTesterCli.main_helper(commands.toArray(s),ps,ps,System.in);
+            AutomatedTesterCli.main_helper(commands.toArray(s),System.out,System.out,System.in);
             
         } catch (Exception ex) {
             ex.printStackTrace();

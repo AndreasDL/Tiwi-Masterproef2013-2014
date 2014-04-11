@@ -43,19 +43,20 @@
             echo "<td> Not supported yet!</td>";
             
             echo "<td><table RULES=COLS><tr>";
-                foreach($subTests as $test){
-                    echo "<td bgcolor=";
-                    if ($row['results'][$test] == $GLOBALS['good']){
-                        echo "#00FF00>";
-                    }else if($row['results'][$test] == $GLOBALS['warn']){
-                        echo "#FF9933>";
-                    }else if($row['results'][$test] == $GLOBALS['skip'] || $row['results'][$test] == $GLOBALS['skipped']){
-                        echo "#2942FF>";
-                    }else{
-                        echo "#FF0000>";
+                foreach($row['results'] as $name => $value){
+                    if ($name != 'resultHtml' && $name != 'result-overview'){
+                        echo "<td bgcolor=";
+                        if ($value == $GLOBALS['good']){
+                            echo "#00FF00>";
+                        }else if($value == $GLOBALS['warn']){
+                            echo "#FF9933>";
+                        }else if($value == $GLOBALS['skip'] || $value == $GLOBALS['skipped']){
+                            echo "#2942FF>";
+                        }else{
+                            echo "#FF0000>";
+                        }
+                        echo "&nbsp&nbsp&nbsp</td>";
                     }
-                    
-                    echo "&nbsp&nbsp&nbsp</td>";
                 }
             echo "</tr></table></td>";
             echo "<td><a href=".$row['log'].">log</a></td>";

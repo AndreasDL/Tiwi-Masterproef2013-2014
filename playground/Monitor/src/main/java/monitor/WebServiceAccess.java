@@ -36,6 +36,7 @@ public class WebServiceAccess {
     private HashMap<String, Testbed> testbeds;
     private HashMap<String, TestDefinition> testDefinitions;
     private Properties prop;
+    private Thread uploader;
     private ResultUploader resultUploader;
 
     public WebServiceAccess(Properties prop) {
@@ -44,10 +45,12 @@ public class WebServiceAccess {
         updateCache();
         //make thread result submission
         this.resultUploader = new ResultUploader(this);
-        Thread uploader = new Thread(resultUploader);
+        uploader = new Thread(resultUploader);
         uploader.start();
     }
-    
+    public void shutDownOnUploadComplete(){
+        resultUploader.stop();
+    }
 
     public Set<TestCall> getTests() {
         Set<TestCall> tests = new HashSet<>();
@@ -192,6 +195,12 @@ public class WebServiceAccess {
             sb.append((char) cp);
         }
         return sb.toString();
+    }
+    void stopUploader() {
+        try {
+            uploader.join();
+        } catch (InterruptedException ex) {
+        }
     }
 
     //needed for json extraction

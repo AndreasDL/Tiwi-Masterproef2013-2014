@@ -1,10 +1,10 @@
 <?php
 
 //include (__DIR__ . "/../config.php"); //database config
-$aantalTestbeds = 7;
+$aantalTestbeds = 10;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 1;
-$aantallogininstances = 1;
+$aantallogininstances = 2;
 $resultsPerInstances = 10;
 
 $login = 'postgres';
@@ -218,6 +218,9 @@ $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authori
 pg_execute($con,"subQuery",$data);
 $data = array("testedAggregateManagerUrn","urn:publicid:IDN+omf+authority+sa");
 pg_execute($con,"subQuery",$data);
+
+//urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
+    //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
 }
 
 

@@ -17,10 +17,12 @@ import monitor.model.TestResult;
 public class ResultUploader implements Runnable{
     WebServiceAccess webAccess;
     private BlockingDeque<TestResult> resultsToSend;
+    private Boolean stopping;
     
     public ResultUploader(WebServiceAccess webAccess) {
         this.webAccess = webAccess;
         resultsToSend = new LinkedBlockingDeque<>();
+        this.stopping = false;
     }
     public void addResultToQueue(TestResult r){
         resultsToSend.addLast(r);
@@ -29,7 +31,7 @@ public class ResultUploader implements Runnable{
     
     @Override
     public void run() {
-        while(true){
+        while(!stopping || resultsToSend.size() > 0){
             try {
                 TestResult r = resultsToSend.takeFirst();
                 webAccess.addResult(r);
@@ -37,6 +39,10 @@ public class ResultUploader implements Runnable{
                 //ignore
             }
         }
+        webAccess.stopUploader();
     }
     
+    public void stop(){
+        this.stopping = true;
+    }
 }

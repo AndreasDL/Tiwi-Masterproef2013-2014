@@ -21,6 +21,7 @@
    <th>Test Name</th>
    <th>Last execution (CET)</th>
    <th>Last failure</th>
+   <th>Status</th>
    <th>log</th>
    <th>History</th>
   </tr>
@@ -40,22 +41,23 @@
             echo "<td>".date('d/m/Y - H:i:s',strtotime($row['timestamp']))."</td>";
             echo "<td> Not supported yet!</td>";
             
-    /*        echo "<td><table RULES=COLS><tr>";
-                foreach($subTests as $test){
-                    echo "<td bgcolor=";
-                    if ($row['results'][$test] == $GLOBALS['goodStitch']){
-                        echo "#00FF00>";
-                    }else if($row['results'][$test] == $GLOBALS['warnStitch']){
-                        echo "#FF9933>";
-                    }else if($row['results'][$test] == $GLOBALS['skipStitch']){
-                        echo "#2942FF>";
-                    }else{
-                        echo "#FF0000>";
+            echo "<td><table RULES=COLS><tr>";
+                foreach($row['results'] as $name => $value){
+                    if ($name != 'resultHtml' && $name != 'result-overview'){
+                        echo "<td bgcolor=";
+                        if ($value == $GLOBALS['good']){
+                            echo "#00FF00>";
+                        }else if($value == $GLOBALS['warn']){
+                            echo "#FF9933>";
+                        }else if($value == $GLOBALS['skip'] || $value == $GLOBALS['skipped']){
+                            echo "#2942FF>";
+                        }else{
+                            echo "#FF0000>";
+                        }
+                        echo "&nbsp&nbsp&nbsp</td>";
                     }
-                    
-                    echo "&nbsp&nbsp&nbsp</td>";
                 }
-            echo "</tr></table></td>";*/
+            echo "</tr></table></td>";
             echo "<td><a href=".$row['log'].">log</a></td>";
             
             echo "<td><a href=./history.php?testname=".$row['testname'].">history</a></td>";
