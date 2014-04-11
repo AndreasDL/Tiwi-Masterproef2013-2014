@@ -4,7 +4,7 @@
 $aantalTestbeds = 10;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 1;
-$aantallogininstances = 2;
+$aantallogininstances = 20;
 $resultsPerInstances = 10;
 
 $login = 'postgres';

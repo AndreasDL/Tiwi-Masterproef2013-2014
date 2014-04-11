@@ -35,7 +35,7 @@ public class JavaMainTestCall extends TestCall {
     public void run() {
         //Parse
         makeTestOutputDir();
-        String parsedCommand = prepare(testOutputDir);
+        String parsedCommand = prepare(makeTestOutputDir());
         System.out.println("Starting javamaintest " + getTest().getTestInstanceId());
         
         String consoleOutput="";
@@ -45,6 +45,7 @@ public class JavaMainTestCall extends TestCall {
         try {
             ArrayList<String> commands = getParameters(parsedCommand);
             String s[] = new String[commands.size()];
+            //TODO terugzetten van outputstreams zodak consoleOutput terug kan wegschrijven
             AutomatedTesterCli.main_helper(commands.toArray(s),System.out,System.out,System.in);
             
         } catch (Exception ex) {

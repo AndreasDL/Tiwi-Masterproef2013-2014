@@ -71,7 +71,7 @@ public class Monitor {
         this.webAccess = new WebServiceAccess(prop);
         
         //create thread pool
-        threadPool = Executors.newFixedThreadPool(/*1);*/Integer.parseInt(line.getOptionValue("threads")));
+        threadPool = Executors.newFixedThreadPool(1);//*/Integer.parseInt(line.getOptionValue("threads")));
         
         
         //threading!!

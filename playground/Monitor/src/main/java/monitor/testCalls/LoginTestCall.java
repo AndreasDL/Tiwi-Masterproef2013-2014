@@ -53,11 +53,11 @@ public class LoginTestCall extends JavaMainTestCall {
     protected TestResult handleResults(String consoleOutput){
 
         TestResult r = super.handleResults(consoleOutput);
-        r.addSubResult("resultHtml", testOutputDir + "result.html");
-        r.addSubResult("result-overview", testOutputDir + "result-overview.xml");
+        r.addSubResult("resultHtml", makeTestOutputDir() + "result.html");
+        r.addSubResult("result-overview", makeTestOutputDir() + "result-overview.xml");
 
         //parse result => read overview
-        File xmlFile = new File(testOutputDir+"result-overview.xml");
+        File xmlFile = new File(makeTestOutputDir()+"result-overview.xml");
         
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

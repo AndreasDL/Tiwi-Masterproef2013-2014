@@ -24,7 +24,7 @@ public class ResultUploader implements Runnable{
         resultsToSend = new LinkedBlockingDeque<>();
         this.stopping = false;
     }
-    public void addResultToQueue(TestResult r){
+    public synchronized void addResultToQueue(TestResult r){
         resultsToSend.addLast(r);
     }
     

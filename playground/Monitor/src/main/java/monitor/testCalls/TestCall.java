@@ -36,8 +36,8 @@ public abstract class TestCall implements Runnable{
     private final TestInstance test;
     private final TestDefinition testDefinition;
     private final HashMap<String, Testbed> testbeds;
-    protected String testOutputDir;
-    private Properties prop;
+    private String testOutputDir;
+    private final Properties prop;
     protected ResultUploader resultUploader;
     
     public TestDefinition getTestDefinition() {
@@ -143,6 +143,10 @@ public abstract class TestCall implements Runnable{
                     writer = new PrintWriter(fileName, "UTF-8");
                     writer.print(ret);
                     writer.close();
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException ex) {
+                    }
                     ret = fileName;
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
