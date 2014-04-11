@@ -49,7 +49,7 @@ public class LoginTestCall extends JavaMainTestCall {
         commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
         commands.add("--output-dir");
         commands.add(super.makeTestOutputDir());
-        //commands.add("-q"); //quiet
+        commands.add("-q"); //quiet
 
         return commands;
     }

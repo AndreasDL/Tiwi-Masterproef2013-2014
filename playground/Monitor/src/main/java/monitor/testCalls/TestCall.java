@@ -138,7 +138,6 @@ public abstract class TestCall implements Runnable{
             String fileName = testOutputDir + "context-file.txt";
             if (paramType.equals("file")) {
                 ret = parse(testDefinition.getParameters().get(s[0]).get("description"));
-                System.out.println(ret);
                 PrintWriter writer = null;
                 try {
                     writer = new PrintWriter(fileName, "UTF-8");
