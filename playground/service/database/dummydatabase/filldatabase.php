@@ -4,7 +4,7 @@
 $aantalTestbeds = 10;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 1;
-$aantallogininstances = 20;
+$aantallogininstances = 1;
 $resultsPerInstances = 10;
 
 $login = 'postgres';
@@ -121,6 +121,9 @@ $data = array('login', 'testNodeLogin', 'string', 'test node login');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
+$data = array('login', 'duration', 'long', 'duration of the test');
+pg_query_params($con, $retQuery, $data);
+
 /*
 $data = array('login', 'exitStatus', 'file','exitstatus');
 pg_query_params($con, $retQuery, $data);

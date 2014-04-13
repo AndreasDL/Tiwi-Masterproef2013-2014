@@ -8,6 +8,8 @@ package monitor;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import monitor.model.TestResult;
 
 /**
@@ -36,10 +38,10 @@ public class ResultUploader implements Runnable{
                 TestResult r = resultsToSend.takeFirst();
                 webAccess.addResult(r);
             } catch (InterruptedException ex) {
-                //ignore
             }
         }
-        webAccess.stopUploader();
+        
+        this.stop();
     }
     
     public void stop(){

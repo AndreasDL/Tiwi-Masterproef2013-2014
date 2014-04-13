@@ -1,12 +1,11 @@
 package monitor;
 
-import be.iminds.ilabt.jfed.lowlevel.api.test.TestClassList;
 import monitor.testCalls.TestCall;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +43,7 @@ public class Monitor {
     public Monitor(String[] args) throws IOException {
         Options options = new Options();
         options.addOption( OptionBuilder.withLongOpt("threads")
-                .withDescription( "Amount of thread to run" )
+                .withDescription( "Amount of threads to run" )
                 .hasArg()
                 .withArgName("number of threads")
                 .isRequired()
@@ -71,28 +70,26 @@ public class Monitor {
         this.webAccess = new WebServiceAccess(prop);
         
         //create thread pool
-        threadPool = Executors.newFixedThreadPool(1);//*/Integer.parseInt(line.getOptionValue("threads")));
+        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        //threadPool = Executors.newFixedThreadPool(/*1);//*/Integer.parseInt(line.getOptionValue("threads")));
         
         
         //threading!!
         Set<TestCall> tasks = webAccess.getTests();
-        //Set<Future<TestResult>> set = new HashSet<>();
+        
         for(TestCall test : tasks){
-            //set.add();
             threadPool.submit(test);
-            /*try {
+            try {
                 Thread.sleep(Integer.parseInt(line.getOptionValue("wait-time")));
             } catch (InterruptedException ex) {
-            }*/
-        }
-        
+            }
+        }        
         try {
             //wait for all tasks to be complete
-            threadPool.awaitTermination(1,TimeUnit.DAYS);
             threadPool.shutdown();
+            threadPool.awaitTermination(1,TimeUnit.DAYS);
             webAccess.shutDownOnUploadComplete();
-            //threadpool stays running
-            System.exit(0);
+            //System.exit(0);
         } catch (InterruptedException ex) {
             Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
         }

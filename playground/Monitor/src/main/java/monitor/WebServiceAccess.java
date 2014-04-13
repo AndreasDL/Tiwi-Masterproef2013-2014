@@ -196,13 +196,7 @@ public class WebServiceAccess {
         }
         return sb.toString();
     }
-    void stopUploader() {
-        try {
-            uploader.join();
-        } catch (InterruptedException ex) {
-        }
-    }
-
+    
     //needed for json extraction
     private class TestbedResults {
 
