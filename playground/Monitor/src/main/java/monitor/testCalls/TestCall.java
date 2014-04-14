@@ -33,12 +33,31 @@ public abstract class TestCall implements Runnable{
     //TODO properties file
     private final String outputDir;
 
-    private final TestInstance test;
-    private final TestDefinition testDefinition;
-    private final HashMap<String, Testbed> testbeds;
+    protected final TestInstance test;
+    protected final TestDefinition testDefinition;
+    protected final HashMap<String, Testbed> testbeds;
     private String testOutputDir;
-    private final Properties prop;
+    protected final Properties prop;
     protected ResultUploader resultUploader;
+    protected int seqNumber;
+    protected boolean seqNumberSet;
+
+
+    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
+        this.resultUploader = resultUploader;
+        this.test = test;
+        this.testDefinition = testDefinition;
+        this.testbeds = testbeds;
+        this.prop = prop;
+        this.outputDir = prop.getProperty("outputDir");
+        this.seqNumberSet = false;
+    }
+
+    
+    public void setSeqNumber(int seqNumber) {
+        this.seqNumber = seqNumber;
+        seqNumberSet = true;
+    }
     
     public TestDefinition getTestDefinition() {
         return testDefinition;
@@ -50,16 +69,6 @@ public abstract class TestCall implements Runnable{
         return test.getTesttype();
     }
 
-    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
-        this.resultUploader = resultUploader;
-        this.test = test;
-        this.testDefinition = testDefinition;
-        this.testbeds = testbeds;
-        this.prop = prop;
-        this.outputDir = prop.getProperty("outputDir");
-        makeTestOutputDir();
-    }
-
     @Override
     public abstract void run();
     protected abstract ArrayList<String> getParameters(String parsedCommand);
@@ -67,7 +76,12 @@ public abstract class TestCall implements Runnable{
     protected String makeTestOutputDir() {
         if(testOutputDir == null){
             Calendar now = Calendar.getInstance();
-            testOutputDir = outputDir + test.getTesttype() + "/"+ test.getTestInstanceId() +"/" + now.get(Calendar.YEAR) + "/"
+            testOutputDir = outputDir + test.getTesttype() + "/"+ test.getTestInstanceId() +"/";
+            if (seqNumberSet){
+                testOutputDir += "seq" + this.seqNumber + "/";
+            }
+            
+            testOutputDir += now.get(Calendar.YEAR) + "/"
                 + now.get(Calendar.MONTH) + "/"
                 + now.get(Calendar.DAY_OF_MONTH) + "/"
                 + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)

@@ -1,11 +1,11 @@
 <?php
 
 //include (__DIR__ . "/../config.php"); //database config
-$aantalTestbeds = 10;
-$aantalpinginstances = 10;
-$aantalstitchinstances = 1;
-$aantallogininstances = 20;
-$resultsPerInstances = 10;
+$aantalTestbeds = 17;
+$aantalpinginstances = $aantalTestbeds;
+$aantalstitchinstances = 10;
+$aantallogininstances = 1;
+$resultsPerInstances = 50;
 
 $login = 'postgres';
 $pass = "post";
@@ -103,6 +103,8 @@ $data = array('login', 'resultHtml', 'file','results in html format');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'result-overview', 'file','results in xml format');
 pg_query_params($con, $retQuery, $data);
+$data = array('login', 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'createTestSlices', 'string', 'create slices');
@@ -121,9 +123,8 @@ $data = array('login', 'testNodeLogin', 'string', 'test node login');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'duration', 'long', 'duration of the test');
+$data = array('login', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
-
 /*
 $data = array('login', 'exitStatus', 'file','exitstatus');
 pg_query_params($con, $retQuery, $data);
@@ -201,7 +202,7 @@ scsUrl = http://geni.maxgigapop.net:8081/geni/xmlrpc");
 //login
 echo "\tCreating login testinstances\n";
 for ($i = 0; $i < $aantallogininstances; $i++){
-    $data = array("login" . $i,
+    $data = array("loadTest" . $i,
             "login",
             "3600"
         );
@@ -219,7 +220,7 @@ testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
 
 $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
 pg_execute($con,"subQuery",$data);
-$data = array("testedAggregateManagerUrn","urn:publicid:IDN+omf+authority+sa");
+$data = array("testedAggregateManagerUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
 pg_execute($con,"subQuery",$data);
 
 //urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 

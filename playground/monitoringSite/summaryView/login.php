@@ -21,6 +21,7 @@
    <th>Test Name</th>
    <th>Last execution (CET)</th>
    <th>Last failure</th>
+   <th>Last duration</th>
    <th>Status</th>
    <th>log</th>
    <th>History</th>
@@ -28,33 +29,46 @@
   <?php
     //todo webservice via config file
     Include ( __DIR__.'/../config.php');
-    
+    date_default_timezone_set('CET');
     $data = json_decode(file_get_contents($GLOBALS['urlLogin']),true);
     $data = $data['data'];
-    date_default_timezone_set('CET');
-    //print_r($data);
-    //$subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
+    $testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
+    $testDefinitions= $testDefinitions['data'];
+    
     foreach ($data as $key => $row){
+        $subTests=$testDefinitions[$row['testtype']]['returnValues'];
         echo "<tr>";
             echo "<td>".$row['testname']."</td>";
             
             echo "<td>".date('d/m/Y - H:i:s',strtotime($row['timestamp']))."</td>";
             echo "<td> Not supported yet!</td>";
+            $secs = $row['results']['duration'] / 1000;
+            $min = floor($secs/60000);
+            if (strlen($min) < 2){
+                $min = '0' . $min;
+            }
+            $secs = $secs % 60000;
+            if (strlen($secs) < 2){
+                $secs = '0' . $secs;
+            }
+            echo "<td>".$min.":".$secs."</td>";
             
             echo "<td><table RULES=COLS><tr>";
-                foreach($row['results'] as $name => $value){
-                    if ($name != 'resultHtml' && $name != 'result-overview'){
+                foreach($subTests as $name => $v){
+                    if ($name != 'duration' && $name != 'result-overview' && $name != 'resultHtml'){
+                        $value = ucfirst($row['results'][$name]);
                         echo "<td bgcolor=";
-                        if ($value == $GLOBALS['good']){
+                        if ($value == $GLOBALS['good'] || $value == $GLOBALS['SUCCESS']){
                             echo "#00FF00>";
-                        }else if($value == $GLOBALS['warn']){
+                        }else if($value == $GLOBALS['warn'] || $value == $globals['WARN']){
                             echo "#FF9933>";
                         }else if($value == $GLOBALS['skip'] || $value == $GLOBALS['skipped']){
                             echo "#2942FF>";
                         }else{
                             echo "#FF0000>";
                         }
-                        echo "&nbsp&nbsp&nbsp</td>";
+                        
+                        echo "&nbsp".  getAbbreviation($name)."&nbsp</td>";
                     }
                 }
             echo "</tr></table></td>";
@@ -63,6 +77,16 @@
             echo "<td><a href=./history.php?testname=".$row['testname'].">history</a></td>";
             
         echo "</tr>";
+    }
+    
+    function getAbbreviation(&$s){
+        $ret = substr($s,0,1);
+        for ($i = 0 ; $i < strlen($s);$i++){
+            if(ctype_upper($s{$i})){
+                $ret = $ret. $s{$i};
+            }
+        }
+        return $ret;
     }
   ?>
   </table>

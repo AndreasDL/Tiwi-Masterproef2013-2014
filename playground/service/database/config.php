@@ -9,5 +9,4 @@
     $conString = "host=".$db_host." port=".$db_port." dbname=" . $db_name . " user=" . $db_user . " password=" . $db_pass;
     
     global $hmacAlgo;
-    $hmacAlgo = 'sha512';
-    
+    $hmacAlgo = 'sha512';    

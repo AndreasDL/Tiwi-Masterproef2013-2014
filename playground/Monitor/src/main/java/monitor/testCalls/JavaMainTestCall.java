@@ -56,7 +56,7 @@ public class JavaMainTestCall extends TestCall {
             ArrayList<String> commands = getParameters(parsedCommand);
             String s[] = new String[commands.size()];
             //System.out.println("calling main : commands = " + commands);
-            AutomatedTesterCli.main_helper(commands.toArray(s),tee,tee,System.in);//System.out,System.out,System.in);
+            AutomatedTesterCli.main_helper(commands.toArray(s),/*ps,ps*/tee,tee/**/,System.in);//System.out,System.out,System.in);
             
         } catch (Exception ex) {
             ex.printStackTrace();

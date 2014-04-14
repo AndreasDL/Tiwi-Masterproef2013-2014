@@ -35,5 +35,10 @@ public class TestCallFactory {
         }
         return ret;
     }
-    
+    public static TestCall copyTest(TestCall c){
+        //shallow copy, but test,testdefinitions,testbeds are final
+        //prop is only set once & never changes
+        //resultuploader is the same for all object.
+        return makeTest(c.resultUploader,c.test,c.testDefinition,c.testbeds,c.prop);
+    }
 }

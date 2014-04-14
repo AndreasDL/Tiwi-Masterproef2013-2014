@@ -80,7 +80,6 @@ public class LoginTestCall extends JavaMainTestCall {
         } catch (SAXException ex) {
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            System.out.println("hoi!");
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } 
 

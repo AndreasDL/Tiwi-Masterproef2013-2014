@@ -33,15 +33,25 @@
     $fatalPing = -1;//timeout
     
     global $good;
+    global $SUCCESS;
+    global $fail;
     global $warn;
     global $fatal;
     global $skip;
     global $skipped;
     global $failed;
+    global $WARN;
+    global $FAILED;
+    global $SKIP;
+    global $SKIPPED;
     $good  = 'Good';
     $warn  = 'Warn';
     $skip  = 'SKIP';
     $skipped = 'SKIPPED';
     $fatal = 'FATAL';
     $failed = 'FAILED';
+    $SUCCESS = 'SUCCESS';
+    $WARN = 'WARN';
+    $FAILED = 'FAILED';
+
     

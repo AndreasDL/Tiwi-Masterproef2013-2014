@@ -1,15 +1,16 @@
-package monitor;
+/*package monitor;
 
+import monitor.testCalls.TestCall;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import monitor.testCalls.TestCall;
-import monitor.testCalls.TestCallFactory;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -21,8 +22,8 @@ import org.apache.commons.cli.ParseException;
 /**
  *
  * @author drew
- */
-public class Monitor{
+ 
+public class Monitor {
     
     private Properties prop;
     private WebServiceAccess webAccess;
@@ -41,10 +42,10 @@ public class Monitor{
     
     public Monitor(String[] args) throws IOException {
         Options options = new Options();
-        options.addOption( OptionBuilder.withLongOpt("number-of-tests")
-                .withDescription( "Amount of tests to run, each test runs on it's own thread" )
+        options.addOption( OptionBuilder.withLongOpt("threads")
+                .withDescription( "Amount of threads to run" )
                 .hasArg()
-                .withArgName("number of tests")
+                .withArgName("number of threads")
                 .isRequired()
                 .create() );
         options.addOption( OptionBuilder.withLongOpt("wait-time")
@@ -53,13 +54,6 @@ public class Monitor{
                 .withArgName("time in between")
                 .isRequired()
                 .create() );
-        options.addOption( OptionBuilder.withLongOpt("test-name")
-                .withDescription( "test to run multiple times")
-                .hasArg()
-                .withArgName("test for multiple runs")
-                .isRequired()
-                .create() );
-        
         CommandLine line = null;
         CommandLineParser parser = new BasicParser();
         try {
@@ -69,30 +63,24 @@ public class Monitor{
         }
         
         //load properties
-        //fucking config files not found!
         this.prop = new Properties();
-        prop.setProperty("urlTestInstances","http://localhost/service/index.php/testInstance");
-        prop.setProperty("urlTestbeds","http://localhost/service/index.php/testbed");
-        prop.setProperty("urlTestDefinitions","http://localhost/service/index.php/testDefinition");
-        prop.setProperty("urlAddResult","http://localhost/service/index.php/addResult");
-        prop.setProperty("outputDir","results/");
+        prop.load(new FileReader("config.properties"));
         
         //create webAccess
         this.webAccess = new WebServiceAccess(prop);
         
         //create thread pool
-        int aantal = Integer.parseInt(line.getOptionValue("number-of-tests"));
-        int waitTime = Integer.parseInt(line.getOptionValue("wait-time"));
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+        //threadPool = Executors.newFixedThreadPool(/*1);//Integer.parseInt(line.getOptionValue("threads")));
         
-        ExecutorService threadPool = Executors.newFixedThreadPool(aantal);
-        final TestCall test = webAccess.getTestByName(line.getOptionValue("test-name"));
         
-        for (int i = 0; i < aantal ; i++) {
-            TestCall t = TestCallFactory.copyTest(test);
-            t.setSeqNumber(i);
-            threadPool.submit(t);
+        //threading!!
+        Set<TestCall> tasks = webAccess.getTests();
+        
+        for(TestCall test : tasks){
+            threadPool.submit(test);
             try {
-                Thread.sleep(waitTime);
+                Thread.sleep(Integer.parseInt(line.getOptionValue("wait-time")));
             } catch (InterruptedException ex) {
             }
         }        
@@ -107,3 +95,5 @@ public class Monitor{
         }
     }
 }
+
+*/

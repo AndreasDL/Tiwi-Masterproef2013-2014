@@ -64,7 +64,29 @@ public class WebServiceAccess {
         }
         return tests;
     }
+    public TestCall getTestByName(String name){
+        HashMap<String,TestInstance> testInstances = null;
+        try {
+            String jsonText = getFromURL(prop.getProperty("urlTestInstances")+"?testname="+name);
 
+            //parse json string
+            TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
+            testInstances = t.getData();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        TestCall t = null;
+        //indien iemand meerdere tests opgeeft, enkel laatste teruggeven & niet vastlopen
+        for (String id : testInstances.keySet()){
+            TestInstance ti = testInstances.get(id);
+            ti.setTestInstanceId(id);
+            t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
+        }
+        return t;
+    }
     public HashMap<String, TestInstance> getTestInstances() {
         TestInstanceResults t = null;
         try {
