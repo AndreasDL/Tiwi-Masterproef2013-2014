@@ -2,9 +2,9 @@
 
 //include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 10;
-$aantalpinginstances = $aantalTestbeds;
+$aantalpinginstances = 10;
 $aantalstitchinstances = 1;
-$aantallogininstances = 1;
+$aantallogininstances = 20;
 $resultsPerInstances = 10;
 
 $login = 'postgres';

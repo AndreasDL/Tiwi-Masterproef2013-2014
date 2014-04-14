@@ -70,7 +70,7 @@ public class Monitor {
         this.webAccess = new WebServiceAccess(prop);
         
         //create thread pool
-        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
         //threadPool = Executors.newFixedThreadPool(/*1);//*/Integer.parseInt(line.getOptionValue("threads")));
         
         
