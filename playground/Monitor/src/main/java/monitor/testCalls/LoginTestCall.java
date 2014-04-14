@@ -42,7 +42,7 @@ public class LoginTestCall extends JavaMainTestCall {
         commands.add("--group");
         commands.add("nodelogin");
         commands.add("--authorities-file");
-        commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
+        commands.add(prop.getProperty("authFileDir"));
         commands.add("--output-dir");
         commands.add(makeTestOutputDir());
         //commands.add("-q"); //quiet

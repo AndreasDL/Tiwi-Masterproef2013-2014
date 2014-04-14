@@ -15,10 +15,8 @@ $conString = "dbname=" . $dbname . " user=" . $login . " password=" . $pass;
 $puKey = "iminds";
 $prKey = "virtualWall";
 
-$paramDir = "/home/drew/masterproef/playground/Monitor/params/";
-$authFile = $paramDir."auth/authorities.xml";
-$outputDir = "/home/drew/masterproef/site/output/";
-$jarDir = $paramDir."jfed_cli/automated-testing-4.1.0-SNAPSHOT.jar";
+$authDir =  "/root/.auth/";
+$authFile = $authDir."authorities.xml";
 
 //connectie maken
 $con = pg_Connect($conString) or die('connection failed');
@@ -88,8 +86,8 @@ echo "\tCreating Login test\n";
 $data = array('login', '');//--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", "username = ftester
-passwordFilename = ".$paramDir."auth/ftester.pass
-pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
+passwordFilename = ".$authDir."ftester.pass
+pemKeyAndCertFilename = ".$authDir."getsslcert.txt
 userAuthorityUrn = <userAuthorityUrn>
 testedAggregateManagerUrn = <testedAggregateManagerUrn>");
 pg_query_params($con, $subQuery, $data);
@@ -190,8 +188,8 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
     
     $data = array("context-file","username = ftester
 userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-passwordFilename = ".$paramDir."auth/ftester.pass
-pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
+passwordFilename = ".$authDir."ftester.pass
+pemKeyAndCertFilename = ".$authDir."getsslcert.txt
 testedAggregateManagerUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
 stitchedAuthorityUrns = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm urn:publicid:IDN+utah.geniracks.net+authority+cm
 
@@ -220,9 +218,9 @@ testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
 
 $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
 pg_execute($con,"subQuery",$data);
-$data = array("testedAggregateManagerUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+$data = array("testedAggregateManagerUrn","urn:publicid:IDN+omf+authority+sa");
 pg_execute($con,"subQuery",$data);
-
+//urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm //virtualwall
 //urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
     //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
 }

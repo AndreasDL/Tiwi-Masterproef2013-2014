@@ -69,13 +69,14 @@ public class Monitor{
         }
         
         //load properties
-        //fucking config files not found!
+        //no more config file not found error ! :)
         this.prop = new Properties();
         prop.setProperty("urlTestInstances","http://localhost/service/index.php/testInstance");
         prop.setProperty("urlTestbeds","http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions","http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult","http://localhost/service/index.php/addResult");
         prop.setProperty("outputDir","results/");
+        prop.setProperty("authFileDir","~/.auth/authorities.xml");
         
         //create webAccess
         this.webAccess = new WebServiceAccess(prop);
