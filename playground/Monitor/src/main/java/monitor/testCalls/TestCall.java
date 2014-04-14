@@ -143,10 +143,10 @@ public abstract class TestCall implements Runnable{
                     writer = new PrintWriter(fileName, "UTF-8");
                     writer.print(ret);
                     writer.close();
-                    try {
+                   /* try {
                         Thread.sleep(4000);
                     } catch (InterruptedException ex) {
-                    }
+                    }*/
                     ret = fileName;
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
