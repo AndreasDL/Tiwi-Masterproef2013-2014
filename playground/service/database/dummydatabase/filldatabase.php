@@ -4,7 +4,11 @@
 $aantalTestbeds = 17;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 10;
-$aantallogininstances = 1;
+//bepalen aantal login testen
+$urns = array("fail" => "urn:publicid:IDN+omf+authority+sa", //failed direct
+    "wall1" => "urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm", //virtualwall1
+    "wall2" => "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm"//virtualwall2
+    );
 $resultsPerInstances = 50;
 
 $login = 'postgres';
@@ -15,7 +19,8 @@ $conString = "dbname=" . $dbname . " user=" . $login . " password=" . $pass;
 $puKey = "iminds";
 $prKey = "virtualWall";
 
-$authDir =  "/root/.auth/";
+$homeDir = "/home/drew/";
+$authDir =  $homeDir.".auth/";
 $authFile = $authDir."authorities.xml";
 
 //connectie maken
@@ -25,13 +30,13 @@ echo "connection established\n";
 //in pompen
 //testbeds
 $urls = array("iminds.be","facebook.Com","yahoo.com","google.com","hotmail.com");
-$urns = array("urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm",
+$urnss = array("urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm",
         "urn:publicid:IDN+emulab.net+authority+cm",
         "urn:publicid:IDN+ple:ibbtple+authority+cm");
 echo "Creating Testbeds\n";
 $query = "insert into testbeds (testbedName,url,urn) values($1,$2,$3);";
 for ($i = 0; $i < $aantalTestbeds; $i++) {
-    $data = array("testbed$i", $urls[rand(0,sizeof($urls)-1)] , $urns[$i%sizeof($urns)]);
+    $data = array("testbed$i", $urls[rand(0,sizeof($urls)-1)] , $urnss[$i%sizeof($urnss)]);
     pg_query_params($con, $query, $data);
 }
 
@@ -54,10 +59,6 @@ pg_query_params($con, $retQuery, $data);
 echo "\tCreating Stitching test\n";
 $data = array('stitch', "--context-file <context-file>");
 pg_query_params($con, $query, $data);
-//$data = array("stitch", "topology", "string", "ring | line");
-//pg_query_params($con, $subQuery, $data);
-//$data = array("stitch", "testbed", "testbed[]", "multiple testbeds for stitching test");
-//pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "context-file", "file", "contextfile");
 pg_query_params($con, $subQuery, $data);
 
@@ -164,27 +165,6 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
         '3600'
     );
     pg_execute($con,"query", $data);
-/*
-    $data = array(
-        'topology',
-        'ring'
-    );
-    pg_execute($con, "subQuery", $data);
-    $data = array(
-        'testbed',
-        'testbed' . $i
-    );
-    pg_execute($con, "subQuery", $data);
-    $data = array(
-        'testbed',
-        'testbed' . ($i + 1) % $aantalTestbeds
-    );
-    pg_execute($con, "subQuery", $data);
-    $data = array(
-        'testbed',
-        'testbed' . ($i + 2) % $aantalTestbeds
-    );
-    pg_execute($con, "subQuery", $data);*/
     
     $data = array("context-file","username = ftester
 userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
@@ -199,32 +179,19 @@ scsUrl = http://geni.maxgigapop.net:8081/geni/xmlrpc");
 }
 //login
 echo "\tCreating login testinstances\n";
-for ($i = 0; $i < $aantallogininstances; $i++){
-    $data = array("loadTest" . $i,
+foreach($urns as $name=>$urn){
+    $data = array($name,
             "login",
             "3600"
         );
     pg_execute($con,"query",$data);
-    
-    /*$data=array("context-file","");/*username = ftester
-passwordFilename = ".$paramDir."auth/ftester.pass
-pemKeyAndCertFilename = ".$paramDir."auth/getsslcert.txt
-userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm
-testedAggregateManagerUrn = urn:publicid:IDN+omf+authority+sa");
-//urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
-    //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
-    */
-    //pg_execute($con,"subQuery",$data);
 
 $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
 pg_execute($con,"subQuery",$data);
-$data = array("testedAggregateManagerUrn","urn:publicid:IDN+omf+authority+sa");
+$data = array("testedAggregateManagerUrn",$urn);
 pg_execute($con,"subQuery",$data);
-//urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm //virtualwall
-//urn:publicid:IDN+ple:ibbtple+authority+cm");//waar? 
-    //urn:publicid:IDN+omf+authority+sa //failed direct => snelle uitvoer
-}
 
+}
 
 //results &subresults
 echo "creating results\n";
@@ -322,6 +289,25 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
         );
         pg_execute($con, "subQuery2", $data);
 
+        $data = array(
+            'duration',
+            rand(3600000,7200000)
+        );
+        pg_execute($con,"subQuery2",$data);
+        
+        $data = array(
+            'resultHtml',
+            ''
+            );
+        pg_execute($con,"subQuery2",$data);
+        
+        $data = array(
+            'result-overview',
+            ''
+        );
+        pg_execute($con,"subQuery2",$data);
+        
+        
         $instanceid++;
     }
 }
@@ -330,8 +316,6 @@ echo "creating users\n";
 $query = "insert into users (keyid,key) values ($1,$2)";
 $data  = array($puKey , $prKey);
 pg_query_params($con,$query,$data);
-
-
 
 //connectie sluiten
 pg_close($con);
