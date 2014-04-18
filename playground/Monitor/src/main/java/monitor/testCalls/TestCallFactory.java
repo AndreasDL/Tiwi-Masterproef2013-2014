@@ -27,6 +27,9 @@ public class TestCallFactory {
             case "login":
                 ret = new LoginTestCall(resup,test, testDefinition, testbeds,prop);
                 break;
+            case "login3":
+                ret = new Login3TestCall(resup,test, testDefinition, testbeds,prop);
+                break;
             case "stitch":
                 ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop);
                 break;

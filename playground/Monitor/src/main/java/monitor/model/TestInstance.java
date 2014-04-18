@@ -18,11 +18,14 @@ public class TestInstance {
     private int frequency;
     private HashMap<String,ArrayList<String>> parameters;
     private String testinstanceid;
-
+    private boolean enabled;
+    
     public String getTestInstanceId() {
         return testinstanceid;
     }
-
+    public boolean isEnabled(){
+        return enabled;
+    }
     public void setTestInstanceId(String instanceId) {
         this.testinstanceid = instanceId;
     }

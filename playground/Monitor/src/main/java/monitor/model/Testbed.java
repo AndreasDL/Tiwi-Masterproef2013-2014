@@ -11,10 +11,10 @@ package monitor.model;
  * @author drew
  */
 public class Testbed {
-    private String name,url,urn;
+    private String testbedName,url,urn;
 
-    public String getName() {
-        return name;
+    public String getestbebName() {
+        return testbedName;
     }
 
     public String getUrl() {

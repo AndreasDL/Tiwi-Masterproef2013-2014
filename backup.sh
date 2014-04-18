@@ -9,4 +9,5 @@ cp -vr site/monitoringSite/* playground/monitoringSite/;
 
 rm -rvf playground/Monitor/*;
 rm -rvf site/results;
+rm -rvf site/Monitor/results;
 cp -vr site/Monitor/* playground/Monitor/;

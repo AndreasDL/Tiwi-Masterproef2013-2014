@@ -129,6 +129,8 @@ public abstract class TestCall implements Runnable{
         return t;
     }
     protected String getParamValue(String propId) {
+        //laatste testbed ipv meerdere
+        
         //parse param
         String[] s = propId.split("\\.");
         String ret = null;
@@ -137,17 +139,17 @@ public abstract class TestCall implements Runnable{
         String paramType = testDefinition.getParameters().get(s[0]).get("type");
         if (s.length > 1) {
             //use property of parameter and not parameter itself
-            if (paramType.equals("testbed")) {
+            //if (paramType.equals("testbed")) {
                 if (s[1].equals("url")) {
-                    for (String testbed : test.getParameters().get("testbed")) {
+                    for (String testbed : test.getParameters().get(s[0])) {
                         ret = testbeds.get(testbed).getUrl();
                     }
                 } else if (s[1].equals("urn")) {
-                    for (String testbed : test.getParameters().get("testbed")) {
+                    for (String testbed : test.getParameters().get(s[0])) {
                         ret = testbeds.get(testbed).getUrn();
                     }
                 }
-            }
+            //}
         } else {
             String fileName = testOutputDir + "context-file.txt";
             if (paramType.equals("file")) {

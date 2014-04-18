@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package monitor.testCalls;
 
 import java.io.File;
@@ -31,29 +30,29 @@ import org.xml.sax.SAXException;
  *
  * @author drew
  */
-public class StitchingTestCall extends JavaMainTestCall{
-    public StitchingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
+public class Login3TestCall extends JavaMainTestCall {
+    public Login3TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(resultUploader, test, testDefinition, testbeds, prop);
     }
-
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> commands = super.getParameters(parsedCommand);
         commands.add("--test-class");
-        commands.add("be.iminds.ilabt.jfed.lowlevel.api.test.StitchingTest");
+        commands.add("be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager3");
         commands.add("--group");
         commands.add("nodelogin");
         //commands.add("--authorities-file");
-        //commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
+        //commands.add(prop.getProperty("authFileDir"));
         commands.add("--output-dir");
-        commands.add(super.makeTestOutputDir());
+        commands.add(makeTestOutputDir());
+        //commands.add("-q"); //quiet
+        //commands.add("--show-credentials");=> debug only
         
-        
+
         return commands;
     }
-    
     @Override
-    protected TestResult handleResults(String consoleOutput) {
+    protected TestResult handleResults(String consoleOutput){
 
         TestResult r = super.handleResults(consoleOutput);
         r.addSubResult("resultHtml", makeTestOutputDir() + "result.html");
@@ -78,14 +77,15 @@ public class StitchingTestCall extends JavaMainTestCall{
                             el.getElementsByTagName("state").item(0).getTextContent());
                 }
             }
-        } catch (ParserConfigurationException | SAXException ex) {
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
             Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StitchingTestCall.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
         return r;
     }
-    
-    
+
 }

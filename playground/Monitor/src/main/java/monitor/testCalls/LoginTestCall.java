@@ -46,7 +46,7 @@ public class LoginTestCall extends JavaMainTestCall {
         commands.add("--output-dir");
         commands.add(makeTestOutputDir());
         //commands.add("-q"); //quiet
-        commands.add("--show-credentials");
+        //commands.add("--show-credentials");=> debug only
         
 
         return commands;

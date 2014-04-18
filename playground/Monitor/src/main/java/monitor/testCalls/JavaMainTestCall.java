@@ -39,7 +39,7 @@ public class JavaMainTestCall extends TestCall {
         //Parse
         makeTestOutputDir();
         String parsedCommand = prepare(makeTestOutputDir());
-        System.out.println("Starting javamaintest " + getTest().getTestInstanceId());
+        System.out.println("Starting " + getTestType() + " test " + getTest().getTestname() + " with id " +getTest().getTestInstanceId());
         
         String consoleOutput="";
         ByteArrayOutputStream os = new ByteArrayOutputStream();

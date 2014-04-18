@@ -149,6 +149,7 @@ class AccessDatabase {
                     'testname' => $row['testname'],
                     'testtype' => $row['testtype'],
                     'frequency' => $row['frequency'],
+                    'enabled'   => ($row['enabled']=="t"?"True":"False"),
                     'parameters' => array()
                 );
             }
