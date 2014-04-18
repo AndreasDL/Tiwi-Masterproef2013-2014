@@ -11,6 +11,7 @@ $urns = array("fail" => "urn:publicid:IDN+omf+authority+sa", //failed direct
     );
 $resultsPerInstances = 50;
 
+
 $login = 'postgres';
 $pass = "post";
 $dbname = "testdb";
@@ -84,6 +85,49 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
+//login amv3
+$data = array('login3', '');//--context-file <context-file>');
+pg_query_params($con, $query, $data);
+$data = array("login3", "context-file", "file", "username = ftester
+passwordFilename = ".$authDir."ftester.pass
+pemKeyAndCertFilename = ".$authDir."getsslcert.txt
+userAuthorityUrn = <userAuthorityUrn>
+testedAggregateManagerUrn = <testedAggregateManagerUrn>");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("login3","userAuthorityUrn","urn","urn for authority");
+pg_query_params($con,$subQuery,$data);
+$data = array("login3","testedAggregateManagerUrn","urn","urn for test AggregateManager");
+pg_query_params($con,$subQuery,$data);
+
+$data = array('login3', 'resultHtml', 'file','results in html format');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'result-overview', 'file','results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'createTestSlices', 'string', 'create slices');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testAllocate', 'string', 'allocate test');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testProvision', 'string', 'testProvision');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testSliverBecomesProvisioned', 'string', 'test sliver becomes provisioned');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testPerformOperationalAction', 'string', 'test perform operational action');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testSliverBecomesStarted', 'string', 'test sliver becomes started');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testNodeLogin', 'string', 'test node login');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'testDeleteSliver', 'string', 'test delete sliver');
+pg_query_params($con, $retQuery, $data);
+$data = array('login3', 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
+
+//login amv2
 $data = array('login', '');//--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login", "context-file", "file", "username = ftester
@@ -106,17 +150,15 @@ $data = array('login', 'setUp', 'string', 'setup');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'createTestSlices', 'string', 'create slices');
+$data = array('login', 'testListResourcesAvailableNoSlice', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testAllocate', 'string', 'allocate test');
+$data = array('login', 'testCreateSliceSliver', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testProvision', 'string', 'testProvision');
+$data = array('login', 'testCreateSliver', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testSliverBecomesProvisioned', 'string', 'test sliver becomes provisioned');
+$data = array('login', 'testCreatedSliverBecomesReady', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testPerformOperationalAction', 'string', 'test perform operational action');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testSliverBecomesStarted', 'string', 'test sliver becomes started');
+$data = array('login', 'checkManifestOnceSliverIsReady', 'string', '');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'testNodeLogin', 'string', 'test node login');
 pg_query_params($con, $retQuery, $data);
@@ -124,10 +166,7 @@ $data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
-/*
-$data = array('login', 'exitStatus', 'file','exitstatus');
-pg_query_params($con, $retQuery, $data);
-*/
+
 //testinstances
 echo "Creating TestInstances\n";
 $query = "insert into testinstances (testname,testtype,frequency) values ($1,$2,$3);";
@@ -190,6 +229,16 @@ $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authori
 pg_execute($con,"subQuery",$data);
 $data = array("testedAggregateManagerUrn",$urn);
 pg_execute($con,"subQuery",$data);
+
+    $data = array($name."v3",
+            "login",
+            "3600"
+        );
+    pg_execute($con,"query",$data);
+    $data = array("userAuthorityUrn","urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    pg_execute($con,"subQuery",$data);
+    $data = array("testedAggregateManagerUrn",$urn);
+    pg_execute($con,"subQuery",$data);
 
 }
 

@@ -28,7 +28,7 @@ $query = "with lijst as (select resultid,testinstanceid from results r
                 join testinstances ti using (testinstanceid)
             where ti.testtype='login'
         )
-        delete from subResults ssr where ssr.resultid = (select resultid from lijst)";
+        delete from subResults ssr where ssr.resultid = any(select resultid from lijst)";
 pg_query($con,$query);
 echo "Clearing Results\n";
 $query2 = "with lijst as (select resultid,testinstanceid from results r
@@ -36,7 +36,7 @@ $query2 = "with lijst as (select resultid,testinstanceid from results r
                 join testinstances ti using (testinstanceid)
             where ti.testtype='login'
         )
-        delete from results r where r.resultid = (select resultid from lijst)";
+        delete from results r where r.resultid = any(select resultid from lijst)";
 pg_query($con,$query2);
 
 //connectie sluiten

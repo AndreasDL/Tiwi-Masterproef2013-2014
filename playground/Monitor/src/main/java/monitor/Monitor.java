@@ -84,6 +84,7 @@ public class Monitor{
         //create thread pool
         int aantal = Integer.parseInt(line.getOptionValue("number-of-tests"));
         int waitTime = Integer.parseInt(line.getOptionValue("wait-time"));
+        waitTime *= 1000;//to seconds
         
         ExecutorService threadPool = Executors.newFixedThreadPool(aantal);
         final TestCall test = webAccess.getTestByName(line.getOptionValue("test-name"));
