@@ -14,9 +14,20 @@ import java.util.HashMap;
  */
 public class TestDefinition {
     private String testcommand;//don't use camel case, postgresql doesn't like camels
+    private String testtype;
+    private String testdefinitionname;
     private HashMap<String,HashMap<String,String>> parameters;
     private HashMap<String,HashMap<String,String>> returnValues;    
 
+    public String getTesttype() {
+        return testtype;
+    }
+
+    public String getTestdefinitionname() {
+        return testdefinitionname;
+    }
+
+    
     public String getTestcommand() {
         return testcommand;
     }

@@ -21,8 +21,8 @@ public class TestResult {
         this.ti = ti;
     }
 
-    public String getTestType() {
-        return ti.getTesttype();
+    public String getTestDefinitionName() {
+        return ti.getTestDefinitionName();
     }
 
     public void addSubResult(String subResultName, String subResultValue) {

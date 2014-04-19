@@ -167,7 +167,7 @@ public class Monitor {
     }
     public Properties getProp() {
         Properties prop = new Properties();
-        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testtype=ping");
+        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=fail");
         prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");

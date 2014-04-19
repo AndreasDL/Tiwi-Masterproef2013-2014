@@ -64,12 +64,12 @@ for ($i = 0; $i < $aantalTestbeds; $i++) {
 //<editor-fold desc="Definitions" defaultstate="collapsed">
 //testdefinitions
 echo "Creating TestDefinitions\n";
-$subQuery = "insert into parameterDefinitions (testType,parameterName,parameterType,parameterDescription) values ($1,$2,$3,$4);";
-$retQuery = "insert into returnDefinitions (testType,returnName,returnType,returnDescription) values ($1,$2,$3,$4);";
-$query = "insert into testdefinitions (testtype,testcommand) values($1,$2);";
+$subQuery = "insert into parameterDefinitions (testDefinitionName,parameterName,parameterType,parameterDescription) values ($1,$2,$3,$4);";
+$retQuery = "insert into returnDefinitions (testDefinitionName,returnName,returnType,returnDescription) values ($1,$2,$3,$4);";
+$query = "insert into testdefinitions (testDefinitionName,testtype,testcommand) values($1,$2,$3);";
 
 echo "\tCreating Ping test\n";
-$data = array('ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
+$data = array('ping','ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
 $data = array("ping", "timeout", "integer", "timeout for ping test");
 pg_query_params($con, $subQuery, $data);
@@ -79,7 +79,7 @@ $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array('stitch', '');
+$data = array('stitch','stitch', '');
 pg_query_params($con, $query, $data);
 $data = array("stitch", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -126,11 +126,48 @@ pg_query_params($con, $retQuery, $data);
 $data = array('stitch', 'duration', 'long' , 'duration of test');
 pg_query_params($con, $retQuery, $data);
 
-
-
 echo "\tCreating Login test\n";
+//login amv2
+$data = array('login','login', ''); //--context-file <context-file>');
+pg_query_params($con, $query, $data);
+$data = array("login", "context-file", "file", "username = ftester
+    passwordFilename = " . $authDir . "ftester.pass
+    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    userAuthorityUrn = <userAuthorityUrn>
+    testedAggregateManagerUrn = <testedAggregateManager.urn>");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("login", "userAuthorityUrn", "urn", "urn for authority");
+pg_query_params($con, $subQuery, $data);
+$data = array("login", "testedAggregateManager", "testbed", "testbed to run test on");
+pg_query_params($con, $subQuery, $data);
+
+$data = array('login', 'resultHtml', 'file', 'results in html format');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'result-overview', 'file', 'results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testListResourcesAvailableNoSlice', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testCreateSliceSliver', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testCreateSliver', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testCreatedSliverBecomesReady', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'checkManifestOnceSliverIsReady', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testNodeLogin', 'string', 'test node login');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
+pg_query_params($con, $retQuery, $data);
+$data = array('login', 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
 //login amv3
-$data = array('login3', '');
+$data = array('login3','login3', '');
 pg_query_params($con, $query, $data);
 $data = array("login3", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -171,51 +208,12 @@ pg_query_params($con, $retQuery, $data);
 $data = array('login3', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
 
-//login amv2
-$data = array('login', ''); //--context-file <context-file>');
-pg_query_params($con, $query, $data);
-$data = array("login", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
-    userAuthorityUrn = <userAuthorityUrn>
-    testedAggregateManagerUrn = <testedAggregateManager.urn>");
-pg_query_params($con, $subQuery, $data);
-
-$data = array("login", "userAuthorityUrn", "urn", "urn for authority");
-pg_query_params($con, $subQuery, $data);
-$data = array("login", "testedAggregateManager", "testbed", "testbed to run test on");
-pg_query_params($con, $subQuery, $data);
-
-$data = array('login', 'resultHtml', 'file', 'results in html format');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'result-overview', 'file', 'results in xml format');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'setUp', 'string', 'setup');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testListResourcesAvailableNoSlice', 'string', '');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreateSliceSliver', 'string', '');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreateSliver', 'string', '');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreatedSliverBecomesReady', 'string', '');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'checkManifestOnceSliverIsReady', 'string', '');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testNodeLogin', 'string', 'test node login');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
-pg_query_params($con, $retQuery, $data);
-$data = array('login', 'duration', 'long', 'duration of the test in millisecs');
-pg_query_params($con, $retQuery, $data);
 // </editor-fold>
 
 //<editor-fold desc="instances" defaultstate="collapsed">
 //testinstances
 echo "Creating TestInstances\n";
-$query = "insert into testinstances (testname,testtype,frequency,enabled) values ($1,$2,$3,$4);";
+$query = "insert into testinstances (testname,testDefinitionName,frequency,enabled) values ($1,$2,$3,$4);";
 pg_prepare($con, "query", $query);
 $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
 pg_prepare($con, "subQuery", $subQuery);

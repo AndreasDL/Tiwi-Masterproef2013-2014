@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author drew
  */
 public class TestInstance {
-    private String testname,testtype;
+    private String testname,testdefinitionname;
     private int frequency;
     private HashMap<String,ArrayList<String>> parameters;
     private String testinstanceid;
@@ -39,12 +39,12 @@ public class TestInstance {
         this.testname = testname;
     }
 
-    public String getTesttype() {
-        return testtype;
+    public String getTestDefinitionName() {
+        return testdefinitionname;
     }
 
-    public void setTesttype(String testtype) {
-        this.testtype = testtype;
+    public void setTestDefinitionName(String testdefinitionname) {
+        this.testdefinitionname = testdefinitionname;
     }
 
     public int getFrequency() {

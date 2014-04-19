@@ -1,8 +1,8 @@
 <?php
     global $webservice;
     $webservice           = 'http://localhost/service/index.php';
-    $queryInternational   = 'last?testtype=ping';
-    $queryLocal           = 'last?testtype=ping&testbed=testbed3,testbed7,testbed5,testbed2,testbed11';
+    $queryInternational   = 'last?testdefinitionname=ping';
+    $queryLocal           = 'last?testdefinitionname=ping&testbed=testbed3,testbed7,testbed5,testbed2,testbed11';
     
     global $urlInternational;
     global $urlLocal;
@@ -11,7 +11,7 @@
     global $urlAddTestInstance;
     global $urlTestDefinitions;
     global $urlLast;
-    $urlLast              = $webservice.'/last';
+    $urlLast            = $webservice.'/last';
     $urlInternational   = $webservice.'/'.$queryInternational;
     $urlLocal           = $webservice.'/'.$queryLocal;
     $urlTestbed         = $webservice.'/testbed';

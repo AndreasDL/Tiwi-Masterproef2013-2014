@@ -19,17 +19,20 @@ CREATE TABLE testbeds (
 );
 
 CREATE TABLE testDefinitions(
-    testtype character varying NOT NULL PRIMARY KEY,
+    testtype character varying NOT NULL,-- PRIMARY KEY,
+    testDefinitionName character varying NOT NULL PRIMARY KEY,
     testCommand character varying NOT NULL
 );
 CREATE TABLE parameterDefinitions(
-    testType character varying NOT NULL references testDefinitions(testtype),
+    --testType character varying NOT NULL references testDefinitions(testtype),
+    testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     parameterName text NOT NULL,
     parameterType text NOT NULL,
     parameterDescription text
 );
 CREATE TABLE returnDefinitions(
-    testType character varying NOT NULL references testDefinitions(testtype),
+--testType character varying NOT NULL references testDefinitions(testtype),
+    testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     returnName text NOT NULL,
     returnType text NOT NULL,
     returnDescription text
@@ -38,7 +41,9 @@ CREATE TABLE returnDefinitions(
 CREATE TABLE testInstances(
     testinstanceId serial PRIMARY KEY,
     testname character varying UNIQUE,
-    testtype character varying NOT NULL references testDefinitions(testtype),
+   -- testtype character varying NOT NULL references testDefinitions(testtype),
+--testType character varying NOT NULL references testDefinitions(testtype),
+    testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     enabled boolean NOT NULL default TRUE,
     frequency integer
 );
@@ -74,8 +79,8 @@ CREATE VIEW list AS
 ;
 CREATE VIEW definitions AS
     select *,t.testtype tetyp from testdefinitions t 
-        join parameterdefinitions p using(testtype)
-        join returndefinitions    r using(testtype)
+        join parameterdefinitions p using (testDefinitionName) --using(testtype)
+        join returndefinitions    r using (testDefinitionName) --using(testtype)
 ;
 CREATE VIEW instances AS
     select t.testinstanceid as id,* from testinstances t

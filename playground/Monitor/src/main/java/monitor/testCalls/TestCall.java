@@ -65,8 +65,8 @@ public abstract class TestCall implements Runnable{
     public TestInstance getTest() {
         return test;
     }
-    public String getTestType() {
-        return test.getTesttype();
+    public String getTestDefinitionName() {
+        return test.getTestDefinitionName();
     }
 
     @Override
@@ -76,7 +76,7 @@ public abstract class TestCall implements Runnable{
     protected String makeTestOutputDir() {
         if(testOutputDir == null){
             Calendar now = Calendar.getInstance();
-            testOutputDir = outputDir + test.getTesttype() + "/"+ test.getTestInstanceId() +"/";
+            testOutputDir = outputDir + test.getTestDefinitionName() + "/"+ test.getTestInstanceId() +"/";
             if (seqNumberSet){
                 testOutputDir += "seq" + this.seqNumber + "/";
             }

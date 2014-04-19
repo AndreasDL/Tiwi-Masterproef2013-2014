@@ -13,7 +13,7 @@ package monitor.model;
 public class Testbed {
     private String testbedName,url,urn;
 
-    public String getestbebName() {
+    public String getestbedName() {
         return testbedName;
     }
 

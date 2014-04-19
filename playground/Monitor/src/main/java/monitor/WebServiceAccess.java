@@ -59,7 +59,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
+            TestCall t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTestDefinitionName()),testbeds,prop);
             tests.add(t);
         }
         return tests;
@@ -83,7 +83,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()){
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTesttype()),testbeds,prop);
+            t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTestDefinitionName()),testbeds,prop);
         }
         return t;
     }

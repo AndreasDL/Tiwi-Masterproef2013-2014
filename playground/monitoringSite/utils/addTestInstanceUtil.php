@@ -61,7 +61,7 @@
             <form action="<?php echo $GLOBALS['urlAddTestInstance']; ?>" method="post">
                 <table id="table">
                     <tr><td><b>TestName &nbsp;</b></td><td><input type="text" name="testname"></td></tr>
-                    <tr><td><b>Type &nbsp;</b></td><td><select id="type" name="testtype"></select></td></tr>
+                    <tr><td><b>Type &nbsp;</b></td><td><select id="type" name="testdefinitionname"></select></td></tr>
                     <tr><td><b>Frequency &nbsp;</b></td><td><input type="number" name="frequency"></td></tr>
                 </table>
                 <input type="submit" value="add">

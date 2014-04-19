@@ -20,7 +20,7 @@ import monitor.model.Testbed;
 public class TestCallFactory {
     public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
         TestCall ret = null;
-        switch(test.getTesttype()) {
+        switch(test.getTestDefinitionName()) {
             case "ping":
                 ret = new PingTestCall(resup,test,testDefinition,testbeds,prop);
                 break;
@@ -32,6 +32,9 @@ public class TestCallFactory {
                 break;
             case "stitch":
                 ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop);
+                break;
+            case "genericJava":
+                ret = new GenericJavaTestCall(resup, test, testDefinition, testbeds, prop);
                 break;
             default:
                 ret = new BashTestCall(resup,test,testDefinition,testbeds,prop);

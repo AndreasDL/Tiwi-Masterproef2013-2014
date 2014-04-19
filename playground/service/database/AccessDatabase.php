@@ -12,7 +12,7 @@ class AccessDatabase {
 
     public function __construct() {
         //cache for faster processing of results
-        $this->updateCache();
+        $this->updateCache();//eventueel op aparty thread steken en zo updaten
     }
 
     //Result Calls
@@ -28,7 +28,7 @@ class AccessDatabase {
     public function getList(&$request) {
         $params = $request->getParameters();
         $query = "select * from ("
-                . "select *,dense_rank() over(partition by testname,testtype order by timestamp desc) rank from list"
+                . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
                 . ") vv ";
 
         $paramsForUse = array();
@@ -40,7 +40,8 @@ class AccessDatabase {
             $eindhaakje = ')';
         }
         //testtypes
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         //status => per subtest nu !!
         $this->addInIfNeeded($query, $params, $paramsForUse, "status", "value");
         //resultid
@@ -67,7 +68,8 @@ class AccessDatabase {
             if (!isset($data[$row['resultid']])) {
                 $data[$row['resultid']] = array(
                     'testinstanceid' => $row['testinstanceid'],
-                    'testtype' => $row['testtype'],
+                    //'testtype' => $row['testtype'],
+                    'testdefinitionname' => $row['testdefinitionname'],
                     'testname' => $row['testname'],
                     'log' => $row['log'],
                     'timestamp' => $row['timestamp'],
@@ -101,23 +103,27 @@ class AccessDatabase {
 
         $paramsForUse = array();
         $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "tetyp");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
         while ($row = pg_fetch_assoc($result)) {
-            if (!isset($data[$row['testtype']])) {
+            //if (!isset($data[$row['testtype']])) {
+            if (!isset($data[$row['testdefinitionname']])) {
                 $data[$row['testtype']] = array(
+                    'testdefinitionname' => $row['testdefinitionname'],
+                    'testtype' => $row['testtype'],
                     'testcommand' => $row['testcommand'],
                     'parameters' => array(),
                     'returnValues' => array()
                 );
             }
-            $data[$row['testtype']]['parameters'][$row['parametername']] = array('type' => $row['parametertype'],
+            $data[$row['testdefinitionname']]['parameters'][$row['parametername']] = array('type' => $row['parametertype'],
                 'description' => $row['parameterdescription']
             );
 
-            $data[$row['testtype']]['returnValues'][$row['returnname']] = array('type' => $row['returntype'],
+            $data[$row['testdefinitionname']]['returnValues'][$row['returnname']] = array('type' => $row['returntype'],
                 'description' => $row['returndescription']);
         }
 
@@ -134,7 +140,8 @@ class AccessDatabase {
         if (sizeof($paramsForUse) > 0) {
             $eindhaakje = ')';
         }
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
 
         $query .= $eindhaakje;
@@ -147,7 +154,8 @@ class AccessDatabase {
             if (!isset($data[$row['id']])) {
                 $data[$row['id']] = array(
                     'testname' => $row['testname'],
-                    'testtype' => $row['testtype'],
+                    //'testtype' => $row['testtype'],
+                    'testdefinitionname' => $row['testdefinitionname'],
                     'frequency' => $row['frequency'],
                     'enabled'   => ($row['enabled']=="t"?"True":"False"),
                     'parameters' => array()
@@ -214,7 +222,7 @@ class AccessDatabase {
                 && strtoupper($request->getVerb()) == 'POST') {
             $valid = True;
             //kijk of alle return values opgegeven zijn
-            $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testtype']]['returnValues'];
+            $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testdefinitionname']]['returnValues'];//['testtype']]['returnValues'];
 
             foreach ($returnVals as $key => $val) {
                 if (!isset($params[$key][0])) {
@@ -264,10 +272,10 @@ class AccessDatabase {
         //post
         $params = $request->getParameters();
         print_r($params);
-        if ($request->getVerb() == 'POST' && isset($params['testtype']) && isset($this->testDefinitions[$params['testtype'][0]])){
+        if ($request->getVerb() == 'POST' && isset($params['testdefinitionname']) && isset($this->testDefinitions[$params['testtype'][0]])){
             //kjk of alle params ingevuld zijn
             $valid = True;
-            foreach ($this->testDefinitions[$params['testtype'][0]]['parameters'] as $key => $value){
+            foreach ($this->testDefinitions[$params['testdefinitionname'][0]]['parameters'] as $key => $value){
                 if (!isset($params[$key][0])){
                     $valid=false;
                     $request->addMsg($key . " Not given");
@@ -277,8 +285,8 @@ class AccessDatabase {
             }
             if ($valid){
                 $con = $this->getConnection();
-                $query = "insert into testinstances (testname,testtype,frequency) values ($1,$2,$3);";
-                $data = array($params['testname'][0],$params['testtype'][0],$params['frequency']);
+                $query = "insert into testinstances (testname,testdefinitionname,frequency) values ($1,$2,$3);";
+                $data = array($params['testname'][0],$params['testdefinitionname'][0],$params['frequency']);
                 
                 pg_query($con,"BEGIN");
                 $success = pg_query_params($con,$query,$data);
@@ -286,7 +294,7 @@ class AccessDatabase {
                 $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
                 pg_prepare($con,"subQuery",$subQuery);
                 
-                foreach ($this->testDefinitions[$params['testtype'][0]]['parameters'] as $key => $value){
+                foreach ($this->testDefinitions[$params['testdefinitionname'][0]]['parameters'] as $key => $value){
                     $success = $success && pq_execute($con,"subQuery",array($params[$key][0]));
                 }
                 

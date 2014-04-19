@@ -171,28 +171,36 @@ if ($controller_name != "") {
                         <td>Last results for each testbed</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testtype=stitch&format=PrettyJson">/last?testtype=stitch</a></td>
+                        <td><a href="./index.php/last?testdefinitionname=stitch&format=PrettyJson">/last?testdefinitionname=stitch</a></td>
                         <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testbed=testbed1,testbed5&testtype=ALL&format=PrettyJson">/last?testbed=testbed1,testbed5&testtype=ALL</a></td>
+                        <td><a href="./index.php/last?testbed=testbed1,testbed5&testdefinitionname=ALL&format=PrettyJson">/last?testbed=testbed1,testbed5&testdefinitionname=ALL</a></td>
                         <td>All Last results for testbed1 and testbed5</td>
                     </tr>
-                    <tr>
-                        <td><a href="./index.php/list?testtype=stitch&testbed=testbed1&count=3&format=PrettyJson">/list?testtype=stitch&testbed=testbed1&count=3</a></td>
+                    <!--<tr>
+                        <td><a href="./index.php/list?testdefinitionname=stitch&testbed=testbed1&count=3&format=PrettyJson">/list?testdefinitionname=stitch&testbed=testbed1&count=3</a></td>
                         <td>Last 3 stitching results for testbed1</td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td><a href="./index.php/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00&format=PrettyJson">/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00</a></td>
                         <td>All tests between 18/03/2014 19:29:06 and 25/03/2014 20:00:00</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/testDefinition?testtype=stitch&format=PrettyJson">/testdefinition?testtype=stitch</a></td>
+                        <td><a href="./index.php/testDefinition?testdefinitionname=stitch&format=PrettyJson">/testdefinition?testdefinitionname=stitch</a></td>
                         <td>Definition of a stitching test</td>
-                    </tr>            
+                    </tr>
                     <tr>
-                        <td><a href="./index.php/testInstance?testtype=stitch&format=PrettyJson">/testInstance?testtype=stitch</a></td>
-                        <td>All testinstance for testtype=stitching test</td>
+                        <td><a href="./index.php/testDefinition?testtype=stitch&format=PrettyJson">/testdefinition?testtype=stitch</a></td>
+                        <td>all defined tests of type stitching. This makes it possible to e.g. create 2 stitching tests with different parameters</td>
+                    </tr>
+                    <tr>
+                        <td><a href="./index.php/testInstance?testdefinitionname=stitch&format=PrettyJson">/testInstance?testdefinitionname=stitch</a></td>
+                        <td>All testinstance for testdefinitionname=stitching test</td>
+                    </tr>
+                    <tr>
+                        <td><a href="./index.php/testInstance?testname=wall2&format=PrettyJson">/testInstance?testname=wall2</a></td>
+                        <td>view testinstance with name2 in detail</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>

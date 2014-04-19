@@ -5,8 +5,8 @@
     <?php
         $parameters=array();
         parse_str($_SERVER['QUERY_STRING'], $parameters);
-        $testtype = (isset($parameters['testtype'])?$parameters['testtype']:'');
-        $title = "International $testtype Monitor";
+        $testdefinitionname = (isset($parameters['testdefinitionname'])?$parameters['testdefinitionname']:'');
+        $title = "International $testdefinitionname Monitor";
     ?>
    <title><?php echo $title; ?></title>
 	<meta http-equiv="refresh" content="10" >
@@ -68,7 +68,7 @@
     //todo webservice via config file
     Include ( __DIR__.'/../config.php');
     Include ( __DIR__.'/StatusTable.php');
-    $url = $GLOBALS['urlLast'].'?testtype='.$testtype;
+    $url = $GLOBALS['urlLast'].'?testdefinitionname='.$testdefinitionname;
     $data = json_decode(file_get_contents($url),true);
     $data = $data['data'];
     $testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
@@ -78,7 +78,7 @@
     //$subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');
     
     foreach ($data as $key => $row){
-        $subTests=$testDefinitions[$row['testtype']]['returnValues'];
+        $subTests=$testDefinitions[$row['testdefinitionname']]['returnValues'];
         //print_r($subTests);
         echo "<tr>";
             echo "<td>".$row['testname']."</td>";

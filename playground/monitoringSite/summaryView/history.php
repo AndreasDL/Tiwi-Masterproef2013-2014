@@ -67,7 +67,7 @@
     $testDefinitions= $testDefinitions['data'];
     
     foreach ($data as $key => $row){
-        $subTests=$testDefinitions[$row['testtype']]['returnValues'];
+        $subTests=$testDefinitions[$row['testdefinitionname']]['returnValues'];
         //print_r($subTests);
         echo "<tr>";
             echo "<td>".date('d/m/Y - H:i:s',strtotime($row['timestamp']))."</td>";
