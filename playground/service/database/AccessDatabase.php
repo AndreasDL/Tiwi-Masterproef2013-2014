@@ -111,7 +111,7 @@ class AccessDatabase {
         while ($row = pg_fetch_assoc($result)) {
             //if (!isset($data[$row['testtype']])) {
             if (!isset($data[$row['testdefinitionname']])) {
-                $data[$row['testtype']] = array(
+                $data[$row['testdefinitionname']] = array(
                     'testdefinitionname' => $row['testdefinitionname'],
                     'testtype' => $row['testtype'],
                     'testcommand' => $row['testcommand'],

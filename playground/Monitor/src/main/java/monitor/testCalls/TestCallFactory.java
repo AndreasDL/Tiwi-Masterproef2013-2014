@@ -34,8 +34,8 @@ public class TestCallFactory {
             case "stitch":
                 ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop);
                 break;
-            case "genericJava":
-                ret = new GenericJavaTestCall(resup, test, testDefinition, testbeds, prop);
+            case "javaMain":
+                ret = new JavaMainTestCall(resup, test, testDefinition, testbeds, prop);
                 break;
             default:
                 ret = new BashTestCall(resup,test,testDefinition,testbeds,prop);

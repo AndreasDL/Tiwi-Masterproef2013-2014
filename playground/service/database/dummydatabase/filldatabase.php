@@ -208,6 +208,57 @@ pg_query_params($con, $retQuery, $data);
 $data = array('login3', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
 
+
+
+//generic
+echo "\tCreating Generic Tests\n";
+$data = array('loginGen','javaMain', '--context-file <context-file> '
+    . '--test-class be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager2 '
+    . '--group nodelogin '
+    . '--output-dir <output-dir> '
+    . '-q'
+    ); //--context-file <context-file>');
+pg_query_params($con, $query, $data);
+$data = array("loginGen", "context-file", "file", "username = ftester
+    passwordFilename = " . $authDir . "ftester.pass
+    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    userAuthorityUrn = <userAuthorityUrn>
+    testedAggregateManagerUrn = <testedAggregateManager.urn>");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("loginGen", "userAuthorityUrn", "urn", "urn for authority");
+pg_query_params($con, $subQuery, $data);
+$data = array("loginGen", "testedAggregateManager", "testbed", "testbed to run test on");
+pg_query_params($con, $subQuery, $data);
+//ye i really did spend like 3 hours looking at my code, because i forgot to add this line
+$data = array("loginGen", "output-dir" , 'auto', 'generate an output directory');
+pg_query_params($con,$subQuery,$data);
+
+$data = array('loginGen', 'resultHtml', 'file', 'results in html format');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'result-overview', 'file', 'results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testListResourcesAvailableNoSlice', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testCreateSliceSliver', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testCreateSliver', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testCreatedSliverBecomesReady', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'checkManifestOnceSliverIsReady', 'string', '');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testNodeLogin', 'string', 'test node login');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'testDeleteSliver', 'string', 'test delete sliver');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen', 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
+
 // </editor-fold>
 
 //<editor-fold desc="instances" defaultstate="collapsed">
@@ -262,7 +313,7 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
 
 }
 //login
-echo "\tCreating login testinstances\n";
+echo "\tCreating login amv2 & amv3 testinstances\n";
 foreach ($urns as $name => $urn) {
     $data = array($name,
         "login",
@@ -275,13 +326,27 @@ foreach ($urns as $name => $urn) {
     pg_execute($con, "subQuery", $data);
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
-
+    
     $data = array($name . "v3",
         "login3",
         "3600",
         true
     );
     pg_execute($con, "query", $data);
+    $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    pg_execute($con, "subQuery", $data);
+    $data = array("testedAggregateManager", $name);
+    pg_execute($con, "subQuery", $data);
+    
+    
+    //generic
+    $data = array($name . "gen",
+        "loginGen",
+        "3600",
+        true
+    );
+    pg_execute($con, "query", $data);
+
     $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
     pg_execute($con, "subQuery", $data);
     $data = array("testedAggregateManager", $name);

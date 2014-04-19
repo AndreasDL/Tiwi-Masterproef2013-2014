@@ -37,7 +37,7 @@ public class JavaMainTestCall extends TestCall {
     public void run() {
         start = System.currentTimeMillis();
         //Parse
-        makeTestOutputDir();
+        //makeTestOutputDir();
         String parsedCommand = prepare(makeTestOutputDir());
         System.out.println("Starting " + getTestDefinitionName() + " test " + getTest().getTestname() + " with id " +getTest().getTestInstanceId());
         
@@ -81,9 +81,6 @@ public class JavaMainTestCall extends TestCall {
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> p = new ArrayList<>();
         p.addAll(Arrays.asList(parsedCommand.split(" ")));
-        p.add("--context-file");
-        p.add(getParamValue("context-file"));
-        
 
         return p;
     }

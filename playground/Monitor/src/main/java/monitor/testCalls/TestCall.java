@@ -88,10 +88,12 @@ public abstract class TestCall implements Runnable{
                 + "." + now.get(Calendar.MILLISECOND) + "/";
         (new File(testOutputDir)).mkdirs();
         }
+        System.out.println(testOutputDir);
         return testOutputDir;
     }
     protected String prepare(String testOutputDir) {
-        return parse(testDefinition.getTestcommand());
+        String ret = parse(testDefinition.getTestcommand());
+        return ret;
     }
     public String parse(String text){
         Pattern p = Pattern.compile("<([^>]*)>");
@@ -101,7 +103,7 @@ public abstract class TestCall implements Runnable{
         while (m.find()) {
             //get values
             m.appendReplacement(stibu, getParamValue(m.group(1)));
-            //System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
+            System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
         }
         m.appendTail(stibu);
 
@@ -151,8 +153,8 @@ public abstract class TestCall implements Runnable{
                 }
             //}
         } else {
-            String fileName = testOutputDir + "context-file.txt";
             if (paramType.equals("file")) {
+                String fileName = testOutputDir + "context-file.txt";
                 ret = parse(testDefinition.getParameters().get(s[0]).get("description"));
                 PrintWriter writer = null;
                 try {
@@ -171,6 +173,9 @@ public abstract class TestCall implements Runnable{
                 } finally {
                     writer.close();
                 }
+            }else if(s[0].equals("output-dir")){
+                ret = makeTestOutputDir();
+                
             }else{
                 ret = test.getParameters().get(s[0]).get(0);
             }
