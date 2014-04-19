@@ -1,0 +1,3 @@
+[submodule "monitoringSite/jquery-powertip"]
+	path = monitoringSite/jquery-powertip
+	url = https://github.com/stevenbenner/jquery-powertip/
