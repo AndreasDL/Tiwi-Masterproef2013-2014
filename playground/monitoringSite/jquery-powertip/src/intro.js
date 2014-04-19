@@ -14,4 +14,4 @@
 	} else {
 		factory(jQuery);
 	}
-}(function($) {}
+}(function($) {
