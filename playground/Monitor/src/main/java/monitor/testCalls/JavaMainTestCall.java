@@ -51,12 +51,12 @@ public class JavaMainTestCall extends TestCall {
             Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        int returnValue = -1;
         try {
             ArrayList<String> commands = getParameters(parsedCommand);
             String s[] = new String[commands.size()];
             //System.out.println("calling main : commands = " + commands);
-            AutomatedTesterCli.main_helper(commands.toArray(s),/*ps,ps*/tee,tee/**/,System.in);//System.out,System.out,System.in);
+            returnValue = AutomatedTesterCli.main_helper(commands.toArray(s),/*ps,ps*/tee,tee/**/,System.in);//System.out,System.out,System.in);
             
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -75,7 +75,7 @@ public class JavaMainTestCall extends TestCall {
             }
         }
         //Monitor...
-        super.getResultUploader().addResultToQueue(handleResults(consoleOutput));
+        super.getResultUploader().addResultToQueue(handleResults(consoleOutput,returnValue));
     }
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
@@ -85,8 +85,8 @@ public class JavaMainTestCall extends TestCall {
         return p;
     }
     @Override
-    protected TestResult handleResults(String consoleOutput) {
-        TestResult r =  super.handleResults(consoleOutput);
+    protected TestResult handleResults(String consoleOutput, int returnValue) {
+        TestResult r =  super.handleResults(consoleOutput,returnValue);
         r.addSubResult("duration",""+(System.currentTimeMillis() -  start));
         
         return r;

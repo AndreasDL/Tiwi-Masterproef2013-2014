@@ -63,7 +63,7 @@ public class BashTestCall extends TestCall {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        super.getResultUploader().addResultToQueue(handleResults(out.toString()));
+        super.getResultUploader().addResultToQueue(handleResults(out.toString(),0));
     }
     
     @Override

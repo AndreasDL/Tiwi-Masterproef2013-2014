@@ -55,9 +55,9 @@ public class StitchingTestCall extends JavaMainTestCall{
     }
     
     @Override
-    protected TestResult handleResults(String consoleOutput) {
+    protected TestResult handleResults(String consoleOutput, int returnValue) {
 
-        TestResult r = super.handleResults(consoleOutput);
+        TestResult r = super.handleResults(consoleOutput,returnValue);
         r.addSubResult("resultHtml", makeTestOutputDir() + "result.html");
         r.addSubResult("result-overview", makeTestOutputDir() + "result-overview.xml");
 

@@ -73,7 +73,7 @@ public class Monitor {
         Set<TestCall> tasks = webAccess.getTests();
         if (tasks != null) {
             //create thread pool
-            ExecutorService threadPool = Executors.newFixedThreadPool(aantal);
+            threadPool = Executors.newFixedThreadPool(aantal);
             for (TestCall test : tasks){
                 if(test.getTest().isEnabled())
                     threadPool.submit(test);
@@ -139,7 +139,7 @@ public class Monitor {
         final TestCall test = webAccess.getTestByName(testName);
         if (test != null) {
             //create thread pool
-            ExecutorService threadPool = Executors.newFixedThreadPool(aantal);
+            threadPool = Executors.newFixedThreadPool(aantal);
 
             for (int i = 0; i < aantal; i++) {
                 TestCall t = TestCallFactory.copyTest(test);
@@ -166,7 +166,7 @@ public class Monitor {
     }
     public Properties getProp() {
         Properties prop = new Properties();
-        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=failgen");//testdefinitionname=loginGen");
+        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=failgen,fail,failv3,wall2,wall2v3");//testdefinitionname=loginGen");
         prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");

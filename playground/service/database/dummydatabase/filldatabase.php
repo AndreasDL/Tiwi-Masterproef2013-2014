@@ -125,6 +125,8 @@ $data = array('stitch', 'callDeletes', 'string', 'status of subtest');
 pg_query_params($con, $retQuery, $data);
 $data = array('stitch', 'duration', 'long' , 'duration of test');
 pg_query_params($con, $retQuery, $data);
+$data = array('stitch','returnValue', 'int' , 'return value of the automatedTester');
+pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
 //login amv2
@@ -166,6 +168,9 @@ $data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
 $data = array('login', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
+$data = array('login','returnValue', 'int' , 'return value of the automatedTester');
+pg_query_params($con, $retQuery, $data);
+
 //login amv3
 $data = array('login3','login3', '');
 pg_query_params($con, $query, $data);
@@ -207,8 +212,8 @@ $data = array('login3', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
 $data = array('login3', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
-
-
+$data = array('login3','returnValue', 'int' , 'return value of the automatedTester');
+pg_query_params($con, $retQuery, $data);
 
 //generic
 echo "\tCreating Generic Tests\n";
@@ -257,6 +262,8 @@ pg_query_params($con, $retQuery, $data);
 $data = array('loginGen', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
 $data = array('loginGen', 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
+$data = array('loginGen','returnValue', 'int' , 'return value of the automatedTester');
 pg_query_params($con, $retQuery, $data);
 
 // </editor-fold>
@@ -469,6 +476,11 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
         );
         pg_execute($con, "subQuery2", $data);
 
+        $data = array(
+            'returnValue',
+            '0'
+        );
+        pg_execute($con, "subQuery2", $data);
 
         $instanceid++;
     }

@@ -109,7 +109,7 @@ public abstract class TestCall implements Runnable{
 
         return stibu.toString();
     }
-    protected TestResult handleResults(String consoleOutput){
+    protected TestResult handleResults(String consoleOutput,int returnValue){
         PrintWriter writer = null;
         TestResult t = new TestResult(test);
         try {
@@ -120,6 +120,7 @@ public abstract class TestCall implements Runnable{
             writer.write(consoleOutput);
             writer.close();
             t.addSubResult("log",fileName);
+            t.addSubResult("returnValue",returnValue + "");
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
