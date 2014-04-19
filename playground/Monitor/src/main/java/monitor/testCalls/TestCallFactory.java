@@ -20,7 +20,8 @@ import monitor.model.Testbed;
 public class TestCallFactory {
     public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
         TestCall ret = null;
-        switch(test.getTestDefinitionName()) {
+        //switch(test.getTestDefinitionName()) {
+        switch(testDefinition.getTesttype()){
             case "ping":
                 ret = new PingTestCall(resup,test,testDefinition,testbeds,prop);
                 break;

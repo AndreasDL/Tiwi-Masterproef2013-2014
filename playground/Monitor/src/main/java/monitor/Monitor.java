@@ -137,7 +137,6 @@ public class Monitor {
 
         //getTest
         final TestCall test = webAccess.getTestByName(testName);
-        System.out.println(test.getTest().isEnabled());
         if (test != null) {
             //create thread pool
             ExecutorService threadPool = Executors.newFixedThreadPool(aantal);
@@ -161,13 +160,13 @@ public class Monitor {
                 Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            System.out.println("Test " + testName + " not found!");
+            System.out.println("Test " + testName + " not found!\n Check your connection and check for typo's and try again");
             help(options);
         }
     }
     public Properties getProp() {
         Properties prop = new Properties();
-        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=fail");
+        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=failv3");
         prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");
