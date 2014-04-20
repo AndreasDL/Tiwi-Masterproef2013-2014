@@ -144,7 +144,9 @@ class AccessDatabase {
         //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
-
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid","testinstanceid");
+        
+        
         $query .= $eindhaakje;
 
         $con = $this->getConnection();
@@ -269,7 +271,6 @@ class AccessDatabase {
 
         return;
     }
-
     public function addTestInstance(&$request){
         //post
         $params = $request->getParameters();
@@ -315,8 +316,7 @@ class AccessDatabase {
         //meer dan een ping per testbed? eventueel wel, met vrs parameters
         
         return;
-    }
-    
+    }    
     public function updateLastRun(&$request){
         $params = $request->getParameters();
         //print_r($params);

@@ -68,6 +68,34 @@ public class WebServiceAccess {
         }
         return tests;
     }
+    public Queue<TestCall> getTests(String name,String defname,String testbed,String tid){
+        HashMap<String, TestInstance> testInstances = null;
+        Queue<TestCall> tests = new LinkedList<>();
+        try {
+            String jsonText = getFromURL(prop.getProperty("urlTestInstances") 
+                    + "?testname=" + name
+                    + "&testdefinitionname=" + defname
+                    + "&testbed=" + testbed
+                    + "&testinstanceid=" + tid
+            );
+
+            //parse json string
+            TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
+            testInstances = t.getData();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (String id : testInstances.keySet()) {
+            TestInstance ti = testInstances.get(id);
+            ti.setTestInstanceId(id);
+            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
+            tests.add(t);
+        }
+        return tests;
+    }
 
     public TestCall getTestByName(String name) {
         HashMap<String, TestInstance> testInstances = null;
