@@ -24,14 +24,12 @@ CREATE TABLE testDefinitions(
     testCommand character varying NOT NULL
 );
 CREATE TABLE parameterDefinitions(
-    --testType character varying NOT NULL references testDefinitions(testtype),
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     parameterName text NOT NULL,
     parameterType text NOT NULL,
     parameterDescription text
 );
 CREATE TABLE returnDefinitions(
---testType character varying NOT NULL references testDefinitions(testtype),
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     returnName text NOT NULL,
     returnType text NOT NULL,
@@ -41,11 +39,10 @@ CREATE TABLE returnDefinitions(
 CREATE TABLE testInstances(
     testinstanceId serial PRIMARY KEY,
     testname character varying UNIQUE,
-   -- testtype character varying NOT NULL references testDefinitions(testtype),
---testType character varying NOT NULL references testDefinitions(testtype),
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     enabled boolean NOT NULL default TRUE,
-    frequency integer
+    frequency integer,
+    lastRun timestamp
 );
 CREATE TABLE parameterInstances(
     testinstanceId integer NOT NULL references testInstances(testinstanceId),

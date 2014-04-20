@@ -4,6 +4,7 @@ include (__DIR__ . "/config.php"); //database config
 //include (__DIR__ . "/../Request.php");
 include (__DIR__ . "/authentication/defaultGuard.php");
 
+
 class AccessDatabase {
 
     private $testbeds;
@@ -158,6 +159,7 @@ class AccessDatabase {
                     'testdefinitionname' => $row['testdefinitionname'],
                     'frequency' => $row['frequency'],
                     'enabled'   => ($row['enabled']=="t"?"True":"False"),
+                    'lastrun'   => $row['lastrun'],
                     'parameters' => array()
                 );
             }
@@ -313,6 +315,45 @@ class AccessDatabase {
         //meer dan een ping per testbed? eventueel wel, met vrs parameters
         
         return;
+    }
+    
+    public function updateLastRun(&$request){
+        $params = $request->getParameters();
+        //print_r($params);
+        
+        
+        if ( isset($params['lastrun']) 
+                && isset($params['testinstanceid'])
+                && isset($this->testInstances[$params['testinstanceid'][0]])
+                && strtoupper($request->getVerb()) == 'POST') {
+            $newTime = $params['lastrun'][0];
+            $oldTime = strtotime($this->testInstances[$params['testinstanceid'][0]]['lastrun']);
+            //timestampe must be past the last timestamp
+            if ($newTime > $oldTime){
+                //echo "timestamp ok!\n";
+                
+                //update in database
+                $con = $this->getConnection();
+                $query = "update testinstances SET lastrun = $1 where testinstanceid=$2;";
+                //echo "newTime: " .$newTime . "\n";
+                $insTime = date("Y-m-d H:i:s",$newTime);
+                //echo "insTime: " . $insTime . "\n";
+                //echo "no: " . time() . "\n";
+                $data = array($insTime,$params['testinstanceid'][0]);
+                
+                pg_query_params($con,$query,$data);
+                $this->closeConnection($con);
+            }else{
+                $request->setStatus(400);
+                $request->addMSg("lastrun timestamp must be after the current lastrun!");
+            }
+        }else{        
+            $request->addMsg("Either testinstanceid not given or not valid!, lastrun not given or method not post");
+            $request->setStatus(400);
+        }
+        
+        //echo "old: $oldTime new: $newTime";
+        
     }
     //fix connection
     private function getConnection() {

@@ -10,3 +10,5 @@
     
     global $hmacAlgo;
     $hmacAlgo = 'sha512';    
+    
+    date_default_timezone_set('CET');

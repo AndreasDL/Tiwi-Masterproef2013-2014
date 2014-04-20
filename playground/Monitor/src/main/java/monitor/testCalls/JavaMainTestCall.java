@@ -28,7 +28,13 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class JavaMainTestCall extends TestCall {
-    protected long start;
+/*    protected long start;
+
+    @Override
+    public long getStart() {
+        return start;
+    }*/
+    
     public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
         super(resultUploader, test, testDefinition, testbeds, prop);
     }

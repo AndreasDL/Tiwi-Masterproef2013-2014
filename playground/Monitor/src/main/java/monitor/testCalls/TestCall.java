@@ -29,8 +29,6 @@ import monitor.model.Testbed;
  * @author drew
  */
 public abstract class TestCall implements Runnable{
-
-    //TODO properties file
     private final String outputDir;
 
     protected final TestInstance test;
@@ -41,6 +39,7 @@ public abstract class TestCall implements Runnable{
     protected ResultUploader resultUploader;
     protected int seqNumber;
     protected boolean seqNumberSet;
+    protected long start;
 
 
     public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
@@ -51,6 +50,7 @@ public abstract class TestCall implements Runnable{
         this.prop = prop;
         this.outputDir = prop.getProperty("outputDir");
         this.seqNumberSet = false;
+        this.start = System.currentTimeMillis();
     }
 
     
@@ -69,6 +69,9 @@ public abstract class TestCall implements Runnable{
         return test.getTestDefinitionName();
     }
 
+    public long getStart(){
+        return start / 1000; //we only want seconds & not milliseconds
+    }
     @Override
     public abstract void run();
     protected abstract ArrayList<String> getParameters(String parsedCommand);
@@ -88,7 +91,7 @@ public abstract class TestCall implements Runnable{
                 + "." + now.get(Calendar.MILLISECOND) + "/";
         (new File(testOutputDir)).mkdirs();
         }
-        System.out.println(testOutputDir);
+        //System.out.println(testOutputDir);
         return testOutputDir;
     }
     protected String prepare(String testOutputDir) {
@@ -103,7 +106,7 @@ public abstract class TestCall implements Runnable{
         while (m.find()) {
             //get values
             m.appendReplacement(stibu, getParamValue(m.group(1)));
-            System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
+            //System.out.println(m.group(1) +" => " + getParamValue(m.group(1)));
         }
         m.appendTail(stibu);
 
@@ -121,6 +124,7 @@ public abstract class TestCall implements Runnable{
             writer.close();
             t.addSubResult("log",fileName);
             t.addSubResult("returnValue",returnValue + "");
+            t.addSubResult("startTime",getStart()+ ""); 
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,8 +1,9 @@
 package monitor;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Properties;
-import java.util.Set;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -70,18 +71,26 @@ public class Monitor {
         this.webAccess = new WebServiceAccess(prop);
  
         //get Tests
-        Set<TestCall> tasks = webAccess.getTests();
+        Queue<TestCall> tasks = webAccess.getTests();
+        int testsStarted = 0;
         if (tasks != null) {
             //create thread pool
             threadPool = Executors.newFixedThreadPool(aantal);
-            for (TestCall test : tasks){
-                if(test.getTest().isEnabled())
+            while(!tasks.isEmpty()){
+                TestCall test = tasks.poll();
+                if(test.getTest().isEnabled() && test.getTest().isScheduled()){
                     threadPool.submit(test);
+                    testsStarted++;
+                }
             }
             try {
                 //wait for all tasks to be complete
                 threadPool.shutdown();
-                threadPool.awaitTermination(1, TimeUnit.DAYS);
+                threadPool.awaitTermination(20, TimeUnit.SECONDS);
+                if (testsStarted == 0){
+                    threadPool.shutdownNow();
+                }
+                
                 webAccess.shutDownOnUploadComplete();
                 //System.exit(0);
             } catch (InterruptedException ex) {
@@ -166,10 +175,11 @@ public class Monitor {
     }
     public Properties getProp() {
         Properties prop = new Properties();
-        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=failgen,fail,failv3,wall2,wall2v3");//testdefinitionname=loginGen");
+        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance?testname=failgen,fail,failv3");//testdefinitionname=loginGen");
         prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");
+        prop.setProperty("urlUpdateLastRun", "http://localhost/service/index.php/updateLastRun");
         prop.setProperty("outputDir", "results/");
         prop.setProperty("authFileDir", "~/.auth/authorities.xml");
         return prop;

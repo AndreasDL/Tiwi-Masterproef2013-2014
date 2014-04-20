@@ -271,7 +271,7 @@ pg_query_params($con, $retQuery, $data);
 //<editor-fold desc="instances" defaultstate="collapsed">
 //testinstances
 echo "Creating TestInstances\n";
-$query = "insert into testinstances (testname,testDefinitionName,frequency,enabled) values ($1,$2,$3,$4);";
+$query = "insert into testinstances (testname,testDefinitionName,frequency,lastrun,enabled) values ($1,$2,$3,$4,$5);";
 pg_prepare($con, "query", $query);
 $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
 pg_prepare($con, "subQuery", $subQuery);
@@ -283,6 +283,7 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
         "ping voor testbed" . $i,
         'ping',
         '60',
+        "2014-04-20T11:00:00",
         true//(($i%2==1)?'true':'false')
     );
     pg_execute($con, "query", $data);
@@ -305,6 +306,7 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
         "stitching" . $i,
         'stitch',
         '3600',
+        "2014-04-20T11:00:00.001",
         true
     );
     pg_execute($con, "query", $data);
@@ -320,11 +322,12 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
 
 }
 //login
-echo "\tCreating login amv2 & amv3 testinstances\n";
+echo "\tCreating login amv2 & amv3 & generetic example testinstances\n";
 foreach ($urns as $name => $urn) {
     $data = array($name,
         "login",
         "3600",
+        "2014-04-20T11:00:00.001",
         true
     );
     pg_execute($con, "query", $data);
@@ -337,6 +340,7 @@ foreach ($urns as $name => $urn) {
     $data = array($name . "v3",
         "login3",
         "3600",
+        "2014-04-20T11:00:00.001",
         true
     );
     pg_execute($con, "query", $data);
@@ -350,6 +354,7 @@ foreach ($urns as $name => $urn) {
     $data = array($name . "gen",
         "loginGen",
         "3600",
+        "2014-04-20T11:00:00.001",
         true
     );
     pg_execute($con, "query", $data);

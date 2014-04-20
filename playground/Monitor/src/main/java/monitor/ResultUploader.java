@@ -8,8 +8,7 @@ package monitor;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 import monitor.model.TestResult;
 
 /**
@@ -35,8 +34,12 @@ public class ResultUploader implements Runnable{
     public void run() {
         while(!stopping || resultsToSend.size() > 0){
             try {
-                TestResult r = resultsToSend.takeFirst();
-                webAccess.addResult(r);
+                //TestResult r = resultsToSend.takeFirst();//bug keeps waiting even if there are no first tasks.
+                TestResult r = resultsToSend.pollFirst(100,TimeUnit.MILLISECONDS);//check & wait max 100 ms than rerun the run method so it can check if stopping is set
+                if (r != null){
+                    webAccess.addResult(r);
+                    webAccess.updateLastRun(r);
+                }
             } catch (InterruptedException ex) {
             }
         }

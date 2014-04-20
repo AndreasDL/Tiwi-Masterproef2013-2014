@@ -7,6 +7,7 @@ package monitor;
 
 import monitor.model.TestInstance;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +21,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.model.Testbed;
@@ -28,10 +29,11 @@ import monitor.model.TestDefinition;
 import monitor.testCalls.TestCall;
 import monitor.testCalls.TestCallFactory;
 import java.util.Properties;
-import java.util.Set;
+import java.util.Queue;
 import monitor.model.TestResult;
 
 public class WebServiceAccess {
+
     private Gson g;
     private HashMap<String, Testbed> testbeds;
     private HashMap<String, TestDefinition> testDefinitions;
@@ -41,33 +43,36 @@ public class WebServiceAccess {
 
     public WebServiceAccess(Properties prop) {
         this.prop = prop;
-        this.g = new Gson();
+        //this.g = new Gson();
+        this.g = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
         updateCache();
         //make thread result submission
         this.resultUploader = new ResultUploader(this);
         uploader = new Thread(resultUploader);
         uploader.start();
     }
-    public void shutDownOnUploadComplete(){
+
+    public void shutDownOnUploadComplete() {
         resultUploader.stop();
     }
 
-    public Set<TestCall> getTests() {
-        Set<TestCall> tests = new HashSet<>();
-        HashMap<String,TestInstance> testInstances = getTestInstances();
-        
-        for (String id : testInstances.keySet()){
+    public Queue<TestCall> getTests() {
+        Queue<TestCall> tests = new LinkedList<>();
+        HashMap<String, TestInstance> testInstances = getTestInstances();
+
+        for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTestDefinitionName()),testbeds,prop);
+            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
             tests.add(t);
         }
         return tests;
     }
-    public TestCall getTestByName(String name){
-        HashMap<String,TestInstance> testInstances = null;
+
+    public TestCall getTestByName(String name) {
+        HashMap<String, TestInstance> testInstances = null;
         try {
-            String jsonText = getFromURL(prop.getProperty("urlTestInstances")+"?testname="+name);
+            String jsonText = getFromURL(prop.getProperty("urlTestInstances") + "?testname=" + name);
 
             //parse json string
             TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
@@ -77,16 +82,17 @@ public class WebServiceAccess {
         } catch (IOException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         TestCall t = null;
         //indien iemand meerdere tests opgeeft, enkel laatste teruggeven & niet vastlopen
-        for (String id : testInstances.keySet()){
+        for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            t = TestCallFactory.makeTest(resultUploader,ti,testDefinitions.get(ti.getTestDefinitionName()),testbeds,prop);
+            t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
         }
         return t;
     }
+
     public HashMap<String, TestInstance> getTestInstances() {
         TestInstanceResults t = null;
         try {
@@ -168,26 +174,58 @@ public class WebServiceAccess {
             postData.append("testinstanceid=").append(result.getTestInstance().getTestInstanceId());
             for (String key : result.getResults().keySet()) {
                 try {
-                    if (postData.length() != 0) postData.append('&');
+                    if (postData.length() != 0) {
+                        postData.append('&');
+                    }
                     postData.append(URLEncoder.encode(key, "UTF-8"));
                     postData.append('=');
-                    postData.append(URLEncoder.encode(result.getSubResult(key),"UTF-8"));
+                    postData.append(URLEncoder.encode(result.getSubResult(key), "UTF-8"));
                 } catch (UnsupportedEncodingException ex) {
                     Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             System.out.println("Send: " + postData.toString());
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-            
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
             conn.setDoOutput(true);
             conn.getOutputStream().write(postDataBytes);
-            
+
             Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            for (int c; (c = in.read()) >= 0; System.out.print((char)c));
+            for (int c; (c = in.read()) >= 0; System.out.print((char) c));
+            System.out.println("");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateLastRun(TestResult result) {
+        try {
+            URL url = new URL(prop.getProperty("urlUpdateLastRun"));
+            StringBuilder postData = new StringBuilder();
+            postData.append("testinstanceid=").append(result.getTestInstance().getTestInstanceId());
+            postData.append("&lastrun=").append(result.getSubResult("startTime"));//current time
+            System.out.println("UpdateTime: " + postData.toString());
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
+
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            for (int c; (c = in.read()) >= 0; System.out.print((char) c));
             System.out.println("");
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,6 +255,10 @@ public class WebServiceAccess {
             sb.append((char) cp);
         }
         return sb.toString();
+    }
+
+    public Thread getUploadThread(){
+        return uploader;
     }
     
     //needed for json extraction

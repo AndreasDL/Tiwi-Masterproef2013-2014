@@ -32,8 +32,8 @@ public class BashTestCall extends TestCall {
 
     @Override
     public void run() {
-
-                //Parse
+        start=System.currentTimeMillis();
+        //Parse
         String testOutputDir = makeTestOutputDir();
         String parsedCommand = prepare(testOutputDir);
         
