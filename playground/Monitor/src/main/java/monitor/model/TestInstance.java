@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /**
  *
@@ -36,15 +37,10 @@ public class TestInstance {
     }
     public boolean isScheduled(){
         if (lastrun != null){
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(lastrun.getTime());
-            cal.add(Calendar.SECOND, frequency);
-            Timestamp later = new Timestamp(cal.getTime().getTime());
-            Timestamp now = new Timestamp(System.currentTimeMillis());
-
-            //System.out.println("last: " + lastrun + " next: " + later + " now: "+now);
-
-            return now.after(later);
+            long next = lastrun.getTime();
+            next += frequency * 1000;
+            
+            return next < System.currentTimeMillis();
         }else{
             //null => instance has never run
             return true;

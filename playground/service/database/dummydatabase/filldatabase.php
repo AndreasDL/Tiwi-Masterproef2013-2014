@@ -283,7 +283,7 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
         "ping voor testbed" . $i,
         'ping',
         '60',
-        "2014-04-20T11:00:00",
+        "2014-04-20T11:00:00+0100",
         true//(($i%2==1)?'true':'false')
     );
     pg_execute($con, "query", $data);
@@ -306,7 +306,7 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
         "stitching" . $i,
         'stitch',
         '3600',
-        "2014-04-20T11:00:00.001",
+        "2014-04-20T11:00:00+0100",
         true
     );
     pg_execute($con, "query", $data);
@@ -327,7 +327,7 @@ foreach ($urns as $name => $urn) {
     $data = array($name,
         "login",
         "3600",
-        "2014-04-20T11:00:00.001",
+        "2014-04-20T11:00:00+0100",
         true
     );
     pg_execute($con, "query", $data);
@@ -340,7 +340,7 @@ foreach ($urns as $name => $urn) {
     $data = array($name . "v3",
         "login3",
         "3600",
-        "2014-04-20T11:00:00.001",
+        "2014-04-20T11:00:00+0100",
         true
     );
     pg_execute($con, "query", $data);
@@ -354,7 +354,7 @@ foreach ($urns as $name => $urn) {
     $data = array($name . "gen",
         "loginGen",
         "3600",
-        "2014-04-20T11:00:00.001",
+        "2014-04-20T11:00:00+0100",
         true
     );
     pg_execute($con, "query", $data);

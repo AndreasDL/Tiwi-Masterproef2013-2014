@@ -42,7 +42,7 @@ CREATE TABLE testInstances(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     enabled boolean NOT NULL default TRUE,
     frequency integer,
-    lastRun timestamp
+    lastRun timestamp with time zone
 );
 CREATE TABLE parameterInstances(
     testinstanceId integer NOT NULL references testInstances(testinstanceId),
@@ -54,7 +54,7 @@ CREATE TABLE results(
     resultId serial NOT NULL PRIMARY KEY,
     testInstanceId integer NOT NULL references testInstances(testinstanceId),
     log character varying NOT NULL,
-    timestamp timestamp default current_timestamp
+    timestamp timestamp with time zone default current_timestamp
 );
 CREATE TABLE subResults(
     resultId integer NOT NULL references results(resultId),

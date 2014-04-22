@@ -73,7 +73,7 @@ class AccessDatabase {
                     'testdefinitionname' => $row['testdefinitionname'],
                     'testname' => $row['testname'],
                     'log' => $row['log'],
-                    'timestamp' => $row['timestamp'],
+                    'timestamp' => date("c",strtotime($row['timestamp'])),
                     'testbeds' => array(),
                     'results' => array()
                 );
@@ -133,7 +133,7 @@ class AccessDatabase {
     }
     public function getTestInstance(&$request) {
         $params = $request->getParameters();
-        $query = "select * from instances ";
+        $query = "select *,lastrun AT TIME ZONE 'CET' from instances ";
         $paramsForUse = array();
         $eindhaakje = "";
 
@@ -141,11 +141,10 @@ class AccessDatabase {
         if (sizeof($paramsForUse) > 0) {
             $eindhaakje = ')';
         }
-        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
+        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype"); => testdefinitionname
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid","testinstanceid");
-        
         
         $query .= $eindhaakje;
 
@@ -161,7 +160,8 @@ class AccessDatabase {
                     'testdefinitionname' => $row['testdefinitionname'],
                     'frequency' => $row['frequency'],
                     'enabled'   => ($row['enabled']=="t"?"True":"False"),
-                    'lastrun'   => $row['lastrun'],
+                    'lastrun'   => date("c",strtotime($row['lastrun'])),
+                    'type' => gettype($row['lastrun']),
                     'parameters' => array()
                 );
             }
@@ -214,7 +214,6 @@ class AccessDatabase {
 
         $result = pg_query_params($con, $query, $paramsForUse);
     }
-
     public function addResult(&$request) {
         //if ($request->getVerb() == 'POST'){
         $params = $request->getParameters();
@@ -326,8 +325,9 @@ class AccessDatabase {
                 && isset($params['testinstanceid'])
                 && isset($this->testInstances[$params['testinstanceid'][0]])
                 && strtoupper($request->getVerb()) == 'POST') {
-            $newTime = $params['lastrun'][0];
-            $oldTime = strtotime($this->testInstances[$params['testinstanceid'][0]]['lastrun']);
+            $newTime = date("c",  $params['lastrun'][0]);
+            $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['lastrun']));
+            echo "new: $newTime old: $oldTime\n";
             //timestampe must be past the last timestamp
             if ($newTime > $oldTime){
                 //echo "timestamp ok!\n";
@@ -336,10 +336,10 @@ class AccessDatabase {
                 $con = $this->getConnection();
                 $query = "update testinstances SET lastrun = $1 where testinstanceid=$2;";
                 //echo "newTime: " .$newTime . "\n";
-                $insTime = date("Y-m-d H:i:s",$newTime);
+                //$insTime = $newTime;
                 //echo "insTime: " . $insTime . "\n";
                 //echo "no: " . time() . "\n";
-                $data = array($insTime,$params['testinstanceid'][0]);
+                $data = array($newTime,$params['testinstanceid'][0]);
                 
                 pg_query_params($con,$query,$data);
                 $this->closeConnection($con);
@@ -364,7 +364,7 @@ class AccessDatabase {
     private function closeConnection($con) {
         pg_close($con);
     }
-
+    
     //fix query
     private function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
         //not sure if this works 2 times on the same query

@@ -44,7 +44,8 @@ public class WebServiceAccess {
     public WebServiceAccess(Properties prop) {
         this.prop = prop;
         //this.g = new Gson();
-        this.g = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        //this.g = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+        this.g = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssX").create();//java 7.0 required
         updateCache();
         //make thread result submission
         this.resultUploader = new ResultUploader(this);

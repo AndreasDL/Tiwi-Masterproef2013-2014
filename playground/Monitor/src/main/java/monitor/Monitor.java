@@ -111,6 +111,8 @@ public class Monitor {
                     //System.out.println(test.getTest().getTestname());
                     if (test.getTest().isEnabled() && test.getTest().isScheduled()) {
                         threadPool.submit(test);
+                    }else{
+                        System.out.println(test.getTest().getTestname() + " doesn't need to run yet, skipping.");
                     }
                 }
                 try {
