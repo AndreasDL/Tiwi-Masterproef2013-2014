@@ -327,7 +327,7 @@ class AccessDatabase {
                 && strtoupper($request->getVerb()) == 'POST') {
             $newTime = date("c",  $params['lastrun'][0]);
             $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['lastrun']));
-            echo "new: $newTime old: $oldTime\n";
+            //echo "new: $newTime old: $oldTime\n";
             //timestampe must be past the last timestamp
             if ($newTime > $oldTime){
                 //echo "timestamp ok!\n";

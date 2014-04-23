@@ -11,6 +11,18 @@ $urns = array("fail" => "urn:publicid:IDN+omf+authority+sa", //failed direct
 );
 $resultsPerInstances = 20;
 
+//wordt nog niet gebruikt
+$puKey = "iminds";
+$prKey = "virtualWall";
+
+$homeDir = "/home/drew/";
+
+
+$login = 'postgres';
+$pass = "post";
+$dbname = "testdb";
+$conString = "dbname=" . $dbname . " user=" . $login . " password=" . $pass;
+
 parse_str(implode('&', array_slice($argv, 1)), $_GET);
 if (isset($_GET['testbeds'])){
     $aantalTestbeds = $_GET['testbeds'];
@@ -25,23 +37,16 @@ if(isset($_GET['stitch'])){
 if(isset($_GET['ping'])){
     $aantalpinginstances = $_GET['ping'];
 }
-
-$login = 'postgres';
-$pass = "post";
-$dbname = "testdb";
-$conString = "dbname=" . $dbname . " user=" . $login . " password=" . $pass;
-
-//wordt nog niet gebruikt
-$puKey = "iminds";
-$prKey = "virtualWall";
-
-$homeDir = "/home/drew/";
-$authDir = $homeDir . ".auth/";
-$authFile = $authDir . "authorities.xml";
+if (isset($_GET['home'])){
+    $homeDir = $_GET['home'];
+}
 
 //connectie maken
 $con = pg_Connect($conString) or die('connection failed');
 echo "connection established\n";
+
+$authDir = $homeDir . ".auth/";
+$authFile = $authDir . "authorities.xml";
 
 //in pompen
 //real
