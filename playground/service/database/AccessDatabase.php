@@ -28,6 +28,12 @@ class AccessDatabase {
     }
     public function getList(&$request) {
         $params = $request->getParameters();
+        if (!isset($params['till']) && !isset($params['from']) && isset($params['count']) && $params['count'][0] > $GLOBALS['maxList']){
+            $request->addMsg("Warn: count value higher that max allowed (" . $GLOBALS['maxList'] . "). Using max as count.");
+            $params['count'] = $GLOBALS['maxList'];
+        }else if(!isset($params['count']) ){
+            $params['count']= array($GLOBALS['maxList']);
+        }
         $query = "select * from ("
                 . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
                 . ") vv ";
@@ -83,7 +89,8 @@ class AccessDatabase {
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }*/
             
-            if($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
+            if( ($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed'
+                    || $this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')
                     && !in_array( $row['parametervalue'],$data[$row['resultid']]['testbeds'])){
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }

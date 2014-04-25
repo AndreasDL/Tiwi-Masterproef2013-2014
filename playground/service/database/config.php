@@ -12,3 +12,5 @@
     $hmacAlgo = 'sha512';    
     
     date_default_timezone_set('CET');
+    global $maxList;
+    $maxList = 100;
