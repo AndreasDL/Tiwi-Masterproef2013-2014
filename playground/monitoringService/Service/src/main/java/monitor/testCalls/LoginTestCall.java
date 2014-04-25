@@ -31,9 +31,11 @@ import org.xml.sax.SAXException;
  * @author drew
  */
 public class LoginTestCall extends JavaMainTestCall {
-    public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(resultUploader, test, testDefinition, testbeds, prop);
+
+    public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
+
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> commands = super.getParameters(parsedCommand);

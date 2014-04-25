@@ -24,8 +24,8 @@ import monitor.model.Testbed;
  * @author drew
  */
 public class BashTestCall extends TestCall {
-    public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(resultUploader, test, testDefinition, testbeds, prop);
+    public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, prop,isLoadTest);
     }
 
 

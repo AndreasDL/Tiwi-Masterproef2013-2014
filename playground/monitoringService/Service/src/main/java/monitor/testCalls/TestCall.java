@@ -40,9 +40,10 @@ public abstract class TestCall implements Runnable{
     protected int seqNumber;
     protected boolean seqNumberSet;
     protected long start;
+    boolean isLoadTest;
 
 
-    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop) {
+    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop,boolean isLoadTest) {
         this.resultUploader = resultUploader;
         this.test = test;
         this.testDefinition = testDefinition;
@@ -51,6 +52,7 @@ public abstract class TestCall implements Runnable{
         this.outputDir = prop.getProperty("outputDir");
         this.seqNumberSet = false;
         this.start = System.currentTimeMillis();
+        this.isLoadTest = isLoadTest;
     }
 
     
@@ -114,7 +116,7 @@ public abstract class TestCall implements Runnable{
     }
     protected TestResult handleResults(String consoleOutput,int returnValue){
         PrintWriter writer = null;
-        TestResult t = new TestResult(test);
+        TestResult t = new TestResult(test,isLoadTest);
         try {
             //t.addSubResult("testInstanceId", test.getInstanceId());
             //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues

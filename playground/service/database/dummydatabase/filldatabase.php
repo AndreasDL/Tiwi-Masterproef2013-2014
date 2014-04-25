@@ -11,10 +11,6 @@ $urns = array("fail" => "urn:publicid:IDN+omf+authority+sa", //failed direct
 );
 $resultsPerInstances = 20;
 
-//wordt nog niet gebruikt
-$puKey = "iminds";
-$prKey = "virtualWall";
-
 $homeDir = "/home/drew/";
 
 
@@ -76,10 +72,11 @@ $query = "insert into testdefinitions (testDefinitionName,testtype,testcommand) 
 echo "\tCreating Ping test\n";
 $data = array('ping','ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
-$data = array("ping", "timeout", "integer", "timeout for ping test");
-pg_query_params($con, $subQuery, $data);
+/*$data = array("ping", "timeout", "integer", "timeout for ping test");
+pg_query_params($con, $subQuery, $data);*/
 $data = array("ping", "testbed", "testbed", "name of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
+
 $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
@@ -292,12 +289,12 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
         true//(($i%2==1)?'true':'false')
     );
     pg_execute($con, "query", $data);
-
+/*
     $data = array(
         'timeout',
         '300'
     );
-    pg_execute($con, "subQuery", $data);
+    pg_execute($con, "subQuery", $data);*/
     $data = array(
         'testbed',
         'testbed' . $i
@@ -496,11 +493,6 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
     }
 }
 // </editor-fold>
-
-echo "creating users\n";
-$query = "insert into users (keyid,key) values ($1,$2)";
-$data = array($puKey, $prKey);
-pg_query_params($con, $query, $data);
 
 //connectie sluiten
 pg_close($con);

@@ -106,6 +106,7 @@ public class StressTest {
                 } catch (InterruptedException ex) {
                 }
             }
+            System.out.println("Execution complete");
             try {
                 //wait for all tasks to be complete
                 threadPool.shutdown();

@@ -68,7 +68,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
+            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop,false);
             tests.add(t);
         }
         return tests;
@@ -111,6 +111,7 @@ public class WebServiceAccess {
     }
 
     public TestCall getTestByName(String name) {
+        //stresstestmode
         HashMap<String, TestInstance> testInstances = null;
         try {
             String jsonText = getFromURL(prop.getProperty("urlTestInstances") + "?testname=" + name);
@@ -129,7 +130,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
+            t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop,true);//true=>loadtest so resultuploader wont update the lastrun
         }
         return t;
     }

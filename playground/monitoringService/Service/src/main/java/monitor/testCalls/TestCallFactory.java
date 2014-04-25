@@ -19,26 +19,29 @@ import monitor.model.Testbed;
  */
 public class TestCallFactory {
     public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
+        return makeTest(resup, test, testDefinition, testbeds, prop,false);
+    }
+    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop,boolean isLoadTest){
         TestCall ret = null;
         //switch(test.getTestDefinitionName()) {
         switch(testDefinition.getTesttype()){
             case "ping":
-                ret = new PingTestCall(resup,test,testDefinition,testbeds,prop);
+                ret = new PingTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);
                 break;
             case "login":
-                ret = new LoginTestCall(resup,test, testDefinition, testbeds,prop);
+                ret = new LoginTestCall(resup,test, testDefinition, testbeds,prop,isLoadTest);
                 break;
             case "login3":
-                ret = new Login3TestCall(resup,test, testDefinition, testbeds,prop);
+                ret = new Login3TestCall(resup,test, testDefinition, testbeds,prop,isLoadTest);
                 break;
             case "stitch":
-                ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop);
+                ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop,isLoadTest);
                 break;
             case "javaMain":
-                ret = new JavaMainTestCall(resup, test, testDefinition, testbeds, prop);
+                ret = new JavaMainTestCall(resup, test, testDefinition, testbeds, prop,isLoadTest);
                 break;
             default:
-                ret = new BashTestCall(resup,test,testDefinition,testbeds,prop);
+                ret = new BashTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);
         }
         return ret;
     }
@@ -46,6 +49,6 @@ public class TestCallFactory {
         //shallow copy, but test,testdefinitions,testbeds are final
         //prop is only set once & never changes
         //resultuploader is the same for all object.
-        return makeTest(c.resultUploader,c.test,c.testDefinition,c.testbeds,c.prop);
+        return makeTest(c.resultUploader,c.test,c.testDefinition,c.testbeds,c.prop,c.isLoadTest);
     }
 }

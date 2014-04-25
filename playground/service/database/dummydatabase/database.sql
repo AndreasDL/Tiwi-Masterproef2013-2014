@@ -3,7 +3,6 @@ DROP VIEW definitions;
 DROP VIEW instances;
 
 DROP TABLE testbeds;
-DROP TABLE users;
 DROP TABLE parameterDefinitions;
 DROP TABLE returnDefinitions;
 DROP TABLE parameterInstances;
@@ -63,10 +62,6 @@ CREATE TABLE subResults(
     primary key (resultId,returnName)
 );
 
-CREATE TABLE users(
-    keyid text NOT NULL,
-    key text NOT NULL
-);
 
 CREATE VIEW list AS 
     select *,r.resultid id from results r
@@ -92,7 +87,6 @@ ALTER TABLE public.testInstances OWNER TO postgres;
 ALTER TABLE public.parameterInstances OWNER TO postgres;
 ALTER TABLE public.results OWNER TO postgres;
 ALTER TABLE public.subResults OWNER TO postgres;
-ALTER TABLE public.users OWNER TO postgres;
 
 ALTER TABLE public.list OWNER TO postgres;
 ALTER TABLE public.definitions OWNER TO postgres;

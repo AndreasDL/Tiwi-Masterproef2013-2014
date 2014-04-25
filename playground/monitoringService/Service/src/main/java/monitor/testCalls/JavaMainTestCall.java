@@ -35,8 +35,8 @@ public class JavaMainTestCall extends TestCall {
         return start;
     }*/
     
-    public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop) {
-        super(resultUploader, test, testDefinition, testbeds, prop);
+    public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
     
     @Override
