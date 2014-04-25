@@ -15,7 +15,7 @@ import monitor.model.TestResult;
 import monitor.model.Testbed;
 
 /**
- *
+ * Uses the fping command to ping a testbed.
  * @author drew
  */
 public class PingTestCall extends BashTestCall {

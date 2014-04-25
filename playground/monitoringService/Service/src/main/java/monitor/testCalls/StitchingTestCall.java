@@ -28,10 +28,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Calls the automated tester to run a stitching test.
  * @author drew
  */
-public class StitchingTestCall extends JavaMainTestCall{
+public class StitchingTestCall extends AutomatedTesterTestCall{
 
     public StitchingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);

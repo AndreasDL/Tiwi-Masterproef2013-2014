@@ -32,13 +32,20 @@ public class Monitor {
     public static void main(String[] args) throws IOException {
         new Monitor(args);
     }
-
+/**
+ * prints documentation when something is wrong.
+ * @param options Options used by the program
+ */
     public static void help(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(200, "monitorService [options ... ]", "Options:", options, "");
         System.exit(0);
     }
-
+/**
+ * Creates a monitorobject and runs all the tests on multiple threads
+ * @param args
+ * @throws IOException 
+ */
     public Monitor(String[] args) throws IOException {
         Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("threads")
@@ -113,7 +120,7 @@ public class Monitor {
                 try {
                     //wait for all tasks to be complete
                     threadPool.shutdown();
-                    threadPool.awaitTermination(20, TimeUnit.SECONDS);
+                    threadPool.awaitTermination(1 , TimeUnit.DAYS);
 
                     webAccess.shutDownOnUploadComplete();
                     //System.exit(0);
@@ -126,14 +133,18 @@ public class Monitor {
             }
         }
     }
-
+    /**
+     * returns the properties
+     * @return 
+     */
     public static Properties getProp() {
+        String serviceUrl = "http://localhost/service/index.php/";
         Properties prop = new Properties();
-        prop.setProperty("urlTestInstances", "http://localhost/service/index.php/testInstance");//testdefinitionname=loginGen");
-        prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
-        prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
-        prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");
-        prop.setProperty("urlUpdateNextRun", "http://localhost/service/index.php/updateNextRun");
+        prop.setProperty("urlTestInstances", serviceUrl + "testInstance");//testdefinitionname=loginGen");
+        prop.setProperty("urlTestbeds", serviceUrl + "testbed");
+        prop.setProperty("urlTestDefinitions", serviceUrl + "testDefinition");
+        prop.setProperty("urlAddResult", serviceUrl + "addResult");
+        prop.setProperty("urlUpdateNextRun", serviceUrl + "updateNextRun");
         prop.setProperty("outputDir", "results/");
         prop.setProperty("authFileDir", "/root/.auth/authorities.xml");
         return prop;

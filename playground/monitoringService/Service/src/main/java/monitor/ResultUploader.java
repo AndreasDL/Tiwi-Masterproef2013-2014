@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import monitor.model.TestResult;
 
 /**
- *
+ * This class uploads testresults to the webservice.
  * @author drew
  */
 public class ResultUploader implements Runnable{
@@ -20,16 +20,26 @@ public class ResultUploader implements Runnable{
     private BlockingDeque<TestResult> resultsToSend;
     private Boolean stopping;
     
+    /**
+     * Creates a resultuploader.
+     * @param webAccess the webaccessobject that uses this resultuploader.
+     */
     public ResultUploader(WebServiceAccess webAccess) {
         this.webAccess = webAccess;
         resultsToSend = new LinkedBlockingDeque<>();
         this.stopping = false;
     }
+    /**
+     * adds a result to the upload queue
+     * @param r the testResult to upload
+     */
     public synchronized void addResultToQueue(TestResult r){
         resultsToSend.addLast(r);
     }
     
-    
+    /**
+     * upload all results in queue untill stopping is set.
+     */
     @Override
     public void run() {
         while(!stopping || resultsToSend.size() > 0){
@@ -47,7 +57,9 @@ public class ResultUploader implements Runnable{
         
         this.stop();
     }
-    
+    /**
+     * sets the boolean to stop this service as soon as the uploads are complete.
+     */
     public void stop(){
         this.stopping = true;
     }

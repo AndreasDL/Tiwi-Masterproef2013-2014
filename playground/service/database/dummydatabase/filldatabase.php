@@ -219,7 +219,7 @@ pg_query_params($con, $retQuery, $data);
 
 //generic
 echo "\tCreating Generic Tests\n";
-$data = array('loginGen','javaMain', '--context-file <context-file> '
+$data = array('loginGen','automatedTester', '--context-file <context-file> '
     . '--test-class be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager2 '
     . '--group nodelogin '
     . '--output-dir <output-dir> '

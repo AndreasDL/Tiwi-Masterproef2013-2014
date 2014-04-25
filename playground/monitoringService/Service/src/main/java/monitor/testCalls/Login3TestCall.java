@@ -27,10 +27,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * This testcall call the automated tester and runs a login amv3 test .
  * @author drew
  */
-public class Login3TestCall extends JavaMainTestCall {
+public class Login3TestCall extends AutomatedTesterTestCall {
 
     public Login3TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);

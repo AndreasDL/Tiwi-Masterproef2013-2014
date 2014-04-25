@@ -20,7 +20,7 @@ import monitor.model.TestInstance;
 import monitor.model.Testbed;
 
 /**
- *
+ * This class executes a bashscript/command e.g. ping
  * @author drew
  */
 public class BashTestCall extends TestCall {
@@ -34,8 +34,8 @@ public class BashTestCall extends TestCall {
     public void run() {
         start=System.currentTimeMillis();
         //Parse
-        String testOutputDir = makeTestOutputDir();
-        String parsedCommand = prepare(testOutputDir);
+        makeTestOutputDir();
+        String parsedCommand = prepare();
         
         //run shell command
         System.out.println("Exec " + parsedCommand);
@@ -63,7 +63,7 @@ public class BashTestCall extends TestCall {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        super.getResultUploader().addResultToQueue(handleResults(out.toString(),0));
+        getResultUploader().addResultToQueue(handleResults(out.toString(),0));
     }
     
     @Override

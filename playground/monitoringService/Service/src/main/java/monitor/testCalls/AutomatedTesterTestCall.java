@@ -24,18 +24,12 @@ import monitor.model.TestResult;
 import monitor.model.Testbed;
 
 /**
- *
+ * This class runs a test using the automated tester
  * @author drew
  */
-public class JavaMainTestCall extends TestCall {
-/*    protected long start;
+public class AutomatedTesterTestCall extends TestCall {
 
-    @Override
-    public long getStart() {
-        return start;
-    }*/
-    
-    public JavaMainTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {
+    public AutomatedTesterTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
     
@@ -43,8 +37,8 @@ public class JavaMainTestCall extends TestCall {
     public void run() {
         start = System.currentTimeMillis();
         //Parse
-        //makeTestOutputDir();
-        String parsedCommand = prepare(makeTestOutputDir());
+        makeTestOutputDir();
+        String parsedCommand = prepare();
         System.out.println("Starting " + getTestDefinitionName() + " test " + getTest().getTestname() + " with id " +getTest().getTestInstanceId());
         
         String consoleOutput="";
@@ -54,7 +48,7 @@ public class JavaMainTestCall extends TestCall {
         try {
             tee = new TeePrintStream(ps,System.out);
         } catch (IOException ex) {
-            Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AutomatedTesterTestCall.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         int returnValue = -1;
@@ -75,14 +69,15 @@ public class JavaMainTestCall extends TestCall {
                 ps.close();
                 tee.close();
             } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AutomatedTesterTestCall.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(JavaMainTestCall.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AutomatedTesterTestCall.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         //Monitor...
-        super.getResultUploader().addResultToQueue(handleResults(consoleOutput,returnValue));
+        getResultUploader().addResultToQueue(handleResults(consoleOutput,returnValue));
     }
+    
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {
         ArrayList<String> p = new ArrayList<>();
@@ -90,6 +85,7 @@ public class JavaMainTestCall extends TestCall {
 
         return p;
     }
+    
     @Override
     protected TestResult handleResults(String consoleOutput, int returnValue) {
         TestResult r =  super.handleResults(consoleOutput,returnValue);

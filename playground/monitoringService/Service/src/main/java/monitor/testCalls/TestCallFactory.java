@@ -14,13 +14,32 @@ import monitor.model.TestInstance;
 import monitor.model.Testbed;
 
 /**
- *
+ * Used to create the different testtypes
  * @author drew
  */
 public class TestCallFactory {
+    /**
+     * Creates a normaltest
+     * @param resup the resultuploader the testneeds to upload his result.
+     * @param test The testInstance
+     * @param testDefinition The testDefinition
+     * @param testbeds The hashmap of testbeds for lookups
+     * @param prop the properties
+     * @return the testCall associated with the given arguments.
+     */
     public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
         return makeTest(resup, test, testDefinition, testbeds, prop,false);
     }
+    /**
+     * Creates a normaltest
+     * @param resup the resultuploader the testneeds to upload his result.
+     * @param test The testInstance
+     * @param testDefinition The testDefinition
+     * @param testbeds The hashmap of testbeds for lookups
+     * @param prop the properties
+     * @param isLoadTest when set to true the scheduling is ignored and the next run is not updated.
+     * @return the testCall associated with the given arguments.
+     */
     public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop,boolean isLoadTest){
         TestCall ret = null;
         //switch(test.getTestDefinitionName()) {
@@ -37,14 +56,19 @@ public class TestCallFactory {
             case "stitch":
                 ret = new StitchingTestCall(resup,test, testDefinition, testbeds, prop,isLoadTest);
                 break;
-            case "javaMain":
-                ret = new JavaMainTestCall(resup, test, testDefinition, testbeds, prop,isLoadTest);
+            case "automatedTesterTestCall":
+                ret = new AutomatedTesterTestCall(resup, test, testDefinition, testbeds, prop,isLoadTest);
                 break;
             default:
                 ret = new BashTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);
         }
         return ret;
     }
+    /**
+     * Creates a deep copy of the testCall.
+     * @param c testcall to copy
+     * @return deep copy of testcall c
+     */
     public static TestCall copyTest(TestCall c){
         //shallow copy, but test,testdefinitions,testbeds are final
         //prop is only set once & never changes

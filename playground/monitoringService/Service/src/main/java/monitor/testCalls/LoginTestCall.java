@@ -27,10 +27,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * This testcall executes a login amv2 testcall.
  * @author drew
  */
-public class LoginTestCall extends JavaMainTestCall {
+public class LoginTestCall extends AutomatedTesterTestCall {
 
     public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);

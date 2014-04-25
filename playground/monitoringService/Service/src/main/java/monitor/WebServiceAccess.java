@@ -35,7 +35,10 @@ import java.util.Properties;
 import java.util.Queue;
 import java.util.TimeZone;
 import monitor.model.TestResult;
-
+/**
+ * this class is used to interact with the webservice.
+ * @author drew
+ */
 public class WebServiceAccess {
 
     private Gson g;
@@ -44,7 +47,10 @@ public class WebServiceAccess {
     private Properties prop;
     private Thread uploader;
     private ResultUploader resultUploader;
-
+/**
+ * Creates a webserviceAccess object
+ * @param prop the properties
+ */
     public WebServiceAccess(Properties prop) {
         this.prop = prop;
         //this.g = new Gson();
@@ -56,11 +62,16 @@ public class WebServiceAccess {
         uploader = new Thread(resultUploader);
         uploader.start();
     }
-
+/**
+ * tell the resultuploader to stop when the uploads are complete
+ */
     public void shutDownOnUploadComplete() {
         resultUploader.stop();
     }
-
+/**
+ * get all testinstances formatted as a testcall.
+ * @return 
+ */
     public Queue<TestCall> getTests() {
         Queue<TestCall> tests = new LinkedList<>();
         HashMap<String, TestInstance> testInstances = getTestInstances();
@@ -73,6 +84,14 @@ public class WebServiceAccess {
         }
         return tests;
     }
+    /**
+     * get the schedules tests
+     * @param name filter tests on testName
+     * @param defname filter tests on testDefinitionName
+     * @param testbed filter tests on testbeds
+     * @param tid filter tests on testinstanceid
+     * @return 
+     */
     public Queue<TestCall> getScheduledTests(String name,String defname,String testbed,String tid){
         HashMap<String, TestInstance> testInstances = null;
         Queue<TestCall> tests = new LinkedList<>();
@@ -109,7 +128,11 @@ public class WebServiceAccess {
         }
         return tests;
     }
-
+/**
+ * get a single test in loadtestmode by name.
+ * @param name the name of the test.
+ * @return the testcall associated with the test associated with the name.
+ */
     public TestCall getTestByName(String name) {
         //stresstestmode
         HashMap<String, TestInstance> testInstances = null;
@@ -134,7 +157,10 @@ public class WebServiceAccess {
         }
         return t;
     }
-
+/**
+ * Get all the testInstances
+ * @return hashmap testinstanceid => testinstance
+ */
     public HashMap<String, TestInstance> getTestInstances() {
         TestInstanceResults t = null;
         try {
@@ -162,7 +188,10 @@ public class WebServiceAccess {
         }
         return (t == null) ? null : t.getData();
     }
-
+/**
+ * gets the testbeds from the webservice.
+ * @return hashmap name=>testbed
+ */
     public HashMap<String, Testbed> getTestBeds() {
         TestbedResults t = null;
         try {
@@ -183,7 +212,10 @@ public class WebServiceAccess {
 
         return (t == null) ? null : t.getData();
     }
-
+/**
+ * Gets the testdefinitions
+ * @return hashmap testdefinitionname => testdefinition
+ */
     public HashMap<String, TestDefinition> getTestDefinitions() {
         TestDefinitionResults t = null;
         try {
@@ -208,7 +240,10 @@ public class WebServiceAccess {
 
         return (t == null) ? null : t.getData();
     }
-
+/**
+ * post a testresult to the webservice
+ * @param result the testresult to post to the webservice.
+ */
     public void addResult(TestResult result) {
         try {
             URL url = new URL(prop.getProperty("urlAddResult"));
@@ -249,7 +284,10 @@ public class WebServiceAccess {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/**
+ * Updates the nextrun value of a testinstance. The testinstance is determined by the testresult.
+ * @param result the result used to determine the testinstanceid in order to update the nextrun field.
+ */
     public void updateNextRun(TestResult result) {
         try {
             URL url = new URL(prop.getProperty("urlUpdateNextRun"));
@@ -281,13 +319,21 @@ public class WebServiceAccess {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+     * gets the testbeds & testdefinitions. Stores them in the object. The cache is called automatically on construction. 
+     */
     public void updateCache() {
         //cache => testbeds and testdefinitions
         this.testbeds = getTestBeds();
         this.testDefinitions = getTestDefinitions();
     }
-
+/**
+ * gets the url page (json) as a string.
+ * @param url The url to the page to put in the string
+ * @return The text on the webpage
+ * @throws MalformedURLException
+ * @throws IOException 
+ */
     private static String getFromURL(String url) throws MalformedURLException, IOException {
         URL ur = new URL(url);
         InputStream is = ur.openStream();
@@ -300,10 +346,14 @@ public class WebServiceAccess {
         }
         return sb.toString();
     }
-
+/**
+ * returns the resultUploader thread
+ * @return 
+ */
     public Thread getUploadThread(){
         return uploader;
     }
+    
     
     //needed for json extraction
     private class TestbedResults {
