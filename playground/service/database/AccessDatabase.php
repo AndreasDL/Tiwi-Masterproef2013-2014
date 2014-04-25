@@ -63,6 +63,7 @@ class AccessDatabase {
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
+        //print_r($this->testDefinitions);
         while ($row = pg_fetch_assoc($result)) {
             //array_push($data, $row);
 
@@ -77,10 +78,17 @@ class AccessDatabase {
                     'testbeds' => array(),
                     'results' => array()
                 );
-            }
+            }/*
             if ($row['parametername'] == 'testbed' && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
+            }*/
+            
+            if($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
+                    && !in_array( $row['parametervalue'],$data[$row['resultid']]['testbeds'])){
+                array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }
+            
+            
             //NOTE column names are ALWAYS LOWER CASE
             $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
         }
