@@ -91,7 +91,7 @@ $data = array("stitch", "context-file", "file", "username = ftester
     pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>
-    stitchedAuthorityUrns=urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm urn:publicid:IDN+utah.geniracks.net+authority+cm
+    stitchedAuthorityUrns= urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm urn:publicid:IDN+utah.geniracks.net+authority+cm
     scsUrn = <scsUrn>
     scsUrl = <scsUrl>");
 pg_query_params($con, $subQuery, $data);
@@ -276,7 +276,7 @@ pg_query_params($con, $retQuery, $data);
 //<editor-fold desc="instances" defaultstate="collapsed">
 //testinstances
 echo "Creating TestInstances\n";
-$query = "insert into testinstances (testname,testDefinitionName,frequency,lastrun,enabled) values ($1,$2,$3,$4,$5);";
+$query = "insert into testinstances (testname,testDefinitionName,frequency,nextrun,enabled) values ($1,$2,$3,$4,$5);";
 pg_prepare($con, "query", $query);
 $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
 pg_prepare($con, "subQuery", $subQuery);

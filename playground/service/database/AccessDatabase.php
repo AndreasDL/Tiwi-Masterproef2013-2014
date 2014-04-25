@@ -133,7 +133,7 @@ class AccessDatabase {
     }
     public function getTestInstance(&$request) {
         $params = $request->getParameters();
-        $query = "select *,lastrun AT TIME ZONE 'CET' from instances ";
+        $query = "select *,nextrun  from instances ";//AT TIME ZONE 'CET'
         $paramsForUse = array();
         $eindhaakje = "";
 
@@ -141,10 +141,10 @@ class AccessDatabase {
         if (sizeof($paramsForUse) > 0) {
             $eindhaakje = ')';
         }
-        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype"); => testdefinitionname
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid","testinstanceid");
+        $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "nextrun", "nextrun");
         
         $query .= $eindhaakje;
 
@@ -160,8 +160,8 @@ class AccessDatabase {
                     'testdefinitionname' => $row['testdefinitionname'],
                     'frequency' => $row['frequency'],
                     'enabled'   => ($row['enabled']=="t"?"True":"False"),
-                    'lastrun'   => date("c",strtotime($row['lastrun'])),
-                    'type' => gettype($row['lastrun']),
+                    'nextrun'   => date("c",strtotime($row['nextrun'])),
+                    //'type' => gettype($row['nextrun']),
                     'parameters' => array()
                 );
             }
@@ -316,17 +316,17 @@ class AccessDatabase {
         
         return;
     }    
-    public function updateLastRun(&$request){
+    public function updateNextRun(&$request){
         $params = $request->getParameters();
         //print_r($params);
         
         
-        if ( isset($params['lastrun']) 
+        if ( isset($params['nextrun']) 
                 && isset($params['testinstanceid'])
                 && isset($this->testInstances[$params['testinstanceid'][0]])
                 && strtoupper($request->getVerb()) == 'POST') {
-            $newTime = date("c",  $params['lastrun'][0]);
-            $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['lastrun']));
+            $newTime = date("c",  $params['nextrun'][0]);
+            $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['nextrun']));
             //echo "new: $newTime old: $oldTime\n";
             //timestampe must be past the last timestamp
             if ($newTime > $oldTime){
@@ -334,7 +334,7 @@ class AccessDatabase {
                 
                 //update in database
                 $con = $this->getConnection();
-                $query = "update testinstances SET lastrun = $1 where testinstanceid=$2;";
+                $query = "update testinstances SET nextrun = $1 where testinstanceid=$2;";
                 //echo "newTime: " .$newTime . "\n";
                 //$insTime = $newTime;
                 //echo "insTime: " . $insTime . "\n";
@@ -345,10 +345,10 @@ class AccessDatabase {
                 $this->closeConnection($con);
             }else{
                 $request->setStatus(400);
-                $request->addMSg("lastrun timestamp must be after the current lastrun!");
+                $request->addMSg("nextrun timestamp must be after the current nextrun!");
             }
         }else{        
-            $request->addMsg("Either testinstanceid not given or not valid!, lastrun not given or method not post");
+            $request->addMsg("Either testinstanceid not given or not valid!, nextrun not given or method not post");
             $request->setStatus(400);
         }
         

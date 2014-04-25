@@ -4,7 +4,7 @@ function getTable(&$subTests,&$row){
     $ret = "<td><table RULES=COLS><tr>";
     $i = 0;
         foreach($subTests as $name => $v){
-            if ($name != 'duration' && $name != 'result-overview' && $name != 'resultHtml'){
+            if ($name != 'duration' && $name != 'result-overview' && $name != 'resultHtml' && $name != 'returnValue'){
                 $value = ucfirst($row['results'][$name]);
                 $ret .= "<td bgcolor=";
                 if ($value == $GLOBALS['good'] || $value == $GLOBALS['SUCCESS']){

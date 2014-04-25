@@ -97,7 +97,7 @@ public class Monitor {
             this.webAccess = new WebServiceAccess(prop);
 
             //get Tests
-            Queue<TestCall> tasks = webAccess.getTests(testnames,testdefnames,testbeds,testinstances);
+            Queue<TestCall> tasks = webAccess.getScheduledTests(testnames,testdefnames,testbeds,testinstances);
             if (tasks != null) {
                 //create thread pool
                 threadPool = Executors.newFixedThreadPool(threadCount);
@@ -120,6 +120,7 @@ public class Monitor {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                System.out.println("Execution complete");
             } else {
                 System.out.println("Something went wrong while contacting the webService. Check your connection and try again.");
             }
@@ -132,7 +133,7 @@ public class Monitor {
         prop.setProperty("urlTestbeds", "http://localhost/service/index.php/testbed");
         prop.setProperty("urlTestDefinitions", "http://localhost/service/index.php/testDefinition");
         prop.setProperty("urlAddResult", "http://localhost/service/index.php/addResult");
-        prop.setProperty("urlUpdateLastRun", "http://localhost/service/index.php/updateLastRun");
+        prop.setProperty("urlUpdateNextRun", "http://localhost/service/index.php/updateNextRun");
         prop.setProperty("outputDir", "results/");
         prop.setProperty("authFileDir", "/root/.auth/authorities.xml");
         return prop;

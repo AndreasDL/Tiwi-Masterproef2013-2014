@@ -70,7 +70,7 @@ public abstract class TestCall implements Runnable{
     }
 
     public long getStart(){
-        return start / 1000; //we only want seconds & not milliseconds
+        return start; // 1000; //we only want seconds & not milliseconds
     }
     @Override
     public abstract void run();

@@ -14,8 +14,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import monitor.Monitor;
-import monitor.WebServiceAccess;
 import monitor.testCalls.TestCall;
 import monitor.testCalls.TestCallFactory;
 import org.apache.commons.cli.BasicParser;

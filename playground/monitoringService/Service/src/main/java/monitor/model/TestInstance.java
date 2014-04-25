@@ -23,10 +23,10 @@ public class TestInstance {
     private HashMap<String,ArrayList<String>> parameters;
     private String testinstanceid;
     private boolean enabled;
-    private Timestamp lastrun;
+    private Timestamp nextrun;
 
-    public Date getLastrun() {
-        return lastrun;
+    public Date getNextrun() {
+        return nextrun;
     }
     
     public String getTestInstanceId() {
@@ -36,8 +36,8 @@ public class TestInstance {
         return enabled;
     }
     public boolean isScheduled(){
-        if (lastrun != null){
-            long next = lastrun.getTime();
+        if (nextrun != null){
+            long next = nextrun.getTime();
             next += frequency * 1000;
             
             return next < System.currentTimeMillis();

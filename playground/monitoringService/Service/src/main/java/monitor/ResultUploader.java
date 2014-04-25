@@ -38,7 +38,7 @@ public class ResultUploader implements Runnable{
                 TestResult r = resultsToSend.pollFirst(100,TimeUnit.MILLISECONDS);//check & wait max 100 ms than rerun the run method so it can check if stopping is set
                 if (r != null){
                     webAccess.addResult(r);
-                    webAccess.updateLastRun(r);
+                    webAccess.updateNextRun(r);
                 }
             } catch (InterruptedException ex) {
             }

@@ -20,6 +20,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -30,6 +33,7 @@ import monitor.testCalls.TestCall;
 import monitor.testCalls.TestCallFactory;
 import java.util.Properties;
 import java.util.Queue;
+import java.util.TimeZone;
 import monitor.model.TestResult;
 
 public class WebServiceAccess {
@@ -69,16 +73,24 @@ public class WebServiceAccess {
         }
         return tests;
     }
-    public Queue<TestCall> getTests(String name,String defname,String testbed,String tid){
+    public Queue<TestCall> getScheduledTests(String name,String defname,String testbed,String tid){
         HashMap<String, TestInstance> testInstances = null;
         Queue<TestCall> tests = new LinkedList<>();
+
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        
         try {
-            String jsonText = getFromURL(prop.getProperty("urlTestInstances") 
+            String url = prop.getProperty("urlTestInstances") 
                     + "?testname=" + name
                     + "&testdefinitionname=" + defname
                     + "&testbed=" + testbed
                     + "&testinstanceid=" + tid
-            );
+                    + "&nextrun=" + nowAsISO;
+            //System.out.println(url);
+            String jsonText = getFromURL(url);
 
             //parse json string
             TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
@@ -237,12 +249,14 @@ public class WebServiceAccess {
         }
     }
 
-    public void updateLastRun(TestResult result) {
+    public void updateNextRun(TestResult result) {
         try {
-            URL url = new URL(prop.getProperty("urlUpdateLastRun"));
+            URL url = new URL(prop.getProperty("urlUpdateNextRun"));
             StringBuilder postData = new StringBuilder();
             postData.append("testinstanceid=").append(result.getTestInstance().getTestInstanceId());
-            postData.append("&lastrun=").append(result.getSubResult("startTime"));//current time
+            long nextrun = Long.parseLong(result.getSubResult("startTime")) + result.getTestInstance().getFrequency()*1000;
+            nextrun /= 1000; //naar seconds
+            postData.append("&nextrun=").append(nextrun);//current time
             System.out.println("UpdateTime: " + postData.toString());
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
