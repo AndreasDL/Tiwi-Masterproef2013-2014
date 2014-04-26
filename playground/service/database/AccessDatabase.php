@@ -1,22 +1,30 @@
 <?php
 
 include (__DIR__ . "/config.php"); //database config
-//include (__DIR__ . "/../Request.php");
-include (__DIR__ . "/authentication/defaultGuard.php");
 
-
+/**
+ * this class will contact the database
+ */
 class AccessDatabase {
 
     private $testbeds;
     private $testDefinitions;
     private $testInstances;
 
+    /**
+     * creates an AccessDatabase object
+     */
     public function __construct() {
         //cache for faster processing of results
-        $this->updateCache();//eventueel op aparty thread steken en zo updaten
+        $this->updateCache(); //eventueel op aparty thread steken en zo updaten
     }
 
-    //Result Calls
+    //resultcalls
+    /**
+     * Will return the last results
+     * @param type $request the request
+     * @return type the last result filtered by the request
+     */
     public function getLast(&$request) {
         //last => indien count niet gezet => op 1 zetten
         $params = $request->getParameters();
@@ -26,13 +34,19 @@ class AccessDatabase {
         $request->setParameters($params);
         return $this->getList($request);
     }
+
+    /**
+     * returns a list of results limited to the 100 last results unless used in combination with to & from
+     * @param type $request the request
+     * @return type list of results filtered by the request
+     */
     public function getList(&$request) {
         $params = $request->getParameters();
-        if (!isset($params['till']) && !isset($params['from']) && isset($params['count']) && $params['count'][0] > $GLOBALS['maxList']){
+        if (!isset($params['till']) && !isset($params['from']) && isset($params['count']) && $params['count'][0] > $GLOBALS['maxList']) {
             $request->addMsg("Warn: count value higher that max allowed (" . $GLOBALS['maxList'] . "). Using max as count.");
             $params['count'] = $GLOBALS['maxList'];
-        }else if(!isset($params['count']) ){
-            $params['count']= array($GLOBALS['maxList']);
+        } else if (!isset($params['count'])) {
+            $params['count'] = array($GLOBALS['maxList']);
         }
         $query = "select * from ("
                 . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
@@ -80,22 +94,17 @@ class AccessDatabase {
                     'testdefinitionname' => $row['testdefinitionname'],
                     'testname' => $row['testname'],
                     'log' => $row['log'],
-                    'timestamp' => date("c",strtotime($row['timestamp'])),
+                    'timestamp' => date("c", strtotime($row['timestamp'])),
                     'testbeds' => array(),
                     'results' => array()
                 );
-            }/*
-            if ($row['parametername'] == 'testbed' && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
-                array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
-            }*/
-            
-            if( ($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed'
-                    || $this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')
-                    && !in_array( $row['parametervalue'],$data[$row['resultid']]['testbeds'])){
+            }
+
+            if (($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' || $this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }
-            
-            
+
+
             //NOTE column names are ALWAYS LOWER CASE
             $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
         }
@@ -103,16 +112,24 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
+
+    /**
+     * ggets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
+     * @return type
+     */
     public function updateCache() {
-        //NIET PROPER
-        //$fakeReq = new Request();
-        $this->testbeds = $this->getTestbed(new Request()); //$fakeReq);
+        $this->testbeds = $this->getTestbed(new Request());
         $this->testDefinitions = $this->getTestDefinition(new Request());
         $this->testInstances = $this->getTestInstance(new Request());
-        //$testDefinitions = json_decode();
         return;
     }
+
     //Config Calls
+    /**
+     * gets the definitions from the database, filtered by the request
+     * @param type $request the request
+     * @return type the testdefinitions
+     */
     public function getTestDefinition(&$request) {
         $params = $request->getParameters();
         $query = "select * from definitions";
@@ -146,9 +163,15 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
+
+    /**
+     * Returns the testinstances filtered by the request
+     * @param type $request the request
+     * @return array the instances
+     */
     public function getTestInstance(&$request) {
         $params = $request->getParameters();
-        $query = "select *,nextrun  from instances ";//AT TIME ZONE 'CET'
+        $query = "select *,nextrun  from instances "; //AT TIME ZONE 'CET'
         $paramsForUse = array();
         $eindhaakje = "";
 
@@ -158,9 +181,9 @@ class AccessDatabase {
         }
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid","testinstanceid");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid", "testinstanceid");
         $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "nextrun", "nextrun");
-        
+
         $query .= $eindhaakje;
 
         $con = $this->getConnection();
@@ -174,8 +197,8 @@ class AccessDatabase {
                     //'testtype' => $row['testtype'],
                     'testdefinitionname' => $row['testdefinitionname'],
                     'frequency' => $row['frequency'],
-                    'enabled'   => ($row['enabled']=="t"?"True":"False"),
-                    'nextrun'   => date("c",strtotime($row['nextrun'])),
+                    'enabled' => ($row['enabled'] == "t" ? "True" : "False"),
+                    'nextrun' => date("c", strtotime($row['nextrun'])),
                     //'type' => gettype($row['nextrun']),
                     'parameters' => array()
                 );
@@ -190,6 +213,12 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
+
+    /**
+     * gets the testbeds filtered by the request
+     * @param type $request the request
+     * @return type the testbeds
+     */
     public function getTestbed(&$request) {
         $params = $request->getParameters();
         $query = "select * from testbeds";
@@ -213,22 +242,14 @@ class AccessDatabase {
     }
 
     //push calls
-    public function addTestbed(&$request) {
-        
-        $params = $request->getParameters();
-        
-        print_r($params);
-        $query = "insert into testbeds (testbedname,url,urn) values ($1,$2,$3);";
-        $paramsForUse = array($params['testbedName'][0], $params['url'][0], $params['urn'][0]);
-        $con = $this->getConnection();
-
-        //auth?
-        //testbed al bestaande? => moet uniek zijn => error uti database
 
 
-
-        $result = pg_query_params($con, $query, $paramsForUse);
-    }
+    /**
+     * adds a result to the database when the request is valid.
+     * A request is valid when the method/verb is post, the testinstance exists and all subresults defined in the testdefinition are given
+     * @param type $request the request
+     * @return type
+     */
     public function addResult(&$request) {
         //if ($request->getVerb() == 'POST'){
         $params = $request->getParameters();
@@ -236,11 +257,10 @@ class AccessDatabase {
         //testinstanceid given & existing?  => ook mogelijk in database
         $valid = FALSE;
         $returnVals;
-        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]])
-                && strtoupper($request->getVerb()) == 'POST') {
+        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) && strtoupper($request->getVerb()) == 'POST') {
             $valid = True;
             //kijk of alle return values opgegeven zijn
-            $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testdefinitionname']]['returnValues'];//['testtype']]['returnValues'];
+            $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testdefinitionname']]['returnValues']; //['testtype']]['returnValues'];
 
             foreach ($returnVals as $key => $val) {
                 if (!isset($params[$key][0])) {
@@ -250,12 +270,12 @@ class AccessDatabase {
                     break;
                 }
             }
-        }else {
+        } else {
             //$valid=False;
             $request->addMsg("testinstanceid not given or not valid! And/Or method not post");
             $request->setStatus(400);
         }
-        
+
         if ($valid) {
             //TODO transaction
             $query = "insert into results (testinstanceid,log) values ($1,$2);";
@@ -267,86 +287,42 @@ class AccessDatabase {
                 $params['testinstanceid'][0],
                 $params['log'][0]
             );
-            pg_query($con,"BEGIN");
+            pg_query($con, "BEGIN");
             $success = pg_query_params($con, $query, $data);
 
             //subresults
             foreach ($returnVals as $key => $val) {
                 $success = $success && pg_query_params($con, $subQuery, array($key, $params[$key][0]));
             }
-            
-            if(! ($success && pg_query($con,"COMMIT"))){
+
+            if (!($success && pg_query($con, "COMMIT"))) {
                 //committing failed?
-                pg_query($con,"ROLLBACK");
+                pg_query($con, "ROLLBACK");
             }
-            
+
             $this->closeConnection($con);
         }
 
         return;
     }
-    public function addTestInstance(&$request){
-        //post
-        $params = $request->getParameters();
-        print_r($params);
-        if ($request->getVerb() == 'POST' && isset($params['testdefinitionname']) && isset($this->testDefinitions[$params['testtype'][0]])){
-            //kjk of alle params ingevuld zijn
-            $valid = True;
-            foreach ($this->testDefinitions[$params['testdefinitionname'][0]]['parameters'] as $key => $value){
-                if (!isset($params[$key][0])){
-                    $valid=false;
-                    $request->addMsg($key . " Not given");
-                    $request->setStatus(400);
-                    break;
-                }
-            }
-            if ($valid){
-                $con = $this->getConnection();
-                $query = "insert into testinstances (testname,testdefinitionname,frequency) values ($1,$2,$3);";
-                $data = array($params['testname'][0],$params['testdefinitionname'][0],$params['frequency']);
-                
-                pg_query($con,"BEGIN");
-                $success = pg_query_params($con,$query,$data);
-                
-                $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
-                pg_prepare($con,"subQuery",$subQuery);
-                
-                foreach ($this->testDefinitions[$params['testdefinitionname'][0]]['parameters'] as $key => $value){
-                    $success = $success && pq_execute($con,"subQuery",array($params[$key][0]));
-                }
-                
-                $success = $success && pg_query("COMMIT");
-                if (!$success){
-                    pg_query("ROLLBACK");
-                }
-                
-                
-                //rollback
-            }
-        }else{
-            $request->addMsg("Method not post and/or testtype not give or not valid");
-            $request->setStatus(400);
-        }
-        //meer dan een ping per testbed? eventueel wel, met vrs parameters
-        
-        return;
-    }    
-    public function updateNextRun(&$request){
+
+   
+    /**
+     * updates the nextrun of the testinstance when the testinstance exists and the given nextrun is after the previousone.
+     * @param type $request
+     */
+    public function updateNextRun(&$request) {
         $params = $request->getParameters();
         //print_r($params);
-        
-        
-        if ( isset($params['nextrun']) 
-                && isset($params['testinstanceid'])
-                && isset($this->testInstances[$params['testinstanceid'][0]])
-                && strtoupper($request->getVerb()) == 'POST') {
-            $newTime = date("c",  $params['nextrun'][0]);
+
+
+        if (isset($params['nextrun']) && isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) && strtoupper($request->getVerb()) == 'POST') {
+            $newTime = date("c", $params['nextrun'][0]);
             $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['nextrun']));
             //echo "new: $newTime old: $oldTime\n";
             //timestampe must be past the last timestamp
-            if ($newTime > $oldTime){
+            if ($newTime > $oldTime) {
                 //echo "timestamp ok!\n";
-                
                 //update in database
                 $con = $this->getConnection();
                 $query = "update testinstances SET nextrun = $1 where testinstanceid=$2;";
@@ -354,33 +330,52 @@ class AccessDatabase {
                 //$insTime = $newTime;
                 //echo "insTime: " . $insTime . "\n";
                 //echo "no: " . time() . "\n";
-                $data = array($newTime,$params['testinstanceid'][0]);
-                
-                pg_query_params($con,$query,$data);
+                $data = array($newTime, $params['testinstanceid'][0]);
+
+                pg_query_params($con, $query, $data);
                 $this->closeConnection($con);
-            }else{
+            } else {
                 $request->setStatus(400);
                 $request->addMSg("nextrun timestamp must be after the current nextrun!");
             }
-        }else{        
+        } else {
             $request->addMsg("Either testinstanceid not given or not valid!, nextrun not given or method not post");
             $request->setStatus(400);
         }
-        
+
         //echo "old: $oldTime new: $newTime";
-        
     }
+
     //fix connection
+    /**
+     * returns the connection with the database
+     * @return type
+     */
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");
         return $con;
     }
 
+    /**
+     * closes the connection
+     * @param type $con
+     */
     private function closeConnection($con) {
         pg_close($con);
     }
-    
+
     //fix query
+    /**
+     * Will add and any clause to the query. Use with caution after this function is used you need to check if there are parameters added in the paramsforuse.
+     * If so the ending bracelet ')' should be added after all other parameters are added to the query.
+     * This function will only add a clausule if the parameter is set.
+     * @param type $query the query to add the any clausule
+     * @param type $params parameters of the request
+     * @param type $paramsForUse the array to use with pg_query_params
+     * @param type $paramName the name of the parameter in the request
+     * @param type $viewName the name of the view to use
+     * @param type $colName the name in this case id 
+     */
     private function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
         //not sure if this works 2 times on the same query
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
@@ -404,6 +399,14 @@ class AccessDatabase {
         }
     }
 
+    /**
+     * adds an in clausule if the paramName is set in params
+     * @param type $query the query to add the any clausule
+     * @param type $params parameters of the request
+     * @param type $paramsForUse the array to use with pg_query_params
+     * @param type $paramName the name of the parameter in the request
+     * @param type $colName the name of the column in the database associated with the paramname
+     */
     private function addInIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
 
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
@@ -425,7 +428,14 @@ class AccessDatabase {
             $query .= ") ";
         }
     }
-
+/**
+     * adds an >= clausule if the paramName is set in params. although the name is greaterthan it is actually greater than or equal
+     * @param type $query the query to add the any clausule
+     * @param type $params parameters of the request
+     * @param type $paramsForUse the array to use with pg_query_params
+     * @param type $paramName the name of the parameter in the request
+     * @param type $colName the name of the column in the database associated with the paramname
+     */
     private function addGreaterThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {
@@ -440,7 +450,14 @@ class AccessDatabase {
             $query .= sizeof($paramsForUse);
         }
     }
-
+/**
+     * adds an <= clausule if the paramName is set in params. although the name is lowerthan it is actually lower than or equal
+     * @param type $query the query to add the any clausule
+     * @param type $params parameters of the request
+     * @param type $paramsForUse the array to use with pg_query_params
+     * @param type $paramName the name of the parameter in the request
+     * @param type $colName the name of the column in the database associated with the paramname
+     */
     private function addLowerThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {

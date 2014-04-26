@@ -1,5 +1,11 @@
 <?php
+/**
+ * formats the output to a given format.
+ */
  interface iFormatter{
-     public function format($req);//data,$status=200,$msg='Good!');
+     /**
+      * formats a request, returns the formatted request, e.g. in json.
+      */
+     public function format($req);
  }
 

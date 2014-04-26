@@ -25,7 +25,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- *
+ * this class will pull a test then run it simultaneously on multiple threads to simulate heavy load on a testbed
  * @author drew
  */
 public class StressTest {
@@ -40,8 +40,11 @@ public class StressTest {
     public StressTest(String[] args) {
         stressTest(args);
     }
-    
-        public static void help(Options options) {
+    /**
+ * prints documentation when something is wrong.
+ * @param options Options used by the program
+ */
+    public static void help(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(200, "stressTest [options ... ]", "Options:", options, "");
         System.exit(0);

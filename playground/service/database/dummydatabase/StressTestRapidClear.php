@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * clears the login tests results in a database so a stresstest can be run without adding to previous results
+ */
 //include (__DIR__ . "/../config.php"); //database config
 $aantalTestbeds = 17;
 $aantalpinginstances = $aantalTestbeds;

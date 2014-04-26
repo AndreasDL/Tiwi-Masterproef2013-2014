@@ -52,7 +52,7 @@ if ($controller_name != "") {
     $verb = $_SERVER['REQUEST_METHOD'];
     $req = new Request($parameters,$status,$msg,$verb);
     
-    ////Parse params if request is valid & parameters are set
+    //Parse params if request is valid & parameters are set
     //$parameters = array(); already declared
     if ($valid){
         //parse all params
@@ -81,12 +81,6 @@ if ($controller_name != "") {
                     $parameters[$field] = $value;
                 }
                 break;
-            /*case "text/html":
-                $test = http_parse_headers($body);
-                print "<br>";
-                print_r($test);
-                print "<br>";
-                break;*/
             default:
                 foreach ($_POST as $key => $value){
                     $parameters[$key] = $value;
@@ -95,6 +89,7 @@ if ($controller_name != "") {
         }
         
         //array of params (testbed=urn-testbed1,urn-testbed5) => 2 params!
+        // Every parameter after this will be in an array even if there is only 1 !!
         foreach ($parameters as $key => $value) {
             $parameters[$key] = explode(',', $value);
         }
@@ -118,12 +113,12 @@ if ($controller_name != "") {
         //so also not with last => (last sets count at 1 if not given in databaseAccess)
         if (isset($parameters['from']) || isset($parameters['till'])) {
             if (isset($parameters['count'])) {
-                //fout : count bij from en/of till
+                //fout : count & from and/of till
                 $status = '400';
                 $msg = "Error: count and from/till clause not allowed simultaneously!";
                 $valid = false;
             } else if ($controller_name == 'LastController') {
-                //fout : count bij last
+                //fout : count with last (because last uses list with count = 1)
                 $status = '400';
                 $msg = "Error: Last and from/till clause not allowed simultaneously!";
                 $valid = false;
@@ -134,12 +129,11 @@ if ($controller_name != "") {
         //Only call database is request is valid
         if ($valid) {
             //print "<b>redirecting to $controller_name... </b><br>";
-            
-            //TODO kanproperder
-            $req->setData($controller->get($req));//parameters);
+           
+            $req->setData($controller->get($req));
         }
     }
-    echo $formatter->format($req);//$data, $status, $msg);
+    echo $formatter->format($req);
 }else {
     ?>
     <!DOCTYPE html>

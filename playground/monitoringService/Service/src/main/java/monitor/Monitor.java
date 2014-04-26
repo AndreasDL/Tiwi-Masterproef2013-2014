@@ -20,7 +20,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- *
+ * this class will monitor testbeds
  * @author drew
  */
 public class Monitor {
