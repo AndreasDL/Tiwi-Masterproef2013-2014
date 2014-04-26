@@ -7,20 +7,29 @@
 package monitor.model;
 
 /**
- *
+ *this class respresents a testbed
  * @author drew
  */
 public class Testbed {
     private String testbedName,url,urn;
-
+/**
+ * returns the name of the testbed
+ * @return 
+ */
     public String getestbedName() {
         return testbedName;
     }
-
+/**
+ * returns the url of the testbed
+ * @return 
+ */
     public String getUrl() {
         return url;
     }
-
+/**
+ * returns the urn of the testbed
+ * @return 
+ */
     public String getUrn() {
         return urn;
     }

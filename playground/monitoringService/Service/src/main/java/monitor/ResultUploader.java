@@ -9,6 +9,8 @@ package monitor;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import monitor.model.TestResult;
 
 /**
@@ -60,7 +62,8 @@ public class ResultUploader implements Runnable{
     /**
      * sets the boolean to stop this service as soon as the uploads are complete.
      */
-    public void stop(){
+    public void stop() {
+        
         this.stopping = true;
     }
 }
