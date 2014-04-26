@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  * This class redirects output from one stream to two streams. It is a programmed linux-tee command.
- * @author drew
+ * @author Andreas De Lille
  */
 public class TeePrintStream extends PrintStream {
   protected OutputStream parent;

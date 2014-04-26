@@ -9,13 +9,11 @@ package monitor;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import monitor.model.TestResult;
 
 /**
  * This class uploads testresults to the webservice.
- * @author drew
+ * @author Andreas De Lille
  */
 public class ResultUploader implements Runnable{
     WebServiceAccess webAccess;

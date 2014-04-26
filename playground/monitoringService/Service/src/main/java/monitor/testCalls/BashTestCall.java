@@ -21,7 +21,7 @@ import monitor.model.Testbed;
 
 /**
  * This class executes a bashscript/command e.g. ping
- * @author drew
+ * @author Andreas De Lille
  */
 public class BashTestCall extends TestCall {
     public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {

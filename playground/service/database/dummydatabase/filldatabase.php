@@ -72,8 +72,6 @@ $query = "insert into testdefinitions (testDefinitionName,testtype,testcommand) 
 echo "\tCreating Ping test\n";
 $data = array('ping','ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
-/*$data = array("ping", "timeout", "integer", "timeout for ping test");
-pg_query_params($con, $subQuery, $data);*/
 $data = array("ping", "testbed", "testbed", "name of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
 
@@ -132,45 +130,45 @@ pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
 //login amv2
-$data = array('login','login', ''); //--context-file <context-file>');
+$data = array('login2','login2', ''); //--context-file <context-file>');
 pg_query_params($con, $query, $data);
-$data = array("login", "context-file", "file", "username = ftester
+$data = array("login2", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
     pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>");
 pg_query_params($con, $subQuery, $data);
 
-$data = array("login", "userAuthorityUrn", "urn", "urn for authority");
+$data = array("login2", "userAuthorityUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
-$data = array("login", "testedAggregateManager", "testbed", "testbed to run test on");
+$data = array("login2", "testedAggregateManager", "testbed", "testbed to run test on");
 pg_query_params($con, $subQuery, $data);
 
-$data = array('login', 'resultHtml', 'file', 'results in html format');
+$data = array('login2', 'resultHtml', 'file', 'results in html format');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'result-overview', 'file', 'results in xml format');
+$data = array('login2', 'result-overview', 'file', 'results in xml format');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'setUp', 'string', 'setup');
+$data = array('login2', 'setUp', 'string', 'setup');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+$data = array('login2', 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testListResourcesAvailableNoSlice', 'string', '');
+$data = array('login2', 'testListResourcesAvailableNoSlice', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreateSliceSliver', 'string', '');
+$data = array('login2', 'testCreateSliceSliver', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreateSliver', 'string', '');
+$data = array('login2', 'testCreateSliver', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testCreatedSliverBecomesReady', 'string', '');
+$data = array('login2', 'testCreatedSliverBecomesReady', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'checkManifestOnceSliverIsReady', 'string', '');
+$data = array('login2', 'checkManifestOnceSliverIsReady', 'string', '');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testNodeLogin', 'string', 'test node login');
+$data = array('login2', 'testNodeLogin', 'string', 'test node login');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'testDeleteSliver', 'string', 'test delete sliver');
+$data = array('login2', 'testDeleteSliver', 'string', 'test delete sliver');
 pg_query_params($con, $retQuery, $data);
-$data = array('login', 'duration', 'long', 'duration of the test in millisecs');
+$data = array('login2', 'duration', 'long', 'duration of the test in millisecs');
 pg_query_params($con, $retQuery, $data);
-$data = array('login','returnValue', 'int' , 'return value of the automatedTester');
+$data = array('login2','returnValue', 'int' , 'return value of the automatedTester');
 pg_query_params($con, $retQuery, $data);
 
 //login amv3
@@ -224,7 +222,7 @@ $data = array('loginGen','automatedTester', '--context-file <context-file> '
     . '--group nodelogin '
     . '--output-dir <output-dir> '
     . '-q'
-    ); //--context-file <context-file>');
+    ); 
 pg_query_params($con, $query, $data);
 $data = array("loginGen", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -237,7 +235,6 @@ $data = array("loginGen", "userAuthorityUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
 $data = array("loginGen", "testedAggregateManager", "testbed", "testbed to run test on");
 pg_query_params($con, $subQuery, $data);
-//ye i really did spend like 3 hours looking at my code, because i forgot to add this line
 $data = array("loginGen", "output-dir" , 'auto', 'generate an output directory');
 pg_query_params($con,$subQuery,$data);
 
@@ -268,6 +265,63 @@ pg_query_params($con, $retQuery, $data);
 $data = array('loginGen','returnValue', 'int' , 'return value of the automatedTester');
 pg_query_params($con, $retQuery, $data);
 
+echo "creating getVersion 2 & 3 tests\n";
+$data = array('getVersion2','getVersion2', '');
+pg_query_params($con, $query, $data);
+$data = array("getVersion2", "context-file", "file", "username = ftester
+    passwordFilename = " . $authDir . "ftester.pass
+    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    userAuthorityUrn = <userAuthorityUrn>
+    testedAggregateManagerUrn = <testedAggregateManager.urn>");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("getVersion2", "userAuthorityUrn", "urn", "urn for authority");
+pg_query_params($con, $subQuery, $data);
+$data = array("getVersion2", "testedAggregateManager", "testbed", "testbed to run test on");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("getVersion2", 'resultHtml', 'file', 'results in html format');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion2", 'result-overview', 'file', 'results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion2", 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion2",'returnValue', 'int' , 'return value of the automatedTester');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion2", 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion2", 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+
+$data = array('getVersion3','getVersion3', '');
+pg_query_params($con, $query, $data);
+$data = array("getVersion3", "context-file", "file", "username = ftester
+    passwordFilename = " . $authDir . "ftester.pass
+    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    userAuthorityUrn = <userAuthorityUrn>
+    testedAggregateManagerUrn = <testedAggregateManager.urn>");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("getVersion3", "userAuthorityUrn", "urn", "urn for authority");
+pg_query_params($con, $subQuery, $data);
+$data = array("getVersion3", "testedAggregateManager", "testbed", "testbed to run test on");
+pg_query_params($con, $subQuery, $data);
+
+$data = array("getVersion3", 'resultHtml', 'file', 'results in html format');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion3", 'result-overview', 'file', 'results in xml format');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion3", 'duration', 'long', 'duration of the test in millisecs');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion3",'returnValue', 'int' , 'return value of the automatedTester');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion3", 'setUp', 'string', 'setup');
+pg_query_params($con, $retQuery, $data);
+$data = array("getVersion3", 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
+pg_query_params($con, $retQuery, $data);
+
+
+
 // </editor-fold>
 
 //<editor-fold desc="instances" defaultstate="collapsed">
@@ -277,7 +331,7 @@ $query = "insert into testinstances (testname,testDefinitionName,frequency,nextr
 pg_prepare($con, "query", $query);
 $subQuery = "insert into parameterInstances (testinstanceId,parameterName,parametervalue) values (lastval(),$1,$2)";
 pg_prepare($con, "subQuery", $subQuery);
-
+/*
 //ping
 echo "\tCreating Ping testInstances\n";
 for ($i = 0; $i < $aantalpinginstances; $i++) {
@@ -289,12 +343,12 @@ for ($i = 0; $i < $aantalpinginstances; $i++) {
         true//(($i%2==1)?'true':'false')
     );
     pg_execute($con, "query", $data);
-/*
+
     $data = array(
         'timeout',
         '300'
     );
-    pg_execute($con, "subQuery", $data);*/
+    pg_execute($con, "subQuery", $data);
     $data = array(
         'testbed',
         'testbed' . $i
@@ -322,12 +376,26 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
     $data = array("scsUrl", "http://geni.maxgigapop.net:8081/geni/xmlrpc");
     pg_execute($con, "subQuery", $data);
 
-}
+}*/
 //login
-echo "\tCreating login amv2 & amv3 & generetic example testinstances\n";
 foreach ($urns as $name => $urn) {
+    echo "\tCreating instances for " . $name . "\n";
+    $data = array($name . 'ping',
+        'ping',
+        '60',
+        "2014-04-20T11:00:00+0100",
+        true//(($i%2==1)?'true':'false')
+    );
+    pg_execute($con, "query", $data);
+
+    $data = array(
+        'testbed',
+        $name
+    );
+    pg_execute($con, "subQuery", $data);
+    
     $data = array($name,
-        "login",
+        "login2",
         "3600",
         "2014-04-20T11:00:00+0100",
         true
@@ -351,6 +419,32 @@ foreach ($urns as $name => $urn) {
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
     
+        
+    $data = array($name . "getVerv2",
+        "getVersion2",
+        "3600",
+        "2014-04-20T11:00:00+0100",
+        true
+    );
+    pg_execute($con, "query", $data);
+    $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    pg_execute($con, "subQuery", $data);
+    $data = array("testedAggregateManager", $name);
+    pg_execute($con, "subQuery", $data);
+    
+    $data = array($name . "getVerv3",
+        "getVersion3",
+        "3600",
+        "2014-04-20T11:00:00+0100",
+        true
+    );
+    pg_execute($con, "query", $data);
+    $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    pg_execute($con, "subQuery", $data);
+    $data = array("testedAggregateManager", $name);
+    pg_execute($con, "subQuery", $data);
+    
+    
     
     //generic
     $data = array($name . "gen",
@@ -367,7 +461,7 @@ foreach ($urns as $name => $urn) {
     pg_execute($con, "subQuery", $data);
 }
 // </editor-fold>
-
+/*
 //<editor-fold desc="Results" defaultstate="collapsed">
 //results &subresults
 echo "creating results\n";
@@ -493,7 +587,7 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
     }
 }
 // </editor-fold>
-
+*/
 //connectie sluiten
 pg_close($con);
 echo "done\n";

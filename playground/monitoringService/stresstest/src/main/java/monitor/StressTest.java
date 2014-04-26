@@ -26,7 +26,7 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * this class will pull a test then run it simultaneously on multiple threads to simulate heavy load on a testbed
- * @author drew
+ * @author Andreas De Lille
  */
 public class StressTest {
     private Properties prop;

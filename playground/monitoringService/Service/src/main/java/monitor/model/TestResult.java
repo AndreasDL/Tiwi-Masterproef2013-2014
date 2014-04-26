@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  * This class represents a testresult.
- * @author drew
+ @author Andreas De Lille
  */
 public class TestResult {
 

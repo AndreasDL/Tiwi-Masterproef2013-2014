@@ -6,30 +6,18 @@
 
 package monitor.testCalls;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
-import monitor.model.TestResult;
 import monitor.model.Testbed;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * Calls the automated tester to run a stitching test.
- * @author drew
+ * This class represents a testcall. The differenct testCalls are bashTestcall => runs a bash command/script.
+ * automated tester => calls the automated tester.jar
  */
 public class StitchingTestCall extends AutomatedTesterTestCall{
 
@@ -54,41 +42,6 @@ public class StitchingTestCall extends AutomatedTesterTestCall{
         
         
         return commands;
-    }
-    
-    @Override
-    protected TestResult handleResults(String consoleOutput, int returnValue) {
-
-        TestResult r = super.handleResults(consoleOutput,returnValue);
-        r.addSubResult("resultHtml", makeTestOutputDir() + "result.html");
-        r.addSubResult("result-overview", makeTestOutputDir() + "result-overview.xml");
-
-        //parse result => read overview
-        File xmlFile = new File(makeTestOutputDir()+"result-overview.xml");
-        
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            
-            NodeList nList = doc.getElementsByTagName("method");
-            for (int i = 0 ; i < nList.getLength() ; i++){
-                Node n = nList.item(i);
-                
-                if (n.getNodeType() == Node.ELEMENT_NODE){
-                    Element el = (Element) n;
-                    
-                    r.addSubResult(el.getElementsByTagName("methodName").item(0).getTextContent(),
-                            el.getElementsByTagName("state").item(0).getTextContent());
-                }
-            }
-        } catch (ParserConfigurationException | SAXException ex) {
-            Logger.getLogger(LoginTestCall.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(StitchingTestCall.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-
-        return r;
     }
     
     

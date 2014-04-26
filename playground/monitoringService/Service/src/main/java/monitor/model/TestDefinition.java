@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * This class represents a testdefinition. The testdefinitions is meant to hold the command, the basic configuration.
  * A testInstance is an instance of a testDefinition. You could compare it with oo; a testdefinition represents the class while an instance represents the object.
- * @author drew
+ * @author Andreas De Lille
  */
 public class TestDefinition {
     private String testcommand;//don't use camel case, postgresql doesn't like camels

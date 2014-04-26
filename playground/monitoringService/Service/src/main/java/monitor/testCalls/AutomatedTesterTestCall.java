@@ -7,6 +7,7 @@ package monitor.testCalls;
 
 import be.iminds.ilabt.jfed.ui.cli.AutomatedTesterCli;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -16,16 +17,24 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import monitor.ResultUploader;
 import monitor.TeePrintStream;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
 import monitor.model.Testbed;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * This class runs a test using the automated tester
- * @author drew
+ * @author Andreas De Lille
  */
 public class AutomatedTesterTestCall extends TestCall {
 
@@ -90,6 +99,35 @@ public class AutomatedTesterTestCall extends TestCall {
     protected TestResult handleResults(String consoleOutput, int returnValue) {
         TestResult r =  super.handleResults(consoleOutput,returnValue);
         r.addSubResult("duration",""+(System.currentTimeMillis() -  start));
+        r.addSubResult("resultHtml", makeTestOutputDir() + "result.html");
+        r.addSubResult("result-overview", makeTestOutputDir() + "result-overview.xml");
+
+        //parse result => read overview
+        File xmlFile = new File(makeTestOutputDir()+"result-overview.xml");
+        
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            
+            NodeList nList = doc.getElementsByTagName("method");
+            for (int i = 0 ; i < nList.getLength() ; i++){
+                Node n = nList.item(i);
+                
+                if (n.getNodeType() == Node.ELEMENT_NODE){
+                    Element el = (Element) n;
+                    
+                    r.addSubResult(el.getElementsByTagName("methodName").item(0).getTextContent(),
+                            el.getElementsByTagName("state").item(0).getTextContent());
+                }
+            }
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(Login2TestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(Login2TestCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Login2TestCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return r;
     }

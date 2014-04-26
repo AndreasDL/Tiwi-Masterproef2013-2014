@@ -8,15 +8,13 @@ package monitor.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.TimeZone;
 
 /**
  * this class represents a testinstance. A testinstance is a testdefinition with the parameters set. 
  * The definition will tell you what parameters and returnvalues are to be expected; the instance will tell you the value of them.
- * @author drew
+ * @author Andreas De Lille
  */
 public class TestInstance {
     private String testname,testdefinitionname;

@@ -5,34 +5,21 @@
  */
 package monitor.testCalls;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
-import monitor.model.TestResult;
 import monitor.model.Testbed;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * This testcall executes a login amv2 testcall.
- * @author drew
+ * @author Andreas De Lille
  */
-public class LoginTestCall extends AutomatedTesterTestCall {
+public class Login2TestCall extends AutomatedTesterTestCall {
 
-    public LoginTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
+    public Login2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
 
@@ -55,6 +42,7 @@ public class LoginTestCall extends AutomatedTesterTestCall {
 
         return commands;
     }
+    /*
     @Override
     protected TestResult handleResults(String consoleOutput,int returnValue){
 
@@ -90,6 +78,6 @@ public class LoginTestCall extends AutomatedTesterTestCall {
         } 
 
         return r;
-    }
+    }*/
 
 }

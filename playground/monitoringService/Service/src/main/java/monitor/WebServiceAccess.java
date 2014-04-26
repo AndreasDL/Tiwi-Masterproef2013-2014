@@ -37,7 +37,7 @@ import java.util.TimeZone;
 import monitor.model.TestResult;
 /**
  * this class is used to interact with the webservice.
- * @author drew
+ * @author Andreas De Lille
  */
 public class WebServiceAccess {
 

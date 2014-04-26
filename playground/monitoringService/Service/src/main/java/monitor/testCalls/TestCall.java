@@ -25,8 +25,9 @@ import monitor.model.TestResult;
 import monitor.model.Testbed;
 
 /**
- *
- * @author drew
+ * This class represents a testcall. The differenct testCalls are bashTestcall => runs a bash command/script.
+ * automated tester => calls the automated tester.jar
+ * @author Andreas De Lille
  */
 public abstract class TestCall implements Runnable{
     private final String outputDir;
@@ -43,8 +44,7 @@ public abstract class TestCall implements Runnable{
     boolean isLoadTest;
 
 /**
- * This class represents a testcall. The differenct testCalls are bashTestcall => runs a bash command/script.
- * automated tester => calls the automated tester.jar
+ * Creates a testCall
  * @param resultUploader The resultuploader which will run on a different thread uploading results one by one while tests are executed.
  * @param test The testInstance associated with the call.
  * @param testDefinition The testDefinition associated with the testInstance.

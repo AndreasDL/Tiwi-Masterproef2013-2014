@@ -21,7 +21,7 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * this class will monitor testbeds
- * @author drew
+ * @author Andreas De Lille
  */
 public class Monitor {
 
@@ -113,6 +113,10 @@ public class Monitor {
                     //System.out.println(test.getTest().getTestname());
                     if (test.getTest().isEnabled() && test.getTest().isScheduled()) {
                         threadPool.submit(test);
+                        try {
+                            Thread.sleep(1000); //avoid loadtest by running all calls at once
+                        } catch (InterruptedException ex) {
+                        }
                     }else{
                         System.out.println(test.getTest().getTestname() + " doesn't need to run yet, skipping.");
                     }

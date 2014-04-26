@@ -15,7 +15,7 @@ import monitor.model.Testbed;
 
 /**
  * Used to create the different testtypes
- * @author drew
+ * @author Andreas De Lille
  */
 public class TestCallFactory {
     /**
@@ -47,8 +47,8 @@ public class TestCallFactory {
             case "ping":
                 ret = new PingTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);
                 break;
-            case "login":
-                ret = new LoginTestCall(resup,test, testDefinition, testbeds,prop,isLoadTest);
+            case "login2":
+                ret = new Login2TestCall(resup,test, testDefinition, testbeds,prop,isLoadTest);
                 break;
             case "login3":
                 ret = new Login3TestCall(resup,test, testDefinition, testbeds,prop,isLoadTest);
@@ -58,6 +58,12 @@ public class TestCallFactory {
                 break;
             case "automatedTesterTestCall":
                 ret = new AutomatedTesterTestCall(resup, test, testDefinition, testbeds, prop,isLoadTest);
+                break;
+            case "getVersion2":
+                 ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
+                break;
+            case "getVersion3":
+                 ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
                 break;
             default:
                 ret = new BashTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);

@@ -8,7 +8,7 @@ package monitor.model;
 
 /**
  *this class respresents a testbed
- * @author drew
+ * @author Andreas De Lille
  */
 public class Testbed {
     private String testbedName,url,urn;
