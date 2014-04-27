@@ -122,6 +122,7 @@ public class StressTest {
         } else {
             System.out.println("Test " + testName + " not found!\n Check your connection and check for typo's and try again");
             help(options);
+            System.exit(-1);
         }
     }
 }

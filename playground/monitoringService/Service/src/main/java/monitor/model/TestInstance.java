@@ -50,13 +50,13 @@ public class TestInstance {
      * @return 
      */
     public boolean isScheduled(){
+        //System.out.println("nextrun: " + nextrun.getTime() + " nu: " + System.currentTimeMillis());
         if (nextrun != null){
             long next = nextrun.getTime();
-            next += frequency * 1000;
             
             return next < System.currentTimeMillis();
         }else{
-            //null => instance has never run
+            //null => instance has never run before & should run asap
             return true;
         }
     }

@@ -3,6 +3,7 @@ package monitor;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
@@ -30,7 +31,13 @@ public class Monitor {
     private ExecutorService threadPool;
 
     public static void main(String[] args) throws IOException {
-        new Monitor(args);
+        //while (true){
+            new Monitor(args);
+        /*    try {
+                Thread.sleep(60000);
+            } catch (InterruptedException ex) {
+            }
+        }*/
     }
 /**
  * prints documentation when something is wrong.
@@ -105,6 +112,7 @@ public class Monitor {
 
             //get Tests
             Queue<TestCall> tasks = webAccess.getScheduledTests(testnames,testdefnames,testbeds,testinstances);
+            System.out.println("Run at: " + (new Date()).getTime() );
             if (tasks != null) {
                 //create thread pool
                 threadPool = Executors.newFixedThreadPool(threadCount);
@@ -134,6 +142,7 @@ public class Monitor {
                 System.out.println("Execution complete");
             } else {
                 System.out.println("Something went wrong while contacting the webService. Check your connection and try again.");
+                System.exit(-1);
             }
         }
     }
@@ -142,7 +151,8 @@ public class Monitor {
      * @return 
      */
     public static Properties getProp() {
-        String serviceUrl = "http://localhost/service/index.php/";
+        String serviceUrl = "http://localhost/longrun/service/index.php/";
+        //String serviceUrl = "http://localhost/service/index.php/";
         Properties prop = new Properties();
         prop.setProperty("urlTestInstances", serviceUrl + "testInstance");//testdefinitionname=loginGen");
         prop.setProperty("urlTestbeds", serviceUrl + "testbed");
