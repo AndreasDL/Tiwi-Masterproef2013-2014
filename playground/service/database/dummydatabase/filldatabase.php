@@ -86,14 +86,16 @@ $data = array("stitch", "context-file", "file", "username = ftester
     pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>
-    stitchedAuthorityUrns= urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm urn:publicid:IDN+utah.geniracks.net+authority+cm
+    stitchedAuthorityUrns= <stitchedAuthorities.urn>
     scsUrn = <scsUrn>
     scsUrl = <scsUrl>");
 pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "userAuthorityUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
-$data = array("stitch", "testedAggregateManager", "testbed", "testbed to run test on");
+$data = array("stitch", "testedAggregateManager", "testbed", "");//testbed to run test on");
 pg_query_params($con, $subQuery, $data);
+$data = array('stitch', 'stitchedAuthorities', 'testbed[]', 'testbeds to run test on');
+pg_query_params($con,$subQuery,$data);
 $data = array("stitch", "scsUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "scsUrl", "url", "testbed to run test on");
@@ -377,8 +379,9 @@ for ($i = 0; $i < $aantalstitchinstances; $i++) {
     pg_execute($con, "subQuery", $data);
 
 }*/
-//login
+
 foreach ($urns as $name => $urn) {
+    //ping
     echo "\tCreating instances for " . $name . "\n";
     $data = array($name . 'ping',
         'ping',
@@ -393,7 +396,7 @@ foreach ($urns as $name => $urn) {
         $name
     );
     pg_execute($con, "subQuery", $data);
-    
+    //login2
     $data = array($name,
         "login2",
         "3600",
@@ -406,7 +409,8 @@ foreach ($urns as $name => $urn) {
     pg_execute($con, "subQuery", $data);
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
-    
+
+    //login3
     $data = array($name . "v3",
         "login3",
         "3600",
@@ -419,7 +423,7 @@ foreach ($urns as $name => $urn) {
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
     
-        
+    //getVersion2
     $data = array($name . "getVerv2",
         "getVersion2",
         "3600",
@@ -432,6 +436,7 @@ foreach ($urns as $name => $urn) {
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
     
+    //getVersion3
     $data = array($name . "getVerv3",
         "getVersion3",
         "3600",
@@ -443,8 +448,6 @@ foreach ($urns as $name => $urn) {
     pg_execute($con, "subQuery", $data);
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
-    
-    
     
     //generic
     $data = array($name . "gen",
@@ -460,6 +463,31 @@ foreach ($urns as $name => $urn) {
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
 }
+
+echo "creating stitching test\n";
+//stitch
+    $data = array(
+    "wall1wall2",
+    'stitch',
+    '3600',
+    "2014-04-20T11:00:00+0100",
+    true
+);
+pg_execute($con, "query", $data);
+
+$data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+pg_execute($con, "subQuery", $data);
+$data = array("testedAggregateManager", $name);
+pg_execute($con, "subQuery", $data);
+$data = array("stitchedAuthorities", "wall1");
+pg_execute($con, "subQuery", $data);
+$data = array("stitchedAuthorities", "wall2");
+pg_execute($con, "subQuery", $data);
+$data = array("scsUrn", "urn:publicid:IDN+geni.maxgigapop.net+auth+am");
+pg_execute($con, "subQuery", $data);
+$data = array("scsUrl", "http://geni.maxgigapop.net:8081/geni/xmlrpc");
+pg_execute($con, "subQuery", $data);
+
 // </editor-fold>
 /*
 //<editor-fold desc="Results" defaultstate="collapsed">

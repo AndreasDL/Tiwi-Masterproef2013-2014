@@ -218,9 +218,11 @@ public abstract class TestCall implements Runnable{
                         ret = testbeds.get(testbed).getUrl();
                     }
                 } else if (s[1].equals("urn")) {
-                    for (String testbed : test.getParameters().get(s[0])) {
-                        ret = testbeds.get(testbed).getUrn();
+                    ret = testbeds.get(test.getParameters().get(s[0]).get(0)).getUrn();
+                    for (int i = 1 ; i < test.getParameters().get(s[0]).size() ; i++){
+                        ret += " " + testbeds.get(test.getParameters().get(s[0]).get(i)).getUrn();
                     }
+                    /*for (String testbed : test.getParameters().get(s[0])) {}*/
                 }
             //}
         } else {
