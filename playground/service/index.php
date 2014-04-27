@@ -7,24 +7,28 @@ error_reporting(-1);
 include(__DIR__.'/Request.php');
 #autoload classes
 spl_autoload_register('apiAutoload');
-
 function apiAutoload($classname) {
     if (preg_match('/[a-zA-Z]+Controller$/', $classname) && file_exists(__DIR__ . '/controllers/' . $classname . '.php')) {
         include __DIR__ . '/controllers/' . $classname . '.php';
         return true;
-    } else if (preg_match('/[a-zA-Z]+Formatter$/', $classname) && file_exists(__DIR__ . '/formatters/' . $classname . '.php')) {
-        include __DIR__ . "/formatters/" . $classname . '.php';
+    } else if (preg_match('/[a-zA-Z]+Formatter$/', $classname) && file_exists(__DIR__ . '/database/formatters/' . $classname . '.php')) {
+        include __DIR__ . "/database/formatters/" . $classname . '.php';
         return true;
-    }else {
+    } else if (preg_match('/[a-zA-Z]+Fetcher/', $classname) && file_exists (__DIR__ . '/database/fetchers/' . $classname . '.php' )) {
+        include __DIR__ . '/database/fetchers/' . $classname . '.php';
+        return true;
+    } else {
         return false;
     }
 }
+
 
 #controller bepalen
 $data = null;
 $status = '200';
 $msg ='';//= 'Good!';
 $parameters=array();
+$fetcher = new defaultFetcher();
 
 $formatter = new JsonFormatter(); //Default formatter
 //getcontroller => no controller => show info page
@@ -125,7 +129,7 @@ if ($controller_name != "") {
             }
         }
         
-        $req = new Request($parameters,$status,$msg,$verb);
+        $req = new Request($fetcher,$parameters,$status,$msg,$verb);
         //Only call database is request is valid
         if ($valid) {
             //print "<b>redirecting to $controller_name... </b><br>";

@@ -22,8 +22,8 @@ class AccessDatabase {
     //resultcalls
     /**
      * Will return the last results
-     * @param type $request the request
-     * @return type the last result filtered by the request
+     * @param Request $request the request
+     * @return array the last results filtered by the request
      */
     public function getLast(&$request) {
         //last => indien count niet gezet => op 1 zetten
@@ -83,52 +83,27 @@ class AccessDatabase {
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
-        //print_r($this->testDefinitions);
-        while ($row = pg_fetch_assoc($result)) {
-            //array_push($data, $row);
-
-            if (!isset($data[$row['resultid']])) {
-                $data[$row['resultid']] = array(
-                    'testinstanceid' => $row['testinstanceid'],
-                    //'testtype' => $row['testtype'],
-                    'testdefinitionname' => $row['testdefinitionname'],
-                    'testname' => $row['testname'],
-                    'log' => $row['log'],
-                    'timestamp' => date("c", strtotime($row['timestamp'])),
-                    'testbeds' => array(),
-                    'results' => array()
-                );
-            }
-
-            if (($this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' || $this->testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
-                array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
-            }
-
-
-            //NOTE column names are ALWAYS LOWER CASE
-            $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
-        }
+        $request->getFetcher()->FetchList($result,$data,$this->testDefinitions);
+        
         //echo $query;
         $this->closeConnection($con);
         return $data;
     }
 
     /**
-     * ggets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
-     * @return type
+     * gets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
      */
     public function updateCache() {
-        $this->testbeds = $this->getTestbed(new Request());
-        $this->testDefinitions = $this->getTestDefinition(new Request());
-        $this->testInstances = $this->getTestInstance(new Request());
-        return;
+        $this->testbeds = $this->getTestbed(new Request(new defaultFetcher()));
+        $this->testDefinitions = $this->getTestDefinition(new Request(new defaultFetcher()));
+        $this->testInstances = $this->getTestInstance(new Request(new defaultFetcher()));
     }
 
     //Config Calls
     /**
      * gets the definitions from the database, filtered by the request
-     * @param type $request the request
-     * @return type the testdefinitions
+     * @param Request $request the request
+     * @return array the testdefinitions
      */
     public function getTestDefinition(&$request) {
         $params = $request->getParameters();
@@ -141,24 +116,7 @@ class AccessDatabase {
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
-        while ($row = pg_fetch_assoc($result)) {
-            //if (!isset($data[$row['testtype']])) {
-            if (!isset($data[$row['testdefinitionname']])) {
-                $data[$row['testdefinitionname']] = array(
-                    'testdefinitionname' => $row['testdefinitionname'],
-                    'testtype' => $row['testtype'],
-                    'testcommand' => $row['testcommand'],
-                    'parameters' => array(),
-                    'returnValues' => array()
-                );
-            }
-            $data[$row['testdefinitionname']]['parameters'][$row['parametername']] = array('type' => $row['parametertype'],
-                'description' => $row['parameterdescription']
-            );
-
-            $data[$row['testdefinitionname']]['returnValues'][$row['returnname']] = array('type' => $row['returntype'],
-                'description' => $row['returndescription']);
-        }
+        $request->getFetcher()->fetchDefinition($result, $data);
 
         $this->closeConnection($con);
         return $data;
@@ -166,7 +124,7 @@ class AccessDatabase {
 
     /**
      * Returns the testinstances filtered by the request
-     * @param type $request the request
+     * @param Request $request the request
      * @return array the instances
      */
     public function getTestInstance(&$request) {
@@ -189,26 +147,7 @@ class AccessDatabase {
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
-        while ($row = pg_fetch_assoc($result)) {
-            //array_push($data, $row);
-            if (!isset($data[$row['id']])) {
-                $data[$row['id']] = array(
-                    'testname' => $row['testname'],
-                    //'testtype' => $row['testtype'],
-                    'testdefinitionname' => $row['testdefinitionname'],
-                    'frequency' => $row['frequency'],
-                    'enabled' => ($row['enabled'] == "t" ? "True" : "False"),
-                    'nextrun' => date("c", strtotime($row['nextrun'])),
-                    //'type' => gettype($row['nextrun']),
-                    'parameters' => array()
-                );
-            }
-            if (!isset($data[$row['id']]['parameters'][$row['parametername']])) {
-                $data[$row['id']]['parameters'][$row['parametername']] = array();
-            }
-
-            array_push($data[$row['id']]['parameters'][$row['parametername']], $row['parametervalue']);
-        }
+        $request->getFetcher()->fetchTestInstance($result,$data);
 
         $this->closeConnection($con);
         return $data;
@@ -216,8 +155,8 @@ class AccessDatabase {
 
     /**
      * gets the testbeds filtered by the request
-     * @param type $request the request
-     * @return type the testbeds
+     * @param Request $request the request
+     * @return array(testbedname => array(urn,url))
      */
     public function getTestbed(&$request) {
         $params = $request->getParameters();
@@ -228,27 +167,17 @@ class AccessDatabase {
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
         $data = array();
-        while ($row = pg_fetch_assoc($result)) {
-            //array_push($data, $row);
-            if (!isset($data[$row['testbedname']])) {
-                $data[$row['testbedname']] = array('testbedName' => $row['testbedname'],
-                    'url' => $row['url'],
-                    'urn' => $row['urn']
-                );
-            }
-        }
+        $request->getFetcher()->fetchTestbed($result, $data);
         $this->closeConnection($con);
         return $data;
     }
 
     //push calls
 
-
     /**
      * adds a result to the database when the request is valid.
      * A request is valid when the method/verb is post, the testinstance exists and all subresults defined in the testdefinition are given
-     * @param type $request the request
-     * @return type
+     * @param Request $request the request
      */
     public function addResult(&$request) {
         //if ($request->getVerb() == 'POST'){
@@ -302,14 +231,11 @@ class AccessDatabase {
 
             $this->closeConnection($con);
         }
-
-        return;
     }
 
-   
     /**
      * updates the nextrun of the testinstance when the testinstance exists and the given nextrun is after the previousone.
-     * @param type $request
+     * @param Request $request
      */
     public function updateNextRun(&$request) {
         $params = $request->getParameters();
@@ -349,7 +275,7 @@ class AccessDatabase {
     //fix connection
     /**
      * returns the connection with the database
-     * @return type
+     * @return con the connection to the postgresql database
      */
     private function getConnection() {
         $con = pg_connect($GLOBALS['conString']) or die("Couldn't connect to database");
@@ -369,12 +295,12 @@ class AccessDatabase {
      * Will add and any clause to the query. Use with caution after this function is used you need to check if there are parameters added in the paramsforuse.
      * If so the ending bracelet ')' should be added after all other parameters are added to the query.
      * This function will only add a clausule if the parameter is set.
-     * @param type $query the query to add the any clausule
-     * @param type $params parameters of the request
-     * @param type $paramsForUse the array to use with pg_query_params
-     * @param type $paramName the name of the parameter in the request
-     * @param type $viewName the name of the view to use
-     * @param type $colName the name in this case id 
+     * @param string $query the query to add the any clausule
+     * @param array $params parameters of the request
+     * @param array $paramsForUse the array to use with pg_query_params
+     * @param string $paramName the name of the parameter in the request
+     * @param string $viewName the name of the view to use
+     * @param string $colName the name in this case id 
      */
     private function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
         //not sure if this works 2 times on the same query
@@ -401,11 +327,11 @@ class AccessDatabase {
 
     /**
      * adds an in clausule if the paramName is set in params
-     * @param type $query the query to add the any clausule
-     * @param type $params parameters of the request
-     * @param type $paramsForUse the array to use with pg_query_params
-     * @param type $paramName the name of the parameter in the request
-     * @param type $colName the name of the column in the database associated with the paramname
+     * @param string $query the query to add the any clausule
+     * @param array $params parameters of the request
+     * @param array $paramsForUse the array to use with pg_query_params
+     * @param string $paramName the name of the parameter in the request
+     * @param string $colName the name of the column in the database associated with the paramname
      */
     private function addInIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
 
@@ -428,13 +354,14 @@ class AccessDatabase {
             $query .= ") ";
         }
     }
-/**
+
+    /**
      * adds an >= clausule if the paramName is set in params. although the name is greaterthan it is actually greater than or equal
-     * @param type $query the query to add the any clausule
-     * @param type $params parameters of the request
-     * @param type $paramsForUse the array to use with pg_query_params
-     * @param type $paramName the name of the parameter in the request
-     * @param type $colName the name of the column in the database associated with the paramname
+     * @param string $query the query to add the any clausule
+     * @param array $params parameters of the request
+     * @param array $paramsForUse the array to use with pg_query_params
+     * @param string $paramName the name of the parameter in the request
+     * @param string $colName the name of the column in the database associated with the paramname
      */
     private function addGreaterThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
@@ -450,13 +377,14 @@ class AccessDatabase {
             $query .= sizeof($paramsForUse);
         }
     }
-/**
+
+    /**
      * adds an <= clausule if the paramName is set in params. although the name is lowerthan it is actually lower than or equal
-     * @param type $query the query to add the any clausule
-     * @param type $params parameters of the request
-     * @param type $paramsForUse the array to use with pg_query_params
-     * @param type $paramName the name of the parameter in the request
-     * @param type $colName the name of the column in the database associated with the paramname
+     * @param string $query the query to add the any clausule
+     * @param array $params parameters of the request
+     * @param array $paramsForUse the array to use with pg_query_params
+     * @param string $paramName the name of the parameter in the request
+     * @param string $colName the name of the column in the database associated with the paramname
      */
     private function addLowerThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
