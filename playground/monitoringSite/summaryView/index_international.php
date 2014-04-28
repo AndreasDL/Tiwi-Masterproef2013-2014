@@ -27,8 +27,12 @@
     //todo webservice via config file
     Include ( __DIR__.'/../config.php');
     
-    $data = json_decode(file_get_contents($GLOBALS['urlInternational']),true);
-    $data = $data['data'];
+    $ping = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=ping'),true);
+    $ping = $ping['data'];
+    
+    $getVersion = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=getVersion2'),true);
+    $getVersion = $getVersion['data'];
+    
     $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
     $testbedurls = $testbedurls['data'];
     //print_r($data);
@@ -46,7 +50,10 @@
             }
             echo "</td>";
             
-            echo "<td> Not supported yet!</td>";
+            if ($row['results']['testGetVersionXmlRpcCorrectness']echo "<td bgcolor=";
+            
+            
+            > Not supported yet!</td>";
             echo "<td> Not supported yet!</td>";
         echo "</tr>";
     }

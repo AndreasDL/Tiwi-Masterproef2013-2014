@@ -9,8 +9,8 @@ else
 	touch $LOCKFILE;
 	cd /root/www/longrun/
 	DATE=$(date);
-	echo "run at $DATE";
-	java -jar /root/www/longrun/Service-beta-jar-with-dependencies.jar --threads 10 --test-name wall1,wall2,wall2v3,wall1v3,wall1wall2;
+	echo "startup at $DATE";
+	java -jar /root/www/longrun/Service-beta-jar-with-dependencies.jar --threads 10;
 	rm -f $LOCKFILE;
 	exit 0;
 fi

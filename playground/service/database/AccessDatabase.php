@@ -1,6 +1,7 @@
 <?php
 
 include (__DIR__ . "/config.php"); //database config
+//include(__DIR__.'/filters/QueryBuilder.php');
 
 /**
  * this class will contact the database
@@ -41,51 +42,25 @@ class AccessDatabase {
      * @return type list of results filtered by the request
      */
     public function getList(&$request) {
+        //init
         $params = $request->getParameters();
-        if (!isset($params['till']) && !isset($params['from']) && isset($params['count']) && $params['count'][0] > $GLOBALS['maxList']) {
-            $request->addMsg("Warn: count value higher that max allowed (" . $GLOBALS['maxList'] . "). Using max as count.");
-            $params['count'] = $GLOBALS['maxList'];
-        } else if (!isset($params['count'])) {
-            $params['count'] = array($GLOBALS['maxList']);
-        }
         $query = "select * from ("
                 . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
                 . ") vv ";
-
         $paramsForUse = array();
-        $eindhaakje = "";
+        
+        //add all needed filters to query
+        $request->getFilter()->filterList($query, $params, $paramsForUse);
 
-        //testbeds
-        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed", "list");
-        if (sizeof($paramsForUse) > 0) {
-            $eindhaakje = ')';
-        }
-        //testtypes
-        //$this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "testtype");
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
-        //status => per subtest nu !!
-        $this->addInIfNeeded($query, $params, $paramsForUse, "status", "value");
-        //resultid
-        $this->addInIfNeeded($query, $params, $paramsForUse, "resultId", "id");
-        //testname
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
-        //from
-        $this->addGreaterThanIfNeeded($query, $params, $paramsForUse, "from", "timestamp");
-        //till
-        $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "till", "timestamp");
-        //count
-        $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "count", "rank");
-        //haakje van any
-        $query.=$eindhaakje;
-
-        //print $query;
-
+        //run query
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
+        
+        //fetch results
         $data = array();
         $request->getFetcher()->FetchList($result,$data,$this->testDefinitions);
         
-        //echo $query;
+        //close & return
         $this->closeConnection($con);
         return $data;
     }
@@ -94,9 +69,9 @@ class AccessDatabase {
      * gets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
      */
     public function updateCache() {
-        $this->testbeds = $this->getTestbed(new Request(new defaultFetcher()));
-        $this->testDefinitions = $this->getTestDefinition(new Request(new defaultFetcher()));
-        $this->testInstances = $this->getTestInstance(new Request(new defaultFetcher()));
+        $this->testbeds = $this->getTestbed(new Request(new defaultFetcher(),new defaultFilter));
+        $this->testDefinitions = $this->getTestDefinition(new Request(new defaultFetcher(),new defaultFilter()));
+        $this->testInstances = $this->getTestInstance(new Request(new defaultFetcher(),new defaultFilter()));
     }
 
     //Config Calls
@@ -110,8 +85,7 @@ class AccessDatabase {
         $query = "select * from definitions";
 
         $paramsForUse = array();
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testtype", "tetyp");
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
+        $request->getFilter()->filterDefinition($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -129,20 +103,10 @@ class AccessDatabase {
      */
     public function getTestInstance(&$request) {
         $params = $request->getParameters();
-        $query = "select *,nextrun  from instances "; //AT TIME ZONE 'CET'
+        $query = "select *,nextrun  from instances ";
         $paramsForUse = array();
-        $eindhaakje = "";
-
-        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed", "instances");
-        if (sizeof($paramsForUse) > 0) {
-            $eindhaakje = ')';
-        }
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid", "testinstanceid");
-        $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "nextrun", "nextrun");
-
-        $query .= $eindhaakje;
+       
+        $request->getFilter()->filterTestInstance($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -162,7 +126,8 @@ class AccessDatabase {
         $params = $request->getParameters();
         $query = "select * from testbeds";
         $paramsForUse = array();
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testbed", "testbedName");
+
+        $request->getFilter()->filterTestbed($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -288,117 +253,6 @@ class AccessDatabase {
      */
     private function closeConnection($con) {
         pg_close($con);
-    }
-
-    //fix query
-    /**
-     * Will add and any clause to the query. Use with caution after this function is used you need to check if there are parameters added in the paramsforuse.
-     * If so the ending bracelet ')' should be added after all other parameters are added to the query.
-     * This function will only add a clausule if the parameter is set.
-     * @param string $query the query to add the any clausule
-     * @param array $params parameters of the request
-     * @param array $paramsForUse the array to use with pg_query_params
-     * @param string $paramName the name of the parameter in the request
-     * @param string $viewName the name of the view to use
-     * @param string $colName the name in this case id 
-     */
-    private function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
-        //not sure if this works 2 times on the same query
-        if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
-            if (sizeof($paramsForUse) == 0) {
-                $query .= " where ";
-            } else {
-                $query .= " and ";
-            }
-            $query .= $colName . "=any(select " . $colName . " from " . $viewName . " where parametervalue IN (";
-
-            array_push($paramsForUse, $params[$paramName][0]);
-            $query .= '$';
-            $query .= sizeof($paramsForUse);
-
-            for ($i = 1; $i < sizeof($params[$paramName]); $i++) {
-                array_push($paramsForUse, $params[$paramName][$i]);
-                $query .= ',$';
-                $query .= sizeof($paramsForUse);
-            }
-            $query .= ") ";
-        }
-    }
-
-    /**
-     * adds an in clausule if the paramName is set in params
-     * @param string $query the query to add the any clausule
-     * @param array $params parameters of the request
-     * @param array $paramsForUse the array to use with pg_query_params
-     * @param string $paramName the name of the parameter in the request
-     * @param string $colName the name of the column in the database associated with the paramname
-     */
-    private function addInIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
-
-        if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
-            if (sizeof($paramsForUse) == 0) {
-                $query .= " where ";
-            } else {
-                $query .= " and ";
-            }
-
-            $query .= $colName . " IN (";
-            array_push($paramsForUse, $params[$paramName][0]);
-            $query .= "$";
-            $query .= sizeof($paramsForUse);
-            for ($i = 1; $i < sizeof($params[$paramName]); $i++) {
-                array_push($paramsForUse, $params[$paramName][$i]);
-                $query .= ",$";
-                $query .= sizeof($paramsForUse);
-            }
-            $query .= ") ";
-        }
-    }
-
-    /**
-     * adds an >= clausule if the paramName is set in params. although the name is greaterthan it is actually greater than or equal
-     * @param string $query the query to add the any clausule
-     * @param array $params parameters of the request
-     * @param array $paramsForUse the array to use with pg_query_params
-     * @param string $paramName the name of the parameter in the request
-     * @param string $colName the name of the column in the database associated with the paramname
-     */
-    private function addGreaterThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
-        if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
-            if (sizeof($paramsForUse) == 0) {
-                $query .= "where ";
-            } else {
-                $query .= "and ";
-            }
-
-            $query .= $colName . " >= ";
-            array_push($paramsForUse, $params[$paramName][0]);
-            $query .= "$";
-            $query .= sizeof($paramsForUse);
-        }
-    }
-
-    /**
-     * adds an <= clausule if the paramName is set in params. although the name is lowerthan it is actually lower than or equal
-     * @param string $query the query to add the any clausule
-     * @param array $params parameters of the request
-     * @param array $paramsForUse the array to use with pg_query_params
-     * @param string $paramName the name of the parameter in the request
-     * @param string $colName the name of the column in the database associated with the paramname
-     */
-    private function addLowerThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
-        if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
-            if (sizeof($paramsForUse) == 0) {
-                $query .= "where ";
-            } else {
-                $query .= "and ";
-            }
-
-            $query .= $colName . " <= ";
-            array_push($paramsForUse, $params[$paramName][0]);
-            $query .= "$";
-            $query .= sizeof($paramsForUse);
-        }
     }
 
 }

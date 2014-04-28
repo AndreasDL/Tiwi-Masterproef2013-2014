@@ -1,8 +1,8 @@
 <?php
     global $webservice;
     $webservice           = 'http://localhost/service/index.php';
-    $queryInternational   = 'last?testdefinitionname=ping';
-    $queryLocal           = 'last?testdefinitionname=ping&testbed=testbed3,testbed7,testbed5,testbed2,testbed11';
+    /*$queryInternational   = 'last?testdefinitionname=ping,getVersion2';
+    $queryLocal           = 'last?testdefinitionname=ping,getVersion2&testbed=wall1,wall2';*/
     
     global $urlInternational;
     global $urlLocal;

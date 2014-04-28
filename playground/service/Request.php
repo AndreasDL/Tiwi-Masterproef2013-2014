@@ -11,6 +11,25 @@ class Request {
     private $verb;
     private $data;
     private $fetcher;
+    private $filter;
+
+    /**
+     * this creates a request
+     * @param iFetcher $fetcher the fetcher object to handle the results.
+     * @param iFilter  $filter The filter to filter the results.
+     * @param array $parameters the parameters get & post of the request
+     * @param int $status http-like status code to tell if the request was succesfull
+     * @param string $msg used for warnings and errormessages
+     * @param string $verb the method (get,post, ...) of the request
+     */
+    function __construct(&$fetcher, &$filter, &$parameters = array(), &$status = '', &$msg = '', &$verb = '') {
+        $this->fetcher = $fetcher;
+        $this->filter = $filter;
+        $this->parameters = $parameters;
+        $this->status = $status;
+        $this->msg = $msg;
+        $this->verb = $verb;
+    }
 
     /**
      * returns the fetcher object associated with this request.
@@ -29,19 +48,19 @@ class Request {
     }
 
     /**
-     * this creates a request
-     * @param iFetcher $fetcher the fetcher object to handle the results.
-     * @param array $parameters the parameters get & post of the request
-     * @param int $status http-like status code to tell if the request was succesfull
-     * @param string $msg used for warnings and errormessages
-     * @param string $verb the method (get,post, ...) of the request
+     * returns the filter
+     * @return iFilter
      */
-    function __construct(&$fetcher,&$parameters = array(), &$status = '', &$msg = '', &$verb = '') {
-        $this->fetcher = $fetcher;
-        $this->parameters = $parameters;
-        $this->status = $status;
-        $this->msg = $msg;
-        $this->verb = $verb;
+    public function getFilter() {
+        return $this->filter;
+    }
+
+    /**
+     * sets the filter
+     * @param iFilter $filter
+     */
+    public function setFilter($filter) {
+        $this->filter = $filter;
     }
 
     /**
