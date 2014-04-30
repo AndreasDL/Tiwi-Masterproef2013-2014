@@ -33,8 +33,6 @@ public class StitchingTestCall extends AutomatedTesterTestCall{
         commands.add("be.iminds.ilabt.jfed.lowlevel.api.test.StitchingTest");
         commands.add("--group");
         commands.add("nodelogin");
-        //commands.add("--authorities-file");
-        //commands.add("/home/drew/masterproef/playground/Monitor/params/auth/authorities.xml");
         commands.add("--output-dir");
         commands.add(super.makeTestOutputDir());
         commands.add("--context-file");

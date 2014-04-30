@@ -26,7 +26,7 @@ class defaultFetcher implements iFetcher {
             }
 
 
-            //NOTE column names are ALWAYS LOWER CASE
+            //NOTE column names are ALWAYS lower CASE
             $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
         }
     }

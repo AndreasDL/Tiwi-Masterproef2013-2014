@@ -41,7 +41,19 @@ public abstract class TestCall implements Runnable{
     protected int seqNumber;
     protected boolean seqNumberSet;
     protected long start;
-    boolean isLoadTest;
+    boolean loadTest;
+
+    public Properties getProp() {
+        return prop;
+    }
+
+    public HashMap<String, Testbed> getTestbeds() {
+        return testbeds;
+    }
+
+    public boolean isLoadTest() {
+        return loadTest;
+    }
 
 /**
  * Creates a testCall
@@ -61,7 +73,7 @@ public abstract class TestCall implements Runnable{
         this.outputDir = prop.getProperty("outputDir");
         this.seqNumberSet = false;
         this.start = System.currentTimeMillis();
-        this.isLoadTest = isLoadTest;
+        this.loadTest = isLoadTest;
     }
 
     /**
@@ -174,7 +186,7 @@ public abstract class TestCall implements Runnable{
      */
     protected TestResult handleResults(String consoleOutput,int returnValue){
         PrintWriter writer = null;
-        TestResult t = new TestResult(test,isLoadTest);
+        TestResult t = new TestResult(test,loadTest);
         try {
             //t.addSubResult("testInstanceId", test.getInstanceId());
             //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues
@@ -262,7 +274,7 @@ public abstract class TestCall implements Runnable{
      * Returns the resultUploader used for uploading the testresult.
      * @return 
      */
-    protected ResultUploader getResultUploader() {
+    public ResultUploader getResultUploader() {
         return resultUploader;
     }
     

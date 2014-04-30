@@ -60,10 +60,13 @@ public class TestCallFactory {
                 ret = new AutomatedTesterTestCall(resup, test, testDefinition, testbeds, prop,isLoadTest);
                 break;
             case "getVersion2":
-                 ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
+                ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
                 break;
             case "getVersion3":
-                 ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
+                ret = new GetVersion2TestCall(resup, test, testDefinition, testbeds, prop, isLoadTest);
+                break;
+            case "listResources":
+                ret = new ListResourcesWrapper(resup, test, testDefinition, testbeds, prop, isLoadTest);
                 break;
             default:
                 ret = new BashTestCall(resup,test,testDefinition,testbeds,prop,isLoadTest);
@@ -79,6 +82,6 @@ public class TestCallFactory {
         //shallow copy, but test,testdefinitions,testbeds are final
         //prop is only set once & never changes
         //resultuploader is the same for all object.
-        return makeTest(c.resultUploader,c.test,c.testDefinition,c.testbeds,c.prop,c.isLoadTest);
+        return makeTest(c.getResultUploader(),c.getTest(),c.getTestDefinition(),c.getTestbeds(),c.getProp(),c.isLoadTest());
     }
 }

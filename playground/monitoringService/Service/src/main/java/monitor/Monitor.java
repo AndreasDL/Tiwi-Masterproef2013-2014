@@ -112,14 +112,15 @@ public class Monitor {
 
             //get Tests
             Queue<TestCall> tasks = webAccess.getScheduledTests(testnames,testdefnames,testbeds,testinstances);
-            System.out.println("Run at: " + (new Date()).getTime() );
+            System.out.println("Run at: " + (new Date()).getTime() + " Tasks in queue: " + tasks.size() );
             if (tasks != null) {
                 //create thread pool
                 threadPool = Executors.newFixedThreadPool(threadCount);
                 while (!tasks.isEmpty()) {
+                    
                     TestCall test = tasks.poll();
-                    //System.out.println(test.getTest().getTestname());
                     if (test.getTest().isEnabled() && test.getTest().isScheduled()) {
+                        System.out.println("Starting " + test.getTest().getTestname() + " at:" + (new Date()).getTime() + " Tasks left in queue: " + tasks.size() );
                         threadPool.submit(test);
                         try {
                             Thread.sleep(1000); //avoid loadtest by running all calls at once
@@ -133,13 +134,14 @@ public class Monitor {
                     //wait for all tasks to be complete
                     threadPool.shutdown();
                     threadPool.awaitTermination(1 , TimeUnit.DAYS);
-
+                    
+                    Thread.sleep(1000);
+                    
                     webAccess.shutDownOnUploadComplete();
-                    //System.exit(0);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 System.out.println("Execution complete");
+                System.exit(0);
             } else {
                 System.out.println("Something went wrong while contacting the webService. Check your connection and try again.");
                 System.exit(-1);
@@ -160,7 +162,8 @@ public class Monitor {
         prop.setProperty("urlAddResult", serviceUrl + "addResult");
         prop.setProperty("urlUpdateNextRun", serviceUrl + "updateNextRun");
         prop.setProperty("outputDir", "results/");
-        prop.setProperty("authFileDir", "/root/.auth/authorities.xml");
+        prop.setProperty("authCertDir",System.getProperty("user.home") + "/.auth/getsslcert.txt");
+        prop.setProperty("authFilePass","");
         return prop;
     }
 }

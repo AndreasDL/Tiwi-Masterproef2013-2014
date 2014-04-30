@@ -12,8 +12,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import monitor.testCalls.TestCall;
 import monitor.testCalls.TestCallFactory;
 import org.apache.commons.cli.BasicParser;
@@ -109,16 +107,16 @@ public class StressTest {
                 } catch (InterruptedException ex) {
                 }
             }
-            System.out.println("Execution complete");
             try {
                 //wait for all tasks to be complete
                 threadPool.shutdown();
                 threadPool.awaitTermination(1, TimeUnit.DAYS);
                 webAccess.shutDownOnUploadComplete();
-                //System.exit(0);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
+            System.out.println("Execution complete");
+            System.exit(0);
         } else {
             System.out.println("Test " + testName + " not found!\n Check your connection and check for typo's and try again");
             help(options);

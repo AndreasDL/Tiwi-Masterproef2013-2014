@@ -4,10 +4,11 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
-include(__DIR__.'/Request.php');
+include(__DIR__ . '/Request.php');
 
 #autoload classes
 spl_autoload_register('apiAutoload');
+
 function apiAutoload($classname) {
     if (preg_match('/[a-zA-Z]+Controller$/', $classname) && file_exists(__DIR__ . '/controllers/' . $classname . '.php')) {
         include __DIR__ . '/controllers/' . $classname . '.php';
@@ -15,55 +16,44 @@ function apiAutoload($classname) {
     } else if (preg_match('/[a-zA-Z]+Formatter$/', $classname) && file_exists(__DIR__ . '/database/formatters/' . $classname . '.php')) {
         include __DIR__ . "/database/formatters/" . $classname . '.php';
         return true;
-    } else if (preg_match('/[a-zA-Z]+Fetcher$/', $classname) && file_exists (__DIR__ . '/database/fetchers/' . $classname . '.php' )) {
+    } else if (preg_match('/[a-zA-Z]+Fetcher$/', $classname) && file_exists(__DIR__ . '/database/fetchers/' . $classname . '.php')) {
         include __DIR__ . '/database/fetchers/' . $classname . '.php';
         return true;
-    } else if (preg_match('/[a-zA-Z]+Filter$/', $classname) && file_exists (__DIR__ . '/database/filters/' . $classname . '.php' )){
+    } else if (preg_match('/[a-zA-Z]+Filter$/', $classname) && file_exists(__DIR__ . '/database/filters/' . $classname . '.php')) {
         include __DIR__ . '/database/filters/' . $classname . '.php';
         return true;
-    }else {
+    } else {
         return false;
     }
 }
 
-
-#controller bepalen
+//try to get the controller => no controller = info page
+//init defaults
 $data = null;
 $status = '200';
-$msg ='';//= 'Good!';
-$parameters=array();
-$fetcher = new defaultFetcher();
-$filter = new defaultFilter();
-
-$formatter = new JsonFormatter(); //Default formatter
-//getcontroller => no controller => show info page
+$msg = '';
 $controller_name = "";
-if (isset($_SERVER['PATH_INFO'])) {
-    $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]);
-}
-if ($controller_name != "") {
-    //stop executing code when request in invalid.
-    $valid = True;
 
-    //get Controller if attempt for a controller is given
-    $controller_name .= 'Controller';
+if (isset($_SERVER['PATH_INFO'])) {
+    
+    
+    //request method
+    $verb = $_SERVER['REQUEST_METHOD'];
+
+    //controller
+    $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]) . 'Controller';
     $controller = null;
     if (class_exists($controller_name)) {
-        //print "<b>redirecting to $controller_name... </b><br>";
         $controller = new $controller_name();
     } else {
         $status = '404';
         $msg .= "Error: $controller_name is not a valid function!";
-        $valid = False;
     }
 
-    //define request method
-    $verb = $_SERVER['REQUEST_METHOD'];
-    $req = new Request($parameters,$status,$msg,$verb);
-    
-    //Parse params if request is valid & parameters are set
-    //$parameters = array(); already declared
-    if ($valid){
+    //parameters
+    $parameters = array();
+    $formatter = null;
+    if ($controller != null) {
         //parse all params
         //GET
         if (isset($_SERVER['QUERY_STRING'])) {
@@ -72,40 +62,38 @@ if ($controller_name != "") {
         //POST
         $body = file_get_contents('php://input');
         $content_type = false;
-        if(isset($_SERVER['CONTENT_TYPE'])) {
+        if (isset($_SERVER['CONTENT_TYPE'])) {
             $content_type = $_SERVER['CONTENT_TYPE'];
         }
-        switch($content_type) {
+        switch ($content_type) {
             case "application/json":
                 $body_params = json_decode($body);
-                if($body_params) {
-                    foreach($body_params as $param_name => $param_value) {
+                if ($body_params) {
+                    foreach ($body_params as $param_name => $param_value) {
                         $parameters[$param_name] = $param_value;
                     }
                 }
                 break;
             case "application/x-www-form-urlencoded":
                 parse_str($body, $postvars);
-                foreach($postvars as $field => $value) {
+                foreach ($postvars as $field => $value) {
                     $parameters[$field] = $value;
                 }
                 break;
             default:
-                foreach ($_POST as $key => $value){
+                foreach ($_POST as $key => $value) {
                     $parameters[$key] = $value;
                 }
                 break;
         }
         
-        //array of params (testbed=urn-testbed1,urn-testbed5) => 2 params!
+        //put parameters in arrays
         // Every parameter after this will be in an array even if there is only 1 !!
         foreach ($parameters as $key => $value) {
             $parameters[$key] = explode(',', $value);
         }
-        
-        //print_r($parameters);
 
-        //GetFormat from params
+        //format
         if (isset($parameters['format'])) {
             if (class_exists(ucfirst($parameters['format'][0]) . 'Formatter')) {
                 $formatterName = ucfirst($parameters['format'][0]);
@@ -114,36 +102,47 @@ if ($controller_name != "") {
             } else {
                 //don't set status=> 200 by default, this will work since it will also trigger when no format is given
                 $msg = "Warn : Format not found, using Json instead";
+                $formatter = new JsonFormatter();
             }
+        }else{
+            $formatter = new JsonFormatter();
         }
 
         //check if params are valid
         //no from/till & count at same time
         //so also not with last => (last sets count at 1 if not given in databaseAccess)
+        $valid = true;
         if (isset($parameters['from']) || isset($parameters['till'])) {
-            if (isset($parameters['count'])) {
+            if (isset($parameters['count']) && $controller_name == 'LastController') {
                 //fout : count & from and/of till
                 $status = '400';
-                $msg = "Error: count and from/till clause not allowed simultaneously!";
-                $valid = false;
-            } else if ($controller_name == 'LastController') {
-                //fout : count with last (because last uses list with count = 1)
-                $status = '400';
-                $msg = "Error: Last and from/till clause not allowed simultaneously!";
+                $msg = "Error: count/last in combination with from/till is not allowed!";
                 $valid = false;
             }
         }
         
-        $req = new Request($fetcher,$filter,$parameters,$status,$msg,$verb);
+        //fetcher
+        $fetcher = new defaultFetcher();
+        if (isset($parameters['geni'])){
+            $fetcher = new DataStoreFetcher();
+        }
+    
+        //filter
+        $filter = new defaultFilter();
+        $req = new Request($fetcher, $filter, $parameters, $status, $msg, $verb);
+        
         //Only call database is request is valid
         if ($valid) {
-            //print "<b>redirecting to $controller_name... </b><br>";
-           
+            //call database
             $req->setData($controller->get($req));
         }
+    }else{
+        $null = null;
+        $req = new Request($null,$null,$null,$status,$msg,$verb);
+        $formatter = new JsonFormatter();
     }
     echo $formatter->format($req);
-}else {
+} else {
     ?>
     <!DOCTYPE html>
     <html lang="en">

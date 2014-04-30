@@ -67,10 +67,10 @@ for ($i = 0; $i < $aantalTestbeds; $i++) {
 echo "Creating TestDefinitions\n";
 $subQuery = "insert into parameterDefinitions (testDefinitionName,parameterName,parameterType,parameterDescription) values ($1,$2,$3,$4);";
 $retQuery = "insert into returnDefinitions (testDefinitionName,returnName,returnType,returnDescription) values ($1,$2,$3,$4);";
-$query = "insert into testdefinitions (testDefinitionName,testtype,testcommand) values($1,$2,$3);";
+$query = "insert into testdefinitions (testDefinitionName,testtype,geniDatastoreTestname,testcommand) values($1,$2,$3,$4);";
 
 echo "\tCreating Ping test\n";
-$data = array('ping','ping', "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
+$data = array('ping','ping', "", "(fping -q -C 1 <testbed.url> 2>&1) | mawk '{print $3}'");
 pg_query_params($con, $query, $data);
 $data = array("ping", "testbed", "testbed", "name of testbed for ping test");
 pg_query_params($con, $subQuery, $data);
@@ -79,7 +79,7 @@ $data = array('ping', 'pingValue', 'integer', 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array('stitch','stitch', '');
+$data = array('stitch','stitch', '', '');
 pg_query_params($con, $query, $data);
 $data = array("stitch", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -87,8 +87,8 @@ $data = array("stitch", "context-file", "file", "username = ftester
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>
     stitchedAuthorityUrns= <stitchedAuthorities.urn>
-    scsUrn = <scsUrn>
-    scsUrl = <scsUrl>");
+    
+    scsUrl = <scsUrl>");//scsUrn = <scsUrn>
 pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "userAuthorityUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
@@ -96,8 +96,8 @@ $data = array("stitch", "testedAggregateManager", "testbed", "");//testbed to ru
 pg_query_params($con, $subQuery, $data);
 $data = array('stitch', 'stitchedAuthorities', 'testbed[]', 'testbeds to run test on');
 pg_query_params($con,$subQuery,$data);
-$data = array("stitch", "scsUrn", "urn", "urn for authority");
-pg_query_params($con, $subQuery, $data);
+//$data = array("stitch", "scsUrn", "urn", "urn for authority");
+//pg_query_params($con, $subQuery, $data);
 $data = array("stitch", "scsUrl", "url", "testbed to run test on");
 pg_query_params($con, $subQuery, $data);
 
@@ -132,13 +132,17 @@ pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
 //login amv2
-$data = array('login2','login2', ''); //--context-file <context-file>');
+$data = array('login2','login2', '', ''); //--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login2", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
     pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
     userAuthorityUrn = <userAuthorityUrn>
-    testedAggregateManagerUrn = <testedAggregateManager.urn>");
+    testedAggregateManagerUrn = <testedAggregateManager.urn>
+timoutRetryIntervalMs = 5000
+timoutRetryMaxCount = 20
+busyRetryIntervalMs = 5000
+busyRetryMaxCount = 50");
 pg_query_params($con, $subQuery, $data);
 
 $data = array("login2", "userAuthorityUrn", "urn", "urn for authority");
@@ -174,7 +178,7 @@ $data = array('login2','returnValue', 'int' , 'return value of the automatedTest
 pg_query_params($con, $retQuery, $data);
 
 //login amv3
-$data = array('login3','login3', '');
+$data = array('login3','login3', '', '');
 pg_query_params($con, $query, $data);
 $data = array("login3", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -219,7 +223,8 @@ pg_query_params($con, $retQuery, $data);
 
 //generic
 echo "\tCreating Generic Tests\n";
-$data = array('loginGen','automatedTester', '--context-file <context-file> '
+//a login test defined generic; without hardcoded params like testclass and group
+$data = array('loginGen','automatedTester', '', '--context-file <context-file> '
     . '--test-class be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager2 '
     . '--group nodelogin '
     . '--output-dir <output-dir> '
@@ -268,7 +273,7 @@ $data = array('loginGen','returnValue', 'int' , 'return value of the automatedTe
 pg_query_params($con, $retQuery, $data);
 
 echo "creating getVersion 2 & 3 tests\n";
-$data = array('getVersion2','getVersion2', '');
+$data = array('getVersion2','getVersion2', 'ops_monitoring:is_available','');
 pg_query_params($con, $query, $data);
 $data = array("getVersion2", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -295,7 +300,7 @@ pg_query_params($con, $retQuery, $data);
 $data = array("getVersion2", 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);
 
-$data = array('getVersion3','getVersion3', '');
+$data = array('getVersion3','getVersion3', 'ops_monitoring:is_available', '');
 pg_query_params($con, $query, $data);
 $data = array("getVersion3", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -308,7 +313,6 @@ $data = array("getVersion3", "userAuthorityUrn", "urn", "urn for authority");
 pg_query_params($con, $subQuery, $data);
 $data = array("getVersion3", "testedAggregateManager", "testbed", "testbed to run test on");
 pg_query_params($con, $subQuery, $data);
-
 $data = array("getVersion3", 'resultHtml', 'file', 'results in html format');
 pg_query_params($con, $retQuery, $data);
 $data = array("getVersion3", 'result-overview', 'file', 'results in xml format');
@@ -322,6 +326,13 @@ pg_query_params($con, $retQuery, $data);
 $data = array("getVersion3", 'testGetVersionXmlRpcCorrectness', 'string', 'testGetVersionXmlRpcCorrectness');
 pg_query_params($con, $retQuery, $data);
 
+//listresources
+$data = array('listResources','listResources' ,'', '<testbed.urn>');
+pg_query_params($con,$query,$data);
+$data = array("listResources", "testbed", "testbed", "wall2");
+pg_query_params($con, $subQuery, $data);
+$data = array("listResources", 'count', 'int', 'free resources');
+pg_query_params($con, $retQuery, $data);
 
 
 // </editor-fold>
@@ -449,6 +460,19 @@ foreach ($urns as $name => $urn) {
     $data = array("testedAggregateManager", $name);
     pg_execute($con, "subQuery", $data);
     
+    //list
+    $data = array($name . "list",
+        "listResources",
+        "3600",
+        "2014-04-20T11:15:00+0100",
+        true
+    );
+    pg_execute($con,"query",$data);
+    $data = array("testbed",$name);
+    pg_execute($con, "subQuery", $data);
+    
+    
+    
     //generic
     $data = array($name . "gen",
         "loginGen",
@@ -482,16 +506,17 @@ pg_execute($con, "subQuery", $data);
 $data = array("stitchedAuthorities", "wall1");
 pg_execute($con, "subQuery", $data);
 $data = array("stitchedAuthorities", "wall2");
+//pg_execute($con, "subQuery", $data);
+//$data = array("scsUrn", "urn:publicid:IDN+scs.atlantis.ugent.be+auth+am");
 pg_execute($con, "subQuery", $data);
-$data = array("scsUrn", "urn:publicid:IDN+geni.maxgigapop.net+auth+am");
-pg_execute($con, "subQuery", $data);
-$data = array("scsUrl", "http://geni.maxgigapop.net:8081/geni/xmlrpc");
+$data = array("scsUrl", "http://scs.atlantis.ugent.be:8081/geni/xmlrpc");
 pg_execute($con, "subQuery", $data);
 
 // </editor-fold>
-/*
+
 //<editor-fold desc="Results" defaultstate="collapsed">
 //results &subresults
+/*
 echo "creating results\n";
 //echo "!!Warning this may take some time because the script sleeps after every round to get different timestamps\n";
 $query = "insert into results (testinstanceid,log,timestamp) values ($1,$2,$3);";
@@ -613,9 +638,9 @@ for ($j = 1; $j <= $resultsPerInstances; $j++) {
 
         $instanceid++;
     }
-}
+}*/
 // </editor-fold>
-*/
+
 //connectie sluiten
 pg_close($con);
 echo "done\n";

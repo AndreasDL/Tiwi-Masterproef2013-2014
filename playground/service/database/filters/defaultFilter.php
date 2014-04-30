@@ -67,7 +67,7 @@ class defaultFilter implements iFilter {
     }
 
     public function filterTestbed(&$query, &$params, &$paramsForUse) {
-        $this->qb->addInIfNeeded($query, $params, $paramsForUse, "testbed", "testbedName");
+        $this->qb->addInIfNeeded($query, $params, $paramsForUse, "testbedName", "testbedName");
     }
 
 }

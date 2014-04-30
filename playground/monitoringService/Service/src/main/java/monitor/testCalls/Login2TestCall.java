@@ -30,8 +30,6 @@ public class Login2TestCall extends AutomatedTesterTestCall {
         commands.add("be.iminds.ilabt.jfed.lowlevel.api.test.TestAggregateManager2");
         commands.add("--group");
         commands.add("nodelogin");
-        //commands.add("--authorities-file");
-        //commands.add(prop.getProperty("authFileDir"));
         commands.add("--output-dir");
         commands.add(makeTestOutputDir());
         //commands.add("-q"); //quiet

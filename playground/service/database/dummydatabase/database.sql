@@ -20,7 +20,8 @@ CREATE TABLE testbeds (
 CREATE TABLE testDefinitions(
     testtype character varying NOT NULL,-- PRIMARY KEY,
     testDefinitionName character varying NOT NULL PRIMARY KEY,
-    testCommand character varying NOT NULL
+    testCommand character varying NOT NULL,
+    geniDatastoreTestname character varying
 );
 CREATE TABLE parameterDefinitions(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),

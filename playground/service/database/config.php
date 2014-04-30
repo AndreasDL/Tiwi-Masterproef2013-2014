@@ -14,3 +14,8 @@
     date_default_timezone_set('CET');
     global $maxList;
     $maxList = 100;
+    
+    global $webservice;
+    $webservice           = 'http://localhost/service/index.php';
+    global $urlTestbed;
+    $urlTestbed         = $webservice.'/testbed';

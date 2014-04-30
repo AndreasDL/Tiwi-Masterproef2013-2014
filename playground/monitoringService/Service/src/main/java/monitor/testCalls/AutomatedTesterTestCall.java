@@ -48,7 +48,7 @@ public class AutomatedTesterTestCall extends TestCall {
         //Parse
         makeTestOutputDir();
         String parsedCommand = prepare();
-        System.out.println("Starting " + getTestDefinitionName() + " test " + getTest().getTestname() + " with id " +getTest().getTestInstanceId());
+        //System.out.println("Starting " + getTestDefinitionName() + " test " + getTest().getTestname() + " with id " +getTest().getTestInstanceId());
         
         String consoleOutput="";
         ByteArrayOutputStream os = new ByteArrayOutputStream();

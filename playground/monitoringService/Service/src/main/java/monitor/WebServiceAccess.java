@@ -115,9 +115,9 @@ public class WebServiceAccess {
             TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
             testInstances = t.getData();
         } catch (MalformedURLException ex) {
-            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("something wrong with the url");
         } catch (IOException ex) {
-            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("something wrong with io");
         }
 
         for (String id : testInstances.keySet()) {
