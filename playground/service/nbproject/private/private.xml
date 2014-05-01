@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/drew/masterproef/site/service/index.php</file>
             <file>file:/home/drew/masterproef/site/service/database/config.php</file>
+            <file>file:/home/drew/masterproef/site/service/database/dummydatabase/database.sql</file>
             <file>file:/home/drew/masterproef/site/service/database/fetchers/defaultFetcher.php</file>
             <file>file:/home/drew/masterproef/site/service/database/fetchers/DataStoreFetcher.php</file>
             <file>file:/home/drew/masterproef/site/service/database/AccessDatabase.php</file>

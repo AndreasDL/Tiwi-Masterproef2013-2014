@@ -45,7 +45,7 @@ class AccessDatabase {
         //init
         $params = $request->getParameters();
         $query = "select * from ("
-                . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
+                . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc,returnindex) rank from list"
                 . ") vv ";
         $paramsForUse = array();
         
@@ -82,7 +82,7 @@ class AccessDatabase {
      */
     public function getTestDefinition(&$request) {
         $params = $request->getParameters();
-        $query = "select * from definitions";
+        $query = "select * from definitions order by returnIndex";
 
         $paramsForUse = array();
         $request->getFilter()->filterDefinition($query, $params, $paramsForUse);

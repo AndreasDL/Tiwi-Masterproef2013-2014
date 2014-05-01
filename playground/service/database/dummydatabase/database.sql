@@ -33,7 +33,8 @@ CREATE TABLE returnDefinitions(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
     returnName text NOT NULL,
     returnType text NOT NULL,
-    returnDescription text
+    returnDescription text,
+    returnIndex integer
 );
 
 CREATE TABLE testInstances(
@@ -69,6 +70,8 @@ CREATE VIEW list AS
         join subresults sr using (resultid)
         join testinstances ti using (testinstanceid)
         join parameterinstances pi using (testinstanceid)
+        join returnDefinitions rd using (testdefinitionname,returnname)
+    --order by (select returnIndex from returnDefinitions rd where rd.returnname = sr.returnname and rd.testdefinitionname = ti.testdefinitionname)--rd.returnIndex
 ;
 CREATE VIEW definitions AS
     select *,t.testtype tetyp from testdefinitions t 

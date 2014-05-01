@@ -50,10 +50,7 @@
             }
             echo "</td>";
             
-            if ($row['results']['testGetVersionXmlRpcCorrectness']echo "<td bgcolor=";
-            
-            
-            > Not supported yet!</td>";
+            echo "<td> Not supported yet!</td>";
             echo "<td> Not supported yet!</td>";
         echo "</tr>";
     }

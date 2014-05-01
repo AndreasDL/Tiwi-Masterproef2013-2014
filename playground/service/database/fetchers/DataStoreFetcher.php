@@ -44,10 +44,15 @@ class DataStoreFetcher implements iFetcher {
                 );
             }
             if ($row['returnname'] == 'testGetVersionXmlRpcCorrectness'){
-                array_push($ret[$row['testinstanceid']]['tsdata'], array('ts'=> $row['timestamp'], 'v' => $row['returnvalue'] ));
+                array_push($ret[$row['testinstanceid']]['tsdata'], 
+                    array('ts'=> $row['timestamp'], 
+                        'v' => ($row['returnvalue'] == 'SUCCESS' ? '1':'0')
+                    )
+                );
             }
         }
         
+        //testinstanceid weghalen
         foreach ($ret as $instance => $results){
             array_push($data,$results);
         }
