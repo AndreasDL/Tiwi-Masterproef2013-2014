@@ -45,7 +45,7 @@ class AccessDatabase {
         //init
         $params = $request->getParameters();
         $query = "select * from ("
-                . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc,returnindex) rank from list"
+                . "select *,dense_rank() over(partition by testname,testdefinitionname order by timestamp desc) rank from list"
                 . ") vv ";
         $paramsForUse = array();
         
