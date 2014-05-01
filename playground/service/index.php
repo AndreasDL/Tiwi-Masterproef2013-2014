@@ -43,17 +43,17 @@ if (isset($_SERVER['PATH_INFO'])) {
     //controller
     $controller_name = ucfirst(explode('/', $_SERVER['PATH_INFO'])[1]) . 'Controller';
     $controller = null;
-    if (class_exists($controller_name)) {
+    /*if (class_exists($controller_name)) {
         $controller = new $controller_name();
     } else {
         $status = '404';
         $msg .= "Error: $controller_name is not a valid function!";
-    }
+    }*/
 
     //parameters
     $parameters = array();
     $formatter = null;
-    if ($controller != null) {
+    if (class_exists($controller_name)){//$controller != null) {
         //parse all params
         //GET
         if (isset($_SERVER['QUERY_STRING'])) {
@@ -130,13 +130,17 @@ if (isset($_SERVER['PATH_INFO'])) {
         //filter
         $filter = new defaultFilter();
         $req = new Request($fetcher, $filter, $parameters, $status, $msg, $verb);
+        $controller = new $controller_name($req);
         
         //Only call database is request is valid
         if ($valid) {
             //call database
             $req->setData($controller->get($req));
+            
         }
     }else{
+        $status = '404';
+        $msg .= "Error: $controller_name is not a valid function!";
         $null = null;
         $req = new Request($null,$null,$null,$status,$msg,$verb);
         $formatter = new JsonFormatter();

@@ -49,6 +49,8 @@ class defaultFilter implements iFilter {
     public function filterDefinition(&$query, &$params, &$paramsForUse) {
         $this->qb->addInIfNeeded($query, $params, $paramsForUse, "testtype", "tetyp");
         $this->qb->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
+        
+        $query .= ' order by returnIndex';
     }
 
     public function filterTestInstance(&$query, &$params, &$paramsForUse) {

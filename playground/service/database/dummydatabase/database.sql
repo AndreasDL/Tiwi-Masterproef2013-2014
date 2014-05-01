@@ -21,7 +21,8 @@ CREATE TABLE testDefinitions(
     testtype character varying NOT NULL,-- PRIMARY KEY,
     testDefinitionName character varying NOT NULL PRIMARY KEY,
     testCommand character varying NOT NULL,
-    geniDatastoreTestname character varying
+    geniDatastoreTestname character varying,
+    geniDatastoreDesc character varying
 );
 CREATE TABLE parameterDefinitions(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
@@ -81,6 +82,7 @@ CREATE VIEW definitions AS
 CREATE VIEW instances AS
     select t.testinstanceid as id,* from testinstances t
         left join parameterInstances p using(testinstanceid)
+        --join testDefinitions d using(testDefinitionName) --gaat ook eig, geen testbeds meer nodig bij webservice acces, maar toegang mss trager & deze worden toch al gecached
 ;
 
 ALTER TABLE public.testbeds OWNER TO postgres;

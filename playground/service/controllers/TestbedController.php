@@ -6,8 +6,8 @@ class TestbedController implements iController {
 
     private $dbo;
 
-    public function __construct() {
-        $this->dbo = new AccessDatabase;
+    public function __construct(&$req) {
+        $this->dbo = new AccessDatabase($req->getFilter(),$req->getFetcher());
     }
 
     public function get($params) {

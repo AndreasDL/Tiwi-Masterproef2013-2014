@@ -11,11 +11,15 @@ class AccessDatabase {
     private $testbeds;
     private $testDefinitions;
     private $testInstances;
+    private $fetcher;
+    private $filter;
 
     /**
      * creates an AccessDatabase object
      */
-    public function __construct() {
+    public function __construct($filter,$fetcher) {
+        $this->filter = $filter;
+        $this->fetcher = $fetcher;
         //cache for faster processing of results
         $this->updateCache(); //eventueel op aparty thread steken en zo updaten
     }
@@ -69,9 +73,10 @@ class AccessDatabase {
      * gets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
      */
     public function updateCache() {
-        $this->testbeds = $this->getTestbed(new Request(new defaultFetcher(),new defaultFilter));
-        $this->testDefinitions = $this->getTestDefinition(new Request(new defaultFetcher(),new defaultFilter()));
-        $this->testInstances = $this->getTestInstance(new Request(new defaultFetcher(),new defaultFilter()));
+        $this->testbeds = $this->getTestbed(new Request($this->fetcher,$this->filter));
+
+        $this->testDefinitions = $this->getTestDefinition(new Request($this->fetcher,$this->filter));
+        $this->testInstances = $this->getTestInstance(new Request($this->fetcher,$this->filter));
     }
 
     //Config Calls
@@ -82,7 +87,7 @@ class AccessDatabase {
      */
     public function getTestDefinition(&$request) {
         $params = $request->getParameters();
-        $query = "select * from definitions order by returnIndex";
+        $query = "select * from definitions";
 
         $paramsForUse = array();
         $request->getFilter()->filterDefinition($query, $params, $paramsForUse);

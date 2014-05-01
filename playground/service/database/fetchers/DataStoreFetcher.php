@@ -14,7 +14,28 @@
 class DataStoreFetcher implements iFetcher {
 
     public function fetchDefinition(&$result, &$data) {
-        echo "fetch definition not supported yet!";
+        //echo "fetch definition not supported yet!";
+        while ($row = pg_fetch_assoc($result)) {
+            //if (!isset($data[$row['testtype']])) {
+            if (!isset($data[$row['testdefinitionname']])) {
+                $data[$row['testdefinitionname']] = array(
+                    'testdefinitionname' => $row['testdefinitionname'],
+                    'testtype' => $row['testtype'],
+                    'testcommand' => $row['testcommand'],
+                    'genidatastoretestname' => $row['genidatastoretestname'],
+                    'genidatastoredesc' => $row['genidatastoredesc'],
+                    'parameters' => array(),
+                    'returnValues' => array()
+                );
+            }
+            $data[$row['testdefinitionname']]['parameters'][$row['parametername']] = array('type' => $row['parametertype'],
+                'description' => $row['parameterdescription']
+            );
+
+            $data[$row['testdefinitionname']]['returnValues'][$row['returnname']] = array('type' => $row['returntype'],
+                'description' => $row['returndescription']);
+        }
+        
     }
 
     public function fetchList(&$result, &$data, &$testDefinitions) {
@@ -37,8 +58,8 @@ class DataStoreFetcher implements iFetcher {
             if (!isset($ret[$row['testinstanceid']])) {
                 $ret[$row['testinstanceid']] = array(
                     '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',  
-                    "description" => "Is aggregate manager responsive",
-                    "eventType" => "ops_monitoring:is_available",
+                    "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'],//"Is aggregate manager responsive",
+                    "eventType" => $testDefinitions[$row['testdefinitionname']]['genidatastoretestname'],
                     'units' => 'boolean',
                     'tsdata' => array()
                 );
@@ -56,36 +77,42 @@ class DataStoreFetcher implements iFetcher {
         foreach ($ret as $instance => $results){
             array_push($data,$results);
         }
-        
-        
-        //'id' => 'is_available:'
-        //testbeds goed zetten
- /*{
-   "$schema": "http://www.gpolab.bbn.com/monitoring/schema/20140131/data#",
-    "id": "is_available:gpo-ig",
-    "subject": "https://datastore.instageni.gpolab.bbn.com/info/aggregate/gpo-ig",
-    "eventType": "ops_monitoring:is_available",
-    "description": "Is aggregate manager responsive",
-    "units": "boolean",
-    "tsdata": [
-      { "ts": 1391198716651283, "v": 1 },
-      { "ts": 1391198776651284, "v": 1 },
-      { "ts": 1391198836651284, "v": 1 },
-      { "ts": 1391198896651284, "v": 1 },
-      { "ts": 1391198956651284, "v": 1 },
-      { "ts": 1391199016651285, "v": 1 }
-    ]
- }*/
-
- 
 }
 
     public function fetchTestInstance(&$result, &$data) {
-        echo "fetch instance not supported yet!";
+                while ($row = pg_fetch_assoc($result)) {
+            //array_push($data, $row);
+            if (!isset($data[$row['id']])) {
+                $data[$row['id']] = array(
+                    'testname' => $row['testname'],
+                    //'genidatastoretestname' => $row['genidatastoretestname'],
+                    //'genidatastoredesc' => $row['genidatastoredesc'],
+                    'testdefinitionname' => $row['testdefinitionname'],
+                    'frequency' => $row['frequency'],
+                    'enabled' => ($row['enabled'] == "t" ? "True" : "False"),
+                    'nextrun' => date("c", strtotime($row['nextrun'])),
+                    //'type' => gettype($row['nextrun']),
+                    'parameters' => array()
+                );
+            }
+            if (!isset($data[$row['id']]['parameters'][$row['parametername']])) {
+                $data[$row['id']]['parameters'][$row['parametername']] = array();
+            }
+
+            array_push($data[$row['id']]['parameters'][$row['parametername']], $row['parametervalue']);
+        }
     }
 
     public function fetchTestbed(&$result, &$data) {
-        echo "fetch testbed not supported yet!";
+            while ($row = pg_fetch_assoc($result)) {
+            //array_push($data, $row);
+            if (!isset($data[$row['testbedname']])) {
+                $data[$row['testbedname']] = array('testbedName' => $row['testbedname'],
+                    'url' => $row['url'],
+                    'urn' => $row['urn']
+                );
+            }
+        }
     }
 
 }

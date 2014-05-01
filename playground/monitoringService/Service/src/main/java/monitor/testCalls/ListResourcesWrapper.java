@@ -44,7 +44,7 @@ public class ListResourcesWrapper extends TestCall{
 
             File defaultPemKeyCertFile = new File(pemKeyCertFilename);//System.getProperty("user.home")+ File.separator+".ssl"+File.separator+"geni_cert.pem");
             //String pemKeyCertFilename = IOUtils.askCommandLineInput("PEM key and certificate filename (default: \"" + defaultPemKeyCertFile.getPath() + "\")");
-            char[] pass = IOUtils.askCommandLinePassword("Key password (if any)");
+            char[] pass = "".toCharArray();//IOUtils.askCommandLinePassword("Key password (if any)");
             //if (pemKeyCertFilename == null || pemKeyCertFilename.equals(""))
             //    pemKeyCertFilename = defaultPemKeyCertFile.getPath();
 

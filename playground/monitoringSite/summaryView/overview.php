@@ -54,7 +54,7 @@
   <tr>
     <th>TestName</th>
    <th>Last execution (CET)</th>
-   <th>Last failure</th>
+   <th>Duration</th>
    
    <th>Status</th>
    <th>log</th>
