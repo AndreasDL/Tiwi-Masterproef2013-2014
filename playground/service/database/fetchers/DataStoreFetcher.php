@@ -54,6 +54,7 @@ class DataStoreFetcher implements iFetcher {
                 );
             }
             
+            //testbed fixen
             if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
                     || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
                 //map testinstanceid => testbed to change final layout
@@ -64,21 +65,30 @@ class DataStoreFetcher implements iFetcher {
                 $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
             
+            if (!isset($ret[$row['testinstanceid']]['tsdata'][$row['timestamp']])){
+                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = true;
+            }
+            $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
             
             
             //enkel voor getVersionv2 & mss v3
-            if ($row['returnname'] == 'testGetVersionXmlRpcCorrectness'){
+            /*if ($row['returnname'] == 'testGetVersionXmlRpcCorrectness'){
                 array_push($ret[$row['testinstanceid']]['tsdata'], 
                     array('ts'=> $row['timestamp'], 
                         'v' => ($row['returnvalue'] == 'SUCCESS' ? '1':'0')
                     )
                 );
-            }
+            }*/
         }
-        
         
         //testinstanceid weghalen
         foreach ($ret as $instance => $results){
+            $arr = array();
+            foreach ($results['tsdata'] as $k => $v){
+                array_push($arr, array('ts' => strtotime($k)*1000000 , 'v' => ($v ? '1':'0')));
+            }
+            $results['tsdata'] = $arr;
+            
             array_push($data,$results);
         }
 }

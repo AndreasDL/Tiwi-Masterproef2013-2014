@@ -20,6 +20,7 @@ class DatastoreQueryBuilder extends aQueryBuilder {
         //  "obj":{"type":"aggregate",
         //      "id":["gpo-ig","utah-ig","rci-eg"]
         //}}}
+        
         $eindhaakje = '';
         if (isset($params['filters']['obj']) && $params['filters']['obj']['type'] == 'aggregate') {
             $this->addAnyIfNeeded($query, $params['filters']['obj'], $paramsForUse, 'id', 'list');
@@ -31,15 +32,19 @@ class DatastoreQueryBuilder extends aQueryBuilder {
         //eventType
         $this->addInIfNeeded($query, $params['filters'], $paramsForUse, "eventType", "genidatastoretestname");
 
+        
         if (isset($params['filters']['ts'])) {
-            //werkt nog niet helemaal
             
             //from
-            isset($params['filters']['ts']['gte']) ? $params['filters']['ts']['gte'] = date('c' , $params['filters']['ts']['gte']) : '' ;
+            if (isset($params['filters']['ts']['gte'])){
+                $params['filters']['ts']['gte'] = array(date('c', $params['filters']['ts']['gte']/1000000)); 
+            }
             $this->addGreaterThanIfNeeded($query, $params['filters']['ts'], $paramsForUse, "gte", "timestamp");
             
             //till
-            isset($params['filters']['ts']['lt']) ? $params['filters']['ts']['lt'] = date('c' , $params['filters']['ts']['lt']) : '' ;
+            if (isset($params['filters']['ts']['lt'])){
+                $params['filters']['ts']['lt'] = array(date('c' , $params['filters']['ts']['lt']/1000000));
+            }
             $this->addLowerThanIfNeeded($query, $params['filters']['ts'], $paramsForUse, "lt", "timestamp");
         }
 

@@ -55,6 +55,8 @@ class AccessDatabase {
         
         //add all needed filters to query
         $request->getQb()->buildList($query, $params, $paramsForUse);
+        echo $query;
+        print_r($paramsForUse);
 
         //run query
         $con = $this->getConnection();

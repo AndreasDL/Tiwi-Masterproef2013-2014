@@ -139,7 +139,7 @@ public class WebServiceAccess {
  */
     public TestCall getTestByName(String name) {
         //stresstestmode
-        HashMap<String, TestInstance> testInstances = null;
+        Map<String, TestInstance> testInstances = null;
         try {
             String jsonText = getFromURL(prop.getProperty("urlTestInstances") + "?testname=" + name);
 

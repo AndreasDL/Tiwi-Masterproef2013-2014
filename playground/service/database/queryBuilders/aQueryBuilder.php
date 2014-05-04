@@ -144,7 +144,7 @@ abstract class aQueryBuilder {
             if (sizeof($paramsForUse) == 0) {
                 $query .= "where ";
             } else {
-                $query .= "and ";
+                $query .= " and ";
             }
 
             $query .= $colName . " <= ";
