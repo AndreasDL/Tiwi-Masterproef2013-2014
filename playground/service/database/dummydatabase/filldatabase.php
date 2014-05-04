@@ -72,7 +72,7 @@ $data = array('ping', 'pingValue', 'integer',1, 'ping value');
 pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Stitching test\n";
-$data = array('stitch','stitch', '', '', '');
+$data = array('stitch','stitch', 'ops_monitoring:stitching', 'stichting test between multiple testbeds', '');
 pg_query_params($con, $query, $data);
 $data = array("stitch", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass

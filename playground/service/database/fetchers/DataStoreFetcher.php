@@ -61,7 +61,7 @@ class DataStoreFetcher implements iFetcher {
                 $map[$row['testinstanceid']] = $row['parametervalue'];
                 
                 //put in stuffs wich require the testbed parameter
-                $ret[$row['testinstanceid']]['id'] = 'is_available:'. $row['parametervalue'];//ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
+                $ret[$row['testinstanceid']]['id'] = 'is_available:'. $row['testname'];//ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
                 $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
             

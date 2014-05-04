@@ -37,13 +37,13 @@ class DatastoreQueryBuilder extends aQueryBuilder {
             
             //from
             if (isset($params['filters']['ts']['gte'])){
-                $params['filters']['ts']['gte'] = array(date('c', $params['filters']['ts']['gte']/1000000)); 
+                $params['filters']['ts']['gte'] = array(date('c', $params['filters']['ts']['gte']/1000000)); //accurate to a second
             }
             $this->addGreaterThanIfNeeded($query, $params['filters']['ts'], $paramsForUse, "gte", "timestamp");
             
             //till
             if (isset($params['filters']['ts']['lt'])){
-                $params['filters']['ts']['lt'] = array(date('c' , $params['filters']['ts']['lt']/1000000));
+                $params['filters']['ts']['lt'] = array(date('c' , $params['filters']['ts']['lt']/1000000));//nauwkeurig tot op de seconde
             }
             $this->addLowerThanIfNeeded($query, $params['filters']['ts'], $paramsForUse, "lt", "timestamp");
         }
