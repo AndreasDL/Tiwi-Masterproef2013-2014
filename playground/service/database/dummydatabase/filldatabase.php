@@ -125,7 +125,7 @@ pg_query_params($con, $retQuery, $data);
 
 echo "\tCreating Login test\n";
 //login amv2
-$data = array('login2','login2', '', '',''); //--context-file <context-file>');
+$data = array('login2','login2', 'ops_monitoring:login2', 'test login amv2',''); //--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login2", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass
@@ -171,7 +171,7 @@ $data = array('login2','returnValue', 'int' ,13, 'return value of the automatedT
 pg_query_params($con, $retQuery, $data);
 
 //login amv3
-$data = array('login3','login3', '', '','');
+$data = array('login3','login3', 'ops_monitoring:login3', 'test login amv3','');
 pg_query_params($con, $query, $data);
 $data = array("login3", "context-file", "file", "username = ftester
     passwordFilename = " . $authDir . "ftester.pass

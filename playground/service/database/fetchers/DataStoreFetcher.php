@@ -128,5 +128,4 @@ class DataStoreFetcher implements iFetcher {
             }
         }
     }
-
 }
