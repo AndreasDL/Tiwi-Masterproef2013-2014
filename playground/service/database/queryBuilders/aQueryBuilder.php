@@ -1,13 +1,48 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
- * Builds a query
+ * this class will add filters to the query such as testbed=... testtype= ... => where testbed= ...
  * @author Andreas De Lille
  */
-class QueryBuilder {
-    function __construct() {
-        
-    }
+abstract class aQueryBuilder {
+
+    /**
+     * Fix filters for the list call
+     * @param String $query the query
+     * @param array $params the params given in the request
+     * @param array $paramsForUse an (empty) array to store the used values in.
+     */
+    abstract public function buildList(&$query, &$params, &$paramsForUse);
+
+    /**
+     * Fix filters for the testInstance call
+     * @param String $query the query
+     * @param array $params the params given in the request
+     * @param array $paramsForUse an (empty) array to store the used values in.
+     */
+    abstract public function buildTestInstance(&$query, &$params, &$paramsForUse);
+
+    /**
+     * Fix filters for the testbed call
+     * @param String $query the query
+     * @param array $params the params given in the request
+     * @param array $paramsForUse an (empty) array to store the used values in.
+     */
+    abstract public function buildTestbed(&$query, &$params, &$paramsForUse);
+
+    /**
+     * Fix filters for the testDefinition call
+     * @param String $query the query
+     * @param array $params the params given in the request
+     * @param array $paramsForUse an (empty) array to store the used values in.
+     */
+    abstract public function buildDefinition(&$query, &$params, &$paramsForUse);
 
     /**
      * Will add and any clause to the query. Use with caution after this function is used you need to check if there are parameters added in the paramsforuse.
@@ -20,7 +55,7 @@ class QueryBuilder {
      * @param string $viewName the name of the view to use
      * @param string $colName the name in this case id 
      */
-    public function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
+    protected function addAnyIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $viewName, $colName = 'id') {
         //not sure if this works 2 times on the same query
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {
@@ -51,7 +86,7 @@ class QueryBuilder {
      * @param string $paramName the name of the parameter in the request
      * @param string $colName the name of the column in the database associated with the paramname
      */
-    public function addInIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
+    protected function addInIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
 
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {
@@ -81,7 +116,7 @@ class QueryBuilder {
      * @param string $paramName the name of the parameter in the request
      * @param string $colName the name of the column in the database associated with the paramname
      */
-    public function addGreaterThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
+    protected function addGreaterThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {
                 $query .= "where ";
@@ -104,7 +139,7 @@ class QueryBuilder {
      * @param string $paramName the name of the parameter in the request
      * @param string $colName the name of the column in the database associated with the paramname
      */
-    public function addLowerThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
+    protected function addLowerThanIfNeeded(&$query, &$params, &$paramsForUse, $paramName, $colName) {
         if (isset($params[$paramName]) && strtoupper($params[$paramName][0]) != 'ALL') {
             if (sizeof($paramsForUse) == 0) {
                 $query .= "where ";
@@ -118,4 +153,5 @@ class QueryBuilder {
             $query .= sizeof($paramsForUse);
         }
     }
+
 }

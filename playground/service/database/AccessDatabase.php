@@ -12,13 +12,13 @@ class AccessDatabase {
     private $testDefinitions;
     private $testInstances;
     private $fetcher;
-    private $filter;
+    private $queryBuilder;
 
     /**
      * creates an AccessDatabase object
      */
-    public function __construct($filter,$fetcher) {
-        $this->filter = $filter;
+    public function __construct($queryBuilder,$fetcher) {
+        $this->queryBuilder = $queryBuilder;
         $this->fetcher = $fetcher;
         //cache for faster processing of results
         $this->updateCache(); //eventueel op aparty thread steken en zo updaten
@@ -54,7 +54,7 @@ class AccessDatabase {
         $paramsForUse = array();
         
         //add all needed filters to query
-        $request->getFilter()->filterList($query, $params, $paramsForUse);
+        $request->getQb()->buildList($query, $params, $paramsForUse);
 
         //run query
         $con = $this->getConnection();
@@ -73,10 +73,10 @@ class AccessDatabase {
      * gets the testbeds, testdefinition & testinstances and puts them in memory providing fast access
      */
     public function updateCache() {
-        $this->testbeds = $this->getTestbed(new Request($this->fetcher,$this->filter));
+        $this->testbeds = $this->getTestbed(new Request($this->fetcher,$this->queryBuilder));
 
-        $this->testDefinitions = $this->getTestDefinition(new Request($this->fetcher,$this->filter));
-        $this->testInstances = $this->getTestInstance(new Request($this->fetcher,$this->filter));
+        $this->testDefinitions = $this->getTestDefinition(new Request($this->fetcher,$this->queryBuilder));
+        $this->testInstances = $this->getTestInstance(new Request($this->fetcher,$this->queryBuilder));
     }
 
     //Config Calls
@@ -90,7 +90,7 @@ class AccessDatabase {
         $query = "select * from definitions";
 
         $paramsForUse = array();
-        $request->getFilter()->filterDefinition($query, $params, $paramsForUse);
+        $request->getQb()->buildDefinition($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -111,7 +111,7 @@ class AccessDatabase {
         $query = "select *,nextrun  from instances ";
         $paramsForUse = array();
        
-        $request->getFilter()->filterTestInstance($query, $params, $paramsForUse);
+        $request->getQb()->buildTestInstance($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);
@@ -132,7 +132,7 @@ class AccessDatabase {
         $query = "select * from testbeds";
         $paramsForUse = array();
 
-        $request->getFilter()->filterTestbed($query, $params, $paramsForUse);
+        $request->getQb()->buildTestbed($query, $params, $paramsForUse);
 
         $con = $this->getConnection();
         $result = pg_query_params($con, $query, $paramsForUse);

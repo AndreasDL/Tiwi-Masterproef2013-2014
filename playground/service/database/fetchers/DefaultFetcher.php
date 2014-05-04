@@ -4,12 +4,13 @@
  * This class will parse the object to the default layout.
  * @author Andreas De Lille
  */
-class defaultFetcher implements iFetcher {
+class DefaultFetcher implements iFetcher {
 
     public function fetchList(&$result, &$data, &$testDefinitions) {
         while ($row = pg_fetch_assoc($result)) {
             if (!isset($data[$row['resultid']])) {
                 $data[$row['resultid']] = array(
+                    'resultid' => $row['resultid'],
                     'testinstanceid' => $row['testinstanceid'],
                     //'testtype' => $row['testtype'],
                     'testdefinitionname' => $row['testdefinitionname'],

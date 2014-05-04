@@ -7,7 +7,7 @@
 package monitor.testCalls;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import monitor.ResultUploader;
 import monitor.model.TestDefinition;
@@ -20,9 +20,11 @@ import monitor.model.Testbed;
  */
 public class GetVersion2TestCall extends AutomatedTesterTestCall {
 
-    public GetVersion2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
+    public GetVersion2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
+
+
     
     @Override
     protected ArrayList<String> getParameters(String parsedCommand) {

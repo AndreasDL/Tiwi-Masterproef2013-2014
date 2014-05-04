@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +24,11 @@ import monitor.model.Testbed;
  * @author Andreas De Lille
  */
 public class BashTestCall extends TestCall {
-    public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop,boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop,isLoadTest);
+
+    public BashTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
+
 
 
 

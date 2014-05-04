@@ -36,7 +36,7 @@
     $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
     $testbedurls = $testbedurls['data'];
     //print_r($data);
-    foreach ($data as $key => $row){
+    foreach ($ping as $key => $row){
         echo "<tr>";
             echo "<td><a href=".$testbedurls[$row['testbeds'][0]]['url'].">".$row['testbeds'][0]."</a></td>";
             

@@ -19,8 +19,8 @@ function apiAutoload($classname) {
     } else if (preg_match('/[a-zA-Z]+Fetcher$/', $classname) && file_exists(__DIR__ . '/database/fetchers/' . $classname . '.php')) {
         include __DIR__ . '/database/fetchers/' . $classname . '.php';
         return true;
-    } else if (preg_match('/[a-zA-Z]+Filter$/', $classname) && file_exists(__DIR__ . '/database/filters/' . $classname . '.php')) {
-        include __DIR__ . '/database/filters/' . $classname . '.php';
+    } else if (preg_match('/[a-zA-Z]+QueryBuilder$/', $classname) && file_exists(__DIR__ . '/database/queryBuilders/' . $classname . '.php')) {
+        include __DIR__ . '/database/queryBuilders/' . $classname . '.php';
         return true;
     } else {
         return false;
@@ -87,12 +87,42 @@ if (isset($_SERVER['PATH_INFO'])) {
                 break;
         }
         
+        //fetcher & filter
+        $fetcher;
+        //queryBuilder
+        $queryBuilder;
+        
         //put parameters in arrays
         // Every parameter after this will be in an array even if there is only 1 !!
-        foreach ($parameters as $key => $value) {
-            $parameters[$key] = explode(',', $value);
+        if (!isset($parameters['q'])){
+            foreach ($parameters as $key => $value) {
+                $parameters[$key] = explode(',', $value);
+            }
+            $fetcher = new DefaultFetcher();
+            $queryBuilder = new DefaultQueryBuilder();
+        }else{
+            //save format if format is set => check if geni has own formats in q !!
+            $format = isset($parameters['format']) ? $parameters['format'] : null;
+            //get q params
+            $parameters = json_decode($parameters['q'],true);
+            //Dit werkt niet :(
+            
+            //put format back with filter params
+            $format == null ? '' : $parameters['format'] = array($format) ;
+            
+            //Temp code block
+            /*$filter = new DataStoreFilter();
+            foreach ($parameters as $key => $value) {
+                $parameters[$key] = explode(',', $value);
+            }*/
+            
+            $fetcher = new DataStoreFetcher();
+            $queryBuilder = new DatastoreQueryBuilder();
+            //print_r($parameters);
         }
 
+        //FORMAT GAAT NIET MEER WERKEN NU DOORDAG DE PARAMS OVERSCHREVEN WORDEN
+        //
         //format
         if (isset($parameters['format'])) {
             if (class_exists(ucfirst($parameters['format'][0]) . 'Formatter')) {
@@ -121,15 +151,9 @@ if (isset($_SERVER['PATH_INFO'])) {
             }
         }
         
-        //fetcher
-        $fetcher = new defaultFetcher();
-        if (isset($parameters['geni'])){
-            $fetcher = new DataStoreFetcher();
-        }
     
-        //filter
-        $filter = new defaultFilter();
-        $req = new Request($fetcher, $filter, $parameters, $status, $msg, $verb);
+        
+        $req = new Request($fetcher, $queryBuilder, $parameters, $status, $msg, $verb);
         $controller = new $controller_name($req);
         
         //Only call database is request is valid
@@ -181,13 +205,17 @@ if (isset($_SERVER['PATH_INFO'])) {
                         <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testbed=testbed1,testbed5&testdefinitionname=ALL&format=PrettyJson">/last?testbed=testbed1,testbed5&testdefinitionname=ALL</a></td>
+                        <td><a href="./index.php/last?testbed=wall2,wall1&testdefinitionname=ALL&format=PrettyJson">/last?testbed=wall1,wall2&testdefinitionname=ALL</a></td>
                         <td>All Last results for testbed1 and testbed5</td>
                     </tr>
-                    <!--<tr>
-                        <td><a href="./index.php/list?testdefinitionname=stitch&testbed=testbed1&count=3&format=PrettyJson">/list?testdefinitionname=stitch&testbed=testbed1&count=3</a></td>
-                        <td>Last 3 stitching results for testbed1</td>
-                    </tr>-->
+                    <tr>
+                        <td><a href="./index.php/list?testdefinitionname=stitch&testbed=wall2&count=3&format=PrettyJson">/list?testdefinitionname=stitch&testbed=wall2&count=3</a></td>
+                        <td>Last 3 stitching results for wall2</td>
+                    </tr>
+                    <tr>
+                        <td><a href="./index.php/list?format=PrettyJson">/list</a></td>
+                        <td>List all results for each testbed</td>
+                    </tr>
                     <tr>
                         <td><a href="./index.php/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00&format=PrettyJson">/list?from=2014-03-18T19:29:06&till=2014-03-25T20:00:00</a></td>
                         <td>All tests between 18/03/2014 19:29:06 and 25/03/2014 20:00:00</td>
@@ -206,12 +234,17 @@ if (isset($_SERVER['PATH_INFO'])) {
                     </tr>
                     <tr>
                         <td><a href="./index.php/testInstance?testname=wall2&format=PrettyJson">/testInstance?testname=wall2</a></td>
-                        <td>view testinstance with name2 in detail</td>
+                        <td>view testinstance with wall2 in detail</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>
                         <td>View all testbeds</td>
                     </tr>
+                    <tr>
+                    <td><a href="./index.php/list?format=PrettyJson&q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22wall2%22,%22wall1%22]}}}">/list?q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22wall2%22,%22wall1%22]}}}</a></td>
+                        <td>geni datastore</td>
+                    </tr>
+                    
                 </table>
         </body>
     </html>

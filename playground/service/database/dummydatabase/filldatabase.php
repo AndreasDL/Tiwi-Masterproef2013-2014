@@ -5,9 +5,12 @@ $aantalTestbeds = 17;
 $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 10;
 //bepalen aantal login testen
-$urns = array("fail" => "urn:publicid:IDN+omf+authority+sa", //failed direct
-    "wall1" => "urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm", //virtualwall1
-    "wall2" => "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm"//virtualwall2
+$urns = array("fail" => array("urn" => "urn:publicid:IDN+omf+authority+sa", //failed direct
+        "url" => ""),
+    "wall1" => array("urn" => "urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm",
+        "url" => "www.wall1.ilabt.iminds.be"), //virtualwall1
+    "wall2" => array("urn" => "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm",
+        "url" => "www.wall2.ilabt.iminds.be")//virtualwall2
 );
 $resultsPerInstances = 20;
 
@@ -47,8 +50,8 @@ $authFile = $authDir . "authorities.xml";
 //in pompen
 //real
 $query = "insert into testbeds (testbedName,url,urn) values($1,$2,$3);";
-foreach ($urns as $name => $urn){
-    $data=array($name,'http://www.'+$name+'.notreal',$urn);
+foreach ($urns as $name => $bed){
+    $data=array($name,$bed['url'],$bed['urn']);
     pg_query_params($con,$query,$data);
 }
 

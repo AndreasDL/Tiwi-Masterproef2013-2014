@@ -16,7 +16,7 @@ import be.iminds.ilabt.jfed.util.IOUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import monitor.ResultUploader;
 import monitor.model.TestDefinition;
@@ -26,10 +26,11 @@ import monitor.model.Testbed;
 
 
 public class ListResourcesWrapper extends TestCall{
-    
-    public ListResourcesWrapper(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
+
+    public ListResourcesWrapper(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
         super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
     }
+
 
     @Override
     public void run() {

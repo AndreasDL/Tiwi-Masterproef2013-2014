@@ -8,12 +8,14 @@ package monitor;
 import monitor.model.TestInstance;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.model.Testbed;
@@ -42,8 +45,8 @@ import monitor.model.TestResult;
 public class WebServiceAccess {
 
     private Gson g;
-    private HashMap<String, Testbed> testbeds;
-    private HashMap<String, TestDefinition> testDefinitions;
+    private Map<String, Testbed> testbeds;
+    private Map<String, TestDefinition> testDefinitions;
     private Properties prop;
     private Thread uploader;
     private ResultUploader resultUploader;
@@ -74,7 +77,7 @@ public class WebServiceAccess {
  */
     public Queue<TestCall> getTests() {
         Queue<TestCall> tests = new LinkedList<>();
-        HashMap<String, TestInstance> testInstances = getTestInstances();
+        Map<String, TestInstance> testInstances = getTestInstances();
 
         for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
@@ -93,7 +96,7 @@ public class WebServiceAccess {
      * @return 
      */
     public Queue<TestCall> getScheduledTests(String name,String defname,String testbed,String tid){
-        HashMap<String, TestInstance> testInstances = null;
+        Map<String, TestInstance> t = null;
         Queue<TestCall> tests = new LinkedList<>();
 
         TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -112,19 +115,20 @@ public class WebServiceAccess {
             String jsonText = getFromURL(url);
 
             //parse json string
-            TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
-            testInstances = t.getData();
+            Type type = new TypeToken<Map<String,TestInstance>>(){}.getType();
+            t = g.fromJson(jsonText, type);
+            
         } catch (MalformedURLException ex) {
             System.out.println("something wrong with the url");
         } catch (IOException ex) {
             System.out.println("something wrong with io");
         }
 
-        for (String id : testInstances.keySet()) {
-            TestInstance ti = testInstances.get(id);
+        for (String id : t.keySet()) {
+            TestInstance ti = t.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
-            tests.add(t);
+            TestCall tc = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
+            tests.add(tc);
         }
         return tests;
     }
@@ -140,8 +144,9 @@ public class WebServiceAccess {
             String jsonText = getFromURL(prop.getProperty("urlTestInstances") + "?testname=" + name);
 
             //parse json string
-            TestInstanceResults t = g.fromJson(jsonText, TestInstanceResults.class);
-            testInstances = t.getData();
+            Type type = new TypeToken<Map<String,TestInstance>>(){}.getType();
+            testInstances = g.fromJson(jsonText, type);
+            
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -161,76 +166,55 @@ public class WebServiceAccess {
  * Get all the testInstances
  * @return hashmap testinstanceid => testinstance
  */
-    public HashMap<String, TestInstance> getTestInstances() {
-        TestInstanceResults t = null;
+    public Map<String, TestInstance> getTestInstances() {
+        Map<String,TestInstance> t = null;
         try {
             //TODO alle tests
             String jsonText = getFromURL(prop.getProperty("urlTestInstances"));
 
             //parse json string
-            t = g.fromJson(jsonText, TestInstanceResults.class);
-            /*
-             for (TestInstance ti : t.getData().values()) {
-             System.out.println(ti.getTestname());
-             HashMap<String, ArrayList<String>> h = ti.getParameters();
-             for (String key : h.keySet()) {
-             System.out.println("\t" + key);
-             for (String val : h.get(key)) {
-             System.out.println("\t\t" + val);
-             }
-             }
-             }
-             */
+            Type type = new TypeToken<Map<String,TestInstance>>(){}.getType();
+            t = g.fromJson(jsonText, type);
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return (t == null) ? null : t.getData();
+        return t;
     }
 /**
  * gets the testbeds from the webservice.
  * @return hashmap name=>testbed
  */
-    public HashMap<String, Testbed> getTestBeds() {
-        TestbedResults t = null;
+    public Map<String, Testbed> getTestBeds() {
+        Map<String,Testbed> t = null;
         try {
             String jsonText = getFromURL(prop.getProperty("urlTestbeds"));
-            //System.out.println(jsonText);
 
             //parse json string
-            t = g.fromJson(jsonText, TestbedResults.class);
-            /*System.out.println(t.getData().size());
-             for (TestBed te : t.getData().values()) {
-             System.out.println(te.getName());
-             }*/
+            Type type = new TypeToken<Map<String,Testbed>>(){}.getType();
+            t = g.fromJson(jsonText,type);
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return (t == null) ? null : t.getData();
+        
+        return t;
     }
 /**
  * Gets the testdefinitions
  * @return hashmap testdefinitionname => testdefinition
  */
-    public HashMap<String, TestDefinition> getTestDefinitions() {
-        TestDefinitionResults t = null;
+    public Map<String, TestDefinition> getTestDefinitions() {
+        Map <String,TestDefinition> t = null;
         try {
             String jsonText = getFromURL(prop.getProperty("urlTestDefinitions"));
-            //System.out.println(jsonText);
 
             //parse json string
-            t = g.fromJson(jsonText, TestDefinitionResults.class);
-            /*System.out.println(t.getData().size());
-             for (TestDefinition te : t.getData().values()) {
-             System.out.println(te.getTestcommand());
-             for (String s : te.getParameters().keySet()){
-             System.out.println(s);
-             }
-             }*/
+            Type type = new TypeToken<Map<String,TestDefinition>>(){}.getType();
+            t = g.fromJson(jsonText, type);
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -238,7 +222,7 @@ public class WebServiceAccess {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return (t == null) ? null : t.getData();
+        return t;
     }
 /**
  * post a testresult to the webservice
@@ -346,6 +330,7 @@ public class WebServiceAccess {
         }
         return sb.toString();
     }
+    
 /**
  * returns the resultUploader thread
  * @return 
@@ -354,64 +339,4 @@ public class WebServiceAccess {
         return uploader;
     }
     
-    
-    //needed for json extraction
-    private class TestbedResults {
-
-        private int status;
-        private String msg;
-        private HashMap<String, Testbed> data;
-
-        public int getStatus() {
-            return status;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public HashMap<String, Testbed> getData() {
-            return data;
-        }
-
-    }
-
-    private class TestInstanceResults {
-
-        private int Status;
-        private String msg;
-        private HashMap<String, TestInstance> data;
-
-        public HashMap<String, TestInstance> getData() {
-            return data;
-        }
-
-        public int getStatus() {
-            return Status;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-    }
-
-    private class TestDefinitionResults {
-
-        private int status;
-        private String msg;
-        private HashMap<String, TestDefinition> data;
-
-        public int getStatus() {
-            return status;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public HashMap<String, TestDefinition> getData() {
-            return data;
-        }
-
-    }
 }

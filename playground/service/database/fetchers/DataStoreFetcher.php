@@ -44,6 +44,15 @@ class DataStoreFetcher implements iFetcher {
 
         while ($row = pg_fetch_assoc($result)) {
             
+            if (!isset($ret[$row['testinstanceid']])) {
+                $ret[$row['testinstanceid']] = array(
+                    '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',  
+                    "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'],//"Is aggregate manager responsive",
+                    "eventType" => $testDefinitions[$row['testdefinitionname']]['genidatastoretestname'],
+                    'units' => 'boolean',
+                    'tsdata' => array()
+                );
+            }
             
             if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
                     || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
@@ -55,15 +64,9 @@ class DataStoreFetcher implements iFetcher {
                 $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
             
-            if (!isset($ret[$row['testinstanceid']])) {
-                $ret[$row['testinstanceid']] = array(
-                    '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',  
-                    "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'],//"Is aggregate manager responsive",
-                    "eventType" => $testDefinitions[$row['testdefinitionname']]['genidatastoretestname'],
-                    'units' => 'boolean',
-                    'tsdata' => array()
-                );
-            }
+            
+            
+            //enkel voor getVersionv2 & mss v3
             if ($row['returnname'] == 'testGetVersionXmlRpcCorrectness'){
                 array_push($ret[$row['testinstanceid']]['tsdata'], 
                     array('ts'=> $row['timestamp'], 
@@ -72,6 +75,7 @@ class DataStoreFetcher implements iFetcher {
                 );
             }
         }
+        
         
         //testinstanceid weghalen
         foreach ($ret as $instance => $results){

@@ -70,6 +70,7 @@ CREATE VIEW list AS
     select *,r.resultid id from results r
         join subresults sr using (resultid)
         join testinstances ti using (testinstanceid)
+        join testdefinitions td using (testDefinitionName)
         join parameterinstances pi using (testinstanceid)
         join returnDefinitions rd using (testdefinitionname,returnname)
     --order by (select returnIndex from returnDefinitions rd where rd.returnname = sr.returnname and rd.testdefinitionname = ti.testdefinitionname)--rd.returnIndex

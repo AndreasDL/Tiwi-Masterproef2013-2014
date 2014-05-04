@@ -6,7 +6,7 @@
 
 package monitor.testCalls;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import monitor.ResultUploader;
 import monitor.model.TestDefinition;
@@ -27,7 +27,7 @@ public class TestCallFactory {
      * @param prop the properties
      * @return the testCall associated with the given arguments.
      */
-    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop){
+    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds,Properties prop){
         return makeTest(resup, test, testDefinition, testbeds, prop,false);
     }
     /**
@@ -40,7 +40,7 @@ public class TestCallFactory {
      * @param isLoadTest when set to true the scheduling is ignored and the next run is not updated.
      * @return the testCall associated with the given arguments.
      */
-    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop,boolean isLoadTest){
+    public static TestCall makeTest(ResultUploader resup,TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds,Properties prop,boolean isLoadTest){
         TestCall ret = null;
         //switch(test.getTestDefinitionName()) {
         switch(testDefinition.getTesttype()){

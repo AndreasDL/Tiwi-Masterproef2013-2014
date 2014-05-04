@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +35,7 @@ public abstract class TestCall implements Runnable{
 
     protected final TestInstance test;
     protected final TestDefinition testDefinition;
-    protected final HashMap<String, Testbed> testbeds;
+    protected final Map<String, Testbed> testbeds;
     private String testOutputDir;
     protected final Properties prop;
     protected ResultUploader resultUploader;
@@ -47,7 +48,7 @@ public abstract class TestCall implements Runnable{
         return prop;
     }
 
-    public HashMap<String, Testbed> getTestbeds() {
+    public Map<String, Testbed> getTestbeds() {
         return testbeds;
     }
 
@@ -64,7 +65,7 @@ public abstract class TestCall implements Runnable{
  * @param prop The properties set in the mainclass.
  * @param isLoadTest Marks test as loadtest . Loadtests ignore scheduling & nextrun. When this value is set to true, the resultuploaders wont change the nextrun value.
  */
-    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, HashMap<String, Testbed> testbeds,Properties prop,boolean isLoadTest) {
+    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds,Properties prop,boolean isLoadTest) {
         this.resultUploader = resultUploader;
         this.test = test;
         this.testDefinition = testDefinition;

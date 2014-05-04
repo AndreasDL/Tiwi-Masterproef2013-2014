@@ -11,20 +11,20 @@ class Request {
     private $verb;
     private $data;
     private $fetcher;
-    private $filter;
+    private $qb;
 
     /**
      * this creates a request
      * @param iFetcher $fetcher the fetcher object to handle the results.
-     * @param iFilter  $filter The filter to filter the results.
+     * @param iQueryBuilder
      * @param array $parameters the parameters get & post of the request
      * @param int $status http-like status code to tell if the request was succesfull
      * @param string $msg used for warnings and errormessages
      * @param string $verb the method (get,post, ...) of the request
      */
-    function __construct(&$fetcher, &$filter, &$parameters = array(), &$status = '', &$msg = '', &$verb = '') {
+    function __construct(&$fetcher, &$queryBuilder, &$parameters = array(), &$status = '', &$msg = '', &$verb = '') {
         $this->fetcher = $fetcher;
-        $this->filter = $filter;
+        $this->qb = $queryBuilder;
         $this->parameters = $parameters;
         $this->status = $status;
         $this->msg = $msg;
@@ -47,22 +47,15 @@ class Request {
         $this->fetcher = $fetcher;
     }
 
-    /**
-     * returns the filter
-     * @return iFilter
-     */
-    public function getFilter() {
-        return $this->filter;
+    public function getQb() {
+        return $this->qb;
     }
 
-    /**
-     * sets the filter
-     * @param iFilter $filter
-     */
-    public function setFilter($filter) {
-        $this->filter = $filter;
+    public function setQb($qb) {
+        $this->qb = $qb;
     }
 
+    
     /**
      * the data/result of the request
      * @return array()
