@@ -28,7 +28,14 @@ echo "Clearing subResults\n";
 $query = "with lijst as (select resultid,testinstanceid from results r
                 join subresults sr using (resultid)
                 join testinstances ti using (testinstanceid)
-            where ti.testdefinitionname='login'
+            where ti.testdefinitionname='login2'
+        )
+        delete from subResults ssr where ssr.resultid = any(select resultid from lijst)";
+pg_query($con,$query);
+$query = "with lijst as (select resultid,testinstanceid from results r
+                join subresults sr using (resultid)
+                join testinstances ti using (testinstanceid)
+            where ti.testdefinitionname='login3s'
         )
         delete from subResults ssr where ssr.resultid = any(select resultid from lijst)";
 pg_query($con,$query);
@@ -36,7 +43,14 @@ echo "Clearing Results\n";
 $query2 = "with lijst as (select resultid,testinstanceid from results r
                 join subresults sr using (resultid)
                 join testinstances ti using (testinstanceid)
-            where ti.testdefinitionname='login'
+            where ti.testdefinitionname='login2'
+        )
+        delete from results r where r.resultid = any(select resultid from lijst)";
+pg_query($con,$query2);
+$query2 = "with lijst as (select resultid,testinstanceid from results r
+                join subresults sr using (resultid)
+                join testinstances ti using (testinstanceid)
+            where ti.testdefinitionname='login3'
         )
         delete from results r where r.resultid = any(select resultid from lijst)";
 pg_query($con,$query2);
