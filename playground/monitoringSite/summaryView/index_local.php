@@ -31,9 +31,9 @@
     Include ( __DIR__.'/../config.php');
     
     $data = json_decode(file_get_contents($GLOBALS['urlLocal']),true);
-    $data = $data['data'];
+    //$data = $data['data'];
     $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
-    $testbedurls = $testbedurls['data'];
+    //$testbedurls = $testbedurls['data'];
     date_default_timezone_set('CET');
     
     //print_r($data);

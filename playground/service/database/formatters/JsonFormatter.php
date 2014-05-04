@@ -11,7 +11,7 @@ class JsonFormatter implements iFormatter{
             //return json_encode(array('status' => $req->getStatus() , 'msg' => $req->getMsg(), "data" => $req->getData()));
             return json_encode($req->getData());
         }else{
-            return json_encode(array('status' => $req->getStatus() , 'msg' => $req->getMsg(), "data" => $req->getData()));
+            return json_encode($req->getMsg());
         }
     }
 }

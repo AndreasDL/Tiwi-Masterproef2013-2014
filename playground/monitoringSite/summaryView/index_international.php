@@ -28,13 +28,13 @@
     Include ( __DIR__.'/../config.php');
     
     $ping = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=ping'),true);
-    $ping = $ping['data'];
+    //$ping = $ping['data'];
     
     $getVersion = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=getVersion2'),true);
-    $getVersion = $getVersion['data'];
+    //$getVersion = $getVersion['data'];
     
     $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
-    $testbedurls = $testbedurls['data'];
+    //$testbedurls = $testbedurls['data'];
     //print_r($data);
     foreach ($ping as $key => $row){
         echo "<tr>";

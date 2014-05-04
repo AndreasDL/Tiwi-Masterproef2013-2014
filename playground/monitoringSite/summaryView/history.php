@@ -62,9 +62,9 @@
   </tr>
   <?php
     $data = json_decode(file_get_contents($GLOBALS['webservice'].'/list?testname='.$testname),true);
-    $data = $data['data'];
+    //$data = $data['data'];
     $testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
-    $testDefinitions= $testDefinitions['data'];
+    //$testDefinitions= $testDefinitions['data'];
     
     foreach ($data as $key => $row){
         $subTests=$testDefinitions[$row['testdefinitionname']]['returnValues'];
