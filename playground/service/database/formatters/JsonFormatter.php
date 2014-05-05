@@ -9,9 +9,9 @@ class JsonFormatter implements iFormatter{
         http_response_code($req->getStatus());
         if ($req->getStatus() == 200){
             //return json_encode(array('status' => $req->getStatus() , 'msg' => $req->getMsg(), "data" => $req->getData()));
-            return json_encode($req->getData());
+            return json_encode($req->getData(),JSON_BIGINT_AS_STRING);
         }else{
-            return json_encode($req->getMsg());
+            return json_encode($req->getMsg(),JSON_BIGINT_AS_STRING);
         }
     }
 }

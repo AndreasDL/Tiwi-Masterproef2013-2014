@@ -324,7 +324,17 @@ $data = array('listResources','listResources' ,'','', '<testbed.urn>');
 pg_query_params($con,$query,$data);
 $data = array("listResources", "testbed", "testbed", "wall2");
 pg_query_params($con, $subQuery, $data);
+$data = array("listResources", "context-file", "file", "username = ftester
+    passwordFilename = " . $authDir . "ftester.pass
+    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    userAuthorityUrn = <userAuthorityUrn>");
+pg_query_params($con, $subQuery, $data);
+$data = array("listResources", "userAuthorityUrn", "urn", "urn for authority");
+pg_query_params($con, $subQuery, $data);
+
 $data = array("listResources", 'count', 'int',1, 'free resources');
+pg_query_params($con, $retQuery, $data);
+$data = array("listResources", 'rspec', 'file',2, 'path of rspec file');
 pg_query_params($con, $retQuery, $data);
 
 
@@ -417,6 +427,9 @@ foreach ($urns as $name => $urn) {
     pg_execute($con,"query",$data);
     $data = array("testbed",$name);
     pg_execute($con, "subQuery", $data);
+    $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
+    pg_execute($con, "subQuery", $data);
+    
     
     
     
@@ -446,6 +459,7 @@ echo "creating stitching test\n";
 );
 pg_execute($con, "query", $data);
 
+echo "creating list resources test\n";
 $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
 pg_execute($con, "subQuery", $data);
 $data = array("testedAggregateManager", $name);

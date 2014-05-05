@@ -25,4 +25,15 @@
             </modules>
         </profile>
     </profiles>
+    
+<repositories>
+    <repository>
+      <id>hestia01.test</id>
+      <url> http://hestia01.test:8081/artifactory/repo/</url>
+        <snapshots>
+            <updatePolicy>always</updatePolicy>
+        </snapshots>
+    </repository>
+</repositories>
+
 </project>

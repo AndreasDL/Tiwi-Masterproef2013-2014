@@ -8,9 +8,9 @@ class PrettyJsonFormatter implements iFormatter{
         http_response_code($req->getStatus());
         
         if ($req->getStatus() == 200){
-            return "<pre>" . json_encode($req->getData(),JSON_PRETTY_PRINT) . "</pre>";
+            return "<pre>" . json_encode($req->getData(),JSON_PRETTY_PRINT|JSON_BIGINT_AS_STRING) . "</pre>";
         }else{
-            return "<pre>" . json_encode($req->getMsg(),JSON_PRETTY_PRINT) . "</pre>";
+            return "<pre>" . json_encode($req->getMsg(),JSON_PRETTY_PRINT|JSON_BIGINT_AS_STRING) . "</pre>";
         }
     }
 }
