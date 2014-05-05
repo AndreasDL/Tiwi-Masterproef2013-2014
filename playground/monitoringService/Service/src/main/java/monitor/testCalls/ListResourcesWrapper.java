@@ -14,6 +14,7 @@ import be.iminds.ilabt.jfed.lowlevel.authority.SfaAuthority;
 import be.iminds.ilabt.jfed.lowlevel.connection.SfaConnectionPool;
 import be.iminds.ilabt.jfed.util.CommandExecutionContext;
 import be.iminds.ilabt.jfed.util.XmlUtil;
+import static be.iminds.ilabt.jfed.util.XmlUtil.parseXmlFromString;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import monitor.ResultUploader;
@@ -28,6 +30,10 @@ import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
 import monitor.model.Testbed;
+import org.w3c.dom.Document;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 
 public class ListResourcesWrapper extends TestCall {
 
@@ -86,7 +92,22 @@ public class ListResourcesWrapper extends TestCall {
             //LISTRESOURCES_COUNT=`
             //xmlstarlet pyx ${LISTRESOURCES_OUTPUT_FILE} 
             //|grep 'ZOTAC-vm\|SERVER1P-vm\|SERVER5P-vm\|pcgen03-1p-vm\|pcgen03-2p-vm\|pcgen03-3p-vm\|pcgen03-4p-vm\|pcgen03-5p-vm\|supernode-vm\|plab-pc\|testSSHAccessableResourceHardwareType\|openEPC-WiFi\|laptop\|node+omf.nitos.node\|node+omf.netmode.node\|pc850-vm\|d710-vm\|d820-vm\|pc3000-vm\|pc600-vm\|pc3000w-vm\|pc2400w-vm\|pc2000-vm\|type1-vm\|orca-vm-cloud\|omf:nitos+node'|wc -l`;
-            rspec = XmlUtil.formatXmlFromString_alwaysSafe(rspec);
+            try {
+                final Document document = parseXmlFromString(rspec);
+
+                DOMImplementationRegistry registry;
+                registry = DOMImplementationRegistry.newInstance();
+
+                DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
+                LSSerializer writer = impl.createLSSerializer();
+                writer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE);
+                writer.getDomConfig().setParameter("xml-declaration", false); // true -> the xml declaration is added
+
+                rspec = writer.writeToString(document);
+            } catch (Exception e) {
+                //rspec blijft rspec
+            }
+            //rspec = XmlUtil.formatXmlFromString_alwaysSafe(rspec);
             //rspec opslaan
             String fileName = makeTestOutputDir() + "rspec.txt";
             PrintWriter writer = new PrintWriter(fileName, "UTF-8");
@@ -94,19 +115,18 @@ public class ListResourcesWrapper extends TestCall {
             writer.close();
 
             //temp output to console
-            System.out.println(rspec);
-
+            //System.out.println(rspec);
             Pattern pattern = Pattern.compile("^.*ZOTAC-vm|SERVER1P-vm|SERVER5P-vm|pcgen03-1p-vm|pcgen03-2p-vm|pcgen03-3p-vm|pcgen03-4p-vm|pcgen03-5p-vm|supernode-vm|plab-pc|testSSHAccessableResourceHardwareType|openEPC-WiFi|laptop|node+omf.nitos.node|node+omf.netmode.node|pc850-vm|d710-vm|d820-vm|pc3000-vm|pc600-vm|pc3000w-vm|pc2400w-vm|pc2000-vm|type1-vm|orca-vm-cloud|omf:nitos+node.*$");
             Matcher matcher = pattern.matcher(rspec);
             int count = 0;
             while (matcher.find()) {
                 count++;
             }
-            System.out.println(count);    // prints 3
+            System.out.println("count of resources: " + count);    // prints 3
 
             TestResult r = handleResults("", 0);
             r.addSubResult("rspec", fileName);
-            r.addSubResult("count", ""+count);
+            r.addSubResult("count", "" + count);
 
             getResultUploader().addResultToQueue(r);
         } catch (JFedException e) {
@@ -122,26 +142,25 @@ public class ListResourcesWrapper extends TestCall {
             ex.printStackTrace();
         }
 
-        
     }
 
     @Override
-    protected ArrayList<String> getParameters(String parsedCommand) {
+    protected ArrayList<String> getParameters(String parsedCommand
+    ) {
         ArrayList<String> commands = new ArrayList<>();
 
         commands.add(getParamValue("testbed.urn"));
         commands.add(getParamValue("context-file"));
-        
 
         return commands;
     }
 
     @Override
-    protected TestResult handleResults(String consoleOutput, int returnValue) {
-        TestResult r = new TestResult(test, loadTest);
-        r.addSubResult("duration",""+(System.currentTimeMillis() -  start));
-        r.addSubResult("startTime",start + "");
-        r.addSubResult("log",consoleOutput);
+    protected TestResult handleResults(String consoleOutput, int returnValue
+    ) {
+        TestResult r = super.handleResults(consoleOutput, returnValue);
+        r.addSubResult("duration", "" + (System.currentTimeMillis() - start));
+
         return r;
     }
 

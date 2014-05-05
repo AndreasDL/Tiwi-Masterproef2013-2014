@@ -35,66 +35,65 @@ class DataStoreFetcher implements iFetcher {
             $data[$row['testdefinitionname']]['returnValues'][$row['returnname']] = array('type' => $row['returntype'],
                 'description' => $row['returndescription']);
         }
-        
     }
 
     public function fetchList(&$result, &$data, &$testDefinitions) {
-        $map = array();
         $ret = array();
+        $mapUnitTypeId = array();
 
         while ($row = pg_fetch_assoc($result)) {
-            
+
             if (!isset($ret[$row['testinstanceid']])) {
                 $ret[$row['testinstanceid']] = array(
-                    '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',  
-                    "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'],//"Is aggregate manager responsive",
+                    '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',
+                    "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'], //"Is aggregate manager responsive",
                     "eventType" => $testDefinitions[$row['testdefinitionname']]['genidatastoretestname'],
-                    'units' => 'boolean',
+                    'units' => $row['genidatastoreunits'],
                     'tsdata' => array()
                 );
+                $mapUnitTypeId[$row['testinstanceid']] = $row['genidatastoreunits'];
             }
-            
+
             //testbed fixen
             if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
                     || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
-                //map testinstanceid => testbed to change final layout
-                $map[$row['testinstanceid']] = $row['parametervalue'];
-                
                 //put in stuffs wich require the testbed parameter
-                $ret[$row['testinstanceid']]['id'] = 'is_available:'. $row['testname'];//ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
+                $ret[$row['testinstanceid']]['id'] = explode(':', $row['genidatastoretestname'])[1] . ':' . $row['testname']; //ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
                 $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
             
-            if (!isset($ret[$row['testinstanceid']]['tsdata'][$row['timestamp']])){
-                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = true;
+            if ($row['genidatastoreunits'] == 'boolean'){
+                if (!isset($ret[$row['testinstanceid']]['tsdata'][$row['timestamp']])) {
+                    $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = true;
+                }
+                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
+            }else if ($row['genidatastoreunits'] == 'count' && $row['returnname'] == 'count'){
+                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $row['returnvalue'];
             }
-            $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
-            
-            
-            //enkel voor getVersionv2 & mss v3
-            /*if ($row['returnname'] == 'testGetVersionXmlRpcCorrectness'){
-                array_push($ret[$row['testinstanceid']]['tsdata'], 
-                    array('ts'=> $row['timestamp'], 
-                        'v' => ($row['returnvalue'] == 'SUCCESS' ? '1':'0')
-                    )
-                );
-            }*/
         }
-        
+
         //testinstanceid weghalen
-        foreach ($ret as $instance => $results){
-            $arr = array();
-            foreach ($results['tsdata'] as $k => $v){
-                array_push($arr, array('ts' => strtotime($k)*1000000 , 'v' => ($v ? '1':'0')));
+        foreach ($ret as $instance => $results) {
+            if ($mapUnitTypeId[$instance] == 'boolean') {
+                $arr = array();
+                foreach ($results['tsdata'] as $k => $v) {
+                    array_push($arr, array('ts' => strtotime($k) * 1000000, 'v' => ($v ? '1' : '0')));
+                }
+                $results['tsdata'] = $arr;
+            }else if ( $mapUnitTypeId[$instance] == 'count') {
+                $arr = array();
+                foreach ($results['tsdata'] as $k => $v) {
+                    array_push($arr, array('ts' => strtotime($k) * 1000000, 'v' => $v ));
+                }
+                $results['tsdata'] = $arr;
             }
-            $results['tsdata'] = $arr;
-            
-            array_push($data,$results);
+
+            array_push($data, $results);
         }
-}
+    }
 
     public function fetchTestInstance(&$result, &$data) {
-                while ($row = pg_fetch_assoc($result)) {
+        while ($row = pg_fetch_assoc($result)) {
             //array_push($data, $row);
             if (!isset($data[$row['id']])) {
                 $data[$row['id']] = array(
@@ -118,7 +117,7 @@ class DataStoreFetcher implements iFetcher {
     }
 
     public function fetchTestbed(&$result, &$data) {
-            while ($row = pg_fetch_assoc($result)) {
+        while ($row = pg_fetch_assoc($result)) {
             //array_push($data, $row);
             if (!isset($data[$row['testbedname']])) {
                 $data[$row['testbedname']] = array('testbedName' => $row['testbedname'],
@@ -128,4 +127,5 @@ class DataStoreFetcher implements iFetcher {
             }
         }
     }
+
 }

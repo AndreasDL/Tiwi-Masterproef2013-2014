@@ -22,7 +22,9 @@ class DefaultFetcher implements iFetcher {
                 );
             }
 
-            if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
+            if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
+                    || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') 
+                    && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
                 array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
             }
 

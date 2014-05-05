@@ -95,7 +95,7 @@ public class Monitor {
         } else {
             //parse args
             //default values
-            int threadCount = Integer.parseInt(line.getOptionValue("threads", Runtime.getRuntime().availableProcessors()+""));
+            int threadCount = Integer.parseInt(line.getOptionValue("threads", Runtime.getRuntime().availableProcessors()*2 + 1+""));
             String testnames = line.getOptionValue("test-name","ALL");
             String testdefnames = line.getOptionValue("test-definition-name","ALL");
             String testinstances = line.getOptionValue("test-instance-id","ALL");
@@ -131,7 +131,7 @@ public class Monitor {
                 try {
                     //wait for all tasks to be complete
                     threadPool.shutdown();
-                    threadPool.awaitTermination(1 , TimeUnit.DAYS);
+                    threadPool.awaitTermination(1 , TimeUnit.HOURS);
                     
                     Thread.sleep(1000);
                     

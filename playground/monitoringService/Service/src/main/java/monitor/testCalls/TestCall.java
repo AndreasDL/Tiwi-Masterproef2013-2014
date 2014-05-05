@@ -227,8 +227,12 @@ public abstract class TestCall implements Runnable{
             //use property of parameter and not parameter itself
             //if (paramType.equals("testbed")) {
                 if (s[1].equals("url")) {
+                    //enkel laatste overhouden
                     for (String testbed : test.getParameters().get(s[0])) {
                         ret = testbeds.get(testbed).getUrl();
+                    }
+                    if ("".equals(ret)){
+                        ret = "urlnotfound";
                     }
                 } else if (s[1].equals("urn")) {
                     ret = testbeds.get(test.getParameters().get(s[0]).get(0)).getUrn();

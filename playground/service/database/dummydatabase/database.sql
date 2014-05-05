@@ -22,7 +22,8 @@ CREATE TABLE testDefinitions(
     testDefinitionName character varying NOT NULL PRIMARY KEY,
     testCommand character varying NOT NULL,
     geniDatastoreTestname character varying,
-    geniDatastoreDesc character varying
+    geniDatastoreDesc character varying,
+    geniDatastoreUnits character varying
 );
 CREATE TABLE parameterDefinitions(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),
@@ -73,17 +74,15 @@ CREATE VIEW list AS
         join testdefinitions td using (testDefinitionName)
         join parameterinstances pi using (testinstanceid)
         join returnDefinitions rd using (testdefinitionname,returnname)
-    --order by (select returnIndex from returnDefinitions rd where rd.returnname = sr.returnname and rd.testdefinitionname = ti.testdefinitionname)--rd.returnIndex
 ;
 CREATE VIEW definitions AS
     select *,t.testtype tetyp from testdefinitions t 
-        join parameterdefinitions p using (testDefinitionName) --using(testtype)
-        join returndefinitions    r using (testDefinitionName) --using(testtype)
+        join parameterdefinitions p using (testDefinitionName)
+        join returndefinitions    r using (testDefinitionName)
 ;
 CREATE VIEW instances AS
     select t.testinstanceid as id,* from testinstances t
         left join parameterInstances p using(testinstanceid)
-        --join testDefinitions d using(testDefinitionName) --gaat ook eig, geen testbeds meer nodig bij webservice acces, maar toegang mss trager & deze worden toch al gecached
 ;
 
 ALTER TABLE public.testbeds OWNER TO postgres;
