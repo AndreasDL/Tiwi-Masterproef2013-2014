@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Builds a query
+ * Builds a query for more information take a look at the interface.
  * @author Andreas De Lille
  */
 class DefaultQueryBuilder extends aQueryBuilder {

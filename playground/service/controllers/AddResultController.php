@@ -1,10 +1,11 @@
 <?php
 
 include (__DIR__."/../database/AccessDatabase.php");
-
+/**
+ * Handles all requests for /addResult
+ * for more information take a look at the interface.
+ */
 class AddResultController implements iController{
-    //handles all requests for /last
-    
     private $dbo;
     
     public function __construct(&$req){

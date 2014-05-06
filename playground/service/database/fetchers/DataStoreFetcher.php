@@ -1,14 +1,8 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of DataStoreFether
- * Returns object that support the GENI Operational Monitoring Project
+ * Returns a layout that is supported by the GENI Operational Monitoring Project
  * @author Andreas De Lille
  */
 class DataStoreFetcher implements iFetcher {
@@ -77,13 +71,13 @@ class DataStoreFetcher implements iFetcher {
             if ($mapUnitTypeId[$instance] == 'boolean') {
                 $arr = array();
                 foreach ($results['tsdata'] as $k => $v) {
-                    array_push($arr, array('ts' => strtotime($k) * 1000000, 'v' => ($v ? '1' : '0')));
+                    array_push($arr, array('ts' => number_format(strtotime($k) * 1000000, 0,'',''), 'v' => ($v ? '1' : '0')));
                 }
                 $results['tsdata'] = $arr;
             }else if ( $mapUnitTypeId[$instance] == 'count') {
                 $arr = array();
                 foreach ($results['tsdata'] as $k => $v) {
-                    array_push($arr, array('ts' => strtotime($k) * 1000000, 'v' => $v ));
+                    array_push($arr, array('ts' => number_format(strtotime($k) * 1000000 , 0,'',''), 'v' => $v ));
                 }
                 $results['tsdata'] = $arr;
             }

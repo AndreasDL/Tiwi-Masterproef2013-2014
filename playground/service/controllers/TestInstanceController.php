@@ -1,6 +1,9 @@
 <?php
 include (__DIR__."/../database/AccessDatabase.php");
-
+/**
+ * Handles all requests for /testInstance
+ * for more information take a look at the interface.
+ */
 class TestInstanceController implements iController{
     private $dbo;
     

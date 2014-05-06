@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -43,15 +42,24 @@ public abstract class TestCall implements Runnable{
     protected boolean seqNumberSet;
     protected long start;
     boolean loadTest;
-
+/**
+ * returns the properties
+ * @return 
+ */
     public Properties getProp() {
         return prop;
     }
-
+/**
+ * returns a map of the testbed
+ * @return 
+ */
     public Map<String, Testbed> getTestbeds() {
         return testbeds;
     }
-
+/**
+ * returns true if this is a stresstest
+ * @return 
+ */
     public boolean isLoadTest() {
         return loadTest;
     }

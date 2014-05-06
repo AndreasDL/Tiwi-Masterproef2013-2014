@@ -1,3 +1,4 @@
+--useless
 with view as (
 	select *,r.resultid id from results r
     	join (select * from subresults) sr on r.resultid = sr.resultid

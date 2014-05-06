@@ -13,7 +13,6 @@ import be.iminds.ilabt.jfed.lowlevel.authority.JFedAuthorityList;
 import be.iminds.ilabt.jfed.lowlevel.authority.SfaAuthority;
 import be.iminds.ilabt.jfed.lowlevel.connection.SfaConnectionPool;
 import be.iminds.ilabt.jfed.util.CommandExecutionContext;
-import be.iminds.ilabt.jfed.util.XmlUtil;
 import static be.iminds.ilabt.jfed.util.XmlUtil.parseXmlFromString;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +21,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import monitor.ResultUploader;
@@ -34,7 +32,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
-
+/**
+ * This class is not a testcall but the test itself. However it still extends a testcall because it is easier that way & the programmer doesn't have to know that this test is executed directly.
+ * This class will automatically select the right version of the listResources call 
+ * @author Andreas De Lille
+ */
 public class ListResourcesWrapper extends TestCall {
 
     public ListResourcesWrapper(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {

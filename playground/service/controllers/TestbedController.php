@@ -1,7 +1,10 @@
 <?php
 
 include (__DIR__ . "/../database/AccessDatabase.php");
-
+/**
+ * Handles all requests for /testbedµ
+ * for more information take a look at the interface.
+ */
 class TestbedController implements iController {
 
     private $dbo;

@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Description of datastorefilter
- *
+ * Builds a query with the ?q= param to support the geni datastore. For more information take a look at the superclass.
  * @author Andreas De Lille
  */
 class DatastoreQueryBuilder extends aQueryBuilder {
