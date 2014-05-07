@@ -49,19 +49,18 @@ class DataStoreFetcher implements iFetcher {
             }
 
             //testbed fixen
-            if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
-                    || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
+            if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
                 //put in stuffs wich require the testbed parameter
                 $ret[$row['testinstanceid']]['id'] = explode(':', $row['genidatastoretestname'])[1] . ':' . $row['testname']; //ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
                 $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
-            
-            if ($row['genidatastoreunits'] == 'boolean'){
+
+            if ($row['genidatastoreunits'] == 'boolean') {
                 if (!isset($ret[$row['testinstanceid']]['tsdata'][$row['timestamp']])) {
                     $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = true;
                 }
                 $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
-            }else if ($row['genidatastoreunits'] == 'count' && $row['returnname'] == 'count'){
+            } else if ($row['genidatastoreunits'] == 'count' && $row['returnname'] == 'count') {
                 $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $row['returnvalue'];
             }
         }
@@ -71,13 +70,14 @@ class DataStoreFetcher implements iFetcher {
             if ($mapUnitTypeId[$instance] == 'boolean') {
                 $arr = array();
                 foreach ($results['tsdata'] as $k => $v) {
-                    array_push($arr, array('ts' => number_format(strtotime($k) * 1000000, 0,'',''), 'v' => ($v ? '1' : '0')));
+                    array_push($arr, array('ts' => strval(strtotime($k)) . "000000", 'v' => intval(($v ? '1' : '0')))); //see below
                 }
                 $results['tsdata'] = $arr;
-            }else if ( $mapUnitTypeId[$instance] == 'count') {
+            } else if ($mapUnitTypeId[$instance] == 'count') {
                 $arr = array();
                 foreach ($results['tsdata'] as $k => $v) {
-                    array_push($arr, array('ts' => number_format(strtotime($k) * 1000000 , 0,'',''), 'v' => $v ));
+                    //array_push($arr, array('ts' => strval(number_format(strtotime($k) * 1000000 , 0,'','')), 'v' => $v ));
+                    array_push($arr, array('ts' => strval(strtotime($k)) . "000000", 'v' => intval($v)));//as string to support 64ints on 32bit machines (or 64bit windows machines)
                 }
                 $results['tsdata'] = $arr;
             }

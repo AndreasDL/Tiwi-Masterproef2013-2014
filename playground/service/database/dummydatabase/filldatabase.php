@@ -430,10 +430,7 @@ foreach ($urns as $name => $urn) {
     pg_execute($con, "subQuery", $data);
     $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
     pg_execute($con, "subQuery", $data);
-    
-    
-    
-    
+
     //generic
     $data = array($name . "gen",
         "loginGen",

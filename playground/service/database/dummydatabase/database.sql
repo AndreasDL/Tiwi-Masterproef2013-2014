@@ -15,7 +15,11 @@ DROP TABLE testDefinitions;
 CREATE TABLE testbeds (
     testbedName character varying NOT NULL PRIMARY KEY, 
     url character varying,
-    urn character varying --UNIQUE
+    urn character varying--, --UNIQUE
+    --username character varying,
+    --userAuthorityUrn character varying, --urn used for authorising automated tests
+    --passwordFilename character varying, --file containing password for the certificates and stuff
+    --pemKeyAndCertFilename character varying --file containing the key and certificate
 );
 
 --the testdefinitions
