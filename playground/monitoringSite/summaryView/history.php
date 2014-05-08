@@ -61,10 +61,8 @@
    <th>result-overviewXml</th>
   </tr>
   <?php
-    $data = json_decode(file_get_contents($GLOBALS['webservice'].'/list?testname='.$testname),true);
-    //$data = $data['data'];
-    $testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
-    //$testDefinitions= $testDefinitions['data'];
+    $data = json_decode(file_get_contents($GLOBALS['webService'].'/list?testname='.$testname),true);
+    $testDefinitions = json_decode(file_get_contents($GLOBALS['webService'].'/testDefinition'),true); //handled faster if only right definitions is query'd
     
     foreach ($data as $key => $row){
         $subTests=$testDefinitions[$row['testdefinitionname']]['returnValues'];
@@ -95,4 +93,3 @@
     </div> <!-- /container -->
   </body>
 </html>
-

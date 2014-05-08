@@ -27,33 +27,53 @@
     //todo webservice via config file
     Include ( __DIR__.'/../config.php');
     
-    $ping = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=ping'),true);
-    //$ping = $ping['data'];
+    parse_str($_SERVER['QUERY_STRING'], $parameters);
+    $data = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=ping,getVersion2,listResources'),true);
+    $testbeds = json_decode(file_get_contents($GLOBALS['webService'].'/testbed'),true);
     
-    $getVersion = json_decode(file_get_contents($GLOBALS['webService'].'/last?testdefinitionname=getVersion2'),true);
-    //$getVersion = $getVersion['data'];
+    //group results per testbeds
+    $groupedData;
+    foreach ($data as $key => $result){
+        $groupedData[$result['testbeds'][0]][$result['testdefinitionname']] = $result['results'];
+    }
     
-    $testbedurls = json_decode(file_get_contents($GLOBALS['urlTestbed']),true);
-    //$testbedurls = $testbedurls['data'];
-    //print_r($data);
-    foreach ($ping as $key => $row){
+    foreach ($groupedData as $name => $results){
         echo "<tr>";
-            echo "<td><a href=".$testbedurls[$row['testbeds'][0]]['url'].">".$row['testbeds'][0]."</a></td>";
+            echo "<td><a href=".$testbeds[$name]['url'].">".$name."</a></td>";
             
             echo "<td bgcolor=";
-            if ($row['results']['pingValue'] == $GLOBALS['fatalPing'] )  {
+            if ($results['ping']['pingValue'] == $GLOBALS['fatalPing'] )  {
                 echo "#FF0000>unreachable";
-            } else if($row['results']['pingValue'] > $GLOBALS['warnPing']) {
-                echo "#FF9933>".$row['results']['pingValue'];
+            } else if($results['ping']['pingValue'] > $GLOBALS['warnPing']) {
+                echo "#FF9933>".$results['ping']['pingValue'];
             }else{
-                echo "#00FF00>".$row['results']['pingValue'];
+                echo "#00FF00>".$results['ping']['pingValue'];
             }
             echo "</td>";
             
-            echo "<td> Not supported yet!</td>";
-            echo "<td> Not supported yet!</td>";
+            echo "<td bgcolor=";
+            if ($results['getVersion2']['testGetVersionXmlRpcCorrectness'] == $GLOBALS['fatal'] )  {
+                echo "#FF0000>".$results['getVersion2']['testGetVersionXmlRpcCorrectness'];
+            } else if($results['ping']['testGetVersionXmlRpcCorrectness'] > $GLOBALS['warn']) {
+                echo "#FF9933>".$results['getVersion2']['testGetVersionXmlRpcCorrectness'];
+            }else{
+                echo "#00FF00>".$results['getVersion2']['testGetVersionXmlRpcCorrectness'];
+            }
+            echo "</td>";
+            
+            echo "<td bgcolor=";
+            if ($results['listResources']['count'] <= $GLOBALS['listFatal'] )  {
+                echo "#FF0000>".$results['listResources']['count'];
+            } else if($results['listResources']['count'] < $GLOBALS['listWarn']) {
+                echo "#FF9933>".$results['listResources']['count'];
+            }else{
+                echo "#00FF00>".$results['listResources']['count'];
+            }
+            echo "</td>";
+            
         echo "</tr>";
     }
+    
   ?>
   </table>
     </div> <!-- /container -->

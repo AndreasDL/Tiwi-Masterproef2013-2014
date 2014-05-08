@@ -248,8 +248,24 @@ public abstract class TestCall implements Runnable{
                         ret += " " + testbeds.get(test.getParameters().get(s[0]).get(i)).getUrn();
                     }
                     /*for (String testbed : test.getParameters().get(s[0])) {}*/
+                } else if (s[1].equals("userauthorityurn")) {
+                    //enkel laatste overhouden
+                    for (String testbed : test.getParameters().get(s[0])) {
+                        ret = testbeds.get(testbed).getUserauthorityurn();
+                    }
+                } else if (s[1].equals("passwordfilename")){
+                    for (String testbed : test.getParameters().get(s[0])) {
+                        ret = testbeds.get(testbed).getPasswordfilename();
+                    }
+                } else if (s[1].equals("pemkeyandcertfilename")){
+                    for (String testbed : test.getParameters().get(s[0])) {
+                        ret = testbeds.get(testbed).getPemkeyandcertfilename();
+                    }
+                } else if (s[1].equals("username")){
+                    for (String testbed : test.getParameters().get(s[0])) {
+                        ret = testbeds.get(testbed).getUsername();
+                    }
                 }
-            //}
         } else {
             if (paramType.equals("file")) {
                 String fileName = testOutputDir + "context-file.txt";

@@ -37,31 +37,31 @@ class DataStoreFetcher implements iFetcher {
 
         while ($row = pg_fetch_assoc($result)) {
 
-            if (!isset($ret[$row['testinstanceid']])) {
-                $ret[$row['testinstanceid']] = array(
+            if (!isset($ret[intval($row['testinstanceid'])])) {
+                $ret[intval($row['testinstanceid'])] = array(
                     '$schema' => 'http://www.gpolab.bbn.com/monitoring/schema/20140131/data#',
                     "description" => $testDefinitions[$row['testdefinitionname']]['genidatastoredesc'], //"Is aggregate manager responsive",
                     "eventType" => $testDefinitions[$row['testdefinitionname']]['genidatastoretestname'],
                     'units' => $row['genidatastoreunits'],
                     'tsdata' => array()
                 );
-                $mapUnitTypeId[$row['testinstanceid']] = $row['genidatastoreunits'];
+                $mapUnitTypeId[intval($row['testinstanceid'])] = $row['genidatastoreunits'];
             }
 
             //testbed fixen
             if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]')) {
                 //put in stuffs wich require the testbed parameter
-                $ret[$row['testinstanceid']]['id'] = explode(':', $row['genidatastoretestname'])[1] . ':' . $row['testname']; //ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
-                $ret[$row['testinstanceid']]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
+                $ret[intval($row['testinstanceid'])]['id'] = explode(':', $row['genidatastoretestname'])[1] . ':' . $row['testname']; //ophalen uit definities => definities zelf zijn verschillend & zit default niet in object
+                $ret[intval($row['testinstanceid'])]['subject'] = $GLOBALS['urlTestbed'] . '?testbedName=' . $row['parametervalue'];
             }
 
             if ($row['genidatastoreunits'] == 'boolean') {
-                if (!isset($ret[$row['testinstanceid']]['tsdata'][$row['timestamp']])) {
-                    $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = true;
+                if (!isset($ret[intval($row['testinstanceid'])]['tsdata'][$row['timestamp']])) {
+                    $ret[intval($row['testinstanceid'])]['tsdata'][$row['timestamp']] = true;
                 }
-                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
+                $ret[intval($row['testinstanceid'])]['tsdata'][$row['timestamp']] = $ret[intval($row['testinstanceid'])]['tsdata'][$row['timestamp']] && ($row['returnvalue'] != 'FAILED');
             } else if ($row['genidatastoreunits'] == 'count' && $row['returnname'] == 'count') {
-                $ret[$row['testinstanceid']]['tsdata'][$row['timestamp']] = $row['returnvalue'];
+                $ret[intval($row['testinstanceid'])]['tsdata'][$row['timestamp']] = $row['returnvalue'];
             }
         }
 

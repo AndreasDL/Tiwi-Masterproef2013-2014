@@ -64,15 +64,11 @@
   </tr>
   <?php
   
-  
-    //todo webservice via config file
     Include ( __DIR__.'/../config.php');
     Include ( __DIR__.'/StatusTable.php');
-    $url = $GLOBALS['urlLast'].'?testdefinitionname='.$testdefinitionname;
+    $url = $GLOBALS['webService'].'/last?testdefinitionname='.$testdefinitionname;
     $data = json_decode(file_get_contents($url),true);
-    //$data = $data['data'];
-    $testDefinitions = json_decode(file_get_contents($GLOBALS['urlTestDefinitions']),true);
-    //$testDefinitions= $testDefinitions['data'];
+    $testDefinitions = json_decode(file_get_contents($GLOBALS['webService'].'/testDefinition'),true);
     date_default_timezone_set('CET');
     //print_r($data);
     //$subTests=array('setUp','getUserCredential','generateRspec','createSlice','initStitching','callSCS','callCreateSlivers','waitForAllReady','loginAndPing','callDeletes');

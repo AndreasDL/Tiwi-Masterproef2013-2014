@@ -117,7 +117,7 @@ public class Monitor {
                 while (!tasks.isEmpty()) {
                     
                     TestCall test = tasks.poll();
-                    if (test.getTest().isEnabled() && test.getTest().isScheduled()) {
+                    if (test.getTest().isEnabled() && test.getTest().isScheduled()) { //=> webservice will determine if the test is scheduled
                         System.out.println("Starting " + test.getTest().getTestname() + " at:" + (new Date()).getTime() + " Tasks left in queue: " + tasks.size() );
                         threadPool.submit(test);
                         try {
@@ -125,7 +125,7 @@ public class Monitor {
                         } catch (InterruptedException ex) {
                         }
                     }else{
-                        System.out.println(test.getTest().getTestname() + " doesn't need to run yet, skipping.");
+                        System.out.println(test.getTest().getTestname() + " doesn't need to run yet and/or is disabled, skipping.");
                     }
                 }
                 try {

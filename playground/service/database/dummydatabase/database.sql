@@ -15,11 +15,11 @@ DROP TABLE testDefinitions;
 CREATE TABLE testbeds (
     testbedName character varying NOT NULL PRIMARY KEY, 
     url character varying,
-    urn character varying--, --UNIQUE
-    --username character varying,
-    --userAuthorityUrn character varying, --urn used for authorising automated tests
-    --passwordFilename character varying, --file containing password for the certificates and stuff
-    --pemKeyAndCertFilename character varying --file containing the key and certificate
+    urn character varying, --UNIQUE --should be unique but empty is also possible
+    username character varying,
+    userAuthorityUrn character varying, --urn used for authorising automated tests
+    passwordFilename character varying, --file containing password for the certificates and stuff
+    pemKeyAndCertFilename character varying --file containing the key and certificate
 );
 
 --the testdefinitions
@@ -59,7 +59,8 @@ CREATE TABLE testInstances(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),--the name of the definition
     enabled boolean NOT NULL default TRUE,--whether or not the test is enabled
     frequency integer,--the frequency of the test in seconds
-    nextRun timestamp with time zone--the time when the test should run
+    nextRun timestamp with time zone,--the time when the test should run
+    description character varying --optional description of the test
 );
 --the parametervalues
 CREATE TABLE parameterInstances(

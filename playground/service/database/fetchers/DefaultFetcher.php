@@ -8,10 +8,10 @@ class DefaultFetcher implements iFetcher {
 
     public function fetchList(&$result, &$data, &$testDefinitions) {
         while ($row = pg_fetch_assoc($result)) {
-            if (!isset($data[$row['resultid']])) {
-                $data[$row['resultid']] = array(
-                    'resultid' => $row['resultid'],
-                    'testinstanceid' => $row['testinstanceid'],
+            if (!isset($data[intval($row['resultid'])])) {
+                $data[intval($row['resultid'])] = array(
+                    'resultid' => intval(intval($row['resultid'])),
+                    'testinstanceid' => intval($row['testinstanceid']),
                     //'testtype' => $row['testtype'],
                     'testdefinitionname' => $row['testdefinitionname'],
                     'testname' => $row['testname'],
@@ -24,13 +24,12 @@ class DefaultFetcher implements iFetcher {
 
             if (($testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed' 
                     || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') 
-                    && !in_array($row['parametervalue'], $data[$row['resultid']]['testbeds'])) {
-                array_push($data[$row['resultid']]['testbeds'], $row['parametervalue']);
+                    && !in_array($row['parametervalue'], $data[intval($row['resultid'])]['testbeds'])) {
+                array_push($data[intval($row['resultid'])]['testbeds'], $row['parametervalue']);
             }
 
-
             //NOTE column names are ALWAYS lower CASE
-            $data[$row['resultid']]['results'][$row['returnname']] = $row['returnvalue'];
+            $data[intval($row['resultid'])]['results'][$row['returnname']] = $row['returnvalue'];
         }
     }
 
@@ -84,7 +83,11 @@ class DefaultFetcher implements iFetcher {
             if (!isset($data[$row['testbedname']])) {
                 $data[$row['testbedname']] = array('testbedName' => $row['testbedname'],
                     'url' => $row['url'],
-                    'urn' => $row['urn']
+                    'urn' => $row['urn'],
+                    'userauthorityurn' => $row['userauthorityurn'],
+                    'passwordfilename' => $row['passwordfilename'],
+                    'pemkeyandcertfilename' => $row['pemkeyandcertfilename'],
+                    'username' => $row['username']
                 );
             }
         }

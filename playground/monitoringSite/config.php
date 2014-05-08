@@ -1,9 +1,10 @@
 <?php
-    global $webservice;
-    $webservice           = 'http://localhost/service/index.php';
+    global $webService;
+    $webService           = 'http://localhost/service/index.php';
     /*$queryInternational   = 'last?testdefinitionname=ping,getVersion2';
     $queryLocal           = 'last?testdefinitionname=ping,getVersion2&testbed=wall1,wall2';*/
     
+    /*
     global $urlInternational;
     global $urlLocal;
     global $urlTestbed;
@@ -18,12 +19,19 @@
     $urlAddTestbed      = $webservice.'/addTestbed';
     $urlAddTestInstance = $webservice.'/addTestInstance';
     $urlTestDefinitions = $webservice.'/testDefinition';
+    */
     
     global $warnPing;
     global $fatalPing;
     $warnPing = 190;
     $fatalPing = -1;//timeout
     
+    global $listFatal;
+    global $listWarn;
+    $listFatal = 0;
+    $listWarn = 20;
+    
+    //needs cleanup
     global $good;
     global $SUCCESS;
     global $warn;
@@ -42,5 +50,3 @@
     $SUCCESS = 'SUCCESS';
     $WARN = 'WARN';
     $FAILED = 'FAILED';
-
-    
