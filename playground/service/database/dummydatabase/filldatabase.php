@@ -470,6 +470,7 @@ pg_execute($con, "subQuery", $data);
 
 // </editor-fold>
 
+
 //connectie sluiten
 pg_close($con);
 echo "done\n";

@@ -10,12 +10,14 @@ import psycopg2
 import sys
 
 #############################################################################settings#############################################################################
-homeDir = "/home/drew/"
-baseDir = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/work/monitoring/contexts/"
-certDir = "/home/drew/masterproef/scripts/overzetten/" #where to find all the certificates
-firstDir = ['fls','international'] #dirs for ping, getVersion & list resources
-loginDir = 'login_scenarios'
-stitchingDir = 'stitching_scenarios'
+homeDir  = "/home/drew/"
+baseDir  = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/work/monitoring/contexts/"
+certDir  = "/home/drew/masterproef/scripts/overzetten/" #where to find all the certificates
+firstDir = ["fls','international"] #dirs for ping, getVersion & list resources
+loginDir = "login_scenarios"
+stitchingDir = "stitching_scenarios"
+resultDir    = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/db_dump_scenarios.sql"
+resultsDir   = "/home/drew/masterproef/site/results/"
 
 dbname = "testdb"
 user = "postgres"
@@ -56,7 +58,7 @@ cur.execute(subQuery,("stitch", "context-file", "file", "username = ftester\n\
     stitchedAuthorityUrns= <stitchedAuthorities.urn>\n\
     \
     scsUrl = <scsUrl>"))
-cur.execute(subQuery,("stitch", "userAuthorityUrn", "urn", "urn for authority"))
+cur.execute(subQuery,("stitch", "user", "user", "user for authority"))
 cur.execute(subQuery,("stitch", "testedAggregateManager", "testbed", ""))
 cur.execute(subQuery,('stitch', 'stitchedAuthorities', 'testbed[]', 'testbeds to run test on'))
 cur.execute(subQuery,("stitch", "scsUrl", "url", "testbed to run test on"))
@@ -254,7 +256,21 @@ def addStitchingTest(map,cur):
 	cur.execute(addTestQ,(map['testname'],"stitch",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 	cur.execute(addParQ,(testinstanceid,"username",map['username']))
+	for urn in map["stitchedAuthorityUrns"]:
+		cur.execute(addParQ,(testinstanceid,'stitchedAuthorityUrns',testbedurns[urn]['testbedname']))
+	if "scsUrl" in map :
+		cur.execute(addParQ,(testinstanceid,'scsUrl',map['scsUrl']))
+	else :
+		cur.execute(addParQ,(testinstanceid,'scsUrl',"http://geni.maxgigapop.net:8081/geni/xmlrpc"))
+	cur.execute(addParQ,(testinstanceid,'testedAggregateManager',testbedurns[map['testedAggregateManagerUrn']]['testbedname']))
 
+def getUrlFromUrn(urn):
+	return urn.split("+")[1]
+
+def getNameFromUrn(urn):
+	name = getUrlFromUrn(urn).split('.')[0]
+	print("\t!Warn testbed with urn: %s Added with name: %s" % (urn,name))
+	return name
 
 ################################################################################################################################
 #####################								Parse data
@@ -283,7 +299,7 @@ for dir in firstDir:
 					addGetVersionTest(map,cur)
 					tests[map['username']]["simple"].append(map['testbedname'])
 			else :
-				print("\tAdding testbed & ping & list & getVersion failed for %s" % map['testbedname'])
+				print("\t!!Adding testbed & ping & list & getVersion failed for %s" % map['testbedname'])
 			f.close()
 		con.commit() #commit after each file
 
@@ -305,7 +321,7 @@ for file in os.listdir(baseDir+loginDir):
 				addLoginTest(map,cur)
 				tests[map['username']]["login"].append(map['testbedname'])
 		else :
-			print("\tAdding testbed & logintest failed for %s" % map['testbedname'])
+			print("\t!!Adding testbed & logintest failed for %s" % map['testbedname'])
 con.commit()
 
 print("\tParing Stitching tests")
@@ -321,9 +337,30 @@ for file in os.listdir(baseDir+stitchingDir):
 		map['stitchedAuthorityUrns'] = map['stitchedAuthorityUrns'].split()
 		for i in range(len(map['stitchedAuthorityUrns'])): 
 			map['stitchedAuthorityUrns'][i] = map['stitchedAuthorityUrns'][i].strip()
-		#pprint.pprint(map)
 
 		if len(map) >= 7:
+			if map['username'] not in users: addUser(map,cur)
+			for urn in map['stitchedAuthorityUrns']:
+				if urn not in testbedurns :
+					bedmap = {'testbedname' : getNameFromUrn(urn), 'pinghost' : getUrlFromUrn(urn), 'testedAggregateManagerUrn' : urn}
+					addTestbed(bedmap,cur)
+
 			addStitchingTest(map,cur)
-		elif len(map) < 7 : 
-			print("\tAdding testbed & stitchingTest failed for %s" % map['testbedname'])
+		else:
+			print("\t!!Adding testbed & stitchingTest failed for %s" % map['testbedname'])
+con.commit()
+
+#######################################################################Convert Results################################################################
+print("Parsing Results")
+print("Dir:", resultDir)
+f = open(resultDir,'r')
+header = ""
+for line in f:
+	if line.startswith("COPY test_results") : 
+		header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
+		break
+for line in f:
+	if line.startswith("\\.") : break
+	ll = [ col.strip() for col in line.split("\t") ]
+	result = {header[i] : ll[i] for i in range(len(header)) }
+	
