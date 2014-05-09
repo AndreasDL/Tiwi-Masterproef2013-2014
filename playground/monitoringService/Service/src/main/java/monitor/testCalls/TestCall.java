@@ -268,7 +268,7 @@ public abstract class TestCall implements Runnable{
                 }
         } else {
             if (paramType.equals("file")) {
-                String fileName = testOutputDir + "context-file.txt";
+                String fileName = makeTestOutputDir() + "context-file.txt";
                 ret = parse(testDefinition.getParameters().get(s[0]).get("description"));
                 PrintWriter writer = null;
                 try {

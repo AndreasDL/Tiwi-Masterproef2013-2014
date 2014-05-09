@@ -158,7 +158,7 @@ class AccessDatabase {
         //testinstanceid given & existing?  => ook mogelijk in database
         $valid = FALSE;
         $returnVals;
-        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) && strtoupper($request->getVerb()) == 'POST') {
+        if (isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) ){//&& strtoupper($request->getVerb()) == 'POST') {
             $valid = True;
             //kijk of alle return values opgegeven zijn
             $returnVals = $this->testDefinitions[$this->testInstances[$params['testinstanceid'][0]]['testdefinitionname']]['returnValues']; //['testtype']]['returnValues'];

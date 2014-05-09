@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -60,7 +61,7 @@ public class ListResourcesWrapper extends TestCall {
                 throw new FileNotFoundException("Cannot find Test Context properties file: " + testContextFile.getAbsolutePath());
             }
             CommandExecutionContext testContext = CommandExecutionContext.loadFromFile(testContextFile, true/*requireUser*/, false/*requireTestAuth*/);
-
+            
             ////////////////////////////////////////// Get target test authority ///////////////////////////////////////
             SfaAuthority wall = JFedAuthorityList.getAuthorityListModel().getByUrn(s.get(0));
             assert wall != null;
@@ -77,8 +78,11 @@ public class ListResourcesWrapper extends TestCall {
             amWrapper.getVersion();
 
             ///////////////////// Get a user credential. /////////////////////////
-            AnyCredential cred = credWrapper.getUserCredentials(user.getUserUrn());
-            System.out.println("\n\ncredential:\n" + cred.getCredentialXml().substring(0, cred.getCredentialXml().length() > 300 ? 300 : cred.getCredentialXml().length()) + "...\n");
+            List<AnyCredential> cred = credWrapper.getUserCredentials(user.getUserUrn());
+            //System.out.println(lcred.size());
+            //AnyCredential cred = lcred.get(0);
+            
+            //System.out.println("\n\ncredential:\n" + cred.getCredentialXml().substring(0, cred.getCredentialXml().length() > 300 ? 300 : cred.getCredentialXml().length()) + "...\n");
 
             //////////////////////////////////////////// Call ListResources ///////////////////////////////////////
             String rspec = amWrapper.listResources(cred, true/*available*/);

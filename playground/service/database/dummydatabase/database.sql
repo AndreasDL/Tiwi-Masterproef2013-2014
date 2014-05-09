@@ -2,6 +2,7 @@ DROP VIEW list;
 DROP VIEW definitions;
 DROP VIEW instances;
 
+DROP TABLE users;
 DROP TABLE testbeds;
 DROP TABLE parameterDefinitions;
 DROP TABLE returnDefinitions;
@@ -10,6 +11,14 @@ DROP TABLE subResults;
 DROP TABLE results;
 DROP TABLE testInstances;
 DROP TABLE testDefinitions;
+
+--with with all users
+CREATE TABLE users(
+    username character varying NOT NULL PRIMARY KEY,
+    passwordFilename character varying,
+    pemKeyAndCertFilename character varying,
+    userAuthorityUrn character varying
+);
 
 --table with all parameters and data about a testbed
 CREATE TABLE testbeds (
@@ -60,7 +69,8 @@ CREATE TABLE testInstances(
     enabled boolean NOT NULL default TRUE,--whether or not the test is enabled
     frequency integer,--the frequency of the test in seconds
     nextRun timestamp with time zone,--the time when the test should run
-    description character varying --optional description of the test
+    description character varying, --optional description of the test
+    username character varying --optional: the user to authenticate the test
 );
 --the parametervalues
 CREATE TABLE parameterInstances(
@@ -104,6 +114,7 @@ CREATE VIEW definitions AS
 CREATE VIEW instances AS
     select t.testinstanceid as id,* from testinstances t
         left join parameterInstances p using(testinstanceid)
+        left join users u using(username)
 ;
 
 ALTER TABLE public.testbeds OWNER TO postgres;
