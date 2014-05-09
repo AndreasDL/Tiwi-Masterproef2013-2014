@@ -26,7 +26,7 @@ class DefaultFetcher implements iFetcher {
                     || $testDefinitions[$row['testdefinitionname']]['parameters'][$row['parametername']]['type'] == 'testbed[]') 
                     && !in_array($row['parametervalue'], $data[intval($row['resultid'])]['testbeds'])) {
                 array_push($data[intval($row['resultid'])]['testbeds'], $row['parametervalue']);
-            }else if ($testDefinitions[$row['testdefinitionname']])
+            }
 
             //NOTE column names are ALWAYS lower CASE
             $data[intval($row['resultid'])]['results'][$row['returnname']] = $row['returnvalue'];

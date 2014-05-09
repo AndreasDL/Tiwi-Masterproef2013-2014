@@ -205,7 +205,7 @@ def addUser(map,cur):
 		map['pemKeyAndCertFilename']\
 	))
 	users[map['username']] = map
-	tests[map['username']] = []
+	tests[map['username']] = {"simple" : [], "login" : [], "getVersion" : [] , 'listResources' : [] }
 
 def addTestbed(map,cur):
 	cur.execute(addBedQ,
@@ -253,6 +253,8 @@ def addLoginTest(map,cur):
 def addStitchingTest(map,cur):
 	cur.execute(addTestQ,(map['testname'],"stitch",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
+	cur.execute(addParQ,(testinstanceid,"username",map['username']))
+
 
 ################################################################################################################################
 #####################								Parse data
@@ -275,11 +277,11 @@ for dir in firstDir:
 			if len(map) >= 7:
 				if map['testbedname'] not in testbeds : addTestbed(map,cur)
 				if map['username'] not in users: addUser(map,cur)
-				if "simple" not in tests[map['username']]:
+				if map['testbedname'] not in tests[map['username']]["simple"]:
 					addpingTest(map,cur)
 					addListTest(map,cur)
 					addGetVersionTest(map,cur)
-					tests[map['username']].append("simple")
+					tests[map['username']]["simple"].append(map['testbedname'])
 			else :
 				print("\tAdding testbed & ping & list & getVersion failed for %s" % map['testbedname'])
 			f.close()
@@ -299,9 +301,9 @@ for file in os.listdir(baseDir+loginDir):
 		if len(map) >= 7:
 			if map['testbedname'] not in testbeds :	addTestbed(map,cur)
 			if map['username'] not in users : addUser(map,cur)
-			if "login" not in tests[map['username']] : 
+			if map["testbedname"] not in tests[map['username']]["login"] : 
 				addLoginTest(map,cur)
-				tests[map['username']].append("login")
+				tests[map['username']]["login"].append(map['testbedname'])
 		else :
 			print("\tAdding testbed & logintest failed for %s" % map['testbedname'])
 con.commit()
