@@ -8,12 +8,15 @@ import pprint #debug
 import os
 import psycopg2
 import sys
+import urllib.request
+import xml.etree.ElementTree as etree
+
 
 #############################################################################settings#############################################################################
 homeDir  = "/home/drew/"
 baseDir  = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/work/monitoring/contexts/"
 certDir  = "/home/drew/masterproef/scripts/overzetten/" #where to find all the certificates
-firstDir = ["fls','international"] #dirs for ping, getVersion & list resources
+firstDir = ["fls","international"] #dirs for ping, getVersion & list resources
 loginDir = "login_scenarios"
 stitchingDir = "stitching_scenarios"
 resultDir    = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/db_dump_scenarios.sql"
@@ -193,11 +196,15 @@ users = {} #mapped on username
 testbeds = {} #maped on testbedname
 testbedurns = {} #we need also to know which urns are already in the database
 tests = {} #keep track of simple tests user => test
+stitchpathids  = {} #contextfilename => {id nieuw , id old}
+stitchpath = {} #old id => filename
 
 addUserQ = "INSERT INTO users (username,userAuthorityUrn,passwordFilename,pemKeyAndCertFilename) VALUES(%s,%s,%s,%s)"
 addBedQ  = "INSERT INTO testbeds (testbedname,url,urn) VALUES(%s,%s,%s)"
 addTestQ = "INSERT INTO testinstances (testname,testDefinitionName,frequency,nextrun,enabled) VALUES(%s,%s,%s,%s,%s) RETURNING testinstanceid"
 addParQ  = "INSERT INTO parameterInstances (testinstanceId,parameterName,parametervalue) VALUES (%s,%s,%s)"
+addResQ  = "INSERT INTO results (testinstanceid,log,timestamp) VALUES(%s,%s,%s) RETURNING resultid"
+addSubResQ = "INSERT INTO subresults (resultid,returnname,returnvalue) VALUES(%s,%s,%s)"
 
 def addUser(map,cur):
 	cur.execute(addUserQ,(\
@@ -207,8 +214,7 @@ def addUser(map,cur):
 		map['pemKeyAndCertFilename']\
 	))
 	users[map['username']] = map
-	tests[map['username']] = {"simple" : [], "login" : [], "getVersion" : [] , 'listResources' : [] }
-
+	tests[map['username']] = {"simple" : {}, "login" : {}, 'stitch' : {}} #user testtype testbedname testid
 def addTestbed(map,cur):
 	cur.execute(addBedQ,
 		(map['testbedname'],
@@ -217,17 +223,14 @@ def addTestbed(map,cur):
 		)) #add testbed
 	testbedurns[map['testedAggregateManagerUrn']] = map
 	testbeds[map['testbedname']] = map
-
 def addpingTest(map,cur):
 	cur.execute(addTestQ,(map['testbedname']+"ping","ping",pingFreq,nextRun,enabled))
 	cur.execute(addParQ,(cur.fetchone()[0],"testbed",map['testbedname']))
-
 def addListTest(map,cur):
 	cur.execute(addTestQ,(map['testbedname']+"list","listResources",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 	cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
 	cur.execute(addParQ,(testinstanceid,"username",map['username']))
-
 def addGetVersionTest(map,cur):
 	if ("amversion" in map and map['amversion']== 3):
 		cur.execute(addTestQ,(map['testbedname']+"getVerv3","getVersion3",getVerFreq,nextRun,enabled))
@@ -239,7 +242,6 @@ def addGetVersionTest(map,cur):
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
 		cur.execute(addParQ,(testinstanceid,"username",map['username']))
-
 def addLoginTest(map,cur):
 	if ("amversion" in map and map['amversion']== 3):
 		cur.execute(addTestQ,(map['testbedname']+"login3","login3",loginFreq,nextRun,enabled))
@@ -251,26 +253,46 @@ def addLoginTest(map,cur):
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
 		cur.execute(addParQ,(testinstanceid,"username",map['username']))
-
 def addStitchingTest(map,cur):
 	cur.execute(addTestQ,(map['testname'],"stitch",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
-	cur.execute(addParQ,(testinstanceid,"username",map['username']))
+
+	cur.execute(addParQ,(testinstanceid,"user",map['username']))
 	for urn in map["stitchedAuthorityUrns"]:
 		cur.execute(addParQ,(testinstanceid,'stitchedAuthorityUrns',testbedurns[urn]['testbedname']))
-	if "scsUrl" in map :
-		cur.execute(addParQ,(testinstanceid,'scsUrl',map['scsUrl']))
-	else :
-		cur.execute(addParQ,(testinstanceid,'scsUrl',"http://geni.maxgigapop.net:8081/geni/xmlrpc"))
+	if "scsUrl" not in map : map['scsUrl'] = "http://geni.maxgigapop.net:8081/geni/xmlrpc"
+	cur.execute(addParQ,(testinstanceid,'scsUrl',map['scsUrl']))
 	cur.execute(addParQ,(testinstanceid,'testedAggregateManager',testbedurns[map['testedAggregateManagerUrn']]['testbedname']))
 
+	return testinstanceid
 def getUrlFromUrn(urn):
-	return urn.split("+")[1]
-
+	return urn.split("+")[1]	
 def getNameFromUrn(urn):
 	name = getUrlFromUrn(urn).split('.')[0]
 	print("\t!Warn testbed with urn: %s Added with name: %s" % (urn,name))
 	return name
+
+def addStitchResult(map,cur):
+	#makedir
+	dates = map['date_start'].split()
+	hours = dates[1]
+	dates = dates[0].split("-")
+	newid = stitchpathids[stitchpath[map['context_id']]]['newid']
+	path = resultsDir + "stitch/" + str(newid) + "/" + str(dates[0]) + "/" + str(dates[1]) + "/" + str(dates[2]) + "/" + str(hours) + "/"
+	#print(path)
+	if not os.path.exists(path) : os.makedirs(path)
+	#get & save html
+	urllib.request.urlretrieve(map["detail_url"], path + "result.html")
+	#save xml
+	urllib.request.urlretrieve(map['detail_xml'], path + "result-overview.xml")
+	#load & parse xml
+	#put in database
+	cur.execute(addResQ,(newid,"",map["date_start"]+"+02"))
+	resultid = cur.fetchone()[0]
+	for method in etree.parse(path+"result-overview.xml").getroot().iter("method") :
+		cur.execute(addSubResQ,(resultid,method.find("methodName").text,method.find("state").text))
+	print("added stitchingResult", resultid," with id",newid," date: " , map['date_start'])
+
 
 ################################################################################################################################
 #####################								Parse data
@@ -297,7 +319,7 @@ for dir in firstDir:
 					addpingTest(map,cur)
 					addListTest(map,cur)
 					addGetVersionTest(map,cur)
-					tests[map['username']]["simple"].append(map['testbedname'])
+					tests[map['username']]["simple"][map['testbedname']] = True #id haalt hier niet uit
 			else :
 				print("\t!!Adding testbed & ping & list & getVersion failed for %s" % map['testbedname'])
 			f.close()
@@ -319,7 +341,7 @@ for file in os.listdir(baseDir+loginDir):
 			if map['username'] not in users : addUser(map,cur)
 			if map["testbedname"] not in tests[map['username']]["login"] : 
 				addLoginTest(map,cur)
-				tests[map['username']]["login"].append(map['testbedname'])
+				tests[map['username']]["login"][map['testbedname']] = True #haalt hier niet uit
 		else :
 			print("\t!!Adding testbed & logintest failed for %s" % map['testbedname'])
 con.commit()
@@ -345,7 +367,10 @@ for file in os.listdir(baseDir+stitchingDir):
 					bedmap = {'testbedname' : getNameFromUrn(urn), 'pinghost' : getUrlFromUrn(urn), 'testedAggregateManagerUrn' : urn}
 					addTestbed(bedmap,cur)
 
-			addStitchingTest(map,cur)
+			testinstanceid = addStitchingTest(map,cur)
+			tests[map['username']]['stitch'][map['testname']] = testinstanceid
+			stitchpathids[file] = {'newid' : testinstanceid , "oldid" : ""}
+			#print("\tadded",map['testname'])
 		else:
 			print("\t!!Adding testbed & stitchingTest failed for %s" % map['testbedname'])
 con.commit()
@@ -355,12 +380,39 @@ print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
 header = ""
+#skip stuffs above
+for line in f:
+	if line.startswith("COPY test_context") : 
+		header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
+		break
+#pprint.pprint(header)
+
+#parse testcontexts here & add if needed
+for line in f:
+	if line.startswith("\\.") : break
+	map = { header[i] : line.split("\t")[i] for i in range(len(header)) }
+	filename =map["contextfilename"].split("/")[-1] 
+	if map["contextfilename"].split("/")[-1] in stitchpathids:
+		stitchpathids[filename]["oldid"] = map["id"]
+		stitchpath[map['id']] = filename
+
+#skip stuffs in between
 for line in f:
 	if line.startswith("COPY test_results") : 
 		header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
 		break
+
+#parse results and link to contexts
 for line in f:
 	if line.startswith("\\.") : break
 	ll = [ col.strip() for col in line.split("\t") ]
 	result = {header[i] : ll[i] for i in range(len(header)) }
-	
+	result['detail_xml'] = result['detail_url'][0:-5] +  "-overview.xml"
+	if result['context_id'] in stitchpath :
+		addStitchResult(result,cur)
+		con.commit()
+#pprint.pprint(result)
+#pprint.pprint(stitchids)
+#pprint.pprint(tests)
+#pprint.pprint(stitchpath)
+#pprint.pprint(stitchpathids)

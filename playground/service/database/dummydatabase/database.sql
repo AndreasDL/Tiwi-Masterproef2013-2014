@@ -68,9 +68,9 @@ CREATE TABLE testInstances(
     testDefinitionName character varying NOT NULL references testDefinitions(testDefinitionName),--the name of the definition
     enabled boolean NOT NULL default TRUE,--whether or not the test is enabled
     frequency integer,--the frequency of the test in seconds
-    nextRun timestamp with time zone,--the time when the test should run
-    description character varying, --optional description of the test
-    username character varying --optional: the user to authenticate the test
+    nextRun timestamp with time zone--,--the time when the test should run
+    --description character varying, --optional description of the test
+    --username character varying --optional: the user to authenticate the test nu als param
 );
 --the parametervalues
 CREATE TABLE parameterInstances(
