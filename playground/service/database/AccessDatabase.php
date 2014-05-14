@@ -143,7 +143,26 @@ class AccessDatabase {
         $this->closeConnection($con);
         return $data;
     }
-
+    
+    /**
+     * gets the users filtered by the request
+     * @param Request $request the request
+     * @return array (username => user)
+     */
+    public function getUser(&$request){
+        $params = $request->getParameters();
+        $query = "select * from users";
+        $paramsForUse = array();
+        $con = $this->getConnection();
+        
+        $request->getQb()->buildUser($query,$params,$paramsForUse);
+        $result = pg_query_params($con,$query,$paramsForUse);
+        $data = array();
+        $request->getFetcher()->fetchUser($result,$data);
+        $this->closeConnection($con);
+        return $data;
+        
+    }
     //push calls
 
     /**

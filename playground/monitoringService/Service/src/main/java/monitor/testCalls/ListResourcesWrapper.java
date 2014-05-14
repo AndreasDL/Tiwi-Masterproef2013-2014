@@ -29,6 +29,7 @@ import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
 import monitor.model.Testbed;
+import monitor.model.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -40,9 +41,10 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public class ListResourcesWrapper extends TestCall {
 
-    public ListResourcesWrapper(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
+    public ListResourcesWrapper(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, users, prop, isLoadTest);
     }
+
 
     @Override
     public void run() {
@@ -56,7 +58,7 @@ public class ListResourcesWrapper extends TestCall {
             //String pemKeyCertFilename = prop.getProperty("authCertDir");
             ArrayList<String> s = getParameters("");
 
-            File testContextFile = new File(getParameters("").get(1));
+            File testContextFile = new File(s.get(1));
             if (!testContextFile.exists()) {
                 throw new FileNotFoundException("Cannot find Test Context properties file: " + testContextFile.getAbsolutePath());
             }

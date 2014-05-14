@@ -25,7 +25,6 @@ import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -38,6 +37,7 @@ import java.util.Properties;
 import java.util.Queue;
 import java.util.TimeZone;
 import monitor.model.TestResult;
+import monitor.model.User;
 /**
  * this class is used to interact with the webservice.
  * @author Andreas De Lille
@@ -47,6 +47,7 @@ public class WebServiceAccess {
     private Gson g;
     private Map<String, Testbed> testbeds;
     private Map<String, TestDefinition> testDefinitions;
+    private Map<String, User> users;
     private Properties prop;
     private Thread uploader;
     private ResultUploader resultUploader;
@@ -82,7 +83,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop,false);
+            TestCall t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds,users, prop,false);
             tests.add(t);
         }
         return tests;
@@ -127,7 +128,7 @@ public class WebServiceAccess {
         for (String id : t.keySet()) {
             TestInstance ti = t.get(id);
             ti.setTestInstanceId(id);
-            TestCall tc = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop);
+            TestCall tc = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds,users, prop);
             tests.add(tc);
         }
         return tests;
@@ -158,7 +159,7 @@ public class WebServiceAccess {
         for (String id : testInstances.keySet()) {
             TestInstance ti = testInstances.get(id);
             ti.setTestInstanceId(id);
-            t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds, prop,true);//true=>loadtest so resultuploader wont update the lastrun
+            t = TestCallFactory.makeTest(resultUploader, ti, testDefinitions.get(ti.getTestDefinitionName()), testbeds,users, prop,true);//true=>loadtest so resultuploader wont update the lastrun
         }
         return t;
     }
@@ -223,6 +224,24 @@ public class WebServiceAccess {
         }
 
         return t;
+    }
+    
+    public Map<String,User> getUsers(){
+     Map<String,User> t = null;
+        try {
+            String jsonText = getFromURL(prop.getProperty("urlUsers"));
+
+            //parse json string
+            Type type = new TypeToken<Map<String,User>>(){}.getType();
+            t = g.fromJson(jsonText, type);
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return t;
     }
 /**
  * post a testresult to the webservice
@@ -310,6 +329,7 @@ public class WebServiceAccess {
         //cache => testbeds and testdefinitions
         this.testbeds = getTestBeds();
         this.testDefinitions = getTestDefinitions();
+        this.users = getUsers();
     }
 /**
  * gets the url page (json) as a string.

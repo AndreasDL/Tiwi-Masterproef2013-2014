@@ -13,6 +13,7 @@ import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
 import monitor.model.Testbed;
+import monitor.model.User;
 
 /**
  * Uses the fping command to ping a testbed.
@@ -20,9 +21,11 @@ import monitor.model.Testbed;
  */
 public class PingTestCall extends BashTestCall {
 
-    public PingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
+    public PingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, users, prop, isLoadTest);
     }
+
+
 
 
 

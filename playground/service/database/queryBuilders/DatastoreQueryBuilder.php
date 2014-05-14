@@ -58,5 +58,8 @@ class DatastoreQueryBuilder extends aQueryBuilder {
     public function buildTestbed(&$query, &$params, &$paramsForUse) {
         
     }
-
+    
+    public function buildUser(&$query, &$params, &$paramsForUse) {
+        
+    }
 }

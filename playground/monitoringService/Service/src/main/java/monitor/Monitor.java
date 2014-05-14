@@ -159,9 +159,10 @@ public class Monitor {
         prop.setProperty("urlTestDefinitions", serviceUrl + "testDefinition");
         prop.setProperty("urlAddResult", serviceUrl + "addResult");
         prop.setProperty("urlUpdateNextRun", serviceUrl + "updateNextRun");
+        prop.setProperty("urlUsers", serviceUrl + "user");
         prop.setProperty("outputDir", "results/");
-        prop.setProperty("authCertDir",System.getProperty("user.home") + "/.auth/getsslcert.txt");
-        prop.setProperty("authFilePass","");
+        //prop.setProperty("authCertDir",System.getProperty("user.home") + "/.auth/getsslcert.txt");
+        //prop.setProperty("authFilePass","");
         return prop;
     }
 }

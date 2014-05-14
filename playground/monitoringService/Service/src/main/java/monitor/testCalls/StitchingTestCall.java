@@ -13,6 +13,7 @@ import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.Testbed;
+import monitor.model.User;
 
 /**
  * Calls the automated tester to run a stitching test.
@@ -21,9 +22,10 @@ import monitor.model.Testbed;
  */
 public class StitchingTestCall extends AutomatedTesterTestCall{
 
-    public StitchingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
+    public StitchingTestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, users, prop, isLoadTest);
     }
+
 
 
 

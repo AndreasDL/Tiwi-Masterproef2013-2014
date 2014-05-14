@@ -13,6 +13,7 @@ import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.Testbed;
+import monitor.model.User;
 
 /**
  * this class will call the automated tester for a getversion test using amv2
@@ -20,9 +21,11 @@ import monitor.model.Testbed;
  */
 public class GetVersion2TestCall extends AutomatedTesterTestCall {
 
-    public GetVersion2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
+    public GetVersion2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, users, prop, isLoadTest);
     }
+
+
 
 
     

@@ -12,6 +12,7 @@ import monitor.ResultUploader;
 import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.Testbed;
+import monitor.model.User;
 
 /**
  * This testcall executes a login amv2 testcall.
@@ -19,9 +20,11 @@ import monitor.model.Testbed;
  */
 public class Login2TestCall extends AutomatedTesterTestCall {
 
-    public Login2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Properties prop, boolean isLoadTest) {
-        super(resultUploader, test, testDefinition, testbeds, prop, isLoadTest);
+    public Login2TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
+        super(resultUploader, test, testDefinition, testbeds, users, prop, isLoadTest);
     }
+
+
 
 
 

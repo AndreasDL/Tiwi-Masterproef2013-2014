@@ -23,18 +23,26 @@ import monitor.model.TestDefinition;
 import monitor.model.TestInstance;
 import monitor.model.TestResult;
 import monitor.model.Testbed;
+import monitor.model.User;
 
 /**
- * This class represents a testcall. The differenct testCalls are bashTestcall => runs a bash command/script.
- * automated tester => calls the automated tester.jar
+ * This class represents a testcall. The differenct testCalls are bashTestcall
+ * => runs a bash command/script. automated tester => calls the automated
+ * tester.jar
+ *
  * @author Andreas De Lille
  */
-public abstract class TestCall implements Runnable{
+public abstract class TestCall implements Runnable {
+
     private final String outputDir;
 
     protected final TestInstance test;
+
+    //this could be static? possible fix/speedup
     protected final TestDefinition testDefinition;
     protected final Map<String, Testbed> testbeds;
+    protected final Map<String, User> users;
+
     private String testOutputDir;
     protected final Properties prop;
     protected ResultUploader resultUploader;
@@ -42,38 +50,49 @@ public abstract class TestCall implements Runnable{
     protected boolean seqNumberSet;
     protected long start;
     boolean loadTest;
-/**
- * returns the properties
- * @return 
- */
+
+    /**
+     * returns the properties
+     *
+     * @return
+     */
     public Properties getProp() {
         return prop;
     }
-/**
- * returns a map of the testbed
- * @return 
- */
+
+    /**
+     * returns a map of the testbed
+     *
+     * @return
+     */
     public Map<String, Testbed> getTestbeds() {
         return testbeds;
     }
-/**
- * returns true if this is a stresstest
- * @return 
- */
+
+    /**
+     * returns true if this is a stresstest
+     *
+     * @return
+     */
     public boolean isLoadTest() {
         return loadTest;
     }
 
-/**
- * Creates a testCall
- * @param resultUploader The resultuploader which will run on a different thread uploading results one by one while tests are executed.
- * @param test The testInstance associated with the call.
- * @param testDefinition The testDefinition associated with the testInstance.
- * @param testbeds Hashmap of all known testbeds for lookups.
- * @param prop The properties set in the mainclass.
- * @param isLoadTest Marks test as loadtest . Loadtests ignore scheduling & nextrun. When this value is set to true, the resultuploaders wont change the nextrun value.
- */
-    public TestCall(ResultUploader resultUploader,TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds,Properties prop,boolean isLoadTest) {
+    /**
+     * Creates a testCall
+     *
+     * @param resultUploader The resultuploader which will run on a different
+     * thread uploading results one by one while tests are executed.
+     * @param test The testInstance associated with the call.
+     * @param testDefinition The testDefinition associated with the
+     * testInstance.
+     * @param testbeds Hashmap of all known testbeds for lookups.
+     * @param prop The properties set in the mainclass.
+     * @param isLoadTest Marks test as loadtest . Loadtests ignore scheduling &
+     * nextrun. When this value is set to true, the resultuploaders wont change
+     * the nextrun value.
+     */
+    public TestCall(ResultUploader resultUploader, TestInstance test, TestDefinition testDefinition, Map<String, Testbed> testbeds, Map<String, User> users, Properties prop, boolean isLoadTest) {
         this.resultUploader = resultUploader;
         this.test = test;
         this.testDefinition = testDefinition;
@@ -83,97 +102,127 @@ public abstract class TestCall implements Runnable{
         this.seqNumberSet = false;
         this.start = System.currentTimeMillis();
         this.loadTest = isLoadTest;
+        this.users = users;
     }
 
     /**
-     * Set the sequence number of the test, for loadtests. 
-     * This parameter must be set in order to avoid that a loadTest has 2 same outputDirectories.
-     * They are made while running and since they run simultaneously, the timestamp may be the same thus overwriting results.
+     * Set the sequence number of the test, for loadtests. This parameter must
+     * be set in order to avoid that a loadTest has 2 same outputDirectories.
+     * They are made while running and since they run simultaneously, the
+     * timestamp may be the same thus overwriting results.
+     *
      * @param seqNumber The sequence number of the loadtest.
      */
     public void setSeqNumber(int seqNumber) {
         this.seqNumber = seqNumber;
         seqNumberSet = true;
     }
-    
+
     /**
      * Returns the testDefinitions associated with the testcall.
-     * @return 
+     *
+     * @return
      */
     public TestDefinition getTestDefinition() {
         return testDefinition;
     }
-    
+
     /**
      * Returns the testInstance associated with the testcall.
-     * @return 
+     *
+     * @return
      */
     public TestInstance getTest() {
         return test;
     }
+
     /**
-     * Returns the testDefinitionName of the testDefinition associated with the testcall.
-     * @return 
+     * Returns the testDefinitionName of the testDefinition associated with the
+     * testcall.
+     *
+     * @return
      */
     public String getTestDefinitionName() {
         return test.getTestDefinitionName();
     }
-/**
- * Gets the start time of the test. The time is formatted as a unix timestamp (epoch time)
- * @return milliseconds since 1 jan 1970 .
- */
-    public long getStart(){
+
+    /**
+     * returns the users
+     *
+     * @return
+     */
+    public Map<String, User> getUsers() {
+        return users;
+    }
+
+    /**
+     * Gets the start time of the test. The time is formatted as a unix
+     * timestamp (epoch time)
+     *
+     * @return milliseconds since 1 jan 1970 .
+     */
+    public long getStart() {
         return start; // 1000; //we only want seconds & not milliseconds
     }
+
     /**
      * Runs the testcall.
      */
     @Override
     public abstract void run();
-    
+
     /**
      * Method that returns the parameters of the test.
-     * @param parsedCommand The command from testDefinition parsed by the parse function
+     *
+     * @param parsedCommand The command from testDefinition parsed by the parse
+     * function
      * @return The list of parameters.
      */
     protected abstract ArrayList<String> getParameters(String parsedCommand);
-    
+
     /**
-     * Makes an output directory to store the output files generated be the testcall.
-     * @return 
+     * Makes an output directory to store the output files generated be the
+     * testcall.
+     *
+     * @return
      */
     protected String makeTestOutputDir() {
-        if(testOutputDir == null){
+        if (testOutputDir == null) {
             Calendar now = Calendar.getInstance();
-            testOutputDir = outputDir + test.getTestDefinitionName() + "/"+ test.getTestInstanceId() +"/";
-            if (seqNumberSet){
+            testOutputDir = outputDir + test.getTestDefinitionName() + "/" + test.getTestInstanceId() + "/";
+            if (seqNumberSet) {
                 testOutputDir += "seq" + this.seqNumber + "/";
             }
-            
+
             testOutputDir += now.get(Calendar.YEAR) + "/"
-                + now.get(Calendar.MONTH) + "/"
-                + now.get(Calendar.DAY_OF_MONTH) + "/"
-                + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
-                + "." + now.get(Calendar.MILLISECOND) + "/";
-        (new File(testOutputDir)).mkdirs();
+                    + now.get(Calendar.MONTH) + "/"
+                    + now.get(Calendar.DAY_OF_MONTH) + "/"
+                    + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
+                    + "." + now.get(Calendar.MILLISECOND) + "/";
+            (new File(testOutputDir)).mkdirs();
         }
         //System.out.println(testOutputDir);
         return testOutputDir;
     }
+
     /**
      * Prepares the command & creates an outputDirectory
+     *
      * @return the parsed command.
      */
     protected String prepare() {
         String ret = parse(testDefinition.getTestcommand());
         return ret;
     }
+
     /**
-     * parses the giving text. Makes output directory if needed. Also used for parsing the contextfile/
+     * parses the giving text. Makes output directory if needed. Also used for
+     * parsing the contextfile/
+     *
      * @param text inputText to be parsed
      * @return the parsed value
      */
-    public String parse(String text){
+    public String parse(String text) {
         Pattern p = Pattern.compile("<([^>]*)>");
         //parse command
         StringBuffer stibu = new StringBuffer();
@@ -187,15 +236,17 @@ public abstract class TestCall implements Runnable{
 
         return stibu.toString();
     }
+
     /**
      * Handle the results, writes consoleOutput to testOutputDir/console.log
+     *
      * @param consoleOutput The output generated by the command.
      * @param returnValue The TestResult.
-     * @return 
+     * @return
      */
-    protected TestResult handleResults(String consoleOutput,int returnValue){
+    protected TestResult handleResults(String consoleOutput, int returnValue) {
         PrintWriter writer = null;
-        TestResult t = new TestResult(test,loadTest);
+        TestResult t = new TestResult(test, loadTest);
         try {
             //t.addSubResult("testInstanceId", test.getInstanceId());
             //will be taken care of when adding the result(webserviceAccess.addResult), here only the subvalues
@@ -203,10 +254,10 @@ public abstract class TestCall implements Runnable{
             writer = new PrintWriter(fileName, "UTF-8");
             writer.write(consoleOutput);
             writer.close();
-            t.addSubResult("log",fileName);
-            t.addSubResult("returnValue",returnValue + "");
-            t.addSubResult("startTime",getStart()+ ""); 
-            
+            t.addSubResult("log", fileName);
+            t.addSubResult("returnValue", returnValue + "");
+            t.addSubResult("startTime", getStart() + "");
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestCall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -216,15 +267,18 @@ public abstract class TestCall implements Runnable{
         }
         return t;
     }
+
     /**
-     * Returns the values associated with the parameter. e.g. testbed.urn will return the urn associated with the testbed.
-     * if the parametertype is a file, the file will be created in outputDir & the path will be returned.
+     * Returns the values associated with the parameter. e.g. testbed.urn will
+     * return the urn associated with the testbed. if the parametertype is a
+     * file, the file will be created in outputDir & the path will be returned.
+     *
      * @param propId the property e.g. testbed.urn or context-file
      * @return the value of the parameter
      */
     protected String getParamValue(String propId) {
         //laatste testbed ipv meerdere
-        
+
         //parse param
         String[] s = propId.split("\\.");
         String ret = null;
@@ -233,39 +287,42 @@ public abstract class TestCall implements Runnable{
         String paramType = testDefinition.getParameters().get(s[0]).get("type");
         if (s.length > 1) {
             //use property of parameter and not parameter itself
-            //if (paramType.equals("testbed")) {
+            if (paramType.equals("testbed") || paramType.equals("testbed[]")) {
                 if (s[1].equals("url")) {
                     //enkel laatste overhouden
                     for (String testbed : test.getParameters().get(s[0])) {
                         ret = testbeds.get(testbed).getUrl();
                     }
-                    if ("".equals(ret)){
+                    if ("".equals(ret)) {
                         ret = "urlnotfound";
                     }
                 } else if (s[1].equals("urn")) {
                     ret = testbeds.get(test.getParameters().get(s[0]).get(0)).getUrn();
-                    for (int i = 1 ; i < test.getParameters().get(s[0]).size() ; i++){
+                    for (int i = 1; i < test.getParameters().get(s[0]).size(); i++) {
                         ret += " " + testbeds.get(test.getParameters().get(s[0]).get(i)).getUrn();
                     }
                     /*for (String testbed : test.getParameters().get(s[0])) {}*/
-                } else if (s[1].equals("userauthorityurn")) {
+                }
+            } else if (paramType.equals("user")) {
+                if (s[1].equals("userauthorityurn")) {
                     //enkel laatste overhouden
-                    for (String testbed : test.getParameters().get(s[0])) {
-                        ret = testbeds.get(testbed).getUserauthorityurn();
+                    for (String user : test.getParameters().get(s[0])) {
+                        ret = users.get(user).getUserauthorityurn();
                     }
-                } else if (s[1].equals("passwordfilename")){
-                    for (String testbed : test.getParameters().get(s[0])) {
-                        ret = testbeds.get(testbed).getPasswordfilename();
+                } else if (s[1].equals("passwordfilename")) {
+                    for (String user : test.getParameters().get(s[0])) {
+                        ret = users.get(user).getPasswordfilename();
                     }
-                } else if (s[1].equals("pemkeyandcertfilename")){
-                    for (String testbed : test.getParameters().get(s[0])) {
-                        ret = testbeds.get(testbed).getPemkeyandcertfilename();
+                } else if (s[1].equals("pemkeyandcertfilename")) {
+                    for (String user : test.getParameters().get(s[0])) {
+                        ret = users.get(user).getPemkeyandcertfilename();
                     }
-                } else if (s[1].equals("username")){
-                    for (String testbed : test.getParameters().get(s[0])) {
-                        ret = testbeds.get(testbed).getUsername();
+                } else if (s[1].equals("username")) {
+                    for (String user : test.getParameters().get(s[0])) {
+                        ret = users.get(user).getUsername();
                     }
                 }
+            }
         } else {
             if (paramType.equals("file")) {
                 String fileName = makeTestOutputDir() + "context-file.txt";
@@ -275,10 +332,10 @@ public abstract class TestCall implements Runnable{
                     writer = new PrintWriter(fileName, "UTF-8");
                     writer.print(ret);
                     writer.close();
-                   /* try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException ex) {
-                    }*/
+                    /* try {
+                     Thread.sleep(4000);
+                     } catch (InterruptedException ex) {
+                     }*/
                     ret = fileName;
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,25 +344,27 @@ public abstract class TestCall implements Runnable{
                 } finally {
                     writer.close();
                 }
-            }else if(s[0].equals("output-dir")){
+            } else if (s[0].equals("output-dir")) {
                 ret = makeTestOutputDir();
-                
-            }else{
+
+            } else {
                 ret = test.getParameters().get(s[0]).get(0);
             }
 
         }
-
+        if (ret == null) {
+            System.out.println(s[0] + "." + s[1] + " not found!");
+        }
         return ret;
     }
 
     /**
      * Returns the resultUploader used for uploading the testresult.
-     * @return 
+     *
+     * @return
      */
     public ResultUploader getResultUploader() {
         return resultUploader;
     }
-    
-    
+
 }

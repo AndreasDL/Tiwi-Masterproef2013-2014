@@ -45,6 +45,14 @@ abstract class aQueryBuilder {
     abstract public function buildDefinition(&$query, &$params, &$paramsForUse);
 
     /**
+     * Fix filters for the user call
+     * @param String $quary the query
+     * @param array $params the params given in the request
+     * @param array paramsForUse an (empty) array to the store the used values in.
+     */
+    abstract public function buildUser(&$query,&$params, &$paramsForUse);
+    
+    /**
      * Will add and any clause to the query. Use with caution after this function is used you need to check if there are parameters added in the paramsforuse.
      * If so the ending bracelet ')' should be added after all other parameters are added to the query.
      * This function will only add a clausule if the parameter is set.

@@ -21,6 +21,7 @@ loginDir = "login_scenarios"
 stitchingDir = "stitching_scenarios"
 resultDir    = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/db_dump_scenarios.sql"
 resultsDir   = "/home/drew/masterproef/site/results/"
+certDir      = "/home/drew/.ssl/"
 
 dbname = "testdb"
 user = "postgres"
@@ -56,7 +57,7 @@ cur.execute(query,('stitch','stitch', 'ops_monitoring:stitching', 'stichting tes
 cur.execute(subQuery,("stitch", "context-file", "file", "username = ftester\n\
 	passwordFilename = ftester.pass\n\
 	pemKeyAndCertFilename = getsslcert.txt\n\
-	userAuthorityUrn = <userAuthorityUrn>\n\
+	userAuthorityUrn = <userauthoriturn>\n\
 	testedAggregateManagerUrn = <testedAggregateManager.urn>\n\
     stitchedAuthorityUrns= <stitchedAuthorities.urn>\n\
     \
@@ -88,7 +89,7 @@ cur.execute(subQuery,("login2", "context-file", "file", "username = <user.userna
     passwordFilename = <user.passwordfilename>\n\
     pemKeyAndCertFilename = <user.pemkeyandcertfilename>\n\
     userAuthorityUrn = <user.userauthorityurn>\n\
-    testedAggregateManagerUrn = <user.urn>\n\
+    testedAggregateManagerUrn = <testbed.urn>\n\
 	timoutRetryIntervalMs = 5000\n\
 	timoutRetryMaxCount = 20\n\
 	busyRetryIntervalMs = 5000\n\
@@ -146,7 +147,7 @@ cur.execute(query,('getVersion2','getVersion2', 'ops_monitoring:is_available','I
 cur.execute(subQuery,("getVersion2", "context-file", "file", "username = <user.username>\n\
     passwordFilename = <user.passwordfilename>\n\
     pemKeyAndCertFilename = <user.pemkeyandcertfilename>\n\
-    userAuthorityUrn = <user.userauthorityUrn>\n\
+    userAuthorityUrn = <user.userauthorityurn>\n\
     testedAggregateManagerUrn = <testbed.urn>"))
 cur.execute(subQuery,("getVersion2", "testbed", "testbed", "testbed to run test on"))
 cur.execute(subQuery,("getVersion2", "user", "user", "user for authentication"))
@@ -164,7 +165,7 @@ cur.execute(query,('getVersion3','getVersion3', 'ops_monitoring:is_available', '
 cur.execute(subQuery,("getVersion3", "context-file", "file", "username = <user.username>\n\
     passwordFilename = <user.passwordfilename>\n\
     pemKeyAndCertFilename = <user.pemkeyandcertfilename>\n\
-    userAuthorityUrn = <user.userauthorityUrn>\n\
+    userAuthorityUrn = <user.userauthorityurn>\n\
     testedAggregateManagerUrn = <testbed.urn>"))
 cur.execute(subQuery,("getVersion3", "testbed", "urn", "urn for authority"))
 cur.execute(subQuery,("getVersion3", "user", "user", "user for authentication"))
@@ -210,8 +211,10 @@ def addUser(map,cur):
 	cur.execute(addUserQ,(\
 		map['username'],\
 		map['userAuthorityUrn'],\
-		map['passwordFilename'],\
-		map['pemKeyAndCertFilename']\
+		certDir+"pass",\
+		#map['passwordFilename'],\
+		certDir+"cert.pem"\
+		#map['pemKeyAndCertFilename']\
 	))
 	users[map['username']] = map
 	tests[map['username']] = {"simple" : {}, "login" : {}, 'stitch' : {}} #user testtype testbedname testid
@@ -230,36 +233,36 @@ def addListTest(map,cur):
 	cur.execute(addTestQ,(map['testbedname']+"list","listResources",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 	cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
-	cur.execute(addParQ,(testinstanceid,"username",map['username']))
+	cur.execute(addParQ,(testinstanceid,"user",map['username']))
 def addGetVersionTest(map,cur):
 	if ("amversion" in map and map['amversion']== 3):
 		cur.execute(addTestQ,(map['testbedname']+"getVerv3","getVersion3",getVerFreq,nextRun,enabled))
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
-		cur.execute(addParQ,(testinstanceid,"username",map['username']))
+		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 	else :
 		cur.execute(addTestQ,(map['testbedname']+"getVerv2","getVersion2",getVerFreq,nextRun,enabled))
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
-		cur.execute(addParQ,(testinstanceid,"username",map['username']))
+		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 def addLoginTest(map,cur):
 	if ("amversion" in map and map['amversion']== 3):
 		cur.execute(addTestQ,(map['testbedname']+"login3","login3",loginFreq,nextRun,enabled))
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
-		cur.execute(addParQ,(testinstanceid,"username",map['username']))
+		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 	else :
 		cur.execute(addTestQ,(map['testbedname']+"login2","login2",loginFreq,nextRun,enabled))
 		testinstanceid = cur.fetchone()[0]
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
-		cur.execute(addParQ,(testinstanceid,"username",map['username']))
+		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 def addStitchingTest(map,cur):
 	cur.execute(addTestQ,(map['testname'],"stitch",listFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 
 	cur.execute(addParQ,(testinstanceid,"user",map['username']))
 	for urn in map["stitchedAuthorityUrns"]:
-		cur.execute(addParQ,(testinstanceid,'stitchedAuthorityUrns',testbedurns[urn]['testbedname']))
+		cur.execute(addParQ,(testinstanceid,'stitchedAuthorities',testbedurns[urn]['testbedname']))
 	if "scsUrl" not in map : map['scsUrl'] = "http://geni.maxgigapop.net:8081/geni/xmlrpc"
 	cur.execute(addParQ,(testinstanceid,'scsUrl',map['scsUrl']))
 	cur.execute(addParQ,(testinstanceid,'testedAggregateManager',testbedurns[map['testedAggregateManagerUrn']]['testbedname']))
@@ -410,9 +413,4 @@ for line in f:
 	result['detail_xml'] = result['detail_url'][0:-5] +  "-overview.xml"
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
-		con.commit()
-#pprint.pprint(result)
-#pprint.pprint(stitchids)
-#pprint.pprint(tests)
-#pprint.pprint(stitchpath)
-#pprint.pprint(stitchpathids)
+con.commit()

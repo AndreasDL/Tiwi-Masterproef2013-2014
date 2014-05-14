@@ -27,7 +27,8 @@
         <dependency>
             <groupId>be.iminds.ilabt.jfed</groupId>
             <artifactId>automated-testing</artifactId>
-            <version>LATEST</version>
+            <version>4.1.12-SNAPSHOT<!--LATEST--></version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>

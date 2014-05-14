@@ -121,5 +121,16 @@ class DataStoreFetcher implements iFetcher {
             }
         }
     }
+    
+    public function fetchUser(&$result, &$data) {
+        while($row = pg_fetch_assoc($result)){
+            $data[$row['username']] = array(
+                'username' => $row['username'],
+                'passwordfilename' => $row['passwordfilename'],
+                'pemkeyandcertfilename' => $row['pemkeyandcertfilename'],
+                'userauthorityurn' => $row['userauthorityurn']
+            );
+        }
+    }
 
 }

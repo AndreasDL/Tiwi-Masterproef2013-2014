@@ -1,4 +1,0 @@
-username = ftester
-    passwordFilename = /home/drew/.auth/ftester.pass
-    pemKeyAndCertFilename = /home/drew/.auth/getsslcert.txt
-    userAuthorityUrn = urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm

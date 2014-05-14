@@ -2,10 +2,10 @@
 
 include (__DIR__ . "/../database/AccessDatabase.php");
 /**
- * Handles all requests for /testbed
+ * Handles all requests for /user
  * for more information take a look at the interface.
  */
-class TestbedController implements iController {
+class UserController implements iController {
 
     private $dbo;
 
@@ -14,7 +14,7 @@ class TestbedController implements iController {
     }
 
     public function get($params) {
-        return $this->dbo->getTestbed($params);
+        return $this->dbo->getUser($params);
     }
 
 }
