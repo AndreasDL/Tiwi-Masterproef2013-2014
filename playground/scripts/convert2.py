@@ -54,10 +54,10 @@ con.commit()
 
 print("\tCreating Stitching test")
 cur.execute(query,('stitch','stitch', 'ops_monitoring:stitching', 'stichting test between multiple testbeds','boolean', ''))
-cur.execute(subQuery,("stitch", "context-file", "file", "username = ftester\n\
-	passwordFilename = ftester.pass\n\
-	pemKeyAndCertFilename = getsslcert.txt\n\
-	userAuthorityUrn = <userauthoriturn>\n\
+cur.execute(subQuery,("stitch", "context-file", "file", "username = <user.username>\n\
+	passwordFilename = <user.passwordfilename>\n\
+	pemKeyAndCertFilename = <user.pemkeyandcertfilename>\n\
+	userAuthorityUrn = <user.userauthorityurn>\n\
 	testedAggregateManagerUrn = <testedAggregateManager.urn>\n\
     stitchedAuthorityUrns= <stitchedAuthorities.urn>\n\
     \
@@ -284,17 +284,23 @@ def addStitchResult(map,cur):
 	path = resultsDir + "stitch/" + str(newid) + "/" + str(dates[0]) + "/" + str(dates[1]) + "/" + str(dates[2]) + "/" + str(hours) + "/"
 	#print(path)
 	if not os.path.exists(path) : os.makedirs(path)
-	#get & save html
-	urllib.request.urlretrieve(map["detail_url"], path + "result.html")
-	#save xml
-	urllib.request.urlretrieve(map['detail_xml'], path + "result-overview.xml")
-	#load & parse xml
-	#put in database
-	cur.execute(addResQ,(newid,"",map["date_start"]+"+02"))
-	resultid = cur.fetchone()[0]
-	for method in etree.parse(path+"result-overview.xml").getroot().iter("method") :
-		cur.execute(addSubResQ,(resultid,method.find("methodName").text,method.find("state").text))
-	print("added stitchingResult", resultid," with id",newid," date: " , map['date_start'])
+	try: 
+		#get & save html
+		urllib.request.urlretrieve(map["detail_url"], path + "result.html")
+		#save xml
+		urllib.request.urlretrieve(map['detail_xml'], path + "result-overview.xml")
+		#load & parse xml
+		#put in database
+		cur.execute(addResQ,(newid,"",map["date_start"]+"+02"))
+		resultid = cur.fetchone()[0]
+		for method in etree.parse(path+"result-overview.xml").getroot().iter("method") :
+			cur.execute(addSubResQ,(resultid,method.find("methodName").text,method.find("state").text))
+		cur.execute(addSubResQ,(resultid,"log",""))
+		print(map['id'] ,"added stitchingResult", resultid," with id",newid," date: " , map['date_start'])
+		con.commit();
+	except :
+		print ("toevoegen van result met (old) id " , map['id'], " is mislukt, ophalen van result.html of result-overview.xml is niet gelukt");
+		con.rollback();
 
 
 ################################################################################################################################
@@ -378,6 +384,20 @@ for file in os.listdir(baseDir+stitchingDir):
 			print("\t!!Adding testbed & stitchingTest failed for %s" % map['testbedname'])
 con.commit()
 
+#add wall1wall2
+cur.execute(addBedQ,("vwall1","www.wall1.ilabt.iminds.be","urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm")) #add testbed
+cur.execute(addTestQ,("wall1wall2","stitch",listFreq,nextRun,enabled))
+testinstanceid = cur.fetchone()[0]
+cur.execute(addParQ,(testinstanceid,"user","ftester"))
+cur.execute(addParQ,(testinstanceid,'stitchedAuthorities','vwall1'))
+cur.execute(addParQ,(testinstanceid,'stitchedAuthorities','vwall2'))
+cur.execute(addParQ,(testinstanceid,'scsUrl',"http://scs.atlantis.ugent.be:8081/geni/xmlrpc"))
+cur.execute(addParQ,(testinstanceid,'testedAggregateManager',"vwall2"))
+
+        
+
+
+
 #######################################################################Convert Results################################################################
 print("Parsing Results")
 print("Dir:", resultDir)
@@ -413,4 +433,4 @@ for line in f:
 	result['detail_xml'] = result['detail_url'][0:-5] +  "-overview.xml"
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
-con.commit()
+		#con.commit() nu in functie

@@ -62,6 +62,8 @@ class DefaultQueryBuilder extends aQueryBuilder {
 
     public function buildTestbed(&$query, &$params, &$paramsForUse) {
         $this->addInIfNeeded($query, $params, $paramsForUse, "testbedName", "testbedName");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "urn", "urn");//correcte codereing in html anders wordt + een spatie
+        $this->addInIfNeeded($query, $params, $paramsForUse, "url", "url");
     }
 
     public function buildUser(&$query, &$params, &$paramsForUse) {
