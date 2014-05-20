@@ -26,7 +26,7 @@
         </profile>
     </profiles>
     
-<!--<repositories>
+<repositories>
     <repository>
       <id>hestia01.test</id>
       <url> http://hestia01.test:8081/artifactory/repo/</url>
@@ -34,6 +34,6 @@
             <updatePolicy>always</updatePolicy>
         </snapshots>
     </repository>
-</repositories>-->
+</repositories>
 
 </project>
