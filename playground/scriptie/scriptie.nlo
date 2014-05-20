@@ -1,14 +1,13 @@
-\nomenclatureentry{ajFed@[{jFed}]\begingroup java Federation\nomeqref {0}|nompageref}{ii}
-\nomenclatureentry{aFed4FIRE@[{Fed4FIRE}]\begingroup federation for future internet research experimentation\nomeqref {0}|nompageref}{ii}
-\nomenclatureentry{aAPI@[{API}]\begingroup application programming interface\nomeqref {1.0}|nompageref}{1}
-\nomenclatureentry{aSSL@[{SSL}]\begingroup secure sockets layer\nomeqref {1.0}|nompageref}{2}
+\nomenclatureentry{ajFed@[{jFed}]\begingroup java Federation, tool voor het aansturen van de Federation architectuur\nomeqref {0}|nompageref}{ii}
+\nomenclatureentry{aAPI@[{API}]\begingroup application programming interface\nomeqref {0}|nompageref}{ii}
+\nomenclatureentry{aFIRE@[{FIRE}]\begingroup Future Internet Research and Experimentation\nomeqref {1.0}|nompageref}{1}
+\nomenclatureentry{aFED4FIRE@[{FED4FIRE}]\begingroup Federation 4 FIRE\nomeqref {1.0}|nompageref}{2}
+\nomenclatureentry{aSFA@[{SFA}]\begingroup slice-based federation architecture\nomeqref {1.0}|nompageref}{2}
+\nomenclatureentry{aMA@[{MA}]\begingroup Management Authority\nomeqref {1.0}|nompageref}{2}
+\nomenclatureentry{aSA@[{SA}]\begingroup Slice Authority\nomeqref {1.0}|nompageref}{2}
 \nomenclatureentry{aAM@[{AM}]\begingroup Aggregate Manager\nomeqref {1.0}|nompageref}{2}
-\nomenclatureentry{aGUI@[{GUI}]\begingroup graphical user interface\nomeqref {1.0}|nompageref}{3}
-\nomenclatureentry{aSSH@[{SSH}]\begingroup secure shell\nomeqref {1.0}|nompageref}{3}
-\nomenclatureentry{abash@[{bash}]\begingroup bourne again shell\nomeqref {1.0}|nompageref}{3}
+\nomenclatureentry{aGENI@[{GENI}]\begingroup Global Environment for Network Innovations\nomeqref {1.0}|nompageref}{3}
+\nomenclatureentry{aOML@[{OML}]\begingroup Outline Markup Language\nomeqref {2.0}|nompageref}{4}
+\nomenclatureentry{aXML@[{XML}]\begingroup Extensible Markup Language\nomeqref {2.0}|nompageref}{4}
+\nomenclatureentry{aFLS@[{FLS}]\begingroup First Level Support\nomeqref {2.0}|nompageref}{5}
 \nomenclatureentry{aXML@[{XML}]\begingroup extensible markup language \nomeqref {2.0}|nompageref}{9}
-\nomenclatureentry{ajson@[{json}]\begingroup javascript object notation\nomeqref {5.0}|nompageref}{23}
-\nomenclatureentry{asql@[{sql}]\begingroup structured query language\nomeqref {5.0}|nompageref}{24}
-\nomenclatureentry{aOS@[{OS}]\begingroup operating system\nomeqref {5.0}|nompageref}{25}
-\nomenclatureentry{aphp@[{php}]\begingroup hypertext preprocessor\nomeqref {5.0}|nompageref}{25}
-\nomenclatureentry{ahtml@[{html}]\begingroup HyperText Markup Language\nomeqref {5.0}|nompageref}{25}

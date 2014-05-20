@@ -1,5 +1,4 @@
 \documentclass[11pt,a4paper,oneside]{book}
-\usepackage[utf8]{inputenc} 	
 \usepackage{a4wide}                     % Iets meer tekst op een bladzijde
 \usepackage[dutch]{babel}               % Voor nederlandstalige hyphenatie (woordsplitsing)
 \usepackage{amsmath}                    % Uitgebreide wiskundige mogelijkheden
@@ -9,7 +8,7 @@
 \usepackage{graphicx}                   % Om figuren te kunnen verwerken
 \usepackage[small,bf,hang]{caption}     % Om de captions wat te verbeteren
 \usepackage{xspace}                     % Magische spaties na een commando
-%\usepackage[latin1]{inputenc}           % Om niet ascii karakters rechtstreeks te kunnen typen
+\usepackage[latin1]{inputenc}           % Om niet ascii karakters rechtstreeks te kunnen typen
 \usepackage{float}                      % Om nieuwe float environments aan te maken. Ook optie H!
 \usepackage{flafter}                    % Opdat floats niet zouden voorsteken
 \usepackage{listings}                   % Voor het weergeven van letterlijke text en codelistings
@@ -20,7 +19,9 @@
 \usepackage{fancyhdr}                   % Voor fancy headers en footers
 \usepackage[Gray,squaren,thinqspace,thinspace]{SIunits} % Om elegant eenheden te zetten
 \usepackage[version=3]{mhchem}          % Voor elegante scheikundige formules
+
 \usepackage{pdfpages}					% Pdf includeren
+
 \usepackage{nomencl}
 \makenomenclature %update bij every run
 \renewcommand{\nomname}{Lijst van afkortingen}
@@ -66,8 +67,8 @@
 % Is hetgeen verschijnt wanneer je in acroread de documentproperties bekijkt.
 \hypersetup{
     pdfauthor = {Andreas De Lille},
-    pdftitle = {Automatische testbed monitoring voor toekomstig internetonderzoek},
-    pdfsubject = {Scriptie van de masterproef Automatische testbedmonitoring voor toekomstig internet onderzoek},
+    pdftitle = {Automatische testbed monitoring voor toekomstig internet onderzoek met jFed},
+    pdfsubject = {Scriptie van de masterproef Automatische testbedmonitoring voor toekomstig internet onderzoek met jFed},
     pdfkeywords = {testbed, jFed, monitoring, webservice, eindwerk, scriptie}
 }
 
@@ -135,7 +136,7 @@
 
 % Nieuw commando om figuren in te voegen. Gebruik:
 % \mijnfiguur[H]{width=5cm}{bestandsnaam}{Het bijschrift bij deze figuur}
-\newcommand{\mijnfiguur}[4][H]{            % Het eerste argument is standaar `ht'. op H zetten voor HIER EN NERGENS ANDERS
+\newcommand{\mijnfiguur}[4][ht]{            % Het eerste argument is standaar `ht'.
     \begin{figure}[#1]                      % Beginnen van de figure omgeving
         \begin{center}                      % Beginnen van de center omgeving
             \includegraphics[#2]{#3}        % Het eigenlijk invoegen van de figuur (2: opties, 3: bestandsnaam)
@@ -143,7 +144,7 @@
         \end{center}
     \end{figure}
     }
-		
+
 % Nieuw commando om figuren in te voegen. Gebruik:
 % \mijnfiguur[H]{bestand-tabular}{Het bijschrift bij deze tabel}    
 \newcommand{\mijntabel}[3][ht]{             % Het eerste argument is standaar `ht'.
@@ -203,7 +204,6 @@
     {\vspace{0.9ex plus 0.5ex minus 0.5ex}  % Beetje ruimte na de letterlijke tekst
     }
 
-\newenvironment{samenvatting}{\small}{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -232,7 +232,7 @@
 %figuren
 \listoffigures
 %tabellen
-%\listoftables
+\listoftables
 
 % De lijnen van de inhoudsopgave iets dichter op elkaar, niet echt nodig voor de thesis, maar 
 % voor dit werk kregen we anders een laatste bladzijde met 3 items op.
@@ -241,16 +241,17 @@
 \tableofcontents
 \renewcommand{\baselinestretch}{1.2} 	% De interlinie afstand wat vergroten.
 \small\normalsize                       % Nodig om de baselinestretch goed te krijgen.
-\input{inleiding}
 
 \mainmatter
+
 % De verschillende hoofdstukken:
-\input{Situering}
+\input{Inleiding}
+%achtergrond?
 \input{Analyse}
 %use cases?
-%\input{OntwerpService}
-%\input{OntwerpDatabank}
-%\input{Keuzes}
+\input{OntwerpService}
+\input{OntwerpDatabank}
+\input{Keuzes}
 %werking
 %besluit
 

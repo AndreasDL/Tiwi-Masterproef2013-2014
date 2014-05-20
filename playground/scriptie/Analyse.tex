@@ -1,82 +1,55 @@
 \newpage
-\chapter{Analyse}
-
-\section{Bestaande uitwerking}
+\chapter{Analyse en probleemstelling}
+{\samenvatting
+Zoals besproken in het vorige hoofdstuk, zal deze masterproef een monitoringsAPI maken in opdracht van iMinds, een onderzoekscentrum. De monitoringsAPI heeft als doel de resultaten van een achterliggende monitoringsservice aan te bieden. De monitorService zal op zijn beurt alle aggregaten (testopstellingen) binnen FIRE (Future Internet Research and Experimentation)  een project voor de verbetering van onderzoek naar internet en netwerken, in de gaten houden. Dit hoofdstuk zal de werking van de monitoringsservice beschrijven die er was bij de aanvang van de masterproef. Daarna zal er dieper ingegaan worden op de probleemstelling.}
+\section{Werking monitoringservice bij aanvang}
 \npar
-De ontwikkeling van de huidige situatie is door snelle ontwikkelingen, minder gestructureerd verlopen.
-Hierdoor bestaat de software uit een basis versie gevolgd door een aantal \quotes{quick and dirty} toevoegingen. De huidige situatie werkt, maar het kan beter. Het gemist van structuur en opbouw in de code, zal op lange termijn leiden tot code die moeilijk aan te passen is.
+iMinds (onderzoekscentrum waar de masterproef uitgewerkt wordt en tevens leidinggevend in het FIRE project), heeft een monitoringsservice gemaakt die al enige tijd draait \citep{fed4fire-second-fed-arch}. Deze monitoringsservice is ruimer dan strict testbeds monitoren, ook het monitoren van experimenten wordt door deze service afgehandeld\citep{fed4fire-second-fed-arch}. 
 \npar
-De oplossing van dit probleem en tevens het onderwerp van mijn masterproef is een webservice die de monitoring automatiseerd. Hierbij komen een aantal vragen naar boven. Welke informatie moet bijgehouden worden? 
-Wat bepaald de betrouwbaarheid van een testbed? Hoe nauwkeurig moet deze informatie bijgehouden worden? 
-
-\subsection{Databanken}
-\npar
-De huidige situatie voorziet niet in een centrale webservice \citep{FED4FIRE-doc}.
-Wat er wel bestaat is een verzameling websites die rechtstreeks verbinding maken met een of meerdere achterliggende databanken. In de bestaande situatie zijn er 3 databanken:
-\begin{enumerate}
-\item flsmonitoring
-\item flsmonitoring-international
-\item scenarios
-\end{enumerate}
-\newpage
-\subsubsection{Flsmonitoring en flsmonitoring-internation databank}
-\npar
-De eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de lokale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
-\begin{itemize}
-\item testbedid
-\item testbedname
-\item testbedurl
-\item pinglatency
-\item getversionstatus
-\item aggregatetestbedstate
-\item last-check
-\end{itemize}
- De eerste 3 kolommen zijn duidelijk. \quotes{Pinglatency} houdt de waarde van de pingtest bij.
-De kolommen \quotes{getversionsStatus} en \quotes{aggregatetestbedstate} worden gebruikt om de uitkomst van de getVersion test bij te houden. Deze test bevat o.a. het versie nummer van de aggregate manager (AM). Zoals eerder vermeldt, staat de AM in voor het omzetten van java-datatypes naar de overeenkomstige datatypes op het testbed. Verder zorgt de AM er ook voor dat, indien nodig, calls beveiligd worden. Doordat er geen ssl authenticatie nodig is om de versie van de AM op te vragen, wordt hij vaak gebruikt om de status van een server op te vragen. De kolom \quotes{last-check} bevat een timestamp om bij te houden waneer de lijn laatste werd aangepast.
-\subsubsection{Scenario databank}
-\npar
-De laatste databank bestaat uit 3 tabellen. Het doel ervan is het bijhouden van informatie over de scenariotesten. Scenariotesten of stitchingtesten zijn complexe testen die uit meerdere subtesten bestaan. Eenvoudig gezegd zal een stitching test de verbinding tussen verschillende testbeds testen. Hiervoor worden op elk testbed meerdere resources aangevraagd. Deze zullen dan trachten naar elkaar te pingen. Indien een testbed offline is wordt de volledige test afgebroken. 
+Deze monitoringsservice bestaat uit verschillende componenten. De eerste component is de Facility monitoring, deze monitoring wordt gebruikt bij de FLS (first level support). De first level support heeft als doel om de basis zaken te monitoring. De voornaamste test is de pingtest die kijkt of een testbed nog online is. Het testbed zelf mag deze monitoring invullen, naar gelang zijn wens. De enige vereiste hier is dat de data exporteer baar is naar een OML-stream \nomenclature{OML}{Outline Markup Language}. OML (Outline Markup Language) is een XML (Extensible Markup Language)\nomenclature{XML}{Extensible Markup Language} taal die gebruikt wordt om objecten te encoderen.
 \clearpage
-Hieronder staan de opeenvolgende stappen die een stitching of scenariotest doorloopt.
-\begin{enumerate}
-\item setUp
-\item getUserCredential
-\item generateRspec
-\item createSlice
-\item initStitching
-\item callSCS
-\item callCreateSlivers
-\item waitForAllReady
-\item loginAndPing
-\item callDeletes
-\end{enumerate}
-De inhoud van elke subtest wordt buiten beschouwing gelaten.
-Wat wel opgemerkt kan worden, is dat de tests opgedeeld worden in 3 groepen. Testen 1-6 zijn voorbereidende testen met als doel de configuratie van testen 7-9 in orde te brengen. Test 10 is de cleanup die de opgebouwde configuratie van stappen 1-6 terug ongedaan maakt.
-Elke subtest heeft een resultaat. Een stitching test zou dus minstens 10 resultaten of statussen hebben. In de huidige versie zijn er slechts 3 statussen gedefini\"eerd. Indien alle subtesten gelukt zijn , is de stitching test is volledig gelukt. Wanneer enkel de voorbereiding is gelukt, maar stappen 7-9 niet of gedeeltelijk, zal de status gedeeltelijk gelukt aangeven.De laatste status geeft aan dat alle subtesten mislukt zijn, opzetten van de vereiste configuratie is dus ook mislukt.
 \npar
-De database is opgebouwd uit 3 tabellen.
-\begin{itemize}
-\item test-results
-\item test-context
-\item testbeds
-\end{itemize}
-De eerste resultaat houdt informatie bij over de testresultaten. De tweede tabel houdt de context van de test bij. De laatste tabel houdt de testbeds bij. De concrete invulling van de tabellen is van minder belang en wordt hier niet vermeld.
-\clearpage
-\subsection{Webpagina\rq s}
-\npar
-In de huidige versie zijn een aantal webinterfaces voorzien\citep{FED4FIRE-doc} .
-Er is een webinterface die enkel de status van de lokale testbeds weergeeft. Daarnaast er een webinterface die de internationale testbeds weergeeft. 
-Deze 2 webinterfaces geven de naam van het testbeds met de ping, een veld dat aanduid of de getVersion call gelukt is en het aantal beschikbare resources.
-\mijnfiguur{width=0.9\textwidth}{monitoringint}{Internationale testbed monitoring}
-\mijnfiguur{width=0.9\textwidth}{monitoringint2}{Lokale testbed monitoring}
-\npar
-\clearpage
-Zowel de webinterfaces als het aanpassen van monitoringinformatie verloopt rechtstreeks via de databank. Er komt geen webservice bij kijken.
-\mijnfiguur{width=0.9\textwidth}{monitoringOpbouw}{Geen webservice in de huidige versie}
+De tweede component is de infrastucture monitoring. Deze component is gericht om componenten binnen een experiment. De verzamelde data bevat o.a. aantal verstuurde pakketten, aantal verloren pakketten, cpu-load, ... .
 
 \npar
-De laatste webinterface geeft de resultaten van de scenariotesten weer. Er is ook de mogelijkheid om de log files van een test te bekijken. Tevens is het ook mogelijk om de geschiedenis van een scenariotest te bekijken.
-\mijnfiguur{width=0.9\textwidth}{monitoringStitch}{De huidige scenario/stitching test monitoring}
+Een derde component is de OML measurement library, deze bibliotheek laat het toe dat een onderzoeker zijn eigen monitoring framework gebruikt om de metingen van zijn experiment te doen.
+\npar
+Deze masterproef richt zich voornamelijk op de Facility monitoring. De monitoringsservice waarnaar verwezen wordt komt dus overeen met de Facility Monitoring. De andere componenten worden verder buiten beschouwing gelaten.
+Data van de Facility Monitoring kan gelezen worden op een website.
+\npar
+Deze monitoringsservice (Facility Monitoring) is opgedeeld in een aantal stukken. Het eerste stuk is de FLS-monitor (First Level Support)\nomenclature{FLS}{First Level Support}. Deze is beschikbaar op https://flsmonitor.fed4fire.eu/,zie ook Figuur \ref{monitoringview} . Deze service heeft het doel actuele informatie weer te geven over de status van het testbed.
+\mijnfiguur{width=0.9\textwidth}{monitoringview}{ testbed monitoring}
+\npar
+Figuur \ref{monitoringview} geeft een beeld van de monitoringssite. De laatste 2 kolommen zijn van minder belang. De eerste kolom geeft de naam van het testbed weer. Daarnaast wordt het resultaat van de laatste ping test getoond. De volgend 2 kolommen bevatten het resultaat van respectievelijk de getVersiontest en de free resources test.GetVersion geeft aan of de AM (aggregate manager) nog werkt terwijl de kolom free resources aangeeft hoeveel resources er nog beschikbaar zijn. De vorm van deze testen is relatief eenvoudig, waardoor een eenvoudige databank voldoende was om de data te bij te houden. 
+
+\clearpage
+\npar
+Het tweede deel van de monitoringsservice, nightly login testing, bevat echter complexere testen. Deze testen worden typisch 1 of 2 keer per dag uitgevoerd. Deze testen zijn echter diepgaander dan de FLS-monitor. Zo wordt er bij een logintest getest of het aanmelden op een testbed mogelijk is. Een andere test die ook uitgevoerd wordt is de stichingtest, deze zal kijken of het mogelijk is om een netwerk op te zetten tussen verschillende testbeds. Zie Figuur \ref{monitoringStich}
+\mijnfiguur{width=0.94\textwidth}{monitoringStich}{resultaten van de stiching test}
+Zoals zichtbaar in Figuur \ref{monitoringStichHist}, is het ook mogelijk om de geschiedenis van deze testen op te vragen. 
+\mijnfiguur{width=1\textwidth}{monitoringStichHist}{geschiedenis van resultaten}
+\clearpage
+
+
+
+
+\npar
+Echter door de komst van complexere testen volstond deze databank niet meer. Een voorbeeld van zo'n complexe test is een stichting test. Deze test zal een verbinding maken tussen verschillende aggregates. Opzetten van dergelijke verbindingen bestaat uit meerdere stappen. Aangezien elke stap kan falen, is het resultaat van deze test niet langer gelukt of mislukt, maar een verzameling van de tussenresultaten. Hiervoor moet de databank aangepast worden. De oude monitoringsservice slaat echter maar 2 tussenresultaten op. Dit wordt getoond in Figuur \ref{monitoringStitch} .Hierdoor is het minder makkelijk om snel een overzicht te krijgen van de tussenresultaten. De geschiedenis van de stichingtesten wordt wel bijgehouden. Deze kan ook opgevraagd worden, zie Figuur\ref{monitoringStitchHist} .
+
+
+\clearpage
+\section{Probleemstelling}
+\npar
+Het voornaamste probleem is dat de resultaten niet toegankelijk zijn. De informatie is enkel zichtbaar op de monitoringssite. 
+\npar
+Door de complexe opbouw van de automatedtesten, is de oude databank niet meer efficiënt. Een eerste probleem is dat alle argumenten in kolommen zitten, waardoor ze vast liggen. Vermits elke automatedtest andere argumenten vereist, is het niet mogelijk om deze configuratie eenvoudig op te slaan in een databank. Op deze manier moet voor elke test een aparte databank, of minstens tabel gemaakt worden. Deze tabel is dan specifiek voorzien voor een soort testen.
+\npar
+Het ander probleem is het variabele aantal resultaten. Een stitching test bestaat uit een ander aantal stappen dan een login test. Al deze tussenresultaten werden samengenomen in 2 tussenresultaten. De andere resultaten zijn beschikbaar in de logfiles.  Hierdoor is het zeer moeilijk om alle subresultaten weer te geven op de monitorsite, zie Figuur \ref{monitoringStitch}.
+\npar
+
+\npar
+De eerste taak van de masterproef is het maken van een monitoringsservice. Deze service zal instaan voor de opslag, configuratie en uitvoering van de testen. Om deze taken te vervullen zal een nieuwe databank gemaakt worden. Deze databank zal de configuratie bijhouden gecombineerd met de resultaten.Op deze manier worden de huidige propertyfiles, die de oude configuratie bevatten vervangen. 
+
 
 \clearpage
 \section{Wat kan anders}

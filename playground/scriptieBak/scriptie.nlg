@@ -7,8 +7,8 @@ Scanning style file /usr/share/texmf-dist/makeindex/nomencl/nomencl.ist.......
 ** Input style error (file = /usr/share/texmf-dist/makeindex/nomencl/nomencl.ist, line = 72):
    -- Unknown specifier lethead_flag.
 ...done (10 attributes redefined, 3 ignored).
-Scanning input file scriptie.nlo....done (13 entries accepted, 0 rejected).
-Sorting entries....done (48 comparisons).
-Generating output file scriptie.nls....done (31 lines written, 0 warnings).
+Scanning input file scriptie.nlo....done (14 entries accepted, 0 rejected).
+Sorting entries....done (54 comparisons).
+Generating output file scriptie.nls....done (32 lines written, 0 warnings).
 Output written in scriptie.nls.
 Transcript written in scriptie.nlg.

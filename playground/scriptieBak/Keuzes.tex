@@ -1,0 +1,37 @@
+\newpage
+\chapter{Keuzes}
+In dit hoofdstuk worden belangrijke keuzes bij de uitwerking uitgelegd en gemotiveerd.
+
+\section{Formaat Returnwaarden}
+\npar
+Er kan gekozen worden tussen xml en json. Het verschil tussen xml en java script object notation (json)\nomenclature{json}{javascript object notation} is dat xml een boomstructuur beschrijft. De json voorstel komt meer overeen met een hashmap. Xml is meer geschikt voor grote geavanceerde structuren. Aangezien het hier om eenvoudige monitoring informatie gaat, is het gebruik van xml af te raden. Bovendien is de xml-notatie van een object langer dan de overeenkomstige json-notatie. Ook is het parsen van json eenvoudiger. Bijgevolg zal hier dus geen xml, maar json gebruikt worden. Door de model-view-controller opbouw die gebruikt zal worden, kan xml-functionaliteit achteraf makkelijk toegevoegd worden. Dit is al voorzien door de parameter format, die standaard ingevuld wordt met json.
+
+\section{Structuur returnwaarden}
+\npar
+De teruggegeven data zal ook generiek gemaakt worden als een soort geneste hash/array waarin alle waarden zitten. Dit geeft het voordeel dat we ons geen zorgen moeten maken over attributen die niet ingevuld zijn, deze worden dan gewoon weggelaten. Het dan ook aan de client om de teruggegeven data om te zetten naar klassen, indien nodig.
+\clearpage
+\section{Databank technologie}
+\npar
+Het systeem van Oracle is al een aantal jaren de meest gebruikte structured query language (sql) \nomenclature{sql}{structured query language} versie \citep{oracle-clear-leader}. De grootste open source variant is mysql \citep{mysql-market-share}. Het huidige systeem draait echter op postgresql. Postgresql is een geavanceerd open source database management systeem \citep{psql-about}. Het heeft een zeer goede reputatie op gebied van snelheid, en robuustheid. Deze reputatie wordt ondersteund door de vele prijzen die het programma al in de wacht heeft kunnen slepen \citep{psql-awards}. De huidige versie werkt met een PostgreSQL database \citep{FED4FIRE-doc}.
+\npar
+Voordat er zonder meer verder gewerkt wordt met PostgreSQL, moet er toch een vergelijking gemaakt worden tussen PostgreSQL en MySQL. Er bestaan uiteraard ook andere databank systemen, toch komen deze 2 het meest in aanmerking door o.a. hun schaalbaarheid, snelheid en robuustheid \citep{database-comparison}. 
+\npar
+Het voornaamste verschil is integriteit van data \citep{psql-vs-mysql}. Doordat PostgreSQL minder verspreid is, zijn er minder hacks gekend. Daardoor wordt PostgreSQL als veiliger beschouwd. MySQL is sneller dat PostgreSQL, maar die laatste ondersteunt asynchrone calls. Hierdoor kunnen er meerdere calls tegelijk uitgevoerd worden. Hierdoor is het moeilijk om de performantie tussen beide systemen te vergelijken.
+\npar
+Beide systemen ondersteunen atomicity, consistency, isolation en durability (ACID)\citep{psql-transactions} \citep{mysql-acid}. Atomicy beschrijft de \quotes{Alles of niets} techniek die gebruikt wordt bij databanken. Complexe databanken bestaan vaak uit meerdere tabellen die met voorwaarden verbonden zijn. Als we data toevoegen, moet dat vaak in meerdere tabellen gebeuren. Dit kan uiteraard tot problemen leiden als er bij het toevoegen van een stuk data A aan tabelA een fout optreed terwijl het toevoegen van data B aan tabelB wel lukt. Vermits dit tot inconsistenties leid, is het ontoelaatbaar dat data B blijft staan. Om dit probleem op te lossen worden atomicy's gedefini\"eerd. Deze defini\"eren een set instructies die ofwel allemaal ofwel niet uitgevoerd moeten worden.
+\npar
+Consistency zorgt ervoor dat de datatypes gerespecteerd worden. Zo kan je geen stuk tekst steken in een kolom van het type date. Isolatie zorgt ervoor dat een database management systeem meerdere query's tegelijk kan laten lopen zonder dat deze interfereren met elkaar. Durability staat in voor back-uppen van data.
+\npar
+Beide technologi\"en gaan redelijk gelijk op. Een keuze maken is dan ook moeilijk. 
+Mysql is sneller als we gebruik maken van de MyISAM engine. Deze engine is sneller doordat hij minder integriteitschecks uitvoerd. Dit is geen probleem indien het om een website gaat waar voornamelijk gelezen wordt. PostgreSQL daarin tegen is zeer betrouwbaar en zal meer integriteitschecks uitvoeren. Deze webservice zal op zeer korte intervallen tests uitvoeren en zo data binnen krijgen. Voor deze situatie geniet PostgreSQL de voorkeur. De huidige versie werkt ook met PostgreSQL. Deze masterproef zal ook met PostgreSQL gebruiken om de databank aan te sturen.
+ 
+\section{webservice technologie}
+\npar
+Voor de programmeertaal mochten er voorstellen gedaan worden. Deze moesten echter voldoen aan een aantal vereisten. Zo moet technologie kunnen draaien op Linux-gebaseerde operating system (OS) \nomenclature{OS}{operating system}. Verder moet de taal die gebruikt wordt wijd verspreid zijn.
+\npar
+De gekozen technologie, hypertext preprocessor (php)\nomenclature{php}{hypertext preprocessor}, voldoet hieraan. PHP is een open source scripting taal gemaakt voor webdevelopment \citep{php-what}. PHP draait volledig op de server en gegenereerd hypertext markup language (html) \nomenclature{html}{HyperText Markup Language} pagina's voor ze naar de client gestuurd worden. Doordat ze open source is, kan iedereen ze zonder meer gebruiken. Doordat ze vrij te gebruiken is, wordt PHP aangeboden door bijna alle hostingsbedrijven. Hierdoor is er een grote community van mensen die met PHP bezig is. Dat zorgt op zijn beurt voor uitgebreide documentatie en tutorial op het internet. PHP is een makkelijke taal om te leren, terwijl ze toch zeer krachtig blijkt te zijn. PHP heeft zeer veel ingebouwde functies. Dit alles zorgt ervoor dat PHP meer dan 80 procent van het markt aandeel bezig \citep{php-market}. Een vaak gebruikt tegen PHP is dat PHP niet goed is voor grote websites. Er zijn echter zeer veel grote websites die er gebruik van maken\citep{php-big-sites}.
+\npar
+Doordat PHP ontworpen is voor webdevelopment, is het zeer eenvoudig om de opgegeven GET en POST parameters op te vragen. Deze parameters worden immers direct ingeladen. Ook is PHP voorzien om samen te werken met een hele reeks gekende databanken. Hiervoor moeten vaak geen externe drivers ge\"installeerd worden \citep{php-databases}. Tot deze reeks van databases behoort ook PostgreSQL, het database management systeem dat in deze masterproef gehanteerd wordt. 
+\npar
+Een persoonlijk nadeel van PHP is dat ik het nog niet geleerd heb. Er zal dus een tijd nodig zijn om PHP te leren, daar tegenover staat wel dat de huidige versie in PHP gemaakt is, en dus als een uitstekend voorbeeld kan dienen. Ook de uitdaging om een nieuwe en veelgebruikte taal te leren spreekt mij aan.
+Zoals eerder vermeld is PHP een makkelijke taal die snel te leren is.

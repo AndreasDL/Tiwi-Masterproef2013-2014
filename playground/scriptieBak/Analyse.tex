@@ -1,0 +1,113 @@
+\newpage
+\chapter{Analyse}
+
+\section{Bestaande uitwerking}
+\npar
+De ontwikkeling van de huidige situatie is door snelle ontwikkelingen, minder gestructureerd verlopen.
+Hierdoor bestaat de software uit een basis versie gevolgd door een aantal \quotes{quick and dirty} toevoegingen. De huidige situatie werkt, maar het kan beter. Het gemist van structuur en opbouw in de code, zal op lange termijn leiden tot code die moeilijk aan te passen is.
+\npar
+De oplossing van dit probleem en tevens het onderwerp van mijn masterproef is een webservice die de monitoring automatiseerd. Hierbij komen een aantal vragen naar boven. Welke informatie moet bijgehouden worden? 
+Wat bepaald de betrouwbaarheid van een testbed? Hoe nauwkeurig moet deze informatie bijgehouden worden? 
+
+\subsection{Databanken}
+\npar
+De huidige situatie voorziet niet in een centrale webservice \citep{FED4FIRE-doc}.
+Wat er wel bestaat is een verzameling websites die rechtstreeks verbinding maken met een of meerdere achterliggende databanken. In de bestaande situatie zijn er 3 databanken:
+\begin{enumerate}
+\item flsmonitoring
+\item flsmonitoring-international
+\item scenarios
+\end{enumerate}
+\newpage
+\subsubsection{Flsmonitoring en flsmonitoring-internation databank}
+\npar
+De eerste en de tweede databank bestaan uit een tabel waarin de laatste resultaten van elke test bijgehouden worden. Het verschil tussen deze 2 databanken komt overeen met de toegewezen categorie waarin het testbed zich bevind. De eerste databank bevat de lokale testbeds, de tweede bevat de internationale testbeds. Deze tabellen bevatten volgende kolommen:
+\begin{itemize}
+\item testbedid
+\item testbedname
+\item testbedurl
+\item pinglatency
+\item getversionstatus
+\item aggregatetestbedstate
+\item last-check
+\end{itemize}
+ De eerste 3 kolommen zijn duidelijk. \quotes{Pinglatency} houdt de waarde van de pingtest bij.
+De kolommen \quotes{getversionsStatus} en \quotes{aggregatetestbedstate} worden gebruikt om de uitkomst van de getVersion test bij te houden. Deze test bevat o.a. het versie nummer van de aggregate manager (AM). Zoals eerder vermeldt, staat de AM in voor het omzetten van java-datatypes naar de overeenkomstige datatypes op het testbed. Verder zorgt de AM er ook voor dat, indien nodig, calls beveiligd worden. Doordat er geen ssl authenticatie nodig is om de versie van de AM op te vragen, wordt hij vaak gebruikt om de status van een server op te vragen. De kolom \quotes{last-check} bevat een timestamp om bij te houden waneer de lijn laatste werd aangepast.
+\subsubsection{Scenario databank}
+\npar
+De laatste databank bestaat uit 3 tabellen. Het doel ervan is het bijhouden van informatie over de scenariotesten. Scenariotesten of stitchingtesten zijn complexe testen die uit meerdere subtesten bestaan. Eenvoudig gezegd zal een stitching test de verbinding tussen verschillende testbeds testen. Hiervoor worden op elk testbed meerdere resources aangevraagd. Deze zullen dan trachten naar elkaar te pingen. Indien een testbed offline is wordt de volledige test afgebroken. 
+\clearpage
+Hieronder staan de opeenvolgende stappen die een stitching of scenariotest doorloopt.
+\begin{enumerate}
+\item setUp
+\item getUserCredential
+\item generateRspec
+\item createSlice
+\item initStitching
+\item callSCS
+\item callCreateSlivers
+\item waitForAllReady
+\item loginAndPing
+\item callDeletes
+\end{enumerate}
+De inhoud van elke subtest wordt buiten beschouwing gelaten.
+Wat wel opgemerkt kan worden, is dat de tests opgedeeld worden in 3 groepen. Testen 1-6 zijn voorbereidende testen met als doel de configuratie van testen 7-9 in orde te brengen. Test 10 is de cleanup die de opgebouwde configuratie van stappen 1-6 terug ongedaan maakt.
+Elke subtest heeft een resultaat. Een stitching test zou dus minstens 10 resultaten of statussen hebben. In de huidige versie zijn er slechts 3 statussen gedefini\"eerd. Indien alle subtesten gelukt zijn , is de stitching test is volledig gelukt. Wanneer enkel de voorbereiding is gelukt, maar stappen 7-9 niet of gedeeltelijk, zal de status gedeeltelijk gelukt aangeven.De laatste status geeft aan dat alle subtesten mislukt zijn, opzetten van de vereiste configuratie is dus ook mislukt.
+\npar
+De database is opgebouwd uit 3 tabellen.
+\begin{itemize}
+\item test-results
+\item test-context
+\item testbeds
+\end{itemize}
+De eerste resultaat houdt informatie bij over de testresultaten. De tweede tabel houdt de context van de test bij. De laatste tabel houdt de testbeds bij. De concrete invulling van de tabellen is van minder belang en wordt hier niet vermeld.
+\clearpage
+\subsection{Webpagina\rq s}
+\npar
+In de huidige versie zijn een aantal webinterfaces voorzien\citep{FED4FIRE-doc} .
+Er is een webinterface die enkel de status van de lokale testbeds weergeeft. Daarnaast er een webinterface die de internationale testbeds weergeeft. 
+Deze 2 webinterfaces geven de naam van het testbeds met de ping, een veld dat aanduid of de getVersion call gelukt is en het aantal beschikbare resources.
+\mijnfiguur{width=0.9\textwidth}{monitoringint}{Internationale testbed monitoring}
+\mijnfiguur{width=0.9\textwidth}{monitoringint2}{Lokale testbed monitoring}
+\npar
+\clearpage
+Zowel de webinterfaces als het aanpassen van monitoringinformatie verloopt rechtstreeks via de databank. Er komt geen webservice bij kijken.
+\mijnfiguur{width=0.9\textwidth}{monitoringOpbouw}{Geen webservice in de huidige versie}
+
+\npar
+De laatste webinterface geeft de resultaten van de scenariotesten weer. Er is ook de mogelijkheid om de log files van een test te bekijken. Tevens is het ook mogelijk om de geschiedenis van een scenariotest te bekijken.
+\mijnfiguur{width=0.9\textwidth}{monitoringStitch}{De huidige scenario/stitching test monitoring}
+
+\clearpage
+\section{Wat kan anders}
+\subsection{Samenvoegen databases}
+\npar
+Een eerste mogelijkheid tot verbetering, is het bijhouden van de laatste resultaten.
+Deze resultaten zitten in een databank, die voor elk testbed een lijn bevat. Nieuwe waarde overschrijven die lijn. Geschiedenis van een test opvragen is niet mogelijk. Aanpassen van deze resultaten gebeurt door shell scripts. Deze worden periodiek uitgevoerd en lezen een configuratiefile in. Indien het testbed waarop de test uitgevoerd wordt al in de databank zit, is het id vermeld in de configuratiefile. Indien er geen id staat, zal het script zelf een nieuwe lijn aanmaken en vervolgens de id wegschrijven naar de file. Eenmaal uitgevoerd, geeft de test een resultaat terug in de vorm van een xml-file (Extensible Markup Language)\nomenclature{XML}{extensible markup language } die door ge\"instaleerde commando's geparset wordt. Vervolgens wordt de data weggeschreven naar de databank.
+\npar
+Door de nieuwe resultaten toe te voegen in plaats van ze te overschrijven, is het wel mogelijk om de geschiedenis van een test op te vragen.
+Ook de configuratiefiles kunnen opgenomen worden in de databank. Toevoegen van een nieuwe test is dan eenmalig een entry toevoegen aan de database.
+Deze entry bevat dan het commando en de benodigde parameters.
+\npar
+Een tweede punt is de opdeling flsmonitoring en flsmonitoring-international. Deze 2 databanken zijn gelijk en kunnen gemakkelijk ondergebracht worden in een database.
+Dit kan door een extra punt toe te voegen dat weergeeft in welke categorie het testbed zich bevind. Een andere mogelijkheid is de internationale testbeds hardcoderen op de monitoring site.
+\npar
+Door de databanken scenario's en flsmonitoring in een databank onder te brengen, kunnen we het beheer vereenvoudigen.
+Beide gegevens zijn eenmaal resultaten van testen. Deze meer generische aanpak zal er toe leiden dat het eenvoudiger is om testen te defini\"eren.
+
+\subsection{Structuur database}
+\npar
+De huidige opbouw van de databanken is niet flexibel genoeg. Als we de databanken zouden samenvoegen is er een flexibelere structuur nodig.
+Het moet mogelijk zijn dat een tests meerdere argumenten meekrijgt. Dit aantal is verschillend per type tests, werken met extra kolommen is dus niet aangeraden.
+Ook geven sommige testen meerdere resultaten terug. Dit aantal is ook variabel en afhankelijk van het type test dat gebruikt wordt.
+De structuur van de databank wordt later in deze scriptie uitgewerkt.
+
+\subsection{Webservice uitbouwen}
+\npar
+Doordat de webinterfaces rechtstreeks contact maken met de databank, is er minder overhead. Als de databank echter ook vanuit jFed bereikbaar moet zijn, is het beter om een webservice tussen te voegen. Dit vermijd duplicatie van code. Deze service zal complexere zaken zoals filteren van resultaten voorzien. Daardoor kunnen zowel jFed als de webinterfaces en eventuele toekomstige toepassingen met een eenvoudige call de informatie ophalen en moet niet elke mogelijke applicatie terug zelf de filtering voorzien. Dit kan evenwel een overhead veroorzaken, die geminimaliseerd kan worden door meerdere calls te bundelen. Bijvoorbeeld door met een call resultaten voor verschillende testbeds op te vragen.
+\npar
+Eenmaal de webservice uitgebouwd is, kunnen de monitoringsites gemaakt worden die deze webservice contacteren om informatie op te halen. Er kan ook integratie in jFed voorzien worden. Dit kan als onderdeel van de masterproef, of als een latere uitbreiding voor jFed.
+
+\section{Besluit}
+\npar
+Er zullen twee grote aanpassingen doorgevoerd worden. De eerste eerst is het samenvoegen van de databanken. Om het beheer van de data te vereenvoudigen zou 1 grote databank het werk van de 3 kleinere databanken over nemen. Die databank moet het toelaten om testen met een variabel aantal argumenten en resultaten toe te voegen. Deze databank zou de configuratie van de testen en de resultaten bijhouden.
