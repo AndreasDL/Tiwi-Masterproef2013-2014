@@ -44,8 +44,7 @@ if (isset($_GET['home'])){
 $con = pg_Connect($conString) or die('connection failed');
 echo "connection established\n";
 
-$authDir = $homeDir . ".auth/";
-$authFile = $authDir . "authorities.xml";
+$authDir = $homeDir . ".ssl/";
 
 //in pompen
 //real
@@ -75,8 +74,8 @@ echo "\tCreating Stitching test\n";
 $data = array('stitch','stitch', 'ops_monitoring:stitching', 'stichting test between multiple testbeds','boolean', '');
 pg_query_params($con, $query, $data);
 $data = array("stitch", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>
     stitchedAuthorityUrns= <stitchedAuthorities.urn>
@@ -128,8 +127,8 @@ echo "\tCreating Login test\n";
 $data = array('login2','login2', 'ops_monitoring:login2', 'test login amv2','boolean' , '' ); //--context-file <context-file>');
 pg_query_params($con, $query, $data);
 $data = array("login2", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>
 timoutRetryIntervalMs = 5000
@@ -174,8 +173,8 @@ pg_query_params($con, $retQuery, $data);
 $data = array('login3','login3', 'ops_monitoring:login3', 'test login amv3','boolean', '');
 pg_query_params($con, $query, $data);
 $data = array("login3", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>");
 pg_query_params($con, $subQuery, $data);
@@ -225,8 +224,8 @@ $data = array('loginGen','automatedTester', '','','boolean', '--context-file <co
     ); 
 pg_query_params($con, $query, $data);
 $data = array("loginGen", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>");
 pg_query_params($con, $subQuery, $data);
@@ -269,8 +268,8 @@ echo "creating getVersion 2 & 3 tests\n";
 $data = array('getVersion2','getVersion2', 'ops_monitoring:is_available','Is aggregate manager responsive','boolean','');
 pg_query_params($con, $query, $data);
 $data = array("getVersion2", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>");
 pg_query_params($con, $subQuery, $data);
@@ -296,8 +295,8 @@ pg_query_params($con, $retQuery, $data);
 $data = array('getVersion3','getVersion3', 'ops_monitoring:is_available', 'Is aggregate manager responsive','boolean', '');
 pg_query_params($con, $query, $data);
 $data = array("getVersion3", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>
     testedAggregateManagerUrn = <testedAggregateManager.urn>");
 pg_query_params($con, $subQuery, $data);
@@ -325,8 +324,8 @@ pg_query_params($con,$query,$data);
 $data = array("listResources", "testbed", "testbed", "testbed to get the list recources from");
 pg_query_params($con, $subQuery, $data);
 $data = array("listResources", "context-file", "file", "username = ftester
-    passwordFilename = " . $authDir . "ftester.pass
-    pemKeyAndCertFilename = " . $authDir . "getsslcert.txt
+    passwordFilename = " . $authDir . "pass
+    pemKeyAndCertFilename = " . $authDir . "cert.pem
     userAuthorityUrn = <userAuthorityUrn>");
 pg_query_params($con, $subQuery, $data);
 $data = array("listResources", "userAuthorityUrn", "urn", "urn for authority");
