@@ -1,86 +1,61 @@
 \newpage
 \chapter{Analyse en probleemstelling}
 {\samenvatting
-Zoals besproken in het vorige hoofdstuk, zal deze masterproef een monitoringsAPI maken in opdracht van iMinds, een onderzoekscentrum. De monitoringsAPI heeft als doel de resultaten van een achterliggende monitoringsservice aan te bieden. De monitorService zal op zijn beurt alle aggregaten (testopstellingen) binnen FIRE (Future Internet Research and Experimentation)  een project voor de verbetering van onderzoek naar internet en netwerken, in de gaten houden. Dit hoofdstuk zal de werking van de monitoringsservice beschrijven die er was bij de aanvang van de masterproef. Daarna zal er dieper ingegaan worden op de probleemstelling.}
-\section{Werking monitoringservice bij aanvang}
+Zoals eerder besproken, zal deze masterproef een monitoringsAPI maken in opdracht van iMinds, een onderzoekscentrum. De monitoringsAPI heeft als doel de resultaten van een achterliggende monitoringsservice aan te bieden. De monitorService zal op zijn beurt alle aggregaten (testfaciliteiten) binnen FIRE (Future Internet Research and Experimentation), een project voor de verbetering van onderzoek naar internet en netwerken, in de gaten houden. Dit hoofdstuk zal de werking van de FIRE monitor beschrijven. De FIRE monitor is de monitoringsservice die bij aanvang van de masterproef de monitoring verzorgde. Daarna zal er dieper ingegaan worden op de probleemstelling. Vervolgens wordt ook de GENI monitor kort besproken.}
+\section{FIRE Monitor}
 \npar
-iMinds (onderzoekscentrum waar de masterproef uitgewerkt wordt en tevens leidinggevend in het FIRE project), heeft een monitoringsservice gemaakt die al enige tijd draait \citep{fed4fire-second-fed-arch}. Deze monitoringsservice is ruimer dan strict testbeds monitoren, ook het monitoren van experimenten wordt door deze service afgehandeld\citep{fed4fire-second-fed-arch}. 
+iMinds (onderzoekscentrum waar de masterproef uitgewerkt wordt en tevens leidinggevend in het FIRE project), heeft een monitoringsservice gemaakt die al enige tijd draait \citep{fed4fire-second-fed-arch}, de FIRE monitor. Deze monitoringsservice is ruimer dan de monitoring van testbeds, ook het monitoren van experimenten wordt door deze service afgehandeld\citep{fed4fire-second-fed-arch}. 
 \npar
-Deze monitoringsservice bestaat uit verschillende componenten. De eerste component is de Facility monitoring, deze monitoring wordt gebruikt bij de FLS (first level support). De first level support heeft als doel om de basis zaken te monitoring. De voornaamste test is de pingtest die kijkt of een testbed nog online is. Het testbed zelf mag deze monitoring invullen, naar gelang zijn wens. De enige vereiste hier is dat de data exporteer baar is naar een OML-stream \nomenclature{OML}{Outline Markup Language}. OML (Outline Markup Language) is een XML (Extensible Markup Language)\nomenclature{XML}{Extensible Markup Language} taal die gebruikt wordt om objecten te encoderen.
+Deze monitoringsservice bestaat uit verschillende componenten. De eerste component is de Facility monitoring, deze monitoring wordt gebruikt bij de FLS (first level support). De first level support heeft als doel om de basis zaken te monitoring. De voornaamste test is de pingtest die kijkt of een testbed nog online is. De aggregate bepaald zelf welke testen er uitgevoerd worden.
 \clearpage
 \npar
 De tweede component is de infrastucture monitoring. Deze component is gericht om componenten binnen een experiment. De verzamelde data bevat o.a. aantal verstuurde pakketten, aantal verloren pakketten, cpu-load, ... .
-
 \npar
 Een derde component is de OML measurement library, deze bibliotheek laat het toe dat een onderzoeker zijn eigen monitoring framework gebruikt om de metingen van zijn experiment te doen.
 \npar
-Deze masterproef richt zich voornamelijk op de Facility monitoring. De monitoringsservice waarnaar verwezen wordt komt dus overeen met de Facility Monitoring. De andere componenten worden verder buiten beschouwing gelaten.
-Data van de Facility Monitoring kan gelezen worden op een website.
+Deze masterproef richt zich op de Facility monitoring. De tweede en de derde component kunnen hier dus niet aanbod en worden verder buiten beschouwing gelaten. De monitoringsservice waarnaar verwezen wordt, is bijgevolg de Facility Monitoring.
 \npar
 Deze monitoringsservice (Facility Monitoring) is opgedeeld in een aantal stukken. Het eerste stuk is de FLS-monitor (First Level Support)\nomenclature{FLS}{First Level Support}. Deze is beschikbaar op https://flsmonitor.fed4fire.eu/,zie ook Figuur \ref{monitoringview} . Deze service heeft het doel actuele informatie weer te geven over de status van het testbed.
 \mijnfiguur{width=0.9\textwidth}{monitoringview}{ testbed monitoring}
 \npar
-Figuur \ref{monitoringview} geeft een beeld van de monitoringssite. De laatste 2 kolommen zijn van minder belang. De eerste kolom geeft de naam van het testbed weer. Daarnaast wordt het resultaat van de laatste ping test getoond. De volgend 2 kolommen bevatten het resultaat van respectievelijk de getVersiontest en de free resources test.GetVersion geeft aan of de AM (aggregate manager) nog werkt terwijl de kolom free resources aangeeft hoeveel resources er nog beschikbaar zijn. De vorm van deze testen is relatief eenvoudig, waardoor een eenvoudige databank voldoende was om de data te bij te houden. 
+Figuur \ref{monitoringview} geeft een beeld van de monitoringssite. De laatste 2 kolommen zijn van minder belang. De eerste kolom geeft de naam van het testbed weer. Daarnaast wordt het resultaat van de laatste ping test getoond. De volgend 2 kolommen bevatten het resultaat van respectievelijk de getVersiontest en de free resources test.GetVersion geeft aan of de AM (aggregate manager) nog werkt terwijl de kolom free resources aangeeft hoeveel resources er nog beschikbaar zijn. De vorm van deze testen is relatief eenvoudig, een enkelvoudig resultaat wordt teruggegeven.
 
 \clearpage
 \npar
-Het tweede deel van de monitoringsservice, nightly login testing, bevat echter complexere testen. Deze testen worden typisch 1 of 2 keer per dag uitgevoerd. Deze testen zijn echter diepgaander dan de FLS-monitor. Zo wordt er bij een logintest getest of het aanmelden op een testbed mogelijk is. Een andere test die ook uitgevoerd wordt is de stichingtest, deze zal kijken of het mogelijk is om een netwerk op te zetten tussen verschillende testbeds. Zie Figuur \ref{monitoringStich}
-\mijnfiguur{width=0.94\textwidth}{monitoringStich}{resultaten van de stiching test}
-Zoals zichtbaar in Figuur \ref{monitoringStichHist}, is het ook mogelijk om de geschiedenis van deze testen op te vragen. 
-\mijnfiguur{width=1\textwidth}{monitoringStichHist}{geschiedenis van resultaten}
+Het tweede deel van de monitoringsservice, nightly login testing, bevat complexere testen. Deze testen worden typisch 1 tot 2 keer per dag uitgevoerd. Deze testen zijn diepgaander dan de FLS-monitor. Zo wordt bij een logintest getest of het aanmelden op een testbed mogelijk is. Een andere test die uitgevoerd wordt, is de stitchingtest. Deze zal kijken of het mogelijk is om een netwerk op te zetten tussen verschillende testbeds. Zie Figuur \ref{monitoringStitch}
+\mijnfiguur{width=0.94\textwidth}{monitoringStitch}{resultaten van de stitching test}
+Zoals zichtbaar in Figuur \ref{monitoringStitchHist}, is het ook mogelijk om de geschiedenis van deze testen op te vragen. 
+\mijnfiguur{width=1\textwidth}{monitoringStitchHist}{geschiedenis van resultaten}
 \clearpage
 
-
-
-
+\subsection{Probleemstelling}
+\subsubsection{Bereikbaarheid}
 \npar
-Echter door de komst van complexere testen volstond deze databank niet meer. Een voorbeeld van zo'n complexe test is een stichting test. Deze test zal een verbinding maken tussen verschillende aggregates. Opzetten van dergelijke verbindingen bestaat uit meerdere stappen. Aangezien elke stap kan falen, is het resultaat van deze test niet langer gelukt of mislukt, maar een verzameling van de tussenresultaten. Hiervoor moet de databank aangepast worden. De oude monitoringsservice slaat echter maar 2 tussenresultaten op. Dit wordt getoond in Figuur \ref{monitoringStitch} .Hierdoor is het minder makkelijk om snel een overzicht te krijgen van de tussenresultaten. De geschiedenis van de stichingtesten wordt wel bijgehouden. Deze kan ook opgevraagd worden, zie Figuur\ref{monitoringStitchHist} .
+Het voornaamste probleem is niet de structurering van de data, maar de bereikbaarheid. In de vorige versie is de data enkel bereikbaar via de webinterface, of rechtstreeks via de databank. Dit maakt het moeilijk voor nieuwe ontwikkelingen om deze data te gebruiken. Deze masterproef lost dit probleem op door het gebruik van een montoringsAPI. Deze zorgt ervoor dat de data vlot beschikbaar is via aanvragen aan de API.
+\npar
+Het ontwerpen van deze monitoringsAPI is het eerste deel van de masterproef. Deze API moet een vlotte toegang tot de resultaten garanderen. Ook moet het mogelijk zijn om deze resultaten de filteren. Een filter die er zeker noodzakelijk is, is het opvragen van de laatste resultaten van een testbed. Eenmaal deze api af is, kan alle communicatie met de achterliggende databank verlopen via de API. De website's die momenteel bestaat (zie Figuur \ref{monitoringView}), zal nu niet meer rechtstreeks contact maken met de databank. In plaats daarvan zal de API gebruikt worden als datalaag.
+\npar
+Ook toevoegen van nieuwe resultaten, door de monitoringsservice verloopt via de API. Dit heeft als voordeel dat de API complexere zaken zoals foutafhandeling kan afhandelen. Een bijkomend voordeel is dat de databank niet extern bereikbaar moet zijn. Authenticatie kan in een hogere laag afgehandeld worden. Merk op dat authenticatie geen onderdeel is van deze masterproef.
 
+\subsubsection{Structuur}
+\npar
+Naast de bereikbaarheid is er ook een structureel probleem. De testen van de FLS monitor hebben een eenvoudige structuur. De testen zijn eenvoudig omdat ze slechts een beperkt aantal parameters nodig hebben en een enkelvoudig resultaat teruggeven. Zo geeft een pingtest de ping waarde terug. Een listResources test geeft het aantal beschikbare resource terug. Beide waarden zijn gewoon getallen, die opgeslagen worden in een kolom van de databank.
+\npar
+De nightly login testen zijn echter complexer. Deze bestaan uit meerdere opeenvolgende stappen, elke stap heeft een tussenresultaat. Hierdoor volstaat een kolom niet meer. De oplossing die toen aangewend is, is het gebruiken van een tweede databank. In die databank is er niet voor elk tussenresultaat een kolom voorzien, maar heeft men de resultaten samen genomen in 2 tussen resultaten. Deze manier lost het probleem van het variabele aantal tussenresultaten op, maar geeft geen proper overzicht van alle tussen statussen. Voor deze informatie moet men zich wenden tot de log.
+\clearpage
+\npar
+Het is vanzelfsprekend dat deze manier van werken niet praktisch is. De monitoringsAPI moet immer alle tussenresultaten teruggeven zodat een vlot overzicht mogelijk is. Omdat het parsen van logfiles tijd in beslag neemt, moeten deze resultaten in de databank zitten. Om het gebruik van verschillende databanken te vermijden, is een nieuwe databank nodig die alle testen aankan. Samenvoegen van de databanken zorgt er immers voor dat gedeelde configuratie zoals testbeds en users (zie later), maar 1 keer moet worden opgeslagen.
+\npar
+Doordat de interface van een test sterk varieert, bezit de databank een complexere structuur. Hierbij is het aantal parameters en aantal tussenresultaten variabel. De uitwerking van deze structuur is het gebruik van een aparte tabel met daarin de tussenresultaten. Deze manier van werkt zorgt ervoor dat een variabel aantal resultaten opgeslagen kan worden.
+\npar
+De structuur van de databanken verbeteren is een tweede deel van de masterproef. De masterproef zal volledig nieuwe databank ontwerpen die alle vereisten aankan. Deze databank zal vervolgens geregeld worden via de monitoringsAPI.
+\clearpage
+\section{GENI monitor}
+\npar
+GENI (Global Environment for Network Innovations) is een amerikaans project dat , net zoals FIRE, een virtueel testlaboratorium heeft. Dit lab is gedeeld over meerdere onderzoekscentra. Aangezien GENI en FIRE beide bezig zijn met onderzoek naar innovatieve netwerk en internet ontwikkelingen, is de samenwerking tussen beide partijen vanzelfsprekend.
+\npar
+Testbed binnen GENI maken ook gebruikt van een Slice federation architectuur
 
 \clearpage
-\section{Probleemstelling}
-\npar
-Het voornaamste probleem is dat de resultaten niet toegankelijk zijn. De informatie is enkel zichtbaar op de monitoringssite. 
-\npar
-Door de complexe opbouw van de automatedtesten, is de oude databank niet meer efficiënt. Een eerste probleem is dat alle argumenten in kolommen zitten, waardoor ze vast liggen. Vermits elke automatedtest andere argumenten vereist, is het niet mogelijk om deze configuratie eenvoudig op te slaan in een databank. Op deze manier moet voor elke test een aparte databank, of minstens tabel gemaakt worden. Deze tabel is dan specifiek voorzien voor een soort testen.
-\npar
-Het ander probleem is het variabele aantal resultaten. Een stitching test bestaat uit een ander aantal stappen dan een login test. Al deze tussenresultaten werden samengenomen in 2 tussenresultaten. De andere resultaten zijn beschikbaar in de logfiles.  Hierdoor is het zeer moeilijk om alle subresultaten weer te geven op de monitorsite, zie Figuur \ref{monitoringStitch}.
-\npar
-
-\npar
-De eerste taak van de masterproef is het maken van een monitoringsservice. Deze service zal instaan voor de opslag, configuratie en uitvoering van de testen. Om deze taken te vervullen zal een nieuwe databank gemaakt worden. Deze databank zal de configuratie bijhouden gecombineerd met de resultaten.Op deze manier worden de huidige propertyfiles, die de oude configuratie bevatten vervangen. 
-
-
-\clearpage
-\section{Wat kan anders}
-\subsection{Samenvoegen databases}
-\npar
-Een eerste mogelijkheid tot verbetering, is het bijhouden van de laatste resultaten.
-Deze resultaten zitten in een databank, die voor elk testbed een lijn bevat. Nieuwe waarde overschrijven die lijn. Geschiedenis van een test opvragen is niet mogelijk. Aanpassen van deze resultaten gebeurt door shell scripts. Deze worden periodiek uitgevoerd en lezen een configuratiefile in. Indien het testbed waarop de test uitgevoerd wordt al in de databank zit, is het id vermeld in de configuratiefile. Indien er geen id staat, zal het script zelf een nieuwe lijn aanmaken en vervolgens de id wegschrijven naar de file. Eenmaal uitgevoerd, geeft de test een resultaat terug in de vorm van een xml-file (Extensible Markup Language)\nomenclature{XML}{extensible markup language } die door ge\"instaleerde commando's geparset wordt. Vervolgens wordt de data weggeschreven naar de databank.
-\npar
-Door de nieuwe resultaten toe te voegen in plaats van ze te overschrijven, is het wel mogelijk om de geschiedenis van een test op te vragen.
-Ook de configuratiefiles kunnen opgenomen worden in de databank. Toevoegen van een nieuwe test is dan eenmalig een entry toevoegen aan de database.
-Deze entry bevat dan het commando en de benodigde parameters.
-\npar
-Een tweede punt is de opdeling flsmonitoring en flsmonitoring-international. Deze 2 databanken zijn gelijk en kunnen gemakkelijk ondergebracht worden in een database.
-Dit kan door een extra punt toe te voegen dat weergeeft in welke categorie het testbed zich bevind. Een andere mogelijkheid is de internationale testbeds hardcoderen op de monitoring site.
-\npar
-Door de databanken scenario's en flsmonitoring in een databank onder te brengen, kunnen we het beheer vereenvoudigen.
-Beide gegevens zijn eenmaal resultaten van testen. Deze meer generische aanpak zal er toe leiden dat het eenvoudiger is om testen te defini\"eren.
-
-\subsection{Structuur database}
-\npar
-De huidige opbouw van de databanken is niet flexibel genoeg. Als we de databanken zouden samenvoegen is er een flexibelere structuur nodig.
-Het moet mogelijk zijn dat een tests meerdere argumenten meekrijgt. Dit aantal is verschillend per type tests, werken met extra kolommen is dus niet aangeraden.
-Ook geven sommige testen meerdere resultaten terug. Dit aantal is ook variabel en afhankelijk van het type test dat gebruikt wordt.
-De structuur van de databank wordt later in deze scriptie uitgewerkt.
-
-\subsection{Webservice uitbouwen}
-\npar
-Doordat de webinterfaces rechtstreeks contact maken met de databank, is er minder overhead. Als de databank echter ook vanuit jFed bereikbaar moet zijn, is het beter om een webservice tussen te voegen. Dit vermijd duplicatie van code. Deze service zal complexere zaken zoals filteren van resultaten voorzien. Daardoor kunnen zowel jFed als de webinterfaces en eventuele toekomstige toepassingen met een eenvoudige call de informatie ophalen en moet niet elke mogelijke applicatie terug zelf de filtering voorzien. Dit kan evenwel een overhead veroorzaken, die geminimaliseerd kan worden door meerdere calls te bundelen. Bijvoorbeeld door met een call resultaten voor verschillende testbeds op te vragen.
-\npar
-Eenmaal de webservice uitgebouwd is, kunnen de monitoringsites gemaakt worden die deze webservice contacteren om informatie op te halen. Er kan ook integratie in jFed voorzien worden. Dit kan als onderdeel van de masterproef, of als een latere uitbreiding voor jFed.
-
 \section{Besluit}
-\npar
-Er zullen twee grote aanpassingen doorgevoerd worden. De eerste eerst is het samenvoegen van de databanken. Om het beheer van de data te vereenvoudigen zou 1 grote databank het werk van de 3 kleinere databanken over nemen. Die databank moet het toelaten om testen met een variabel aantal argumenten en resultaten toe te voegen. Deze databank zou de configuratie van de testen en de resultaten bijhouden.
+De vorige service werkte wel, maar was niet voorzien op de komst van complexere testen. Er zijn 2 grote problemen, enerzijds de bereikbaarheid van de data, anderzijds de structuur. Het eerste probleem is opgelost door het maken van een API. Het tweede probleem is opgelost door het uitbouwen van een complexe databank. Deze databank houdt zowel de resultaten als de configuratie van de testen bij.

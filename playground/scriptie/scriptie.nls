@@ -10,22 +10,20 @@
 		\nompageref{2}
   \item [{FIRE}]\begingroup Future Internet Research and Experimentation\nomeqref {1.0}
 		\nompageref{1}
-  \item [{FLS}]\begingroup First Level Support\nomeqref {2.0}
-		\nompageref{5}
+  \item [{FLS}]\begingroup First Level Support\nomeqref {3.0}
+		\nompageref{13}
   \item [{GENI}]\begingroup Global Environment for Network Innovations\nomeqref {1.0}
-		\nompageref{3}
-  \item [{jFed}]\begingroup java Federation, tool voor het aansturen van de Federation architectuur\nomeqref {0}
-		\nompageref{ii}
+		\nompageref{4}
   \item [{MA}]\begingroup Management Authority\nomeqref {1.0}
 		\nompageref{2}
-  \item [{OML}]\begingroup Outline Markup Language\nomeqref {2.0}
-		\nompageref{4}
+  \item [{RSpec}]\begingroup Resource Specification\nomeqref {2.0}
+		\nompageref{10}
   \item [{SA}]\begingroup Slice Authority\nomeqref {1.0}\nompageref{2}
+  \item [{SFA}]\begingroup Slice-based Federation Architecture\nomeqref {2.0}
+		\nompageref{5}
   \item [{SFA}]\begingroup slice-based federation architecture\nomeqref {1.0}
 		\nompageref{2}
-  \item [{XML}]\begingroup Extensible Markup Language\nomeqref {2.0}
-		\nompageref{4}
-  \item [{XML}]\begingroup extensible markup language \nomeqref {2.0}
-		\nompageref{9}
+  \item [{SLA}]\begingroup Service Level Agreements\nomeqref {2.0}
+		\nompageref{7}
 
 \end{thenomenclature}
