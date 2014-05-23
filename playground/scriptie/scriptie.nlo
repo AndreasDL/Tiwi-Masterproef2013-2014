@@ -7,6 +7,7 @@
 \nomenclatureentry{aAM@[{AM}]\begingroup Aggregate Manager\nomeqref {1.0}|nompageref}{2}
 \nomenclatureentry{aGENI@[{GENI}]\begingroup Global Environment for Network Innovations\nomeqref {1.0}|nompageref}{4}
 \nomenclatureentry{aSFA@[{SFA}]\begingroup Slice-based Federation Architecture\nomeqref {2.0}|nompageref}{5}
+\nomenclatureentry{aFFA@[{FFA}]\begingroup First Federation Architecture\nomeqref {2.0}|nompageref}{5}
 \nomenclatureentry{aSLA@[{SLA}]\begingroup Service Level Agreements\nomeqref {2.0}|nompageref}{7}
 \nomenclatureentry{aRSpec@[{RSpec}]\begingroup Resource Specification\nomeqref {2.0}|nompageref}{10}
 \nomenclatureentry{aFLS@[{FLS}]\begingroup First Level Support\nomeqref {3.0}|nompageref}{13}

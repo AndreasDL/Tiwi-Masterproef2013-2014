@@ -4,10 +4,10 @@
 
 \section{Doel}
 \npar
-SFA (Slice-based Federation architecture)\nomenclature{SFA}{Slice-based Federation Architecture} is een framework dat gebruikt wordt om testbeds aan te sturen\citep{SFA-overview}. SFA wordt gebruikt om een van de FIRE doelstellingen, het delen van testbeds makkelijker maken, waar te maken. Doordat alle testbeds op een andere manier werkten, was het voor een onderzoeker moeilijk om verschillende testbeds te gebruiken. Een onderzoeker moest eerst kennis maken met de specifieke configuratie van een testbed, alvorens hij ermee kan werken. Hierdoor kwam de noodzaak om de configuratie van testbeds gelijk te trekken.
+SFA (Slice-based Federation architecture)\nomenclature{SFA}{Slice-based Federation Architecture} is een framework dat gebruikt wordt om testbeds aan te sturen\citep{SFA-overview}. SFA is gebaseerd op FFA (First Federation Architecture)\nomenclature{FFA}{First Federation Architecture} en wordt gebruikt om een van de FIRE doelstellingen, het delen van testbeds makkelijker maken, waar te maken. Doordat alle testbeds op een andere manier werkten, was het voor een onderzoeker erg moeilijk om verschillende testbeds te gebruiken. Een onderzoeker moest eerst kennis maken met de specifieke configuratie van een testbed, alvorens hij ermee kon werken. Hierdoor kwam de noodzaak om de configuratie van testbeds gelijk te trekken.
 \clearpage
 \npar
-SFA is een controle framework om testbeds mee aan te sturen. Het idee is dat SFA een standaard is. Testbeds zullen vervolgens zorgen voor compabiliteit met SFA. Eenmaal dat is gebeurd kan een onderzoeker die met SFA kan werken, direct ook werken met alle testbeds die er compatibel mee zijn. Zoals te zien is in Figuur \ref{customerservice} komt de onderzoeker de klant en het testbed is de service provider.
+SFA is een controle framework om testbeds mee aan te sturen. Het idee is dat SFA een standaard is die door testbeds geïmplementeerd wordt. Eenmaal dat is gebeurd kan een onderzoeker die kennis heeft van SFA kan werken, direct ook werken met alle testbeds die er compatibel mee zijn. Zoals te zien is in Figuur \ref{customerservice} komt de onderzoeker de klant en het testbed is de service provider.
 \mijnfiguur{width=0.9\textwidth}{customerservice}{De onderzoeker (boven) is de klant, de testbeds (onderhouden door onderste personen) is de service provice. Fed4FIRE voorziet de link tussen beide partijen.}
 \npar
 SFA voorziet een aantal functionaliteiten. De eerste is voorzien dat het beleid van de owner nageleefd wordt. SFA voorziet in mechanismen om dit te controleren, waarbij verondersteld wordt dat er meerder eigenaars zijn. Deze eigenaars hebben elk een testfaciliteit en vormen samen een federatie. Het beleid is vastgelegd binnen een federatie of verzameling testbeds.
@@ -53,7 +53,7 @@ Al deze componenten worden gegroepeerd in aggregates of aggregaten. Een aggregaa
 \clearpage
 \subsection{Aggregate manager}
 \npar
-Elke aggregate wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbied waarmee onderzoekers slices kunnen aanmaken op een testbed. Een aggregate manager vervult taken zoals 'stukken van het testbed', slices, toe te wijzen aan onderzoekers of een experiment.
+Elke aggregate wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbied aan onderzoekers. Via deze interface kan bijvoorbeeld een slot gereserveerd worden om een experiment op te zetten. Een aggregate manager vervult taken zoals 'stukken van het testbed', slices genaamd, toe te wijzen aan onderzoekers of een experiment.
 \subsection{Sliver}
 \npar
 Een component kan echter ook gemultiplexed worden zodat er meerdere experimenten tegelijk op kunnen draaien. Dit kan door bijvoorbeeld virtualisatie toe te passen. Het 'stuk' van een component wordt een sliver genoemd.
@@ -65,7 +65,7 @@ Een slice is een verzameling van slivers. Een slice is een abstract begrip dat o
 \section{RSpec}
 \npar
 Een RSpec (Resource Specification) \nomenclature{RSpec}{Resource Specification}, is een xml file die een proefopstelling beschrijft\citep{geni-RSpec}. 
-RSpecs kunnen opgedeeld worden in 3 groepn. De eerste soort is een request RSpec, deze beschrijft welke resources een onderzoeker wil gebruiken in zijn experiment. De AM (aggregate manager) antwoordt hierop met een manifest RSpec, zoals beschreven in Figuur \ref{RSpec} . Deze RSpec beschrijft de resources die gealloceerd zijn voor het experiment. Merk op dat dit proces transparant gebeurd, de meeste jFed tools zullen automatisch een RSpec genereren. Toch is het mogelijk om RSpecs te gebruiken, dit wordt vooral gedaan om complexere functies aan te roepen.
+RSpecs kunnen opgedeeld worden in 3 groepen. De eerste soort is een request RSpec, deze beschrijft welke resources een onderzoeker wil gebruiken in zijn experiment. De AM (aggregate manager) antwoordt hierop met een manifest RSpec, zoals beschreven in Figuur \ref{RSpec} . Deze RSpec beschrijft de resources die gealloceerd zijn voor het experiment. Merk op dat dit proces transparant gebeurd, de meeste jFed tools zullen automatisch een RSpec genereren. Toch is het mogelijk om RSpecs zelf aan te maken, wat vooral voor complexere testopstellingen gebeurd.
 \mijnfiguur{width=0.9\textwidth}{RSpec}{Een onderzoeker, of de tool die hij gebruikt stuurt eerst een request RSpec en krijgt vervolgens een manifest RSpec terug.}
 \clearpage
 \npar
