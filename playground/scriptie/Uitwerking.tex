@@ -1,0 +1,55 @@
+\chapter{Uitwerking}
+{\samenvatting Deze masterproef maakt een monitoringsservice met een bijhorende monitoringsAPI die de monitoringsinformatie beschikbaar stelt. De API zal de resultaten bijhouden in een databank deze databank bevat de configuratie gegevens, de resultaten en de beschrijvingen van de verschillende testen. De API doorloopt voor elke aanvraag een opeenvolging van stappen. Zo wordt eerst de aanvraag geparset, vervolgens wordt een query gemaakt en uitgevoerd. Het resultaat van deze query wordt omgevormd tot objecten die vervolgens ge\"encodeerd worden. De website zal deze ge\"encodeerde objecten eerste decoderen en vervolgens visualiseren. Het laatste project is de monitoringsservice deze zal via de API de testen binnenhalen. Deze worden vervolgens uitgevoerd en het resultaat wordt teruggestuurd naar de API.}
+\section{Databank}
+\npar
+De databank bestaat uit meerdere tabellen die met elkaar verbonden zijn:
+\begin{enumerate}
+\item users, deze tabel houdt info bij over de login gegevens die gebruikt worden.
+\item testbeds, deze tabel houdt info bij over de testbeds die gemonitord worden.
+\item testDefinitions, deze tabel bevat beschrijvingen van de verschillende testen.
+\item parameterDefinitions, deze tabel bevat per rij een beschrijving van een parameter.
+\item returnDefinitions, deze tabel bevat een beschrijving van de waarden die teruggegeven worden. 
+\clearpage
+\item testInstance, deze tabel bevat een object van een testDefinitie.
+\item parameterInstance, de waardes van de parameters.
+\item results, de resultaten
+\item subResults, de tussen resultaten.
+\end{enumerate}
+\npar
+Dit alles is geschetst in Figuur \ref{structDatabase} op volgende pagina. Hier zijn de tabellen gegroepeerd op basis van functionaliteit om een beter overzicht te behouden.
+\mijnfiguur{width=1\textwidth}{structDatabase}{De stuctuur van de databank}
+\clearpage
+\subsection{Definities}
+\npar
+De eerste groep tabellen bevat de definities. De databank is zelf-documenterend. De definities bevatten een omschrijving van een test. Hierbij worden de parameters en tussenresultaten ook opgeslagen. Deze worden opgenomen in een extra tabel om meer flexibiliteit toe te laten. Door de parameters en tussen resultaten in een andere tabel onder te brengen, is het mogelijk om verschillende testen met een variabel aantal tussenresultaten en parameters op te slaan.
+\subsection{Instanties}
+\npar
+Deze tabel houdt de instanties bij. Een testinstantie is de test zelf. Als de vergelijking met object-geori\"enteerd programmeren gemaakt wordt, dan is een testDefinitie een klasse zelf en de instance is dan een object. Deze opsplitsing heeft het voordeel dat de beschrijving van een test apart opgeslagen kan worden. Het is vervolgens zeer eenvoudig om meerdere instanties aan te maken. Ook laat systeem de nodige flexibiliteit om de nieuwe definities aan te maken. Net zoals bij de definities zijn de ingevulde waarden hier ook ondergebracht in een aparte tabel. Dit is met dezelfde reden, namelijk het toelaten van een variabel aantal parameters.
+\subsection{Configuratie gegevens}
+\npar
+De configuratie gegevens bestaan uit de gebruikers en testbeds. De gebruikers zijn belangrijk omdat ze de login informatie bevatten die gebruikt worden door de automated tester om testen uit te voeren. Zo zal een login test een gebruiker nodig hebben die de juiste rechten heeft op dat testbed.
+Naast de gebruikers is er ook de informatie over de testbeds. De testbeds hebben o.a. elke een eigen url, urn en naam. Deze informatie wordt in deze tabel ondergebracht. Zowel een gebruiker als een testbed kan/kunnen vervolgens opgegeven worden als een parameter van een testinstance. 
+\subsection{Resultaten}
+\npar
+Deze tabel zal alle resultaten bijhouden. Elk resultaat heeft een bijhorende logfile, deze wordt momenteel niet opgeslagen in de databank, maar apart op harde schijf. Het pad naar de logfile wordt vervolgens opgenomen in de databank. Dit heeft als voordeel dat de databank niet overvol geraakt met logfiles. Op die manier kunnen bijvoorbeeld alle tussenresultaten 6 maanden bijgehouden worden terwijl de logfiles maar voor 2 maanden bijgehouden worden.
+\clearpage
+\section{Webservice / API}
+\npar
+De webservice zal informatie uit de databank ophalen en omvormen naar object. Dit verloopt in een aantal fasen, zoals schematisch weergegeven in Figuur \ref{structAPI}.
+\mijnfiguur{width=1\textwidth}{structAPI}{De werking van de API}
+\clearpage
+\subsection{Fasen}
+\npar
+De stappen die overlopen worden zijn:
+\begin{enumerate}
+\item parsen aanvraag.
+\item query opbouwen
+\item uitvoeren query
+\item opbjecten bouwen
+\item encoderen objecten
+\end{enumerate}
+De tekst hieronder zal kort een overzicht geven van elke stap. Op het einde van de uitleg wordt 
+\subsection{Parsen aanvraag}
+\npar
+Dit is de eerste stap, hierbij worden de get en post parameters opgenomen.
+Er zijn 2 soorten aanvragen: normale aanvragen en GENI datastore aanvragen. Bij GENI datastore aanvragen worden de parameters ge\"encodeerd in json.

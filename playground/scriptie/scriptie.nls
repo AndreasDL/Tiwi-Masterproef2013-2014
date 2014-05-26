@@ -18,6 +18,9 @@
 		\nompageref{4}
   \item [{MA}]\begingroup Management Authority\nomeqref {1.0}
 		\nompageref{2}
+  \item [{PHP}]\begingroup PHP: Hypertext Preprocessor\nomeqref {5.0}
+		\nompageref{27}
+  \item [{PSQL}]\begingroup PostgreSQL\nomeqref {5.0}\nompageref{27}
   \item [{RSpec}]\begingroup Resource Specification\nomeqref {2.0}
 		\nompageref{10}
   \item [{SA}]\begingroup Slice Authority\nomeqref {1.0}\nompageref{2}

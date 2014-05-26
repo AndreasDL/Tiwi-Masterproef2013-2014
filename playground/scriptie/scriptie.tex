@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper,oneside]{book}
-\usepackage[utf8]{inputenc} 	
+%\usepackage[utf8]{inputenc} 	
 \usepackage{a4wide}                     % Iets meer tekst op een bladzijde
 \usepackage[dutch]{babel}               % Voor nederlandstalige hyphenatie (woordsplitsing)
 \usepackage{amsmath}                    % Uitgebreide wiskundige mogelijkheden
@@ -9,7 +9,7 @@
 \usepackage{graphicx}                   % Om figuren te kunnen verwerken
 \usepackage[small,bf,hang]{caption}     % Om de captions wat te verbeteren
 \usepackage{xspace}                     % Magische spaties na een commando
-%\usepackage[latin1]{inputenc}           % Om niet ascii karakters rechtstreeks te kunnen typen
+\usepackage[latin1]{inputenc}           % Om niet ascii karakters rechtstreeks te kunnen typen
 \usepackage{float}                      % Om nieuwe float environments aan te maken. Ook optie H!
 \usepackage{flafter}                    % Opdat floats niet zouden voorsteken
 \usepackage{listings}                   % Voor het weergeven van letterlijke text en codelistings
@@ -245,9 +245,12 @@
 
 \mainmatter
 % De verschillende hoofdstukken:
-\input{Situering}
-\input{SFA-arch}
-\input{Analyse}
+\input{Situering} %kader FIRE SFA FED4FIRE GENI
+\input{SFA-arch}%begrippen en stuffz
+\input{Analyse}%FIRE monitor probleemstelling & GENI monitor
+\input{Opbouw}%opbouw & vereisten
+\input{Techno}%technologieën die gebruikt kunnen worden php <=> jsf/jsp
+\input{Uitwerking} 
 %use cases?
 %\input{OntwerpService}
 %\input{OntwerpDatabank}

@@ -1,0 +1,57 @@
+\chapter{Structuur}
+{\samenvatting De masterproef maakt een monitoringssysteem bestaande uit een monitoringsservice en een monitoringsAPI die deze data beschikbaar stelt. De masterproef bestaat uit verschillende projecten. De kern van deze projecten is de API, de API bied monitor informatie aan en vormt tevens de verbinding tussen alle andere projecten. Om aan monitorinformatie te komen is een monitoringsservice ontworpen. Deze service zal aggregates controleren en de resultaten opslaan in de databank. Tenslotte is een website ontworpen om de informatie weer te geven.}
+\section{Structuur}
+\npar
+De masterproef bestaat uit een aantal projecten. Volgende sectie bespreekt hun verband en waarvoor elk deel verantwoordelijk is.
+\begin{enumerate}
+\item Een database die alle data bijhoudt.
+\item Een monitoringsAPI die de kern vormt. Alle andere projecten zijn verbonden via de API.
+\item Een monitoringsservice die de testen uitvoert.
+\item Een website om de monitoringsinfo weer te geven.
+\end{enumerate}
+Daarnaast zijn er nog 2 projecten weergegeven. Dit zijn verbindingen met projecten die niet binnen deze masterproef uitgewerkt worden.
+\begin{enumerate}
+\item Geni monitoringframework, hiervoor wordt de interface van een datastore geïmplementeerd.
+\item Later: andere aplicaties bv.jFed, ... Dit duidt erop dat de monitoringsAPI een basis is waarop andere applicaties kunnen verder bouwen. Zo is het mogelijk dat de monitoringsinformatie in de toekomst ge\"integreerd wordt in de primaire gebruikers interface van jFed.
+\end{enumerate}
+Figuur \ref{opbouw} geeft een schematische weergave van de verschillende delen van de masterproef die hierboven uitgelegd staan.
+\mijnfiguur{width=0.9\textwidth}{opbouw}{De samenhang van de verschillende projecten in de masterproef.}
+\npar
+De volgende pagina's geven een korte omschrijving van wat elk deel moet kunnen. De werking en concrete implementatie komen in een later hoofdstuk aan bod. 
+\subsection{MonitoringsAPI}
+\npar
+Dit onderdeel vorm de kern die alle andere projecten aan elkaar bindt. De monitoringsAPI staat in voor de communicatie tussen de buitenwereld met de databank. Enerzijds worden er resultaten toegevoegd aan de databank. Deze resultaten zijn afkomstig van de monitoringsservice. Anderzijds worden er resultaten opgevraagd uit de databank door zowel de website als de GENI collector. De monitoringAPI is verantwoordelijk voor het beheer van de databank. Alle communicatie met de databank zal via de API verlopen. Dit heeft als voordeel dat zaken zoals foutafhandeling maar een keer ge\"implementeerd moeten worden.
+\clearpage
+\subsection{Database}
+\npar
+De database is verantwoordelijk voor het bijhouden van informatie. Dze informatie kan opgedeeld worden:
+\begin{enumerate}
+\item Configuratie van testen:
+\begin{enumerate}
+\item De testbeds die door de monitoringsservice gecontroleerd moeten worden.
+\item De users die gebruikt worden voor authenticatie op de testbeds.
+\item Welke testen er zijn, hierbij moet het mogelijk zijn om nieuwe testen toe te voegen zonder te veel verandering aan te brengen in de code.
+\item De scheduling, hierbij moet het mogelijk zijn om elke test met een verschillend interval uit te voeren. 
+\end{enumerate}
+\item Resultaten: naast het bijhouden van de configuratie moeten ook resultaten van elke test bijgehouden worden.
+\end{enumerate}
+\npar
+De databank zit verborgen achter de monitoringsAPI. Alle communicatie met de databank zal dan ook verlopen via de monitoringsAPI. 
+\subsection{Monitoringsservice}
+\npar
+Dit deel zal de testen uitvoeren. Eerst zullen de testen die uitgevoerd moeten worden opgevraagd worden aan de API. Vervolgens worden deze testen simultaan uitgevoerd. Hierbij wordt gebruikt gemaakt van een threadpool.
+
+\subsection{Website}
+\npar
+De layout van de vorige webservice is overgenomen, maar een aantal punten zijn aangepast. De nieuwe website geeft wel alle tussenresultaten weer in het overzicht. Voorts is ook de backend van de site vervangen door een aantal API-calls. 
+\npar
+De bedoeling van deze website is een eenvoudig, maar duidelijk overzicht bieden. Hierbij moet een onderzoeker zeer snel de status van het testbed waarop hij werkt kunnen raadplegen.
+\clearpage
+\subsection{GENI monitoringframework}
+\npar
+Het GENI monitoringsframework bestaat uit 2 delen. Het eerste deel is een datastore, dit is een locatie waar monitoringsinformatie beschikbaar is. Het tweede deel is een collector. Een collector zal de monitoringsinformatie die hij nodig heeft ophalen van verschillende datastores. Een collector wordt gebruikt door een applicatie om de nodige informatie op te halen. 
+\npar 
+Binnen het GENI project zijn er al mensen bezig met de beveiliging en weergaven van de monitoringsdata. Door de API compatibel te maken met de GENI monitor, kunnen deze zaken in de toekomst eenvoudig overgenomen worden. Als laatste deel van de masterproef zal er gekeken worden welke integratie mogelijk is, en of er uitbreidingen nodig zijn aan de GENI api.
+\subsection{Toekomstige ontwikkelingen}
+\npar
+Dit stuk geeft aan dat de monitoringsAPI verder gaat dan huidige toepassingen. Het is de bedoeling dat de monitoringsAPI de monitoringsinformatie toegankelijk maakt voor toekomstige ontwikkelingen. Een voorbeeld hiervan is de integratie van de monitoringsinformatie in jFed. Op deze manier zou een onderzoeker die met jFed werkt meteen kunnen zien welke testbeds betrouwbaar zijn en vervolgens deze gebruiken.

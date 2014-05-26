@@ -11,3 +11,5 @@
 \nomenclatureentry{aSLA@[{SLA}]\begingroup Service Level Agreements\nomeqref {2.0}|nompageref}{7}
 \nomenclatureentry{aRSpec@[{RSpec}]\begingroup Resource Specification\nomeqref {2.0}|nompageref}{10}
 \nomenclatureentry{aFLS@[{FLS}]\begingroup First Level Support\nomeqref {3.0}|nompageref}{13}
+\nomenclatureentry{aPSQL@[{PSQL}]\begingroup PostgreSQL\nomeqref {5.0}|nompageref}{27}
+\nomenclatureentry{aPHP@[{PHP}]\begingroup PHP: Hypertext Preprocessor\nomeqref {5.0}|nompageref}{27}

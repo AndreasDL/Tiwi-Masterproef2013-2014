@@ -1,0 +1,40 @@
+\chapter{Technologie\"en}
+{\samenvatting Dit hoofdstuk bespreekt de gebruikte technologie\"en in de masterproef. Samengevat maakt deze masterproef een monitoringsservice met bijhorende API die de monitoringsinformatie beschikbaar moet stellen aan de buitenwereld. De monitoringsinformatie wordt opgeslagen in een PostgreSQL databank. De API werkt met PHP en is gehost met een apache HTTP-server. Voor de website is naast HTML, gebruikt gemaakt van PHP om de API calls af te handelen. Voor opmaak en layout werd ook gebruik gemaakt van CSS en javascript.}
+\section{Onderdelen}
+\npar
+Zoals te zien op Figuur \ref{opbouw} bestaat de masterproef uit een aantal delen. 
+\begin{enumerate}
+\item Database die alle data zal bijhouden.
+\item Een monitoringsAPI die de kern vormt waarmee alle andere projecten verbonden worden.
+\item Een monitoringsservice voor het uitvoeren van de testen zelf.
+\item Een website om de monitoringsinfo weer te geven.
+\end{enumerate}
+\npar
+Hieronder worden alle gebruikte technologie\"en besproken. Door de objectge\"orienteerde opbouw is het uitwisselen van technologie\"en mogelijk. Doordat de software moet kunnen draaien op alle soorten platformen, waaronder ook linux platformen, is er echter niet gekozen voor platformafhankelijke talen zoals .net. In plaats daarvan is er gekozen voor platformonafhankelijke talen zoals java, perl , python, php , ... .
+
+\subsection{Databank - PostgreSQL}
+\npar
+\mijnfiguur{width=0.5\textwidth}{psqllogo}{PostgreSQL logo}
+De databank die gebruikt wordt is een postgreSQL databank. PostgreSQL is een open-source object-relational database systeem\citep{psql-about}. Met meer dan 15 jaar ervaring heeft het een sterke reputatie voor stabiliteit en betrouwbaarheid opgebouwd. PSQL (PostgreSQL)\nomenclature{PSQL}{PostgreSQL} werkt op alle grote platformen en met alle prominente programmeertalen.
+\npar
+Het gebruik van PSQL werd door het bedrijf in kwestie, iMinds, opgelegd omdat het vorige systeem ook met PSQL werkte. Hierdoor waren de ontwikkelaars al vertrouwd met dit datasysteem. Er zijn een aantal voordelen om PSQL te gebruiken. Een eerste voordeel is terug te vinden in de vele functionaliteiten die in PSQL ingebouwd zijn. Een ander voordeel is de uitgebreide documentatie die te vinden is op de wiki van PSQL (https://wiki.postgresql.org).
+
+\subsection{MonitoringsAPI}
+%php
+\npar
+\mijnfiguur{width=0.25\textwidth}{phplogo}{PHP logo}
+Voor de monitoringsAPI is gekozen voor PHP (PHP: Hypertext Preprocessor)\nomenclature{PHP}{PHP: Hypertext Preprocessor}. PHP is een algemene open-source scriptingtaal. PHP kan voor alle doeleinden gebruikt worden, maar is vooral gericht op webontwikkelingen\citep{php-about}. PHP is al enkele jaren een prominente speler op het gebied van webtechnologie. PHP blijkt hier een goede keuze te zijn doordat er zeer veel documentatie en modules beschikbaar zijn.
+\clearpage
+%apache
+\npar
+\mijnfiguur{width=0.25\textwidth}{apachelogo}{Apache logo}
+Om php te hosten, is er nood aan een HTTP server. Deze zal met behulp van de php code de overeenkomstige pagina genereren. De facto standaard is de Apache HTTP-server. Apache HTTP is een open-source HTTP voor voor moderne operating systemen zoals unix en windows\citep{apache-about}. Het doel van apache Http is om een veilige, effici\"ente en uitbereidbare server te maken die overweg kan met de HTTP standaard.
+\subsection{Monitoringsservice}
+%java
+\npar
+\mijnfiguur{width=0.25\textwidth}{javalogo}{Java logo}
+Voor de monitoringsservice is er gebruikt gemaakt van Java. Java is een zeer gekende en veelgebruikte programmeertaal die platform onafhankelijk is\citep{java-about}. Java is een gekende en betrouwbare taal die gebruikt kan worden voor alle mogelijke toepassingen te maken. Omdat de jFed automatedtester in java geschreven is, zal de monitoringsservice ook in java gemaakt worden. Vermits de automated tester, de module die de testen effectief uitvoert, in dezelfde taal geschreven is, is de integratie zeer eenvoudig en effici\"ent.
+%\clearpage
+\subsection{Website}
+
+Voor de website wordt gebruikt gemaakt van php, deze php code zal eerst een call doen naar de API. Eenmaal het antwoord van de call ontvangen is, zal de html code gegenereerd worden. Voor de layout is gebruik gemaakt van css en javascript.
