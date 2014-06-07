@@ -1,7 +1,8 @@
 \begin{otherlanguage}{english}
 \chapter{MonitoringAPI reference}
+\label{REFERENCE}
 \section{About}
-This chapter will provide a detailed list of methods and functions available in the monitoringAPI. The monitoringAPI provides access to all the monitoringdata, both results and configuration. The API is available at http://f4f-mon-dev.intec.ugent.be/service/index.php , however this location is not permanent. In case the url returns 404, one should contact ibcn/iminds. Keep in mind that the API is still under developpment, so things might change.
+This chapter will provide a detailed list of methods and functions available in the monitoringAPI. The monitoringAPI provides access to all the monitoringdata, both results and configuration. The API is available at http://f4f-mon-dev.intec.ugent.be/service/index.php , however this location is not permanent. In case the url returns 404, one should contact IBCN/iMinds. Keep in mind that the API is still under development, so things might change.
 \npar
 The service supports get and post requests, both are handled in the same way unless stated otherwise. A request should use http://f4f-mon-dev.intec.ugent.be/service/index.php/ as base url e.g. http://f4f-mon-dev.intec.ugent.be/service/index.php/$<$functionname$>$?$<$arguments$>$ \footnote{Of course the $<$ and $>$ shouldn't be in the actual url.}. 
 
@@ -27,12 +28,12 @@ The functions needed for experimenters are listed below. Next up is a detailed e
 \end{enumerate}
 \npar
 The return format of each call below can be change with ?format=$<$formatname$>$. 
-Other than json as default format, PrettyJson is also available. PrettyJson uses the php json pretty print parameter to outline the resulting json making it more humanfriendly.
+Other than JSON as default format, PrettyJson is also available. PrettyJson uses the PHP JSON pretty print parameter to outline the resulting JSON making it more humanfriendly.
 Use it by adding format=PrettyJson to any call.
 
 \subsection{List}
 \subsubsection{What}
-The list function will list monitoring results because of performance and security reasons, only the last 100 results that comply with the query will be returned. Keep in mind that this is 100 for each testinstance, testbed combination. In case more is needed, one could use from and till clausules or contact ibcn/iminds.
+The list function will list monitoring results. Because of performance and security reasons, only the last 100 results that comply with the query will be returned. Keep in mind that this is 100 for each testinstance, testbed combination. In case more is needed, one could use from and till clausules or contact IBCN/iMinds.
 
 \clearpage
 
@@ -44,19 +45,19 @@ The list function will list monitoring results because of performance and securi
 \item testname: the name of the corresponding test
 \item from: search results after a given timestamp NOTE: use iso 8601 format WITH timezone.
 \item till: search results before a given timestamp NOTE: use iso 8601 format WITH timezone.
-\item count: the last $<$count$>$ results will be returned. Limited to 100 and default also 100. The results are counted for each combination of testbed en testdefinitionname therefor list?count=50 will return the last 50 results for each test on each testbed, so when there are 2 testbeds, 100 results will be returned in total.
+\item count: the last $<$count$>$ results will be returned. Limited to 100 and default also 100. The results are counted for each combination of testbed en testdefinitionname, therefore list?count=50 will return the last 50 results for each test on each testbed, so when there are 2 testbeds, 100 results will be returned in total.
 \end{enumerate}
 \npar
 It is important to note here that using from/till arguments in combination with count is not possible. Doing so will return a http 400 (bad request) error.
 \subsubsection{Examples}
 \begin{lt}
-list?from=2014-03-18T19:29:00\&till=2014-03-19T18:29:00\&testdefinitionname=ping
+list?from=2014-03-18T19:29:00&till=2014-03-19T18:29:00&testdefinitionname=ping
 &testbed=wall2
 \end{lt}
 Will return all the results of each\footnote{Although generally not recommended, it is possible to have multiple tests of the same type on one testbed.} pingtest on wall2 between 18/03/2014 18:29:00 and 19/03/2014 18:29:00.
 \npar
 \begin{lt}
-list?testdefinitionname=stitch\&count=5\&testbed=wall2
+list?testdefinitionname=stitch&count=5&testbed=wall2
 \end{lt}
 Will return results of the last 5 stitching tests for wall2.
 
@@ -82,7 +83,7 @@ last?testdefinitionname=ping
 Will return the last result of each\footnote{Although generally not recommended, it is possible to have multiple tests of the same type on one testbed.} pingtest of each testbed.
 \npar
 \begin{lt}
-last?testdefinitionname=stitch\&count=5\&testbed=wall2
+last?testdefinitionname=stitch&count=5&testbed=wall2
 \end{lt}
 Will return results of the last 5 stitching tests for wall2. Note that this is also possible with list.
 \npar
@@ -119,7 +120,7 @@ This call will return the testinstance. A testinstance is an instance of the def
 \clearpage
 \subsubsection{Examples}
 \begin{lt}
-testinstance?testdefinitionname=stitch\&testbed=wall2
+testinstance?testdefinitionname=stitch&testbed=wall2
 \end{lt}
 Will return all the instances of the stitching type on wall2.
 \begin{lt}
@@ -145,7 +146,7 @@ urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm (wall1).
 \\
 \subsection{User}
 \subsubsection{What}
-This call will return information about an user. Note that only users used by the monitoringservice are stored here making it impossible to see information about all users on the testbed.
+This call will return information about a user. Note that only users used by the monitoringservice are stored here, making it impossible to see information about all users on the testbed.
 \subsubsection{Arguments}
 \begin{enumerate}
 \item username: the name of the users.
@@ -153,7 +154,7 @@ This call will return information about an user. Note that only users used by th
 \end{enumerate}
 \subsubsection{Examples}
 \begin{lt}
-user/username=ftester
+user?username=ftester
 \end{lt}
 Will return the information for the ftester user.
 \\
@@ -161,7 +162,9 @@ Will return the information for the ftester user.
 \subsubsection{What}
 This function is not real function but an argument of the list function. It is used to make this monitoringAPI compatible with the GENI datastore. However since both GENI and this API are in developpment, not every function is yet available.
 \subsubsection{Arguments}
-The arguments here are encoded as a json string, for more information i refer to http://groups.geni.net/geni/wiki/OperationalMonitoring and http://groups.geni.net/geni/wiki/OperationalMonitoring/DatastorePolling.
+The arguments here are encoded as a json string, for more information i refer to\\
+http://groups.geni.net/geni/wiki/OperationalMonitoring and\\
+http://groups.geni.net/geni/wiki/OperationalMonitoring/DatastorePolling.
 \npar
 Not all of these functions are supported only these:
 \begin{enumerate}
@@ -169,8 +172,8 @@ Not all of these functions are supported only these:
 \item eventType: the evenname as defined by genidatastore. 
 \item ts: unix timestamp in micro( 1/1000000) seconds.
 \begin{enumerate}
-\item gte: similar with from
-\item lt: similar with till
+\item gte: greater than or equal.
+\item lt: lower than.
 \end{enumerate}
 \end{enumerate}
 \subsubsection{Example}
@@ -182,6 +185,6 @@ list?q={
   }
 }
 \end{lt}
-Will return results of the is\textunderscore available\footnote{The is\textunderscore available is the GENI name for a getVersion call, so this call will return whether or not the getVersion test succeeded} test for wall1 and wall2.
+Will return results of the is\textunderscore available\footnote{The is\textunderscore available is the GENI name for a getVersion test, so this call will return whether or not the getVersion test succeeded} test for wall1 and wall2.
 \clearpage
 \end{otherlanguage}

@@ -1,17 +1,18 @@
 \chapter{Onderhoud, beheer en gebruik}
-{\samenvatting Dit hoofdstuk richt zich tot de systeem beheerder en bespreekt hoe het onderhoud van de de monitoringsAPI en service verloopt. Hierbij wordt de nadruk gelegd op het toevoegen, verwijderen, activeren en deactiveren van testen.}
+\label{ONDERHOUD}
+{\samenvatting Dit hoofdstuk richt zich tot de systeembeheerder en bespreekt hoe het onderhoud van de de monitoringsAPI en service verloopt. Hierbij wordt de nadruk gelegd op het toevoegen, verwijderen, activeren en deactiveren van testen.}
 \npar
 \section{Over}
 \npar
-Een testinstantie maakt de link tussen een testdefinitie en zijn set parameters. In volgende tekst wordt, tenzij anders vermeld, met test ook altijd een testinstantie bedoeld. Een test heeft altijd een type, dit type wordt gedefinieerd door de testdefinition die ook opgeslagen zit in de databank. De bedoeling is dat een systeembeheerder eenvoudig nieuwe testtypes kan ondersteunen door nieuwe definities aan te maken. Dit kan op meerdere manier en is hieronder beschreven.
+Een testinstantie maakt de link tussen een testdefinitie en zijn set parameters. In volgende tekst wordt, tenzij anders vermeld, met test ook altijd een testinstantie bedoeld. Een test heeft altijd een type. Dit type wordt gedefinieerd door de testdefinition die ook opgeslagen zit in de databank. De bedoeling is dat een systeembeheerder eenvoudig nieuwe testtypes kan ondersteunen door nieuwe definities aan te maken. Dit kan op meerdere manier en is hieronder beschreven.
 \npar
-Daarnaast heeft een test ook een nextrun veld, dit veld bevat een iso 8601 timestamp met tijdzone en geeft aan wanneer de test de volgende keer uitgevoerd moet worden. De test zal uitgevoerd worden op het moment dat de monitoringsservice (die periodiek opgestart wordt via cron) de API pollt naar testen die uitgevoerd moeten worden. Als nextrun dan in het verleden ligt, zal de test doorgestuurd worden en uitgevoerd worden. De nextrun zal aangepast worden door de monitoringsservice als volgt: $nextrun_{new} = starttime + frequency$.
+Daarnaast heeft een test ook een nextrun veld, dit veld bevat een iso 8601 timestamp met tijdzone en geeft aan wanneer de test de volgende keer uitgevoerd moet worden. De test zal uitgevoerd worden op het moment dat de monitoringsservice (die periodiek opgestart wordt via cron) de API polt naar testen die uitgevoerd moeten worden. Als nextrun dan in het verleden ligt, zal de test doorgestuurd worden en uitgevoerd worden. De nextrun zal aangepast worden door de monitoringsservice als volgt: $nextrun_{new} = starttime + frequency$.
 \npar
 Het is ook mogelijk om testen te deactiveren door het veld enabled op false te zetten. Deze testen zullen bijgevolg niet uitgevoerd worden ongeacht de waarde van hun nextrun veld. Vanzelfsprekend moet dit veld terug op true gezet worden om de test terug te activeren.
 
 \section{Toevoegen van testen (testinstancies)}
 \npar
-Voor het toevoegen van een testinstanties moet er eerst gekeken worden naar het de bijhorende definitie. De definitie kan opgevraagd worden via /testdefinition?testdefinitionname=$<$definitienaam$>$ (zie ook bijlage B). Vervolgens moeten alle parameters ingesteld worden. 
+Voor het toevoegen van een testinstanties moet er eerst gekeken worden naar het de bijhorende definitie. De definitie kan opgevraagd worden via /testdefinition?testdefinitionname=$<$definitienaam$>$ (zie ook bijlage \ref{REFERENCE}). Vervolgens moeten alle parameters ingesteld worden. 
 \npar 
 Een voorbeeld, de definitie van een list resource test is:
 \begin{lt}
@@ -98,9 +99,9 @@ Definities kunnen op meerdere manieren toegevoegd worden.
 \end{enumerate}
 
 \subsection{Nieuw intern type}
-Het is zo dat elke test een intern type heeft dit type komt overeen met een klasse in de monitor.testCalls package . Er wordt gebruik gemaakt van overerving waarbij er 2 groepen testen zijn: de bashtesten die een bash commando uitvoeren en de jfed automated testen die gebruik maken van de jfed automated tester. Voor de eerste groep is het aangeraden over te ervan van BashTestCall, voor de tweede groep is javaMainTestCall de klasse. Overerven is sterk aangeraden vermits deze code bevat voor het parsen van parameters en het aanroepen van de jfed automated tester. In deze overgeërfde klasse kunnen parameters vervolgens hardgecodeerd worden, bijgevolg moeten ze niet meer opgeslagen worden in de databank.
+Het is zo dat elke test een intern type heeft. Dit type komt overeen met een klasse in de monitor.testCalls package . Er wordt gebruik gemaakt van overerving waarbij er 2 groepen testen zijn: de bashtesten die een bash commando uitvoeren en de jfed automated testen die gebruik maken van de jfed automated tester. Voor de eerste groep is het aangeraden om over te erven van BashTestCall, voor de tweede groep is javaMainTestCall de klasse. Overerven is sterk aangeraden vermits deze code bevat voor het parsen van parameters en het aanroepen van de jfed automated tester. In deze overge\"erfde klasse kunnen parameters vervolgens hardgecodeerd worden, bijgevolg moeten ze niet meer opgeslagen worden in de databank.
 \npar
-Op deze manier is het mogelijk om bijvoorbeeld een eenvoudige stitching test te maken met een aantal standaard waarden. Naast deze test zou er nog een advanced stitching test kunnen zijn waar de parameters wel opgegeven moeten worden. Beide testen zouden vervolgens verschillend in naam. Bijgevolg kan men eenvoudig kiezen tussen beide varianten door het overeenkomstige testtype te kiezen.
+Op deze manier is het mogelijk om bijvoorbeeld een eenvoudige stitching test te maken met een aantal standaard waarden. Naast deze test zou er nog een advanced stitching test kunnen zijn waar de parameters wel opgegeven moeten worden. Beide testen zouden vervolgens verschillen in naam. Bijgevolg kan men eenvoudig kiezen tussen beide varianten door het overeenkomstige testtype te kiezen.
 \npar
 Merk op dat voor het gebruik van nieuwe parameter types er mogelijk aanpassingen gedaan moeten worden in de javaMainTestCall klasse. Daarnaast moet er ook een nieuwe casse toegevoegd worden bij de makeTest van de TestCallFactory.
 \clearpage
@@ -127,7 +128,7 @@ public class LoginTestCall extends JavaMainTestCall {
 }
 \end{lstlisting}
 \npar
-Merk op hoe de parameters hier hardgecodeerd worden, bijgevolg moeten deze parameters niet meer opgegeven worden bij het toevoegen van de test. Zo is hieronder een voorbeeld van python code die een instantie van bovenstaande test toevoegd, waarbij enkel een testbed en een user opgegeven moet worden. Andere parameters voor de automated tester zoals de test-class en group zijn hier niet meer nodig.
+De parameters worden hier hardgecodeerd, bijgevolg moeten deze parameters niet meer opgegeven worden bij het toevoegen van de test. Zo is hieronder een voorbeeld van python code die een instantie van bovenstaande test toevoegt, waarbij enkel een testbed en een user opgegeven moet worden. Andere parameters voor de automated tester zoals de test-class en group zijn hier niet meer nodig.
 \begin{lstlisting}[language=Python]
 cur.execute(addTestQ,("wall2login2","login2",loginFreq,nextRun,enabled))
 testinstanceid = cur.fetchone()[0]
@@ -135,14 +136,14 @@ cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))
 cur.execute(addParQ,(testinstanceid,"user",map['username']))
 \end{lstlisting}
 \npar
-Merk wel op dat er ook nog altijd een definitie voor login2 aanwezig is in de databank, maar deze definitie zal de hardgecodeerde parameters niet meer bevatten. Het is echter wel noodzakelijk dat deze definitie aanwezig is, vermits zo o.a. gebruikt wordt om te kijken of alle tussen resultaten gegeven zijn wanneer er een nieuw resultaat toegevoegd moet worden.
+Er moet nog altijd een definitie voor login2 aanwezig zijn in de databank. Deze definitie zal de hardgecodeerde parameters echter niet meer bevatten. Toch is het noodzakelijk dat deze definitie aanwezig is, vermits ze o.a. gebruikt wordt om te kijken of alle tussenresultaten gegeven zijn wanneer er een nieuw resultaat toegevoegd moet worden.
 
 \clearpage
 \subsection{Testdefinitie toevoegen in de databank}
 \npar
 Een tweede manier is het toevoegen van een definitie in de databank, deze test heeft dan als intern type ofwel bash ofwel automatedTester. Bij de eerste wordt de commando tekst beschouwd als het commando, bij de tweede zijn dit de parameters die meegegeven worden aan de automated tester. Waarden van parameters kunnen opgevraagd worden door de parameter naam tussen $<$ en $>$ te plaatsen\footnote{Dit is overal zo, alle waarden tussen $<$ en $>$ zullen geparset worden en opgezocht worden bij de parameters, indien het om een parameter met type testbed en naam testbed gaat geeft $<$testbed.urn$>$ de urn van het testbed terug.}.
 \npar 
-Op deze manier kan het voorgaande script omgezet worden naar een automatedTestCall waarbij de parameters in de databank opgeslagen zitten. Hieronder eenvoorbeeld code in php.
+Op deze manier kan het voorgaande script omgezet worden naar een automatedTestCall waarbij de parameters in de databank opgeslagen zitten. Hieronder een voorbeeld in PHP:
 \begin{lstlisting}[language=PHP]
 $subQuery = "insert into parameterDefinitions (
 	testDefinitionName,
@@ -182,18 +183,18 @@ pg_query_params($con, $subQuery, $data);
 ...
 \end{lstlisting}
 \npar
-Merkt op dat de parameters hier wel in bij de defintie zichtbaar zijn. Tot slot kan vermeld worden dat $<$context-file$>$ vervangen zal worden door de parameter context-file. Vermits deze parameter van het type file is, wordt er een file aangemaakt waarvan het path terrecht komt op de plaats van de $<$context-file$>$. 
+De parameters zijn hier wel zichtbaar in de defintie. Tot slot kan vermeld worden dat $<$context-file$>$ vervangen zal worden door de parameter context-file. Vermits deze parameter van het type file is, wordt er een file aangemaakt waarvan het path terecht komt op de plaats van de $<$context-file$>$. 
 
 \section{Troubleshooting}
 \subsection{Resultaten worden niet opgeslagen door de API}
 \npar
-Resultaten kunnen om een van volgende redenen geweigerd worden:
+Resultaten kunnen om \'e\'en van volgende redenen geweigerd worden:
 \begin{enumerate}
 \item het testid bestaat niet of is onjuist
 \item Niet alle tussenresultaten die in de testdefinitie gedefinieerd zijn, zijn meegegeven. 
-\item nextrun ligt niet na de bestaande nextrun, dit kan ontstaan door fouten met tijdzones. Normaal gezien wordt een unix timestamp gebruikt in microseconden (1/1000 000 seconde).
+\item nextrun ligt niet na de bestaande nextrun. Dit kan ontstaan door fouten met tijdzones. Normaal gezien wordt een unix timestamp gebruikt in microseconden (1/1000 000 seconde).
 \end{enumerate}
-De regel is ook dat ofwel alles wordt opgeslagen ofwel niets. Er wordt gebruikt gemaakt van transacties die de integriteit van de data bewaren.
+De regel is ook dat ofwel alles wordt opgeslagen ofwel niets. Er wordt gebruik gemaakt van transacties die de integriteit van de data bewaren.
 \subsection{Het programma loopt vast tijdens het uitvoeren van een zelf aangemaakte testen.}
 \npar 
 Controleer of alle parameternamen, opgegeven in de instance, overeenkomen met de namen van de parameters in de definitie.
