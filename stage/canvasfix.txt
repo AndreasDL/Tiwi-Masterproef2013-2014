@@ -1,1 +1,0 @@
-http://stackoverflow.com/questions/18647386/javafx-canvas-in-anchorpane-getwidth-issue

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import be.iminds.ilabt.jfed.ui.javafx.stitching_gui.*?>
+
+<fx:root type="javafx.scene.layout.BorderPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@../style/advanced_gui.css" />
+        <URL value="@../style/stitching.css" />
+    </stylesheets>
+    <center>
+        <VBox>
+            <Label text="Create Sliver Status Overview:"/>
+            <HBox>
+                <Label text="Aggregated status:"/>
+                <Label text="uninitialised" fx:id="aggStatusLabel">
+                    <HBox.margin> <Insets top="0.0" left="5.0" right="5.0" bottom="0.0" /> </HBox.margin>
+                </Label>
+                <padding> <Insets top="5.0" left="10.0" right="0.0" bottom="5.0" /> </padding>
+            </HBox>
+
+            <Label text="Overview:">
+                <VBox.margin> <Insets top="10.0" left="10.0" right="0.0" bottom="0.0" /> </VBox.margin>
+            </Label>
+            <GridPane fx:id="overviewGrid" gridLinesVisible="true">
+                <VBox.margin> <Insets top="0.0" left="10.0" right="0.0" bottom="5.0" /> </VBox.margin>
+
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER"/>
+                    <ColumnConstraints hgrow="NEVER"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <children>
+                    <!--<Label text="" GridPane.columnIndex="0" GridPane.rowIndex="0">-->
+                        <!--<GridPane.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </GridPane.margin>-->
+                    <!--</Label>-->
+                    <Label text="Status Summary" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <GridPane.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </GridPane.margin>
+                    </Label>
+                    <Label text="Details" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <GridPane.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </GridPane.margin>
+                    </Label>
+                    <Label text="SCS" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <GridPane.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </GridPane.margin>
+                    </Label>
+                    <Label fx:id="scsCallAggStatus" text="uninitialised" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <GridPane.margin> <Insets top="1.0" left="1.0" right="1.0" bottom="1.0" /> </GridPane.margin>
+                    </Label>
+                    <HBox fx:id="scsCallDetails" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <GridPane.margin> <Insets top="1.0" left="1.0" right="1.0" bottom="1.0" /> </GridPane.margin>
+                    </HBox>
+
+
+                    <!--<Label text="Aggregate A" GridPane.columnIndex="0" GridPane.rowIndex="2">-->
+                        <!--<GridPane.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </GridPane.margin>-->
+                    <!--</Label>-->
+                    <!--<Label text="uninitialised" GridPane.columnIndex="1" GridPane.rowIndex="2">-->
+                        <!--<GridPane.margin> <Insets top="1.0" left="1.0" right="1.0" bottom="1.0" /> </GridPane.margin>-->
+                    <!--</Label>-->
+                    <!--<HBox fx:id="StatusPanelAggregateA" GridPane.columnIndex="2" GridPane.rowIndex="2">-->
+                        <!--<children>-->
+                            <!--<SingleTaskStatusPanel>-->
+                                <!--<HBox.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </HBox.margin>-->
+                            <!--</SingleTaskStatusPanel>-->
+                            <!--<SingleTaskStatusPanel>-->
+                                <!--<HBox.margin> <Insets top="5.0" left="5.0" right="5.0" bottom="5.0" /> </HBox.margin>-->
+                            <!--</SingleTaskStatusPanel>-->
+                        <!--</children>-->
+                        <!--<GridPane.margin> <Insets top="1.0" left="1.0" right="1.0" bottom="1.0" /> </GridPane.margin>-->
+                    <!--</HBox>-->
+                </children>
+            </GridPane>
+            <Button text="Delete All" onAction="#deleteAll"/>
+        </VBox>
+    </center>
+</fx:root>

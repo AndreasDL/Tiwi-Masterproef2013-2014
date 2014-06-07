@@ -1,0 +1,20 @@
+Install Howto:
+- Extract the content of this tar. This results in a dir named "jfed-2.0-src/"
+- Install java JDK (Sun JDK 7 required for the JavaFX GUI. Sun JDK 6 works for the non JavaFX parts.)
+- Install Maven (http://maven.apache.org)
+- Setup maven proxy if needed (http://maven.apache.org/guides/mini/guide-proxies.html)
+- cd jfed-2.0-src/
+- mvn package
+
+Maven will then download all dependencies and compile all code.
+
+When compile is successful, the jars (which include all needed dependencies to run alone) can be found in the following dirs:
+  jfed-2.0-src/advancedgui/target/jFed-advanced-GUI.jar
+  jfed-2.0-src/compliance-verification/target/jfed-compliance-tester-cli.jar
+  jfed-2.0-src/compliance-verification-gui/target/jfed-compliance-tester-gui.jar
+  jfed-2.0-src/baseui/target/jfed-probe-gui.jar
+  jfed-2.0-src/baseui/target/jfed-probe-cli.jar
+
+To run them, try for example:
+  java -jar jfed-2.0-src/advancedgui/target/jFed-advanced-GUI.jar
+

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!--
+	ZeroFour 2.5 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Automatische testbed monitoring voor jFed - Fed4Fire - Info</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800" rel="stylesheet" type="text/css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+	</head>
+	<body class="no-sidebar">
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+							<!-- Header -->
+								<header id="header">
+									<div class="inner">
+										<!-- Logo -->
+											<h1><a href="index.html" id="logo">Home</a></h1>
+										<!-- Nav -->
+											<nav id="nav">
+												<ul>
+													<li><a href="info.html">Info</a></li>
+													<li><a href="doelstellingen.html">doelstellingen</a></li>
+													<li>
+														<span>Documenten</span>
+														<ul>
+															<li><a href="docs/eersteVoorstel.pdf">Eerste voorstel</a></li>
+															<li><a href="docs/UitgebreidVoorstel.pdf">Uitgebreid voorstel</a></li>
+															<li><a href="docs/usecases.pdf">Use Cases</a></li>
+														</ul>
+													</li>
+													<li>
+														<span>References</span>
+														<ul>
+															<li><a href="docs/SFA2.0.pdf">Slice-Based Federation Architecture</a></li>
+															<li><a href="http://doc.fed4fire.eu/">fed4fire Doc</a></li>
+															<li><a href="http://jfed.iminds.be/">jFed webstart</a></li>
+														</ul>
+													</li>
+													<li><a href="logboek.php">Logboek</a></li>
+													<li><a href="contact.html">Contact</a></li>
+												</ul>
+											</nav>
+									</div>
+								</header>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- Main Wrapper -->
+			<div id="main-wrapper" align = center>
+				<div class="main-wrapper-style2">
+					<div class="inner">
+						<div class="container">
+							<div class="row">
+								<div class="12u skel-cell-important">
+									<div id="content">
+										<!-- Content -->
+											<article>
+												<header class="major">
+													<h2>Automatische testbed monitoring voor jFed - Fed4Fire</h2>
+													<span class="byline">Een masterproef door  Andreas De Lille</span>
+													<a href="http://fed4fire.eu/"><img src="http://jfed.iminds.be/img/fed4fire.png"/></a>
+													<a href="http://www.iminds.be/nl"><img src="http://jfed.iminds.be/img/iminds.png" /></a>
+													<a href="http://www.ugent.be/"><img src="http://jfed.iminds.be/img/ugent.png" /></a>
+												</header>
+												<h3>Bestaande situatie</h3>
+												<p align=left>
+iMinds is een onafhankelijk onderzoekscentrum dat opgericht werd door de Vlaamse overheid.</br>
+Het is voornamelijk bezig met onderzoek omtrent ICT-innovatie.Bij dit onderzoek wordt veelvuldig gebruik gemaakt van testbeds.</br>Een testbed is een verzameling van nodes waarmee netwerkopstellingen kunnen gesimuleerd worden. </br>
+</br>
+Een goed voorbeeld van een testbed is de Virtual Wall.</br>De Virtual Wall is ontworpen voor het experimenteren met nieuwe netwerkoplossingen voor de volgende generatie van het Internet.</br>De kracht van deze infrastructuur is dat ze de mogelijkheid biedt om op een eenvoudige wijze specifieke netwerkopstellingen op te zetten volgens de noden van het onderzoek. </br>
+</br>
+Een voorbeeld waarvoor dit testbed wordt gebruikt is dat men een server en een aantal cliënts definieert.</br>Deze worden verbonden met een aantal tussenliggende routers.Vervolgens wordt een videostream opgestart.</br>Op deze videostream kan men storing introduceren door pakketten te droppen.Deze storing zal ervoor zorgen dat het beeld aan de cliënt-side hapert.</br>Er kunnen technieken ingebouwd worden aan cliënt-side om deze storing op te vangen.Zo kan er overgeschakeld worden naar een lagere kwaliteit indien blijkt dat de beschikbare bandbreedte onvoldoende is.Testen van degelijke technieken verloopt dan ook aan de hand van testbeds.</br>
+</br>
+Onderzoekers bij iMinds hebben niet alleen toegang tot hun Virtual Wall, maar door samenwerkingsakkoorden met diverse onderzoekscentra hebben ze ook wereldwijd toegang tot andere en soms erg verschillende testbeds.Deze zijn elk apart ontwikkeld.</br>Hierdoor maakt elk testbed gebruik van een eigen interface. Deze interface wordt aangeboden door middel van een federation API.</br>Een federation API is een interface die alle mogelijk functionaliteiten van een specifiek testbed aanbiedt. Hij staat in voor de communicatie tussen een programma en het testbed. Onderzoekers die met meerdere testbeds werken, moeten dan ook de werking van elk testbed apart bestuderen alvorens ermee aan de slag te kunnen. Ook rechtstreekse verbindingen leggen tussen verschillende testbeds wordt hierdoor moeilijker. </br>
+</br>
+Daarom werd in het Europese onderzoeksproject Fed4FIRE beslist om een aantal federation API's vast te leggen die gelijk moeten zijn op elk testbed.</br>Dit maakt het mogelijk om tools te ontwikkelen die bruikbaar zijn op alle testbeds verenigd in dit project. Hiervoor werd de tool jFed ontwikkeld door iMinds.</br>jFed biedt een wrapper aan rond de specifieke federation API’s die in dat project worden toegepast. Daarenboven voorziet jFed in verschillende applicaties om enerzijds te kunnen testen of testbeds deze API’s correct ondersteunen, en anderzijds om als onderzoeker op een eenvoudige wijze een experiment te kunnen opzetten.</br>
+</br>
+De kernmodule waar alle andere modules gebruik van maken is de "jFed library". De voornaamste functie van deze library is om de communicatie met de testbeds te vereenvoudigen. De hiervoor bruikbare testbeds implementeren enkele gestandaardiseerde API’s, die de benodigde functionaliteiten aanbieden.</br>De jFed library implementeert de client kant van deze API’s, en voorziet Java interfaces voor de API-calls. De gebruiker zal hierdoor niet geconfronteerd worden met deze details. Zo zal de library o.a. de achterliggend SSL-connectie en de bijhorende certificaten en private keys beheren. Verder zullen ook de nodige omzettingen gebeuren. Daarnaast bevat deze library vele hulpklassen en methoden om de API’s aan te spreken.</br>
+</br>
+Een goed voorbeeld van een API die door jFed word geïmplementeerd is de Aggregate Manager API, versie 2 en 3.  Een voorbeeld van een call, is de "CreateSliver" call in de AMv2 API.
+De AMv2 API specificeert dat alle calls gedaan worden over een SSL verbinding met client-side certificate. Verder specificeert de API de exacte argumenten die vereist zijn en het formaat van het resultaat. De jFed library biedt een Java methode "createSliver" in de klasse "AggregateManager2" aan.</br>De argumenten worden opgegeven in een Java formaat. Zo zal bijvoorbeeld een datum-argument als een Java Date-object doorgegeven worden.</br>De jFed library zal de datum naar het RFC3339 formaat omzetten voor het naar de server verstuurd wordt. Ook het resultaat van de call wordt verwerkt door de jFed library terug omgezet.</br>
+</br>
+Steunend op deze library zijn enkele tools zoals jFed probe en jFed compliance tester gebouwd. Deze hebben als doel het valideren of testbeds de federation API’s correct ondersteunen. Tenslotte is er de jFed GUI tool. Deze tool maakt het mogelijk om als eindgebruiker een experiment op een intuïtieve manier op te zetten.</br>De jFed GUI heeft momenteel echter een relatief complexe interface. Dit probleem zal opgelost worden bij de volgende jFed gui for experimenters.</br>
+Een jFed tool met een eenvoudige, intuïtieve interface.
+</br>
+												</p>
+												<h3 >begeleiders</h3>
+													<table>
+														<tr><td><h3>Functie</h3></td><td><h3>Naam</h3></td></tr>
+														<tr><td>Interne Promotor</td><td>Geert Van hoogenbemt</td></tr>
+														<tr><td>Externe Promotor</td><td>Piet Demeester</td></tr>
+														<tr><td>Begeleider</td><td>Brecht Vermeulen</td></tr>
+														<tr><td>Begeleider</td><td>Wim Vandenberghe</td></tr>
+														<tr><td>Begeleider</td><td>Wim Van de Meerssche</td></tr>
+														<tr><td>Begeleider</td><td>Thijs Walcarius</td></tr>
+													</table>
+													</br></br>
+											</article>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+				<footer id="footer" class="container">
+					<div class="row" align=center>
+						<div class="4u">
+							<!-- Links -->
+								<section>
+									<h2>Organisatie</h2>
+									<ul class="style2">
+										<li><a href="http://www.iminds.be/nl">iMinds</a></li>
+										<li><a href="http://www.ibcn.intec.ugent.be/">ibcn</a></li>
+									</ul>
+								</section>
+						</div>
+						<div class="4u">
+							<!-- Links -->
+								<section>
+									<h2>Project</h2>
+									<ul class="style2">
+										<li><a href="http://fed4fire.eu/">fed4fire</a></li>
+										<li><a href="http://www.iminds.be/en/develop-test/ilab-t/virtual-wall">Virtual Wall</a></li>
+									</ul>
+								</section>
+						</div>
+						<div class="4u">
+								<!-- Links -->
+								<section>
+									<h2>School</h2>
+									<ul class="style2">
+										<li><a href="http://tiwi.ugent.be/">Tiwi</a></li>
+										<li><a href="http://www.ugent.be/">uGent</a></li>
+									</ul>
+								</section>
+						</div>
+					</div>
+					<div class="row">
+						<div class="12u">
+							<div id="copyright">
+								&copy; Untitled. All rights reserved | Images: <a href="http://fotogrph.com/">fotogrph</a> | Design: <a href="http://html5up.net/">HTML5 UP</a>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+
+	</body>
+</html>

@@ -1,0 +1,8 @@
+.validation-error .text-field {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+.validation-warning .text-field {
+    -fx-background-color: orange;
+}

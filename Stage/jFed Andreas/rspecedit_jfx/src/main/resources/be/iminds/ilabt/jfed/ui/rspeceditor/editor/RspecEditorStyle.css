@@ -1,0 +1,167 @@
+.rspec_node {
+   -fx-font: 16px sans-serif;
+   -fx-text-fill: black;
+
+    /*glass grey*/
+    -fx-background-color: 
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,3,3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+
+.rspec_node:hover {
+    -fx-text-fill: blue;
+}
+
+.rspec_selected_node {
+   -fx-font: bold 16px sans-serif;
+}
+
+.component_manager_0 {
+    -fx-background-color:
+        ivory,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_1 {
+    -fx-background-color:
+        aqua,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_2 {
+    -fx-background-color:
+        hotpink,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_3 {
+    -fx-background-color:
+        blue,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_4 {
+    -fx-background-color:
+        green,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_5 {
+    -fx-background-color:
+        yellow,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_6 {
+    -fx-background-color:
+        purple,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_7 {
+    -fx-background-color:
+        orange,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}
+.component_manager_8 {
+    -fx-background-color:
+        navy,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}}
+.component_manager_9 {
+    -fx-background-color:
+        skyblue,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}}
+.component_manager_10 {
+    -fx-background-color:
+        pink,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+}}
+
+
+.rspec_background { 
+    -fx-background-color: #d6d6d6;
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+}
+
+.rspec_background_ready {
+    -fx-background-color: green;
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+}
+
+.rspec_background_changing {
+    -fx-background-color: yellow;
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+}
+
+.rspec_background_fail {
+    -fx-background-color: red;
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+}
+
+.rspec_test {
+    -fx-background-color: #c6c6c6;
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+}
+
+.rspec_switchlabel { 
+    -fx-background-color: 
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 0;
+    -fx-text-fill: black;
+}
+
+.rspec_switchlabel:hover {
+    -fx-background-color: blue, 
+        linear-gradient(to bottom, #00FF00, #99FF99);
+    -fx-background-insets: 0,2,2;
+}
+.rspec_selected_switchlabel {
+    -fx-background-color: #c3c4c4,
+        linear-gradient(to bottom, #00FF00, #99FF99);
+    -fx-background-insets: 0,2,2;
+}
+
+.rspec_selected_switchlabel:hover {
+    -fx-background-color: blue,
+        linear-gradient(to bottom, #00FF00, #99FF99);
+}
+.rspec_linklabel { 
+    -fx-background-color: 
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-insets: 0,1,1;
+    -fx-background-radius: 50;
+    -fx-text-fill: black;
+    
+}
+
+.rspec_linklabel:hover {
+    -fx-background-color: blue, 
+        linear-gradient(to bottom, #00FF00, #99FF99);
+}
+
+.rspec_link, .rspec_newlink, .rspec_newlink_end {     
+    -fx-stroke: blue;
+    -fx-stroke-width: 4;
+    -fx-stroke-line-cap: round;
+}

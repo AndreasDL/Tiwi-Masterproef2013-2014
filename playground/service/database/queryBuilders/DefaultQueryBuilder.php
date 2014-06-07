@@ -22,10 +22,10 @@ class DefaultQueryBuilder extends aQueryBuilder {
         }
         //testdefinition
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
-        //status => per subtest nu !!
-        $this->addInIfNeeded($query, $params, $paramsForUse, "status", "value");
+        //status => per subtest nu !! => gaat dus gwn resultaten teruggeven en die bepaalde subtesten negeren => niet nuttig
+        //$this->addInIfNeeded($query, $params, $paramsForUse, "status", "value");
         //resultid
-        $this->addInIfNeeded($query, $params, $paramsForUse, "resultId", "id");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "resultid", "id");
         //testname
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
         //from
@@ -61,7 +61,7 @@ class DefaultQueryBuilder extends aQueryBuilder {
     }
 
     public function buildTestbed(&$query, &$params, &$paramsForUse) {
-        $this->addInIfNeeded($query, $params, $paramsForUse, "testbedName", "testbedName");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testbedname", "testbedName");
         $this->addInIfNeeded($query, $params, $paramsForUse, "urn", "urn");//correcte codereing in html anders wordt + een spatie
         $this->addInIfNeeded($query, $params, $paramsForUse, "url", "url");
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane prefHeight="25.0" prefWidth="25.0" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" >  
+    <Rectangle height="25.0" width="25.0" arcHeight="10.0" arcWidth="10.0" stroke="#F4FC03">
+        <fill>
+            <LinearGradient startX="0" startY="0" endX="0" endY="1" proportional="true" cycleMethod="NO_CYCLE"  >
+                <stops>
+                    <Stop color="#F4FC03" offset="0" />
+                    <Stop color="#F4F79C" offset="0.5" />
+                    <Stop color="#F5FA64" offset="1.0" />
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Rectangle>
+    <Text stroke="#7080A0" text="AM" scaleX="0.75" scaleY="0.75"  >
+    </Text>
+</StackPane>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root type="javafx.scene.shape.Line" xmlns:fx="http://javafx.com/fxml" 
+         fx:id="link" styleClass="rspec_link"
+         startX="0.0" startY="0.0" endX="100.0" endY="150.0">
+</fx:root>

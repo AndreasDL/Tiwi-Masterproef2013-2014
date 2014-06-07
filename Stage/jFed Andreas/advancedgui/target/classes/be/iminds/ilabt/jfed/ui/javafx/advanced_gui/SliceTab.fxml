@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import be.iminds.ilabt.jfed.ui.javafx.rightClickPane.components.RspecEditorRightClickPane?>
+<?import be.iminds.ilabt.jfed.ui.rspeceditor.editor.RspecEditorPanel?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root type="javafx.scene.control.Tab" xmlns:fx="http://javafx.com/fxml" closable="true" text="Slice Details">
+    <graphic>
+        <fx:include fx:id="sliceGraphic" source="SliceGraphic.fxml"/>
+    </graphic>
+    <content>
+        <VBox>
+            <HBox>
+                <Label text="Refresh Slice: "/>
+                <Button text="All Info" onAction="#statusAndManifestSlice" />
+                <Button fx:id="rspecEditorGetStatusButton" text="All Statuses" onAction="#statusSlice" />
+                <Button fx:id="rspecEditorGetManifestButton" text="All Manifests" onAction="#getManifest" />
+            </HBox>
+
+            <TabPane fx:id="sliceTabs" prefHeight="-1.0" prefWidth="-1.0" rotateGraphic="false" VBox.vgrow="ALWAYS">
+                <tabs>
+                    <Tab fx:id="infoTab" closable="false" style="" text="Info">
+                        <VBox>
+                            <GridPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label text="URN:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label text="UUID:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label text="Creator UUID:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <Label text="Creator URN:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <Label text="Expiration Date:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                                <Label text="Gid:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                                <Label text="Credential:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+
+                                <TextField text="" fx:id="nameField"  GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+                                <TextField text="" fx:id="urnField"  GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                                <TextField text="" fx:id="uuidField"  GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false"/>
+                                <TextField text="" fx:id="creatorUuidField"  GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false"/>
+                                <TextField text="" fx:id="creatorUrnField"  GridPane.columnIndex="1" GridPane.rowIndex="4" editable="false"/>
+                                <TextField text="" fx:id="expirationDateField"  GridPane.columnIndex="1" GridPane.rowIndex="5" editable="false"/>
+                                <TextArea  text="" fx:id="gidField"  GridPane.columnIndex="1" GridPane.rowIndex="6" editable="false"/>
+                                <TextArea  text="" fx:id="credentialField"  GridPane.columnIndex="1" GridPane.rowIndex="7" editable="false"/>
+                            </GridPane>
+                            <Label text="Sliver Status: " >
+                                <VBox.margin>
+                                    <Insets top="40.0" />
+                                </VBox.margin>
+                            </Label>
+                            <ListView fx:id="sliverListView" VBox.vgrow="NEVER"/>
+                            <HBox>
+                                <Label text="Aggregate Status of Slice: " />
+                                <Label fx:id="sliceStatusLabel" text="" />
+                            </HBox>
+                            <Label text="Manually check for slivers on Another Authority:">
+                                <VBox.margin>
+                                    <Insets top="40.0" />
+                                </VBox.margin>
+                            </Label>
+                            <ListView fx:id="authorityListView" VBox.vgrow="NEVER"/>
+                            <Button text="check" onAction="#checkAuthorityForSlivers" />
+
+
+                        </VBox>
+                    </Tab>
+                    <Tab fx:id="rspecRequestTab" closable="false" style="" text="Create Sliver(s)">
+                        <VBox>
+                            <Label text="Request RSpec"/>
+                            <Button styleClass="bigBtn" fx:id="rspecEditorCommitButton" text="Create Sliver(s)" onAction="#createSlivers" >
+                                <VBox.margin>
+                                    <Insets top="10.0" bottom="10.0" left="10.0" right="10.0"/>
+                                </VBox.margin>
+                            </Button>
+                            <RspecEditorPanel fx:id="rspecRequestEditorPanel" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                    </Tab>
+                    <Tab fx:id="rspecManifestTab" closable="false" style="" text="Sliver Status">
+                        <VBox>
+                            <Label text="Sliver Status: " />
+                            <ListView fx:id="sliverListView2" VBox.vgrow="NEVER"/>
+                            <HBox>
+                                <Label text="Aggregate Status of Slice: " />
+                                <Label fx:id="sliceStatusLabel2" text="" />
+                            </HBox>
+                            <HBox>
+                                <Button fx:id="manifestToRequestEditorButton" text="Edit request based on manifest" onAction="#manifestToRequestEditor" />
+                                <Button fx:id="deleteSliceButton" text="Delete All Slivers in Slice" onAction="#deleteSlice" />
+                            </HBox>
+                            <RspecEditorPanel fx:id="rspecManifestEditorPanel" VBox.vgrow="ALWAYS"/>
+                        </VBox>
+                    </Tab>
+
+                    <Tab fx:id="rspecRightClickTad" closable="false" style="" text="RightClick Pane">
+                        <RspecEditorRightClickPane />
+                    </Tab>
+                    <!--</TabPane>-->
+                    <!--</Tab>-->
+                    <!--<Tab fx:id="statusTab" closable="false" style="" text="Status">-->
+                    <!--<Button text="Slice Status (on all involved AMs)" />-->
+                    <!--<Label text="Slivers:"/>-->
+                    <!--<ListView fx:id="sliverListView" VBox.vgrow="ALWAYS"/>-->
+                    <!--</Tab>-->
+                </tabs>
+            </TabPane>
+        </VBox>
+    </content>
+</fx:root>

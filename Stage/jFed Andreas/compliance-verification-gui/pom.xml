@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.iminds.ilabt.jfed</groupId>
+    <artifactId>compliance-verification-gui</artifactId>
+    <version>2.0</version>
+    <packaging>jar</packaging>
+
+    <name>jFed Compliance Verification GUI</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>6</source>
+                        <target>6</target>
+                    </configuration>
+                    <version>3.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+             <plugin>
+                <groupId>org.dstovall</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>1.4.4</version>
+
+                <executions>
+                    <execution>
+                        <id>build-first</id>
+                        <configuration>
+                            <mainClass>be.iminds.ilabt.jfed.ui.unittest_gui.UnitTestPanel</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>gui</classifier>
+                            <filename>jfed-compliance-tester-gui.jar</filename>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>be.iminds.ilabt.jfed.ui.unittest_gui.UnitTestPanel</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+           <!-- <scope>test</scope> --> <!-- not just scope test, as we want it available at runtime as well -->
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>baseui</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jfed-library</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>compliance-verification</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- works with 2005-03-28 basic thinlet and utah-thinlet. We prefer the basic thinlet -->
+        <dependency>
+            <groupId>net.sourceforge.thinlet</groupId>
+            <artifactId>thinlet</artifactId>
+            <version>2005-03-28</version>
+        </dependency>
+    </dependencies>
+</project>
+
+
+

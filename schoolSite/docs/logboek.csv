@@ -1,0 +1,59 @@
+dag ,van,tot ,duur,uren totaal,uren te gaan,wat
+7/08/13,14:00,15:00,1.00,1.00,624.00,eerste samenkomst iminds bespreking stage
+9/09/13,09:00,12:00,3.00,4.00,621.00,stage
+9/09/13,13:00,17:00,4.00,8.00,617.00,stage
+10/09/13,09:00,12:00,3.00,11.00,614.00,stage
+10/09/13,13:00,17:00,4.00,15.00,610.00,stage
+11/09/13,09:00,12:00,3.00,18.00,607.00,stage
+11/09/13,13:00,17:00,4.00,22.00,603.00,stage
+12/09/13,09:00,12:00,3.00,25.00,600.00,stage
+12/09/13,13:00,17:00,4.00,29.00,596.00,stage
+13/09/13,09:00,12:00,3.00,32.00,593.00,stage
+13/09/13,13:00,17:00,4.00,36.00,589.00,stage
+15/09/13,16:00,18:30,2.50,38.50,586.50,stage
+16/09/13,09:00,12:00,3.00,41.50,583.50,stage
+16/09/13,13:00,17:00,4.00,45.50,579.50,stage
+17/09/13,09:00,12:00,3.00,48.50,576.50,stage
+17/09/13,13:00,17:00,4.00,52.50,572.50,stage
+18/09/13,09:00,12:00,3.00,55.50,569.50,stage
+18/09/13,13:00,17:00,4.00,59.50,565.50,stage
+19/09/13,09:00,12:00,3.00,62.50,562.50,stage
+19/09/13,13:00,17:00,4.00,66.50,558.50,stage
+19/09/13,19:00,20:00,1.00,67.50,557.50,stage
+20/09/13,09:00,12:00,3.00,70.50,554.50,stage
+20/09/13,13:00,16:00,3.00,73.50,551.50,uitleg scriptie
+14/10/13,14:00,15:00,1.00,74.50,550.50,bespreking interne promotor
+18/11/13,15:00,16:00,1.00,75.50,549.50,bespreking masterproef voorstel op iMinds
+19/11/13,18:00,21:00,3.00,78.50,546.50,eerste versie voorstel
+27/11/13,18:00,19:30,1.50,80.00,545.00,herwerken voorstel
+6/12/14,10:30,11:00,0.50,80.50,544.50,bespreking masterproef voorstel interne promotor
+10/12/13,19:00,20:30,1.50,82.00,543.00,herwerken voorstel kader beter schetsen
+10/02/14,14:00,15:00,1.00,83.00,542.00,bespreking eerste taken
+11/02/14,08:50,12:20,3.50,86.50,538.50,registratie accounts + tutorial jFed overlopen + code jFed bekijken
+11/02/14,12:50,15:05,2.25,88.75,536.25,lamp opzetten & php tutorial
+11/02/14,18:00,20:00,2.00,90.75,534.25,php tutorial afwerken
+12/02/14,11:30,16:00,4.50,95.25,529.75,lezen pdf over jFed binnenhalen svn & huidige code bekijken
+12/02/14,16:20,17:30,1.17,96.42,528.58,code doornemen & 
+15/02/14,16:30,18:30,2.00,98.42,526.58,website maken
+16/02/14,15:45,18:00,2.25,100.67,524.33,website maken
+16/02/14,19:00,19:30,0.50,101.17,523.83,opzoeken webservices
+17/02/14,09:00,12:00,3.00,104.17,520.83,tomcat installeren mysql installeren
+17/02/14,12:35,17:35,5.00,109.17,515.83,glassfish installeren mysql installeren maken php restful webservice maken
+18/02/14,09:30,11:50,2.33,111.50,513.50,mysql database maken 
+18/02/14,12:45,15:00,2.25,113.75,511.25,Voorbereiding vergadering & vergadering
+19/02/14,09:20,12:00,2.67,116.42,508.58,overzicht vergadering maken & mailen + latex tutorial
+19/02/14,12:30,15:15,2.75,119.17,505.83,use cases maken
+19/02/14,15:45,18:00,2.25,121.42,503.58,use cases en beschrijving uitwerking afwerken
+20/02/14,10:30,12:30,2.00,123.42,501.58,voordracht het leven van een functioneel analist bij telenet
+20/02/14,21:45,22:15,0.50,123.92,501.08,opmerkingen use cases aanpassen + op site zetten
+23/02/14,12:20,12:50,0.50,124.42,500.58,interface webservices eerste manier proberen
+23/02/14,15:50,19:00,3.17,127.58,497.42,prototype database & getPing.php + database design uitschrijven
+24/02/14,08:30,11:30,3.00,130.58,494.42,get ping aanpassen & bespreking database design
+24/02/14,12:40,15:15,2.58,133.17,491.83,analyse opbouw webinterface mogelijkheden vergelijken
+24/02/14,15:30,17:30,2.00,135.17,489.83,uitschrijven webinterface
+25/02/14,09:20,11:30,2.17,137.33,487.67,bespreking webinterface design + bekijken voorbeelden rest api & herwerking 
+25/02/14,12:35,17:00,4.42,141.75,483.25,designing a good rest api
+26/02/14,09:30,11:20,1.83,143.58,481.42,uitschrijven webservice + bespreking interne promotor
+26/02/14,11:20,11:50,0.50,144.08,480.92,bespreking interne promotor
+26/02/14,12:50,15:00,2.17,146.25,478.75,uitschrijven webinterface voorbeelden return waarden
+26/02/14,15:40,18:00,2.33,148.58,476.42,afwerken webinterface + aanpassingen site

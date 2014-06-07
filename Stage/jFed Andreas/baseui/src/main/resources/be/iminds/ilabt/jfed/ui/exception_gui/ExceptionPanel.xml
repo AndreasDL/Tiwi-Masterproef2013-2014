@@ -1,0 +1,34 @@
+<!--<dialog name="dialog" text="Dialog" top="4" left="4" bottom="4" right="4" gap="4" columns="1">-->
+
+    <panel name="exceptionPanel" columns="1" gap="4" top="4" left="4">
+        <textarea wrap="true" editable="false" name="brief" text="Error: Unknown" init="initExceptionPanel(brief, details, exMessage, stacktrace, serverURL, httpSent, httpRecv)"/>
+        <tabbedpane name="" placement="top" selected="0" colspan="1" weightx="1" weighty="1">
+            <tab text="Message">
+                <textarea name="details" editable="false"  weightx="1" weighty="1" wrap="true" columns="100" rows="10"/>
+            </tab>
+            <tab text="Stacktrace">
+                <panel columns="1" gap="4" top="4" left="4"  weightx="1" weighty="1">
+                    <textarea wrap="true" editable="false" name="exMessage" text="" />
+                    <textarea name="stacktrace" editable="false"  weightx="1" weighty="1" wrap="true" columns="100" rows="10"/>
+                    <panel halign="center">
+                        <button name="printButton" text="Print to console" halign="center" action="printToConsole()" />
+                    </panel>
+                </panel>
+            </tab>
+            <tab text="HTTP">
+                <panel columns="1" gap="4" top="4" left="4"  weightx="1" weighty="1">
+                    <label text="Server URL:"/>
+                    <label text="" name="serverURL"/>
+                    <label text="HTTP Sent:"/>
+                    <textarea wrap="true" editable="false" name="httpSent" text="" columns="100" rows="10" weightx="1" weighty="1" />
+                    <label text="HTTP Received:"/>
+                    <textarea wrap="true" editable="false" name="httpRecv" text="" columns="100" rows="10" weightx="1" weighty="1" />
+                </panel>
+            </tab>
+        </tabbedpane>
+        <panel  halign="center">
+            <button name="okButton" text="OK" halign="center" action="close()" />
+        </panel>
+    </panel>
+
+<!--</dialog>-->

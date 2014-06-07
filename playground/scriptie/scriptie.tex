@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper,oneside]{book}
 %\usepackage[utf8]{inputenc} 	
 \usepackage{a4wide}                     % Iets meer tekst op een bladzijde
-\usepackage[dutch]{babel}               % Voor nederlandstalige hyphenatie (woordsplitsing)
+\usepackage[english,dutch]{babel}               % Voor nederlandstalige hyphenatie (woordsplitsing)
 \usepackage{amsmath}                    % Uitgebreide wiskundige mogelijkheden
 \usepackage{amssymb}                    % Voor speciale symbolen zoals de verzameling Z, R...
 \usepackage{makeidx}                    % Om een index te maken
@@ -21,7 +21,9 @@
 \usepackage[Gray,squaren,thinqspace,thinspace]{SIunits} % Om elegant eenheden te zetten
 \usepackage[version=3]{mhchem}          % Voor elegante scheikundige formules
 \usepackage{pdfpages}					% Pdf includeren
-\usepackage{nomencl}
+\usepackage{subcaption}					% 2 figuren naast mekaar, met elk een caption
+\usepackage[bottom]{footmisc}			% footnotes forceren naar bottom
+\usepackage{nomencl}					%afkortingen
 \makenomenclature %update bij every run
 \renewcommand{\nomname}{Lijst van afkortingen}
 
@@ -205,6 +207,11 @@
 
 \newenvironment{samenvatting}{\small}{}
 
+\lstset{
+	language={Python},
+	showspaces=false,
+	showstringspaces=false
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Einde van de preamble.
@@ -251,18 +258,16 @@
 \input{Opbouw}%opbouw & vereisten
 \input{Techno}%technologieën die gebruikt kunnen worden php <=> jsf/jsp
 \input{Uitwerking} 
-%use cases?
-%\input{OntwerpService}
-%\input{OntwerpDatabank}
-%\input{Keuzes}
-%werking
+\input{Stresstest}
 %besluit
 
 % De appendices:
 \appendix
-
-
-
+%lijst van functies
+%toevoegen testen
+\input{VerslagStresstest}
+\input{Reference}
+\input{Onderhoud}
 
 % De bibliografie en de index
 \backmatter
@@ -271,6 +276,4 @@
 
 %\printindex                             % Om de index af te printen, niet bij een thesis.
 
-
 \end{document}
-

@@ -35,7 +35,7 @@ Deze tabel zal alle resultaten bijhouden. Elk resultaat heeft een bijhorende log
 \clearpage
 \section{Webservice / API}
 \npar
-De webservice zal informatie uit de databank ophalen en omvormen naar object. Dit verloopt in een aantal fasen, zoals schematisch weergegeven in Figuur \ref{structAPI}.
+De webservice zal informatie uit de databank ophalen en omvormen naar object. Dit verloopt in een aantal fasen, zoals weergegeven in Figuur \ref{structAPI}.
 \mijnfiguur{width=1\textwidth}{structAPI}{De werking van de API}
 \clearpage
 \subsection{Fasen}
@@ -45,11 +45,97 @@ De stappen die overlopen worden zijn:
 \item parsen aanvraag.
 \item query opbouwen
 \item uitvoeren query
-\item opbjecten bouwen
+\item objecten bouwen
 \item encoderen objecten
 \end{enumerate}
-De tekst hieronder zal kort een overzicht geven van elke stap. Op het einde van de uitleg wordt 
+De tekst hieronder zal kort een overzicht geven van elke stap.
 \subsection{Parsen aanvraag}
 \npar
-Dit is de eerste stap, hierbij worden de get en post parameters opgenomen.
-Er zijn 2 soorten aanvragen: normale aanvragen en GENI datastore aanvragen. Bij GENI datastore aanvragen worden de parameters ge\"encodeerd in json.
+Er zijn drie soorten aanvragen, de eerste behandeld het opvragen van configuratiegegevens, terwijl de volgende ophalen en toevoegen van resultaten bevat. De laatste groep aanvragen is noodzakelijk voor de monitoringsservice en betreft het ophalen van testen en aanpassen van scheduling.
+
+\npar
+Aanvragen van de eerste groep zijn:
+\begin{enumerate}
+\item testbed, geeft informatie weer over een of meerdere testbeds.
+\item user: geeft informatie weer over een of meerdere users.
+\item testDefinition: geeft informatie weer over de opbouw van een test.
+\item testInstance: geeft informatie weer over de testen.
+\end{enumerate}
+
+De tweede groep gaat over het opvragen van resultaten:
+\begin{enumerate}
+\item last: geeft de laatste resultaten weer.
+\item list: geeft een lijst met resultaten weer.
+\item q: wordt gebruikt voor het afhandelen van GENI aanvragen. Hierbij wordt de aanvraag ge\"encodeerd in json, het antwoord wordt ge\"encodeerd volgens GENI dataschema's (zie ook de reference in bijlage B).
+\end{enumerate}
+
+\clearpage
+Een derde groep aanvragen verzorgt het uitvoeren van de testen en de scheduling:
+\begin{enumerate}
+\item testInstance gefilterd op nextrun: geeft de testen weer die uitgevoerd moeten worden op een zeker tijdsstip.
+\item updateNextrun: zal het moment waarop de volgende test uitgevoerd moet worden aanpassen.
+\item addResult: zal een nieuw resultaat toevoegen aan de databank hiervoor met het type wel een HTTP-post request zijn.
+\end{enumerate}
+\npar
+Voor een complete lijst van aanvragen en filter mogelijkheden wordt verwezen naar de reference die is toegevoegd in bijlage B.
+\subsection{Aanmaken query}
+\npar 
+In deze stap wordt de query aangemaakt; opgegeven filters worden vertaald naar SQL syntacs. Bijvoorbeeld:
+\begin{lt}
+/last?testdefinitionname=ping,stitching
+\end{lt}
+zal vertaald worden naar een where clause :
+\begin{lt}
+... where testdefinitionname IN (ping,stitching) ...
+\end{lt}
+\npar
+Dit wordt gedaan door de QueryBuilder, een interface die verschillende implementaties heeft om verschillende types aanvragen te behandelen. Zo wordt de GENI aanvraag door een andere queryBuilder afgehandeld dan een standaard aanvraag.
+
+\subsection{Uitvoeren query}
+\npar
+In deze stap wordt de query uitgevoerd met behulp van de php-pgsql module die de verbinding tussen PHP code en een postgreSQL databank afhandeld.
+\clearpage
+\subsection{Bouwen objecten}
+\npar
+In deze stap worden het resultaat van de query lijn per lijn overlopen en worden objecten gevormd. Door de structuur van de databank worden meerdere lijnen samengenomen om een object te vormen. Dit komt door de aparte tabellen die gelinkt worden, waardoor er voor elke parameter een andere lijn ontstaat.
+\npar
+Om compabiliteit te verhogen worden er geen klassen zoals testbed, user en test aangemaakt, maar wordt alles direct opgeslagen in geneste array\footnote{Merk op dat een PHP array zowel een map als een array is.}. Hierdoor gaat er minder tijd verloren met de aanmaak van objecten die vervolgens terug omgevormd moeten worden naar het specifieke dataschema. Dit wordt gedaan door de Fetcher, opnieuw wordt hier gebruik gemaakt van overerving om andere structuren zoals voor GENI datastore te voorzien.
+\subsection{Encoderen van objecten}
+\npar
+De encodering is de laatste stap die het mogelijk maakt om objecten te versturen over een netwerk. De encodering wordt gedaan in JSON door de formatter. Door overerving kan hier gemakkelijk gezorgd worden voor extra coderingen bijvoorbeeld xml-encodering.
+\section{Service}
+\npar
+De service werkt met meerdere threads, er is \'e\'en hoofdthread die testen ophaalt via de API en toevoegd aan een queue. Vervolgens zal een threadpool de testen een voor een uit de queue halen en uitvoeren. De grootte van de testpool is instelbaar, standaard is dit $cpu_{cores} * 2 + 1$.
+\npar
+Elke test wordt uitgevoerd op een aparte thread. Tijdens de uitvoering wordt verbinding gemaakt met een of meerdere testbeds via de jFed automated tester. Deze geeft een XML-file terug waar de tussenresultaten uit geparset worden. Deze resultaten worden vervolgens doorgegeven aan de resultuploader.
+\npar
+De resultuploader staat in voor het doorsturen van resultaten naar de API en draait op een aparte thread. Hierbij wordt ook de volgende uitvoeringstijd aangepast. Dit proces wordt beschreven in Figuur \ref{structService}.
+\mijnfiguur{width=1\textwidth}{structService}{De werking van de monitoringsservice}
+\clearpage
+\section{Website}
+\npar
+De website bestaat uit een aantal verschillende interfaces waarvan de eerste de FLS (First Level Support) monitor is. Deze heeft als doel om voor elk testbed een snelle, eenvoudige statusweergave te voorzien. Een screenshot is te zien in Figuur \ref{flsnieuw}.
+\mijnfiguur{width=1\textwidth}{flsnieuw}{FLS monitor}
+\npar
+Een volgende interface wordt gebruikt om detail resultaten weer te geven voor \'e\'en testtype. In Figuur \ref{loginnieuw} wordt een overzicht gegeven van de login testen\footnote{Login2 in de titel is te verklaren dat dit login testen zijn voor aggregate manager 2}. Op deze figuur kan eenvoudig afgelezen worden dat de test voor het eerste testbed mislukt is en dat de oorzaak daarvan bij stap twee en vier (in rood) ligt. Diezelfde test is wel gelukt voor wall1 en wall2, maar met een waarschuwing bij stap 5.
+\mijnfiguur{width=1\textwidth}{loginnieuw}{Overzicht van resultaten van de login testen.}
+\clearpage
+\npar
+Tenslotte is er nog een overzicht van de geschiedenis van een specifieke test, dit is zichtbaar in Figuur{histnieuw}. Wanneer de cursor over een tussenresultaat gaat, verschijnt er een tooltip\footnote{Maakt gebruik van powertip, beschikbaar op http://stevenbenner.github.io/jquery-powertip/} waarop de naam van de subtest samen met de status wordt weergegeven\footnote{Dit is ook mogelijk bij de weergave van een test.}.
+\mijnfiguur{width=1\textwidth}{histnieuw}{Geschiedenis van een login test.}
+\npar 
+Bij elke test is het mogelijk om de console uitvoer te bekijken, deze is beschikbaar in de log. Naast de console uitvoer genereert de automated tester ook een XML en HTML file met informatie over het verloop van de test. Deze zijn ook beschikbaar, zie Figuur \ref{overviewxml} en Figuur \ref{overviewhtml}.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.45\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{overviewxml}
+  \caption{\label{overviewxml} De originele overview in XML formaat}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{overviewhtml}
+  \caption{\label{overviewhtml}Overview in html formaat}
+\end{subfigure}
+\caption{Naast de console uitvoer zijn ook het originele resultaat in XML formaat en het overeenkomstige HTML formaat beschikbaar.}
+\end{figure}

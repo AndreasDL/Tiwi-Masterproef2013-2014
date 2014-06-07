@@ -1,0 +1,41 @@
+<panel name="resultPanel" columns="3" gap="4" top="4" left="4" colspan="1" weightx="1" weighty="1" >
+    <label text="Result History:"  weightx="0" />
+    <combobox name="resultChoice" text="" action="resultSelected(resultChoice)" weightx="1" />
+    <button text="Save to file..." action="saveAllResultToFile()" weightx="0" />
+    <!--<label name="header" text="" />-->
+    <tabbedpane name="serverPane" placement="top" selected="0" colspan="3" weightx="1" weighty="1" >
+        <tab text="Result">
+            <panel columns="2" gap="4" top="4" left="4" weightx="1" weighty="1" >
+                <label text="Result:"  weightx="1" /><button text="Save to file..." action="saveResultToFile(resultText)" weightx="0" />
+                <textarea name="resultText" wrap="true" columns="40" rows="3" editable="false" weightx="1" weighty="1" colspan="2" />
+            </panel>
+        </tab>
+        <tab text="Low Level Result">
+            <panel columns="2" gap="4" top="4" left="4" weightx="1" weighty="1" >
+                <label text="Result Hashtable:"  weightx="1" /><button text="Save to file..." action="saveResultToFile(resultRawText)" weightx="0" />
+                <textarea name="resultRawText" wrap="true" columns="40" rows="10" editable="false" weightx="1" weighty="1" colspan="2" />
+            </panel>
+        </tab>
+        <tab text="XmlRpc Details">
+            <panel columns="2" gap="4" top="4" left="4" weightx="1" weighty="1" >
+                <label text="XmlRpc Vector Sent:" weightx="1"/><button text="Save to file..." action="saveResultToFile(xmlSent)" weightx="0" />
+                <textarea name="xmlSent" wrap="true" columns="40" rows="3" editable="false" weightx="1" weighty="1" colspan="2" />
+
+                <label text="XmlRpc Hashtable Received:" weightx="1"/><button text="Save to file..." action="saveResultToFile(xmlReply)" weightx="0" />
+                <textarea name="xmlReply" wrap="true" columns="40" rows="10" editable="false" weightx="1" weighty="2" colspan="2" />
+            </panel>
+        </tab>
+        <tab text="HTTP Details">
+            <panel columns="2" gap="4" top="4" left="4" weightx="1" weighty="1" >
+                <label text="Server URL:" colspan="2" />
+                <textfield name="serverUrl" columns="40" editable="false" weightx="1" colspan="2"/>
+
+                <label text="HTTP Sent:" weightx="1" /><button text="Save to file..." action="saveResultToFile(httpSent)" weightx="0" />
+                <textarea name="httpSent" wrap="true" columns="40" rows="3" editable="false" weightx="1" weighty="1" colspan="2" />
+
+                <label text="HTTP Reply:" weightx="1"/><button text="Save to file..." action="saveResultToFile(httpReply)" weightx="0" />
+                <textarea name="httpReply" wrap="true" columns="40" rows="10" editable="false" weightx="1" weighty="2" colspan="2" />
+            </panel>
+        </tab>
+    </tabbedpane>
+</panel>

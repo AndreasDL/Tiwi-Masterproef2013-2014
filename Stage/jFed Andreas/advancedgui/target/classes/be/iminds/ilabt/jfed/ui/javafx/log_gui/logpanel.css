@@ -1,0 +1,15 @@
+.select_log_label {
+   -fx-font: 16px sans-serif;
+   -fx-text-fill: black;
+}
+
+
+.select_log_label_success {
+     -fx-text-fill: green
+ }
+.select_log_label_fail {
+     -fx-text-fill: red
+ }
+.select_log_label_busy {
+     -fx-text-fill: orange
+ }

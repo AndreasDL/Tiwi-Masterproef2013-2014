@@ -1,0 +1,226 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.iminds.ilabt.jfed</groupId>
+    <artifactId>baseui</artifactId>
+    <version>2.0</version>
+    <packaging>jar</packaging>
+
+    <name>jFed Base UI</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <!-- JavaFX is included in java7 -->
+                        <!--
+                        <source>7</source>
+                        <target>7</target>
+                        -->
+                        <!-- expect for java7, would require:
+                        -->
+                        <source>6</source>
+                        <target>6</target>
+                    </configuration>
+                    <version>3.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeArtifactIds>javafx</excludeArtifactIds>
+                            <excludes>javafx/**</excludes>
+                            <outputDirectory>${project.build.directory}/extracted-libs</outputDirectory>
+                            <includeScope>compile</includeScope>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>create-javafx-packages</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target xmlns:fx="javafx:com.sun.javafx.tools.ant">
+                                <taskdef
+                                   uri="javafx:com.sun.javafx.tools.ant"
+                                   resource="com/sun/javafx/tools/ant/antlib.xml"
+                                   classpath="${java.home}/../lib/ant-javafx.jar"/>
+                                <fx:application id="jfed-probe"
+                                               name="jfed-probe"
+                                               fallbackClass="be.iminds.ilabt.jfed.ui.nojavafx_gui.NoJavaFxScreen"
+                                               mainClass="be.iminds.ilabt.jfed.ui.lowlevel_gui.ManualCommandPanel"/>
+                                <fx:jar destfile="${project.build.directory}/jfed-probe.jar">
+                                    <fx:application refid="jfed-probe"/>
+                                    <fx:fileset dir="${project.build.directory}/classes"/>
+                                    <fx:fileset dir="${project.build.directory}/extracted-libs"/>
+                                </fx:jar>
+                                <attachartifact file="${project.build.directory}/jfed-probe.jar" classifier="probe" type="jar"/>
+
+                                <jar destfile="${project.build.directory}/jfed-probe-cli.jar">
+                                    <fileset dir="${project.build.directory}/classes"/>
+                                    <fileset dir="${project.build.directory}/extracted-libs"/>
+                                    <manifest>
+                                        <attribute name="Main-Class" value="be.iminds.ilabt.jfed.ui.commandline.CommandLineClient"/>
+                                        <attribute name="Built-By" value="${user.name}"/>
+                                        <attribute name="Implementation-Vendor" value="iMinds"/>
+                                        <attribute name="Implementation-Title" value="jFed Probe CLI"/>
+                                        <attribute name="Implementation-Version" value="${project.version}"/>
+                                    </manifest>
+                                </jar>
+                                <attachartifact file="${project.build.directory}/jfed-probe-cli.jar" classifier="probe-cli" type="jar"/>
+                                <jar destfile="${project.build.directory}/jfed-probe-gui-NoJavaFX.jar">
+                                    <fileset dir="${project.build.directory}/classes"/>
+                                    <fileset dir="${project.build.directory}/extracted-libs"/>
+                                    <manifest>
+                                        <attribute name="Main-Class" value="be.iminds.ilabt.jfed.ui.lowlevel_gui.ManualCommandPanel"/>
+                                        <attribute name="Built-By" value="${user.name}"/>
+                                        <attribute name="Implementation-Vendor" value="iMinds"/>
+                                        <attribute name="Implementation-Title" value="jFed Probe GUI without JavaFX"/>
+                                        <attribute name="Implementation-Version" value="${project.version}"/>
+                                    </manifest>
+                                </jar>
+                                <attachartifact file="${project.build.directory}/jfed-probe-gui-NoJavaFX.jar" classifier="gui-NoJavaFX" type="jar"/>
+                                
+                                <fx:deploy width="1024" height="768" 
+                                    outdir="${project.build.directory}/javafx-output" outfile="jfed-probe" 
+                                    embedJNLP="true">
+                                    <fx:application refid="jfed-probe"/>
+                                    <fx:resources>
+                                        <fx:fileset dir="${project.build.directory}" includes="jfed-probe.jar"/>
+                                        <fx:fileset dir="${project.build.directory}" includes="libs/*.jar"/>
+                                    </fx:resources>
+                                    <fx:permissions elevated="true"/>
+                                    <fx:info title="jFed Probe" vendor="iMinds"/>
+                                </fx:deploy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+                <!--
+             <plugin>
+                <groupId>org.dstovall</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>1.4.4</version>
+
+                <executions>
+                    <execution>
+                        <id>build-first</id>
+                        <configuration>
+                            <mainClass>be.iminds.ilabt.jfed.ui.lowlevel_gui.ManualCommandPanel</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>probe-gui</classifier>
+                            <filename>jfed-probe-gui.jar</filename>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-second</id>
+                        <configuration>
+                            <mainClass>be.iminds.ilabt.jfed.ui.commandline.CommandLineClient</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>probe-cli</classifier>
+                            <filename>jfed-probe-cli.jar</filename>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+
+            </plugin>
+                -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jfed-library</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rspecedit_jfx</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- works with 2005-03-28 basic thinlet and utah-thinlet. We prefer the basic thinlet -->
+        <dependency>
+            <groupId>net.sourceforge.thinlet</groupId>
+            <artifactId>thinlet</artifactId>
+            <version>2005-03-28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>geni-rspec-binding</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- needed because java7 does not correctly export the included JavaFX lib. see also http://blog.cag.se/?p=752 and in particular the last comment there. -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.2</version>
+            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+    </dependencies>
+</project>
+
+

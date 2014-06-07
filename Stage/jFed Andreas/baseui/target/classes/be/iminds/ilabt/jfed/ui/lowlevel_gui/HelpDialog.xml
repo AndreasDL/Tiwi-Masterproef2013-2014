@@ -1,0 +1,8 @@
+<!--<dialog name="dialog" text="Help"-->
+<!--scrollable="true" resizable="true" closable="true"-->
+<!--top="8" left="8" bottom="8" right="8" gap="4" columns="1">-->
+<panel columns="1" weightx="1" weighty="1">
+    <label name="label" text="help"/>
+    <textarea editable="false" name="fulltext" wrap="true" weightx="1" weighty="1"/>
+</panel>
+        <!--</dialog>-->

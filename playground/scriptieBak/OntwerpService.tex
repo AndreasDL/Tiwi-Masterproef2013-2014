@@ -1,0 +1,283 @@
+\newpage
+\chapter{Ontwerp service}
+
+In dit hoofdstuk wordt de interface van de webservice besproken. Daarna worden er enkele voorbeelden van calls uitgewerkt.
+
+\section{Api Calls}
+De calls kunnen opgedeeld worden in 2 grote groepen.
+\begin{itemize}
+\item Results: Het opvragen van resultaten van een test.
+\item Configuration: Het opvragen, aanpassen en aanmaken van testen en de bijhorende configuratie.
+\end{itemize}
+
+\section{Calls - Results}
+Voor het opvragen van resultaten wordt gebruik gemaakt van een generische functie.
+
+\subsection{Functies}
+Er zijn een aantal functies voorzien voor het opvragen van de resultaten.
+\begin{itemize}
+\item last: Deze functie geeft het laatste/ de laatste resultaat/resultaten terug (per test,testbed).
+\item list: Deze functie geeft een lijst resultaten die voldoen aan de opgegeven parameters. Deze lijst kan gefilterd worden, bijvoorbeeld enkel resultaten opvragen die tussen bepaalde data vallen.
+%average weggelaten => enkel nuttig bij ping test dus mss niet nuttig
+\item detail: Deze functie geeft een detailweergave terug van een test. Deze detail weergave kan bijvoorbeeld ook logfiles bevatten om debugging te vergemakkelijken.
+\end{itemize}
+
+\subsection{Parameters}
+Hier worden de parameters besproken. Deze parameters zullen het resultaat van de functies hierboven filteren.
+
+\begin{itemize}
+\item testbed: Deze parameter duidt een of meerdere testbeds aan.
+\item testtype: Deze parameter duidt het type van de test aan.
+\item status: Deze parameter duidt de status aan. Let op dit is per subtest.
+\item count: Deze parameter geeft het aantal laatste resultaten aan dat teruggegeven wordt. 
+\item from: Geeft aan vanaf welke timestamp er gezocht moet worden.
+\item till: Geeft aan tot welke timestamp de resultaten gezocht moeten worden.
+\item resultid: Geeft een of meerdere id\rq s van een testresultaat.
+\item testname: De naam van de test. Voornamelijk nodig bij stitching tests omdat er daar meerdere testbeds in betrokken zijn.
+\item instanceId: Filteren op de testinstantie, gelijkaardig aan de testname.
+\item format: Deze parameter dient niet om de resultaten te filteren, maar om het formaat van het resultaat te bepalen. Standaard is dit json, later kan eventueel xml en/of csv toegevoegd worden.
+\end{itemize}
+Indien bij tests of bij testbeds de waarde all wordt gegeven, worden respectievelijk alle tests of alle testbeds teruggegeven. Ook is het mogelijk om meerdere waarden te bundelen, zie bij de voorbeelden.
+\clearpage
+
+\subsection{Voorbeelden}
+Hieronder worden een aantal voorbeelden van calls en bijhorende antwoorden geven.
+
+\subsubsection{last?testbed=urn-testbed0\&testtype=ping\&count=2}
+Deze call geeft voor testbed0 de laatste 2 ping resultaten terug.
+\begin{verbatim}
+{
+    "177": {
+        "testinstanceid": "1",
+        "testtype": "ping",
+        "testname": "ping voor testbed0",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/1\/1386",
+        "timestamp": "2014-03-18 19:29:12.876569",
+        "testbeds": [
+            "urn-testbed0"
+        ],
+        "results": {
+            "pingValue": "166"
+        }
+    },
+    "155": {
+        "testinstanceid": "1",
+        "testtype": "ping",
+        "testname": "ping voor testbed0",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/1\/1615",
+        "timestamp": "2014-03-18 19:29:09.138309",
+        "testbeds": [
+            "urn-testbed0"
+        ],
+        "results": {
+            "pingValue": "223"
+        }
+    }
+}
+\end{verbatim}
+
+\clearpage
+\subsubsection{last?testbed=ALL\&testtype=ping}
+Deze call geeft voor elk testbed de laatste ping resultaten terug.
+\begin{verbatim}
+{   "177": {
+        "testinstanceid": "1",
+        "testtype": "ping",
+        "testname": "ping voor testbed0",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/1\/1386",
+        "timestamp": "2014-03-18 19:29:12.876569",
+        "testbeds": [ "urn-testbed0" ],
+        "results": { "pingValue": "166" }
+    },"178": {
+        "testinstanceid": "2",
+        "testtype": "ping",
+        "testname": "ping voor testbed1",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/2\/9739",
+        "timestamp": "2014-03-18 19:29:12.889286",
+        "testbeds": [ "urn-testbed1" ],
+        "results": { "pingValue": "112" }
+    },"187": {
+        "testinstanceid": "11",
+        "testtype": "ping",
+        "testname": "ping voor testbed10",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/11\/4280",
+        "timestamp": "2014-03-18 19:29:13.039074",
+        "testbeds": [ "urn-testbed10" ],
+        "results": { "pingValue": "106" }
+    },"188": {
+        "testinstanceid": "12",
+        "testtype": "ping",
+        "testname": "ping voor testbed11",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/12\/2792",
+        "timestamp": "2014-03-18 19:29:13.055714",
+        "testbeds": [ "urn-testbed11" ],
+        "results": { "pingValue": "156" }
+    }
+    ...
+}
+\end{verbatim}
+
+\subsubsection{list?from=2014-03-18T19:29:00\&till=2014-03-18T19:29:10\&testtype=ping\&testbed=urn-testbed1}
+Deze call geeft een lijst van de pingtests tussen 2014-03-18 19:29:00 en 2014-03-18 19u29:10 op testbed1 terug.
+\begin{verbatim}
+{
+    "156": {
+        "testinstanceid": "2",
+        "testtype": "ping",
+        "testname": "ping voor testbed1",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/2\/2306",
+        "timestamp": "2014-03-18 19:29:09.152291",
+        "testbeds": [
+            "urn-testbed1"
+        ],
+        "results": {
+            "pingValue": "66"
+        }
+    },
+    "134": {
+        "testinstanceid": "2",
+        "testtype": "ping",
+        "testname": "ping voor testbed1",
+        "log": "http:\/\/f4f-mon-dev.intec.ugent.be\/logs\/2\/1991",
+        "timestamp": "2014-03-18 19:29:05.413795",
+        "testbeds": [
+            "urn-testbed1"
+        ],
+        "results": {
+            "pingValue": "24"
+        }
+    },
+    ...
+}
+\end{verbatim}
+\clearpage
+\section{Calls - configuration}
+Deze calls hebben het doel om de configuratie van een test op te vragen.
+
+\subsection{Functies}
+Er zijn (uiteraard) ook een aantal functies voor het opvragen van de testconfiguratie.
+\begin{itemize}
+\item TestDefinition : Geeft de definitie van een testweer. Deze bevat informatie over de naam, het commando. Verder duidt deze definitie ook aan welke parameters er nodig zijn en welke waarden er terug gegeven worden. Het is de bedoel om hier te defini\"eren dat een pingtest bijvoorbeeld bestaat uit een ping commando en dat deze een time-out en een testbed moet meekrijgen. 
+\item Testbed: Geeft een of meerdere testbeds aan waarop de testinstantie gedefini\"eerd moet worden.
+\end{itemize}
+
+Deze opsplitsing is noodzakelijk om flexibiliteit aan te bieden. 
+Een ping test wordt op meerdere testbeds uitgevoerd. Door deze opbouw moet een ping test maar eenmalig gedefini\"eerd worden. Als we de uitwerking vergelijking met het model-view-controller pattern, geeft de definition de klasse, de instance kan gezien worden als een object van die klasse.
+
+\subsection{Parameters}
+
+\begin{itemize}
+\item testtype: Deze parameter duidt aan welke testtype opgevraagd wordt.
+\item testinstanceId: Deze parameter duidt aan welke instance opgevraagd wordt. Er is geen equivalente variant voor testdefinition, omdat het testtype daar de unieke id voorstelt.
+\end{itemize}
+Het is ook mogelijk om als waarde ALL of een lijst van id's op te geven.
+
+\subsection{Voorbeelden}
+Hieronder worden een aantal mogelijke calls weergegeven. 
+
+\clearpage
+\subsubsection{testDefinition?testtype=stitch}
+Deze call geeft de beschrijving van een stitching test terug.
+\begin{verbatim}
+{   "stitch": {
+        "testcommand": "stitch",
+        "parameters": {
+            "topology": {
+                "type": "string",
+                "description": "ring | line"
+            },"testbedId": {
+                "type": "testbedId[]",
+                "description": "multiple testbeds for ping test"
+            }
+        },"return": {
+            "callDeletes": {
+                "type": "string", "description": "status of subtest"
+            },"loginAndPing": {
+                "type": "string", "description": "status of subtest"
+            },"waitForAllReady": {
+                "type": "string", "description": "status of subtest"
+            },"callCreateSlivers": {
+                "type": "string", "description": "status of subtest"
+            },"callSCS": {
+                "type": "string", "description": "status of subtest"
+            },"initStitching": {
+                "type": "string", "description": "status of subtest"
+            },"createSlice": {
+                "type": "string", "description": "status of subtest"
+            },"generateRspec": {
+                "type": "string", "description": "status of subtest"
+            },"getUserCredential": {
+                "type": "string", "description": "status of subtest"
+            },"setUp": {
+                "type": "string", "description": "status of subtest"
+}}}}
+\end{verbatim}
+\clearpage
+\subsubsection{testInstance?testbed=urn-testbed1,urn-testbed2}
+Hierbij worden alle testinstanties van testbed1 en testbed2 teruggegeven. Dit zijn de testen die effectief draaien op testbed1 en/of testbed2.
+\begin{verbatim}
+{    "2": {
+        "testname": "ping voor testbed1",
+        "testtype": "ping",
+        "frequency": "60",
+        "parameters": [
+        	{"testbedId": "urn-testbed1"},
+            {"timeout": "300"}
+        ]
+    },"3": {
+        "testname": "ping voor testbed2",
+        "testtype": "ping",
+        "frequency": "60",
+        "parameters": [
+            {"testbedId": "urn-testbed2"},
+            {"timeout": "300"}
+        ]
+    },"18": {
+        "testname": "stiching0",
+        "testtype": "stitch",
+        "frequency": "3600",
+        "parameters": [
+            {"testbedId": "urn-testbed2"},
+            {"testbedId": "urn-testbed1"},
+            {"testbedId": "urn-testbed0"},
+            {"topology": "ring"}
+        ]
+    },	
+    ...    
+}
+\end{verbatim}
+\clearpage
+\subsubsection{testInstance?testtype=ping}
+Deze call geeft alle geplande tests terug.
+\begin{verbatim}
+{
+    "1": {
+        "testname": "ping voor testbed0",
+        "testtype": "ping",
+        "frequency": "60",
+        "parameters": [
+            { "testbedId": "urn-testbed0" },
+            { "timeout": "300" }
+        ]
+    },
+    "2": {
+        "testname": "ping voor testbed1",
+        "testtype": "ping",
+        "frequency": "60",
+        "parameters": [
+            { "testbedId": "urn-testbed1" },
+            { "timeout": "300" }
+        ]
+    },
+    "3": {
+        "testname": "ping voor testbed2",
+        "testtype": "ping",
+        "frequency": "60",
+        "parameters": [
+            { "testbedId": "urn-testbed2" },
+            { "timeout": "300" }
+        ]
+    },
+    ...
+}
+\end{verbatim}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://jfed.iminds.be/authority"
+           xmlns="http://jfed.iminds.be/authority">
+
+    <xs:complexType name="servertype">
+        <xs:attribute name="role">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Slice Authority"/>
+                    <xs:enumeration value="Aggregate Manager"/>
+                    <xs:enumeration value="PlanetLab registry"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="version" type="xs:integer"/>
+    </xs:complexType>
+
+    <xs:element name="authorities">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="authority"  maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="urn" type="xs:string"/>
+                            <xs:element name="hrn" type="xs:string"/>
+                            <xs:element name="urls">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="serverurl" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="servertype">
+                                                        <xs:complexType>
+                                                            <xs:attribute name="role">
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:enumeration value="Slice Authority"/>
+                                                                        <xs:enumeration value="Aggregate Manager"/>
+                                                                        <xs:enumeration value="PlanetLab registry"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="version" type="xs:string"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="url" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="type">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="Clearinghouse"/>
+                                        <xs:enumeration value="Builtin"/>
+                                        <xs:enumeration value="User"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="gid" type="xs:string"/>
+                            <xs:element name="source" type="xs:string"/>
+                            <xs:element name="reconnectEachTime" type="xs:boolean"/>
+                            <xs:element name="pemSslTrustCert" type="xs:string"/>
+                            <xs:element name="allowedCertificateHostnameAliases" ><xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="alias" type="xs:string" maxOccurs="unbounded"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
