@@ -248,6 +248,7 @@ public class WebServiceAccess {
  * @param result the testresult to post to the webservice.
  */
     public void addResult(TestResult result) {
+        String urldebug = "";
         try {
             URL url = new URL(prop.getProperty("urlAddResult"));
             StringBuilder postData = new StringBuilder();
@@ -264,7 +265,8 @@ public class WebServiceAccess {
                     Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("Send: " + postData.toString());
+            urldebug = postData.toString();
+            System.out.println("Send: " + urldebug);//postData.toString());
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -284,6 +286,8 @@ public class WebServiceAccess {
         } catch (ProtocolException ex) {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println("Fout!: url:" + urldebug);
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

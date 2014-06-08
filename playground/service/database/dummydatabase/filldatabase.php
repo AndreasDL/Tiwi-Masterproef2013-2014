@@ -6,11 +6,11 @@ $aantalpinginstances = $aantalTestbeds;
 $aantalstitchinstances = 10;
 //bepalen aantal login testen
 $urns = array("fail" => array("urn" => "urn:publicid:IDN+omf+authority+sa", //failed direct
-        "url" => "google.Com"),
+        "url" => "google.Com", "enabled" => 'true'),
     "wall1" => array("urn" => "urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm",
-        "url" => "www.wall1.ilabt.iminds.be"), //virtualwall1
+        "url" => "www.wall1.ilabt.iminds.be", "enabled" => 'false'), //virtualwall1
     "wall2" => array("urn" => "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm",
-        "url" => "www.wall2.ilabt.iminds.be")//virtualwall2
+        "url" => "www.wall2.ilabt.iminds.be", "enabled" => 'true')//virtualwall2
 );
 $resultsPerInstances = 20;
 
@@ -354,7 +354,7 @@ foreach ($urns as $name => $urn) {
         'ping',
         '60',
         "2014-04-20T11:00:00+0100",
-        true//(($i%2==1)?'true':'false')
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
 
@@ -368,7 +368,7 @@ foreach ($urns as $name => $urn) {
         "login2",
         "3600",
         "2014-04-20T11:00:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
 
@@ -382,7 +382,7 @@ foreach ($urns as $name => $urn) {
         "login3",
         "3600",
         "2014-04-20T11:00:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
     $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
@@ -395,7 +395,7 @@ foreach ($urns as $name => $urn) {
         "getVersion2",
         "3600",
         "2014-04-20T11:00:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
     $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
@@ -408,7 +408,7 @@ foreach ($urns as $name => $urn) {
         "getVersion3",
         "3600",
         "2014-04-20T11:00:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
     $data = array("userAuthorityUrn", "urn:publicid:IDN+wall2.ilabt.iminds.be+authority+cm");
@@ -422,7 +422,7 @@ foreach ($urns as $name => $urn) {
         "listResources",
         "3600",
         "2014-04-20T11:15:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con,"query",$data);
     $data = array("testbed",$name);
@@ -435,7 +435,7 @@ foreach ($urns as $name => $urn) {
         "loginGen",
         "3600",
         "2014-04-20T11:00:00+0100",
-        true
+        $urn["enabled"]
     );
     pg_execute($con, "query", $data);
 
@@ -452,7 +452,7 @@ echo "creating stitching test\n";
     'stitch',
     '3600',
     "2014-04-20T11:00:00+0100",
-    true
+    $urn["enabled"]
 );
 pg_execute($con, "query", $data);
 

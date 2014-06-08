@@ -30,7 +30,8 @@ The functions needed for experimenters are listed below. Next up is a detailed e
 The return format of each call below can be change with ?format=$<$formatname$>$. 
 Other than JSON as default format, PrettyJson is also available. PrettyJson uses the PHP JSON pretty print parameter to outline the resulting JSON making it more humanfriendly.
 Use it by adding format=PrettyJson to any call.
-
+\npar
+It is also possible to use multiple values by using a comma separated list e.g. ...?testbed=wall1,wall2 will filter on testbed where the testbed is either wall1 or wall2.
 \subsection{List}
 \subsubsection{What}
 The list function will list monitoring results. Because of performance and security reasons, only the last 100 results that comply with the query will be returned. Keep in mind that this is 100 for each testinstance, testbed combination. In case more is needed, one could use from and till clausules or contact IBCN/iMinds.
@@ -57,9 +58,9 @@ list?from=2014-03-18T19:29:00&till=2014-03-19T18:29:00&testdefinitionname=ping
 Will return all the results of each\footnote{Although generally not recommended, it is possible to have multiple tests of the same type on one testbed.} pingtest on wall2 between 18/03/2014 18:29:00 and 19/03/2014 18:29:00.
 \npar
 \begin{lt}
-list?testdefinitionname=stitch&count=5&testbed=wall2
+list?testdefinitionname=stitch&count=5&testbed=wall2,wall1
 \end{lt}
-Will return results of the last 5 stitching tests for wall2.
+Will return results of the last 5 stitching results for wall2 and the last 5 stitching results for wall1.
 
 \clearpage
 
@@ -102,9 +103,9 @@ This call will return the testdefinitions. A testdefinition is used to define a 
 \end{enumerate}
 \subsubsection{Examples}
 \begin{lt}
-testdefinition?testdefinitionname=ping
+testdefinition?testdefinitionname=ping,login2
 \end{lt}
-Will return the definition of a ping test.
+Will return the definition of the ping test and of the login (AMv2) test.
 \\
 \subsection{TestInstance}
 \subsubsection{What}

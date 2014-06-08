@@ -61,7 +61,6 @@ public class ResultUploader implements Runnable{
      * sets the boolean to stop this service as soon as the uploads are complete.
      */
     public void stop() {
-        
         this.stopping = true;
     }
 }

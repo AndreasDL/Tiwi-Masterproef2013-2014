@@ -9,6 +9,7 @@ import be.iminds.ilabt.jfed.lowlevel.api_wrapper.AggregateManagerWrapper;
 import be.iminds.ilabt.jfed.lowlevel.api_wrapper.UserAndSliceApiWrapper;
 import be.iminds.ilabt.jfed.lowlevel.api_wrapper.impl.AutomaticAggregateManagerWrapper;
 import be.iminds.ilabt.jfed.lowlevel.api_wrapper.impl.AutomaticUserAndSliceApiWrapper;
+import be.iminds.ilabt.jfed.lowlevel.authority.AuthorityListModel.SubAuthMatchingMode;
 import be.iminds.ilabt.jfed.lowlevel.authority.JFedAuthorityList;
 import be.iminds.ilabt.jfed.lowlevel.authority.SfaAuthority;
 import be.iminds.ilabt.jfed.lowlevel.connection.SfaConnectionPool;
@@ -65,7 +66,7 @@ public class ListResourcesWrapper extends TestCall {
             CommandExecutionContext testContext = CommandExecutionContext.loadFromFile(testContextFile, true/*requireUser*/, false/*requireTestAuth*/);
             
             ////////////////////////////////////////// Get target test authority ///////////////////////////////////////
-            SfaAuthority wall = JFedAuthorityList.getAuthorityListModel().getByUrn(s.get(0));
+            SfaAuthority wall = JFedAuthorityList.getAuthorityListModel().getByUrn(s.get(0),SubAuthMatchingMode.EXACT_SUBAUTHORITY);
             assert wall != null;
 
             //////////////////////////////////////////// Setup user ////////////////////////////////////////////////////

@@ -185,6 +185,31 @@ pg_query_params($con, $subQuery, $data);
 \npar
 De parameters zijn hier wel zichtbaar in de defintie. Tot slot kan vermeld worden dat $<$context-file$>$ vervangen zal worden door de parameter context-file. Vermits deze parameter van het type file is, wordt er een file aangemaakt waarvan het path terecht komt op de plaats van de $<$context-file$>$. 
 
+\subsection{User toevoegen}
+\npar
+Een user wordt, binnen deze context, gebruikt door de jFed automated tester om de authenticatie op een testbed af te handelen. Om flexibiliteit te verhogen is het mogelijk om meerdere users aan te maken. Deze kunnen vervolgens elk gebruikt kunnen worden voor de authenticatie op een testbed.
+\npar
+Een user heeft een username, een certificaat en een geassocieerde urn. Het certificaat is mogelijk ge\"encrypteerd en zit niet in de databank, maar in een aparte file opgeslagen. Deze file is terug te vinden in ~/.ssl/$<$pemKeyAndCertFilename$>$. Indien het certificaat ge\"encrypteerd is, is het bijhorende wachtwoord opgeslagen in de passwordFilename. Deze file komt overeen met ~/.ssl/$<$passwordFilename$>$.
+\clearpage
+\npar
+Een user kan bijvoorbeeld met volgende query in python toegevoegd worden:
+\begin{lstlisting}[language=Python]
+addUserQ = "INSERT INTO users (username,\
+	userAuthorityUrn,\
+	passwordFilename,\
+	pemKeyAndCertFilename) VALUES(%s,%s,%s,%s)"
+\end{lstlisting}
+\npar
+Hierbij moet het certificaat opgeslagen worden in ~/.ssl/ . Het certificaat wordt apart opgeslagen omdat jFed een path nodig heeft en niet het certificaat zelf. Daarnaast zorgt de scheiding hiervan ook dat het opvragen van users niet beveiligd moet worden, vermits het certificaat niet zichtbaar is.
+
+\subsubsection{Testbed toevoegen}
+\npar
+Een testbed heeft een naam, een urn en een url die gebruikt om de pinglatency te bepalen.
+Deze query in python kan gebruikt worden om een testbed toe te voegen.
+\begin{lstlisting}[language=Python]
+addBedQ  = "INSERT INTO testbeds (testbedname,url,urn) VALUES(%s,%s,%s)"
+\end{lstlisting}
+ 
 \section{Troubleshooting}
 \subsection{Resultaten worden niet opgeslagen door de API}
 \npar
