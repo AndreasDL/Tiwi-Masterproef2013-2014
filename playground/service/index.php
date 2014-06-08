@@ -121,8 +121,6 @@ if (isset($_SERVER['PATH_INFO'])) {
             //print_r($parameters);
         }
 
-        //FORMAT GAAT NIET MEER WERKEN NU DOORDAG DE PARAMS OVERSCHREVEN WORDEN
-        //
         //format
         if (isset($parameters['format'])) {
             if (class_exists(ucfirst($parameters['format'][0]) . 'Formatter')) {
@@ -162,6 +160,7 @@ if (isset($_SERVER['PATH_INFO'])) {
             $req->setData($controller->get($req));
             
         }
+        //$req->setData($controller->get($req));//nice try!
     }else{
         $status = '404';
         $msg .= "Error: $controller_name is not a valid function!";

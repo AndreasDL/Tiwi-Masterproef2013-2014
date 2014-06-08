@@ -44,6 +44,7 @@ The list function will list monitoring results. Because of performance and secur
 \item testdefinitionname: the name of the testdefinition of the corresponding testbed.
 \item resultid: the id of the result.
 \item testname: the name of the corresponding test
+\item testid: the testinstanceid of the corresponding test
 \item from: search results after a given timestamp NOTE: use iso 8601 format WITH timezone.
 \item till: search results before a given timestamp NOTE: use iso 8601 format WITH timezone.
 \item count: the last $<$count$>$ results will be returned. Limited to 100 and default also 100. The results are counted for each combination of testbed en testdefinitionname, therefore list?count=50 will return the last 50 results for each test on each testbed, so when there are 2 testbeds, 100 results will be returned in total.
@@ -73,6 +74,7 @@ Last has the same functionality as list, but uses default count=1. It is a short
 \item testdefinitionname: the name of the testdefinition of the corresponding testbed.
 \item resultid: the id of the result.
 \item testname: the name of the corresponding test
+\item testid: the testinstanceid of the corresponding test
 \item count: the last $<$count$>$ results will be returned. Limited to 100 and default also 100. The results are counted for each combination of testbed en testdefinitionname therefor list?count=50 will return the last 50 results for each test on each testbed, so when there are 2 testbeds, 100 results will be returned in total.
 \end{enumerate}
 \npar

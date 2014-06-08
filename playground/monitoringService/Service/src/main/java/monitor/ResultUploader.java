@@ -47,9 +47,10 @@ public class ResultUploader implements Runnable{
                 //TestResult r = resultsToSend.takeFirst();//bug keeps waiting even if there are no first tasks.
                 TestResult r = resultsToSend.pollFirst(100,TimeUnit.MILLISECONDS);//check & wait max 100 ms than rerun the run method so it can check if stopping is set
                 if (r != null){
+                    webAccess.addResult(r);
                     if (! r.isLoadTest())
                         webAccess.updateNextRun(r);
-                    webAccess.addResult(r);
+
                 }
             } catch (InterruptedException ex) {
             }

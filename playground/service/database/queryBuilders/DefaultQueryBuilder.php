@@ -28,6 +28,8 @@ class DefaultQueryBuilder extends aQueryBuilder {
         $this->addInIfNeeded($query, $params, $paramsForUse, "resultid", "id");
         //testname
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
+        //testinstanceid
+        $this->addInIfNeeded($query, $params, $paramsForUse, "testid", "testinstanceid");
         //from
         $this->addGreaterThanIfNeeded($query, $params, $paramsForUse, "from", "timestamp");
         //till

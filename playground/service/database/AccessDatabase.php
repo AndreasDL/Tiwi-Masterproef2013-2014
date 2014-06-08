@@ -190,12 +190,17 @@ class AccessDatabase {
                     break;
                 }
             }
+            echo $request->getMsg();
+            echo "<br>";
         } else {
             //$valid=False;
             $request->addMsg("testinstanceid not given or not valid! And/Or method not post");
             $request->setStatus(400);
         }
 
+        echo $request->getMsg();
+        echo "<br>";
+            
         if ($valid) {
             //TODO transaction
             $query = "insert into results (testinstanceid,log) values ($1,$2);";
