@@ -1,25 +1,6 @@
 <?php
     global $webService;
-    $webService           = 'http://localhost/service/index.php';
-    /*$queryInternational   = 'last?testdefinitionname=ping,getVersion2';
-    $queryLocal           = 'last?testdefinitionname=ping,getVersion2&testbed=wall1,wall2';*/
-    
-    /*
-    global $urlInternational;
-    global $urlLocal;
-    global $urlTestbed;
-    global $urlAddTestbed;
-    global $urlAddTestInstance;
-    global $urlTestDefinitions;
-    global $urlLast;
-    $urlLast            = $webservice.'/last';
-    $urlInternational   = $webservice.'/'.$queryInternational;
-    $urlLocal           = $webservice.'/'.$queryLocal;
-    $urlTestbed         = $webservice.'/testbed';
-    $urlAddTestbed      = $webservice.'/addTestbed';
-    $urlAddTestInstance = $webservice.'/addTestInstance';
-    $urlTestDefinitions = $webservice.'/testDefinition';
-    */
+    $webService           = 'http://localhost/API/index.php';
     
     global $warnPing;
     global $fatalPing;

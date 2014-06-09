@@ -12,8 +12,8 @@
     $hmacAlgo = 'sha512';    
     
     date_default_timezone_set('CET');
-    global $maxList;
-    $maxList = 100;
+    global $maxList; //max return values for each combination of testbed-test increase for use with stresstests
+    $maxList = 200;
     
     global $webservice;
     $webservice           = 'http://localhost/service/index.php';

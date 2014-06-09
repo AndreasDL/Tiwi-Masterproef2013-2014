@@ -152,7 +152,8 @@ public class Monitor {
      */
     public static Properties getProp() {
         //String serviceUrl = "http://localhost/longrun/service/index.php/";
-        String serviceUrl = "http://localhost/service/index.php/";
+        //String serviceUrl = "http://localhost/service/index.php/";
+        String serviceUrl = "http://localhost/API/index.php/";
         Properties prop = new Properties();
         prop.setProperty("urlTestInstances", serviceUrl + "testInstance");//testdefinitionname=loginGen");
         prop.setProperty("urlTestbeds", serviceUrl + "testbed");

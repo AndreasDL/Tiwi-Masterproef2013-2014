@@ -1,12 +1,12 @@
 rm -rvf schoolSite/*;
 cp -vr site/schoolSite/* schoolSite/;
 
-rm -rvf playground/monitoringService;
-rm -rvf playground/service;
-rm -rvf playground/monitoringService;
+rm -rvf playground/API;
+rm -rvf playground/monitoringSite;
+rm -rvf playground/monitor;
 
-rm -rvf site/monitoringService/Service/results;
-rm -rvf site/monitoringService/stresstest/results;
+rm -rvf site/monitor/monitorService/results;
+rm -rvf site/monitor/stresstest/results;
 rm -rvf site/results;
 
 cp -vr  site/* playground/;
