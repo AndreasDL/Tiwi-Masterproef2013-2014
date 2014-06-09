@@ -16,7 +16,7 @@ class DefaultQueryBuilder extends aQueryBuilder {
 
         $eindhaakje = "";
         //testbeds
-        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed", "list");
+        $this->addAnyIfNeeded($query, $params, $paramsForUse, "param", "list");
         if (sizeof($paramsForUse) > 0) {
             $eindhaakje = ')';
         }
@@ -50,7 +50,7 @@ class DefaultQueryBuilder extends aQueryBuilder {
     public function buildTestInstance(&$query, &$params, &$paramsForUse) {
         $eindhaakje = "";
 
-        $this->addAnyIfNeeded($query, $params, $paramsForUse, "testbed", "instances");
+        $this->addAnyIfNeeded($query, $params, $paramsForUse, "param", "instances");
         if (sizeof($paramsForUse) > 0) {
             $eindhaakje = ')';
         }

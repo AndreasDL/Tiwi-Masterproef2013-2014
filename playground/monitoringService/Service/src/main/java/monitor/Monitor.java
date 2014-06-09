@@ -73,11 +73,11 @@ public class Monitor {
                 .hasArg()
                 .withArgName("testinstanceid")
                 .create("tid"));
-        options.addOption(OptionBuilder.withLongOpt("testbed")
-                .withDescription("Limit tests by testbed(s). Multiple values should be separated by ',' e.g. testbed1,testbed2.")
+        options.addOption(OptionBuilder.withLongOpt("param")
+                .withDescription("Limit tests by parameter value (testbed, user, ...) . Multiple values should be separated by ',' e.g. testbed1,testbed2. or ftester,user2")
                 .hasArg()
-                .withArgName("testbed")
-                .create("tb"));
+                .withArgName("param")
+                .create("p"));
         options.addOption(OptionBuilder.withLongOpt("help")
                 .withDescription("print help message")
                 .create("h"));

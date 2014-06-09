@@ -58,9 +58,14 @@ public class BashTestCall extends TestCall {
             String line = null, previous = null;
             while ((line = br.readLine()) != null) {
                 if (!line.equals(previous)) {
+                    
+                    //vermijden dat er een \n staat bij de ping test.
+                    if (previous != null)
+                        out.append('\n');
+                    
                     previous = line;
                     //System.out.println(line);
-                    out.append(line).append('\n');
+                    out.append(line);//.append('\n');
                 }
             }
 

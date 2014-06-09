@@ -40,7 +40,7 @@ The list function will list monitoring results. Because of performance and secur
 
 \subsubsection{Arguments}
 \begin{enumerate}
-\item testbed: the testbed of the corresponding result
+\item param: value of any parameter of the corresponding test. e.g. testbed, user, ...
 \item testdefinitionname: the name of the testdefinition of the corresponding testbed.
 \item resultid: the id of the result.
 \item testname: the name of the corresponding test
@@ -54,12 +54,12 @@ It is important to note here that using from/till arguments in combination with 
 \subsubsection{Examples}
 \begin{lt}
 list?from=2014-03-18T19:29:00&till=2014-03-19T18:29:00&testdefinitionname=ping
-&testbed=wall2
+&param=wall2
 \end{lt}
 Will return all the results of each\footnote{Although generally not recommended, it is possible to have multiple tests of the same type on one testbed.} pingtest on wall2 between 18/03/2014 18:29:00 and 19/03/2014 18:29:00.
 \npar
 \begin{lt}
-list?testdefinitionname=stitch&count=5&testbed=wall2,wall1
+list?testdefinitionname=stitch&count=5&param=wall2,wall1
 \end{lt}
 Will return results of the last 5 stitching results for wall2 and the last 5 stitching results for wall1.
 
@@ -70,7 +70,7 @@ Will return results of the last 5 stitching results for wall2 and the last 5 sti
 Last has the same functionality as list, but uses default count=1. It is a shortcut to get the last results of each test on each testbed.
 \subsubsection{Arguments}
 \begin{enumerate}
-\item testbed: the testbed of the corresponding result
+\item param: value of any parameter of the corresponding test. e.g. testbed, user, ...
 \item testdefinitionname: the name of the testdefinition of the corresponding testbed.
 \item resultid: the id of the result.
 \item testname: the name of the corresponding test
@@ -86,7 +86,7 @@ last?testdefinitionname=ping
 Will return the last result of each\footnote{Although generally not recommended, it is possible to have multiple tests of the same type on one testbed.} pingtest of each testbed.
 \npar
 \begin{lt}
-last?testdefinitionname=stitch&count=5&testbed=wall2
+last?testdefinitionname=stitch&count=5&param=wall2
 \end{lt}
 Will return results of the last 5 stitching tests for wall2. Note that this is also possible with list.
 \npar
@@ -114,7 +114,7 @@ Will return the definition of the ping test and of the login (AMv2) test.
 This call will return the testinstance. A testinstance is an instance of the definition; the instance will define a pingtest on a certain testbed while a definition will define that a pingtest consists of a ping command. 
 \subsubsection{Arguments}
 \begin{enumerate}
-\item testbed: the testbed used by the test
+\item param: value of any parameter of the corresponding test. e.g. testbed, user, ...
 \item testdefinitionname: the name of the testdefinition.
 \item testname: name of the test.
 \item testinstanceid: the id of the testinstance.
@@ -130,6 +130,10 @@ Will return all the instances of the stitching type on wall2.
 testinstance?nextrun=2014-06-19T12:00:00
 \end{lt}
 Will return all tests with nextrun $>=$ 19/06/2014 12:00:00; used by the monitoringsservice.\\
+\begin{lt}
+testinstance?param=ftester
+\end{lt}
+Will return all testinstances where the user is ftester.
 
 \subsection{Testbed}
 \subsubsection{What}
