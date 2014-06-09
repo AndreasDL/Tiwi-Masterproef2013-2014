@@ -287,7 +287,7 @@ public class WebServiceAccess {
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             ex.printStackTrace();
-            System.out.println("Fout!: url:" + urldebug);
+            //System.out.println("Fout!: url:" + urldebug);
             Logger.getLogger(WebServiceAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
