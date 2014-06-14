@@ -1,5 +1,5 @@
-rm -rvf schoolSite/*;
-cp -vr site/schoolSite/* schoolSite/;
+#rm -rvf schoolSite/*;
+#cp -vr site/schoolSite/* schoolSite/;
 
 rm -rvf playground/API;
 rm -rvf playground/monitoringSite;

@@ -1,23 +1,23 @@
 \chapter{SFA-Architectuur}
-
-{\samenvatting Deze masterproef zal als onderdeel van FIRE, een Europees onderzoeksproject naar een innovatief internet, een monitoringsservice maken met een bijhorende API. FIRE gebruikt voor zijn testbedden de SFA architectuur. Deze architectuur is ontwikkeld om de configuratie en aansturing van testbeds of aggregates over de hele wereld gelijk te maken. Binnen een aggregate hebben onderzoekers een slice waarin ze hun experiment kunnen uitvoeren. Deze slice bestaat uit een aantal componenten, slivers genaamd. Hierdoor moeten onderzoekers maar \'e\'en configuratie leren, waarmee ze vervolgens op elk testbed kunnen werken.}
+\label{SFA}
+{\samenvatting Deze masterproef is onderdeel van FIRE, een Europees onderzoeksproject naar een innovatief internet. Binnen FIRE maakt deze masterproef een monitoringsservice met een bijhorende API. FIRE gebruikt voor zijn testbedden de SFA architectuur. Deze architectuur is ontwikkeld om de configuratie en de aansturing van testbeds of aggregates over de hele wereld gelijk te maken. Hierdoor moeten onderzoekers maar \'e\'en configuratie leren, waarmee ze vervolgens op elk testbed kunnen werken. Dit hoofdstuk gaat dieper in op SFA.}
 
 \section{Doel}
 \npar
-SFA (Slice-based Federation architecture)\nomenclature{SFA}{Slice-based Federation Architecture} is een framework dat gebruikt wordt om testbeds aan te sturen\citep{SFA-overview}. SFA is gebaseerd op FFA (First Federation Architecture)\nomenclature{FFA}{First Federation Architecture} en wordt gebruikt om \'e\'en van de FIRE doelstellingen, het delen van testbeds makkelijker maken, waar te maken. Doordat alle testbeds op een andere manier werkten, was het voor een onderzoeker erg moeilijk om verschillende testbeds te gebruiken. Een onderzoeker moest eerst kennis maken met de specifieke configuratie van een testbed, alvorens hij ermee kon werken. Aangezien dit zeer tijdrovend is, is het noodzakelijk om de configuratie van testbeds gelijk te trekken.
-\clearpage
+SFA (Slice-based Federation architecture)\nomenclature{SFA}{Slice-based Federation Architecture} is een framework dat gebruikt wordt om testbeds aan te sturen\citep{SFA-overview}. SFA is gebaseerd op FFA (First Federation Architecture)\nomenclature{FFA}{First Federation Architecture} en wordt gebruikt om \'e\'en van de FIRE doelstellingen, namelijk het delen van testbeds makkelijker maken, waar te maken. Doordat alle testbeds op een andere manier werken, is het voor een onderzoeker erg moeilijk om verschillende testbeds te gebruiken. Een onderzoeker moet eerst kennis maken met de specifieke configuratie van een testbed, alvorens hij ermee kon werken. Aangezien dit zeer tijdrovend is, is het noodzakelijk om de configuratie van testbeds overal gelijk te maken.
 \npar
-Een belangrijk begrip is een federation. Dit begrip heeft vooral te maken met authorisatie. Binnen een federatie worden testbeds, service en onderzoekers vertrouwd. De bedoeling van Fed4FIRE is dan ook de testbeds of aggregates binnen FIRE samen te voegen in een federatie.
+Een belangrijk begrip is een federation. Dit begrip heeft vooral te maken met authorisatie. Binnen een federatie worden testbeds, services en onderzoekers vertrouwd. De bedoeling van Fed4FIRE is dan ook de testbeds of aggregates binnen FIRE samen te voegen tot een federatie.
+\clearpage
 \npar
 SFA is een standaard die door testbeds ge\"implementeerd wordt.
 Hierdoor kan een onderzoeker die kennis heeft van SFA, direct ook werken met alle testbeds die er compatibel mee zijn. Zoals te zien is in Figuur \ref{customerservice} is de onderzoeker de klant en het testbed is de service provider.
-\mijnfiguur{width=0.9\textwidth}{customerservice}{De onderzoeker (boven) is de klant, de testbeds (onderhouden door onderste personen) is de service provider. Fed4FIRE voorziet de link tussen beide partijen.}
+\mijnfiguur{width=0.9\textwidth}{customerservice}{De onderzoeker (boven) is de klant, de testbeds (onderhouden door de onderste personen) is de service provider. Fed4FIRE voorziet de link tussen beide partijen.}
 \npar
-SFA voorziet een aantal functionaliteiten. De eerste is voorzien dat het beleid van de eigenaar nageleefd wordt. SFA voorziet in mechanismen om dit te controleren.
+SFA bezit een aantal functionaliteiten. Zo is voorzien dat het beleid van de eigenaar nageleefd wordt. SFA voorziet in mechanismen om dit te controleren.
 \npar
-SFA moet ook voorzien dat operators onderhoud kunnen uitvoeren, hiervoor moet het mogelijk zijn om machines te verwijderen of te vervangen. Ook toevoegen van nieuwe machines moet mogelijk zijn. Daarnaast moeten onderzoekers de mogelijkheid krijgen om slices aan te maken. Een slice is een container waarin een experiment draait. 
+SFA moet ook voorzien dat operators onderhoud kunnen uitvoeren. Hiervoor moet het mogelijk zijn om machines te verwijderen of te vervangen. Ook toevoegen van nieuwe machines moet mogelijk zijn. 
 \npar
-Verder moet het mogelijk zijn voor eigenaars om de autorisatie te controleren. Hierbij is het bijvoorbeeld mogelijk om maar een beperkt aantal mensen toegang te verlenen.
+Daarnaast moeten onderzoekers de mogelijkheid krijgen om experimenten aan te maken en de medewerkers voor het project te beheren. Hierbij hoort ook de autorisatie die gecontroleerd wordt door de eigenaars. Zo is het bijvoorbeeld mogelijk om maar een beperkt aantal mensen toegang te verlenen.
 \clearpage
 \section{Entiteiten}
 \npar
@@ -28,52 +28,52 @@ SFA herkent 4 entiteiten.
 \item Researchers
 \item Identity anchors / identity providers
 \end{enumerate}
-Wat hierop volgt is een bespreking van elke entiteit met zijn verantwoordelijkheden.
+Hierna volgt is een bespreking van elke entiteit met zijn verantwoordelijkheden.
 
 \subsection{Owners}
 \npar
-De eigenaars of verantwoordelijken voor het testbed zijn verantwoordelijk voor de werking van zijn (deel van) het testbed. De Owners bepalen welke beleidsregels er van toepassing zijn. Deze beleidsregels worden aangeduid met SLA (Service Level Agreements)\nomenclature{SLA}{Service Level Agreements}. Zo kan het zijn dat de eigenaar van een testbed niet wil dat er commerci\"ele testen gebeuren zonder dat hij daarvan op de hoogte is. Figuur \ref{policies} geeft een voorbeeld van een aantal mogelijke beleidsregels.
-\mijnfiguur{width=0.9\textwidth}{policies}{Eigenaars bepalen het beleid van hun testbed.}
+De eigenaars of verantwoordelijken voor het testbed zijn verantwoordelijk voor de werking van zijn (deel van) het testbed. De Owners bepalen welke beleidsregels er van toepassing zijn. Deze beleidsregels worden aangeduid met SLA (Service Level Agreements)\nomenclature{SLA}{Service Level Agreements}. Figuur \ref{policies} geeft een voorbeeld van een aantal mogelijke beleidsregels. Zo kan het zijn dat de eigenaar van een testbed niet wil dat er commerci\"ele testen gebeuren zonder dat hij daarvan op de hoogte is (Figuur \ref{policies} Testbed 1). Een ander voorbeeld is dat de eigenaar uitgaande verbindingen beperkt (Figuur \ref{policies} Testbed 2).
+\mijnfiguur{width=0.8\textwidth}{policies}{Eigenaars bepalen het beleid van hun testbed.}
 
 \subsection{Operators}
 \npar
-Operators voorzien het onderhoud van het testbed. Dit onderhoud omvat o.a. herstellingswerken, beveiliging, voorkomen van schadelijke activiteiten.
+Operators zorgen voor het onderhoud van het testbed. Dit onderhoud omvat o.a. herstellingswerken, beveiliging, voorkomen van schadelijke activiteiten.
 
 \subsection{Researchers}
 \npar
-De onderzoeker is de klant. Hij gebruikt een testbed om experimenten uit te voeren. Deze experimenten verlopen in kader van zijn onderzoek.
+De onderzoeker is de klant. Hij gebruikt een testbed om er zijn experimenten op uit te voeren. Deze experimenten verlopen in het kader van zijn onderzoek.
 
 \subsection{Identity providers}
 \npar
 Een identity provider of identity anchor is iemand die entiteiten rechten kan geven. Zo kan een identity provider een hoofdonderzoeker rechten geven om onderzoekers binnen zijn project te laten werken.
 
-\section{Opbouw}
-Een testbed is opgebouwd uit meerdere onderdelen die opgedeeld kunnen worden in meerdere lagen.
+\section{Opbouw van een testbed}
+Een testbed is opgebouwd uit meerdere onderdelen die hierna besproken worden.
+
 \subsection{Component}
 \npar
-Een testbed bestaat uit vele onderdelen. Een primaire bouwblok van een testbed is een component. Een component is bijvoorbeeld een computer, router of programmeerbaar access point. Indien de component een computer is, wordt deze ook een node genoemd. Een node is dus een computer , meestal binnen een testbed, verbonden met het netwerk. 
+Een testbed bestaat uit vele onderdelen. Het primaire bouwblok van een testbed is een component. Een component is bijvoorbeeld een computer, router of switch. Indien de component een computer is, wordt deze ook een node genoemd. Een node is dus een computer, meestal binnen een testbed, verbonden met het netwerk. 
 \subsection{Aggregate}
 \npar
-Al deze componenten worden gegroepeerd in aggregates of aggregaten. Een aggregaat is een verzameling componenten die onder eenzelfde beheerde valt. Zo is de virtual wall2 van iMinds een aggregaat omdat het beheer van dit volledige testbed onder iMinds valt.
+Al deze componenten worden gegroepeerd in aggregates. Een aggregate is een verzameling componenten die onder eenzelfde beheerder valt. Zo is de virtual wall2 van iMinds een aggregate omdat het beheer van dit volledige testbed onder iMinds valt.
 \clearpage
 \subsection{Aggregate manager}
 \npar
-Elke aggregate wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbied aan onderzoekers. Via deze interface kan bijvoorbeeld een slot gereserveerd worden om een experiment op te zetten. Een aggregate manager vervult taken zoals 'stukken van het testbed', slices genaamd, toe te wijzen aan onderzoekers of een experiment.
+Elk aggregaat wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbiedt aan onderzoekers. Via deze interface kan bijvoorbeeld 'plaats' gereserveerd worden om een experiment op te zetten. Een aggregate manager vervult taken zoals 'stukken van het testbed', slices genaamd, toe te wijzen aan onderzoekers of aan een experiment.
 \subsection{Sliver}
 \npar
 Een component kan echter ook gemultiplexed worden zodat er meerdere experimenten tegelijk op kunnen draaien. Dit kan door bijvoorbeeld virtualisatie toe te passen. Het 'stuk' van een component wordt een sliver genoemd.
 \subsection{Slice}
 \npar
-Een slice is een verzameling van slivers. Een slice is een abstract begrip dat omschreven kan worden als een container waarin een experiment draait. Vanuit het perspectief van de onderzoeker komt dit overeen met de testopstelling die hij ter beschikking heeft. Vanuit het perspectief van de owner of eigenaar van het testbed is dit een administratieve opdeling om bij te houden welke testen er waar gebeuren. Figuur \ref{slice} geeft een voorbeeld van een slice. Een slice kan over meerdere aggregates heen kan lopen.
+Een slice is een verzameling van slivers. Een slice is een abstract begrip dat omschreven kan worden als een container waarin een experiment draait. Vanuit het perspectief van de onderzoeker komt dit overeen met de testopstelling die hij ter beschikking heeft. Vanuit het perspectief van de owner of eigenaar van het testbed is dit een administratieve opdeling om bij te houden welke testen er waar gebeuren. Figuur \ref{slice} geeft een voorbeeld van een slice. Hierbij is duidelijk dat een slice over meerdere aggregates kan lopen.  Een slice kan over meerdere aggregates heen kan lopen. Deze aggregaten hebben elk een eigen beheerder en SLA (Service Level Agreements). Ook is op Figuur \ref{slive} duidelijk te zien dat een slice opgebouwd is uit slivers.
 \mijnfiguur{width=0.9\textwidth}{slice}{Een slice (geel) bestaat uit een verzamling slivers (groen).}
 \clearpage
-\section{RSpec}
+\section{Communicatie met testbed via RSpec}
 \npar
-Een RSpec (Resource Specification) \nomenclature{RSpec}{Resource Specification}, is een xml file die een proefopstelling beschrijft\citep{geni-RSpec}. 
-RSpecs kunnen opgedeeld worden in 3 soorten. De eerste soort is een request RSpec. Een request RSpec beschrijft welke resources een onderzoeker wil gebruiken in zijn experiment. De AM (aggregate manager) antwoordt hierop met een manifest RSpec, zoals beschreven in Figuur \ref{RSpec} . Deze RSpec beschrijft de resources die gealloceerd zijn voor het experiment. Merk op dat dit proces transparant gebeurt, de meeste jFed tools zullen automatisch een RSpec genereren. Toch is het mogelijk om RSpecs zelf aan te maken, wat vooral voor complexere testopstellingen gebeurt.
+Een RSpec (Resource Specification) \nomenclature{RSpec}{Resource Specification}, is een XML file die een proefopstelling beschrijft\citep{geni-RSpec}. Het voordeel van dit formaat in plain tekst is dat onderzoekers zeer eenvoudig experimenten kunnen herhalen. Doordat een RSpec een volledige beschrijving is van een proefopstelling, is dit een meerwaarde in wetenschappelijke verslagen.
+RSpecs kunnen opgedeeld worden in drie soorten. 
+\npar
+De eerste soort is een request RSpec. Een request RSpec beschrijft welke resources een onderzoeker wil gebruiken in zijn experiment. De AM (aggregate manager) antwoordt hierop met een manifest RSpec, zoals beschreven in Figuur \ref{RSpec} . Deze RSpec beschrijft de resources die gealloceerd zijn voor het experiment. Merk op dat dit proces transparant gebeurt, de meeste jFed tools zullen automatisch een RSpec genereren. Toch is het mogelijk om RSpecs zelf aan te maken, wat vooral voor complexere testopstellingen gebeurt.
 \mijnfiguur{width=0.9\textwidth}{RSpec}{Een onderzoeker, of de tool die hij gebruikt stuurt eerst een request RSpec en krijgt vervolgens een manifest RSpec terug.}
-\clearpage
 \npar
 De derde soort RSpec, de advertisement RSpec, wordt gebruikt bij de listResourcetest. De listResourcetest komt later in de scriptie aan bod. Een advertisement RSpec lijst alle resources op die beschikbaar zijn op een testbed.
-\npar
-Voor een onderzoeker is een RSpec een beschrijving van een experiment. Het voordeel van dit formaat in plain tekst is dat onderzoekers zeer eenvoudig experimenten kunnen herhalen. Doordat een RSpec een volledige beschrijving is van een proefopstelling, is dit een meerwaarde in wetenschappelijke verslagen.

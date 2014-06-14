@@ -7,19 +7,21 @@ import re
 import pprint #debug
 import os
 import psycopg2
+import psycopg2.extras
 import sys
 import urllib.request
 import xml.etree.ElementTree as etree
 
 
 #############################################################################settings#############################################################################
-homeDir  = "/home/drew/"
-baseDir  = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/work/monitoring/contexts/"
-certDir  = "/home/drew/masterproef/scripts/overzetten/" #where to find all the certificates
+#baseDir  = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/work/monitoring/contexts/"
+baseDir  = "/home/drew/masterproef/playground/scripts/overzetten/bvermeul/"
 firstDir = ["fls","international"] #dirs for ping, getVersion & list resources
 loginDir = "login_scenarios"
 stitchingDir = "stitching_scenarios"
-resultDir    = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/db_dump_scenarios.sql"
+#resultDir    = "/home/drew/masterproef/f4ftestsuite/trunk/monitor_site/db_dump_scenarios.sql"
+resultDir    = "/home/drew/masterproef/playground/scripts/overzetten/db_dump_scenarios.sql"
+
 resultsDir   = "/home/drew/masterproef/site/results/"
 certDir      = "/home/drew/.ssl/"
 
@@ -384,21 +386,9 @@ for file in os.listdir(baseDir+stitchingDir):
 			print("\t!!Adding testbed & stitchingTest failed for %s" % map['testbedname'])
 con.commit()
 
-#add wall1wall2
-cur.execute(addBedQ,("vwall1","www.wall1.ilabt.iminds.be","urn:publicid:IDN+wall1.ilabt.iminds.be+authority+cm")) #add testbed
-cur.execute(addTestQ,("wall1wall2","stitch",listFreq,nextRun,enabled))
-testinstanceid = cur.fetchone()[0]
-cur.execute(addParQ,(testinstanceid,"user","ftester"))
-cur.execute(addParQ,(testinstanceid,'stitchedAuthorities','vwall1'))
-cur.execute(addParQ,(testinstanceid,'stitchedAuthorities','vwall2'))
-cur.execute(addParQ,(testinstanceid,'scsUrl',"http://scs.atlantis.ugent.be:8081/geni/xmlrpc"))
-cur.execute(addParQ,(testinstanceid,'testedAggregateManager',"vwall2"))
-
-        
-
-
 
 #######################################################################Convert Results################################################################
+
 print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
@@ -434,3 +424,48 @@ for line in f:
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
 		#con.commit() nu in functie
+
+
+####################################################################dubbels verwijderen
+dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn desc;"
+testbedNameInstQuery = "update parameterinstances set parametervalue = %s where parametervalue = %s;"
+
+def changeTestbedName(old,new):
+	cur.execute(testbedNameInstQuery,(new,old))
+	con.commit()
+
+
+
+
+dict_cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
+dict_cur.execute(dubbelQuery)
+r = dict_cur.fetchone()
+while (r != None):
+	old_name = r['testbedname'];
+	old_urn = r['urn'];
+	old_url = r['url'];
+
+	#dubbels eruithalen
+	r= dict_cur.fetchone()
+	while ( r != None and old_urn == r['urn']):
+		#print("old",old_urn,"new",r['urn'])
+		if (len(r['testbedname']) < len(old_name)):
+			name = r['testbedname']
+			#old_name
+		else:
+			name = old_name
+			old_name=r['testbedname']
+
+		if (old_url != r['url']):
+			print("Warn: url of",r['testbedname'],"was",r['url'],"and is now",old_url)
+
+		#print("changing",old_name,"to",name)
+		changeTestbedName(old_name,name)
+
+		r = dict_cur.fetchone()
+
+
+
+
+
+con.commit()

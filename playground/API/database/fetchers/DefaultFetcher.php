@@ -84,10 +84,10 @@ class DefaultFetcher implements iFetcher {
                 $data[$row['testbedname']] = array('testbedName' => $row['testbedname'],
                     'url' => $row['url'],
                     'urn' => $row['urn'],
-                    'userauthorityurn' => $row['userauthorityurn'],
+                    /*'userauthorityurn' => $row['userauthorityurn'],
                     'passwordfilename' => $row['passwordfilename'],
                     'pemkeyandcertfilename' => $row['pemkeyandcertfilename'],
-                    'username' => $row['username']
+                    'username' => $row['username']*/
                 );
             }
         }

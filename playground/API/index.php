@@ -208,7 +208,7 @@ if (isset($_SERVER['PATH_INFO'])) {
                         <td>All Last results for testbed1 and testbed5</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/list?testdefinitionname=stitch&testbed=wall2&count=3&format=PrettyJson">/list?testdefinitionname=stitch&testbed=wall2&count=3</a></td>
+                        <td><a href="./index.php/list?testdefinitionname=stitch&param=wall2&count=3&format=PrettyJson">/list?testdefinitionname=stitch&amp;param=wall2&count=3</a></td>
                         <td>Last 3 stitching results for wall2</td>
                     </tr>
                     <tr>
