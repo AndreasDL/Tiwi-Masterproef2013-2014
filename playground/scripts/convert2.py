@@ -33,7 +33,7 @@ pingFreq   = 300
 listFreq   = 900
 getVerFreq = 900
 loginFreq  = 3600
-stitchFreq = 86400
+stitchFreq = 43200
 nextRun = "2014-1-7T12:00:00"
 enabled = True
 
@@ -259,7 +259,7 @@ def addLoginTest(map,cur):
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
 		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 def addStitchingTest(map,cur):
-	cur.execute(addTestQ,(map['testname'],"stitch",listFreq,nextRun,enabled))
+	cur.execute(addTestQ,(map['testname'],"stitch",stitchFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 
 	cur.execute(addParQ,(testinstanceid,"user",map['username']))
@@ -388,6 +388,7 @@ con.commit()
 
 
 #######################################################################Convert Results################################################################
+"""
 print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
@@ -423,15 +424,24 @@ for line in f:
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
 		#con.commit() nu in functie
-
+"""
 
 ####################################################################dubbels verwijderen
 dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn desc;"
-testbedNameInstQuery = "update parameterinstances set parametervalue = %s where parametervalue = %s;"
+#testbedNameInstQuery = "update parameterinstances set parametervalue = %s where parametervalue = %s;"
+getids = "select testinstanceid from parameterinstances where parametervalue = %s;"
+deletePar = "delete from parameterinstances where testinstanceid = %s"
+deleteTest = "delete from testinstances where testinstanceid = %s"
+#results moeten ook weg
 deleteTestbed = "delete from testbeds where testbedname = %s;"
 
 def changeTestbedName(old,new):
-	cur.execute(testbedNameInstQuery,(new,old))
+	cur.execute(getids,(old,))
+	ids = cur.fetchall()
+	for id in ids:
+		cur.execute(deletePar,(id,))
+		cur.execute(deleteTest,(id,))
+
 	cur.execute(deleteTestbed,(old,))
 	con.commit()
 
@@ -464,9 +474,14 @@ while (r != None):
 		changeTestbedName(old_name,name)
 
 		r = dict_cur.fetchone()
+con.commit()
 
-
-
-
-
+#######################################################################vwall1vwall2 test toevoegen#######################################################################
+cur.execute(addTestQ,('vwall1vwall2',"stitch",stitchFreq,nextRun,enabled))
+testinstanceid = cur.fetchone()[0]
+cur.execute(addParQ,(testinstanceid,"user","ftester"))
+cur.execute(addParQ,(testinstanceid,'stitchedAuthorities',"vwall1"))
+cur.execute(addParQ,(testinstanceid,'stitchedAuthorities',"vwall2"))
+cur.execute(addParQ,(testinstanceid,'scsUrl',"http://geni.maxgigapop.net:8081/geni/xmlrpc"))
+cur.execute(addParQ,(testinstanceid,'testedAggregateManager',"vwall2"))
 con.commit()

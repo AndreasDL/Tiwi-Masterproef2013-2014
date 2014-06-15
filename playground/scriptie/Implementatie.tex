@@ -27,7 +27,7 @@ De eerste groep tabellen bevat de definities. De definities bevatten een omschri
 Deze tabel houdt de testinstanties bij. Een testinstantie is de test zelf. Als de vergelijking met objectgeori\"enteerd programmeren gemaakt wordt, dan is een testDefinitie een klasse zelf en de instance is dan een object. Deze opsplitsing heeft het voordeel dat de beschrijving van een test apart opgeslagen kan worden. Het is vervolgens zeer eenvoudig om meerdere instanties aan te maken. Ook laat het systeem de nodige flexibiliteit toe om nieuwe definities aan te maken. Net zoals bij de definities zijn de ingevulde waarden hier ook ondergebracht in een aparte tabel. Dit is om dezelfde reden, namelijk het toelaten van een variabel aantal parameters.
 \subsection{Configuratiegegevens}
 \npar
-De configuratie gegevens bestaan uit de gebruikers en de testbeds. De gebruikers zijn belangrijk omdat ze de logininformatie bevatten die gebruikt worden door de automated tester om testen uit te voeren. Zo heeft een logintest een gebruiker nodig die de juiste rechten heeft op dat testbed.
+De configuratiegegevens bestaan uit de gebruikers en de testbeds. De gebruikers zijn belangrijk omdat ze de logininformatie bevatten die gebruikt worden door de automated tester om testen uit te voeren. Zo heeft een logintest een gebruiker nodig die de juiste rechten heeft op dat testbed.
 Naast de gebruikers is er ook de informatie over de testbeds. De testbeds hebben o.a. elke een eigen url, urn en naam. Deze informatie wordt in deze tabel ondergebracht. Zowel een gebruiker als een testbed kan/kunnen vervolgens opgegeven worden als een parameter van een testinstance. 
 \subsection{Resultaten}
 \npar
@@ -96,9 +96,9 @@ In deze stap wordt de query uitgevoerd met behulp van de php-pgsql module die de
 \clearpage
 \subsection{Samenstellen van objecten}
 \npar
-In deze stap wordt het resultaat van de query lijn per lijn overlopen en worden objecten gevormd.Om compabiliteit te verhogen worden er geen klassen zoals testbed, user en test aangemaakt, maar wordt alles direct opgeslagen in geneste array\footnote{Merk op dat een PHP array zowel een map als een array is.}. Een geneste array is een array die arrays bevat. Deze arrays kunnen op hun beurt weer bestaan uit arrays en zo verder. 
+In deze stap wordt het resultaat van de query lijn per lijn overlopen en worden objecten gevormd. Om compabiliteit te verhogen worden er geen klassen zoals testbed, user en test aangemaakt, maar wordt alles direct opgeslagen in geneste array\footnote{Merk op dat een PHP array zowel een map als een array is.}. Een geneste array is een array die arrays bevat. Deze arrays kunnen op hun beurt weer bestaan uit arrays en zo verder. 
 \npar
-Deze manier van werken spaart tijd, de objecten worden direct in de 'vorm' van het dataschema gegoten. Een dataschema is een definitie van de vorm van het antwoord; concreter: hoe het antwoord er zal uitzien. Dit wordt gedaan door de fetcher. Opnieuw wordt hier gebruik gemaakt van overerving om andere dataschema's te ondersteunen.
+Deze manier van werken spaart tijd. De objecten worden direct in de 'vorm' van het dataschema gegoten. Een dataschema is een definitie van de vorm van het antwoord; concreter: hoe het antwoord er zal uitzien. Dit wordt gedaan door de fetcher. Opnieuw wordt hier gebruik gemaakt van overerving om andere dataschema's te ondersteunen.
 \subsection{Encoderen van objecten}
 \npar
 De encodering is de laatste stap die het mogelijk maakt om objecten te versturen over een netwerk. De encodering wordt gedaan in JSON door de formatter. Door overerving kan hier gemakkelijk gezorgd worden voor extra coderingen bijvoorbeeld xml-encodering.
@@ -132,9 +132,9 @@ Bij elke test is het mogelijk om de console-uitvoer te bekijken, deze is beschik
 
 \section{Service}
 \npar
-De service werkt met meerdere threads Er is \'e\'en hoofdthread die testen ophaalt via de API en deze toevoegt aan een queue. Vervolgens worden de testen een voor een uit de queue gehaald en uitgevoerd door de threadpool. De grootte van de threadpool is instelbaar, standaard is dit $cpu_{cores} * 2 + 1$.
+De service werkt met meerdere threads. Er is \'e\'en hoofdthread die testen ophaalt via de API en deze toevoegt aan een queue. Vervolgens worden de testen \'e\'en voor \'e\'en uit de queue gehaald en uitgevoerd door de threadpool. De grootte van de threadpool is instelbaar. Standaard is dit $cpu_{cores} * 2 + 1$.
 \npar
-Elke test wordt uitgevoerd op een aparte thread. Tijdens de uitvoering wordt verbinding gemaakt met een of meerdere testbeds via de jFed automated tester. Deze geeft een XML-file terug waaruit de tussenresultaten geparset worden. Deze resultaten worden vervolgens doorgegeven aan de resultuploader.
+Elke test wordt uitgevoerd op een aparte thread. Tijdens de uitvoering wordt verbinding gemaakt met \'e\'en of meerdere testbeds via de jFed automated tester. Deze geeft een XML-file terug waaruit de tussenresultaten geparset worden. Deze resultaten worden vervolgens doorgegeven aan de resultuploader.
 \npar
 De resultuploader staat in voor het doorsturen van resultaten naar de API en draait op een aparte thread. Hierbij wordt ook de volgende uitvoeringstijd aangepast. Dit proces wordt beschreven in Figuur \ref{structService}.
 \mijnfiguur{width=1\textwidth}{structService}{De werking van de monitoringsservice}
