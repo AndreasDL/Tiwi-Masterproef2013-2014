@@ -36,7 +36,7 @@ public class GetVersion3TestCall extends AutomatedTesterTestCall {
         commands.add("--output-dir");
         commands.add(makeTestOutputDir());
         //commands.add("-q"); //quiet
-        commands.add("--show-credentials");//=> debug only
+        //commands.add("--show-credentials");//=> debug only
         commands.add("--context-file");
         commands.add(getParamValue("context-file"));
 

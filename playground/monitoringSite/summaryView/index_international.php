@@ -39,7 +39,7 @@
     
     foreach ($groupedData as $name => $results){
         echo "<tr>";
-            echo "<td><a href=".$testbeds[$name]['url'].">".$name."</a></td>";
+            echo "<td><a href=".urlencode($testbeds[$name]['url']).">".$name."</a></td>";
             
             echo "<td bgcolor=";
             if ($results['ping']['pingValue'] == $GLOBALS['fatalPing'] )  {

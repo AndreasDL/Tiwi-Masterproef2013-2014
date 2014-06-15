@@ -66,7 +66,7 @@
   
     Include ( __DIR__.'/../config.php');
     Include ( __DIR__.'/StatusTable.php');
-    $url = $GLOBALS['webService'].'/last?testdefinitionname='.$testdefinitionname;
+    $url = $GLOBALS['webService'].'/last?testdefinitionname='.urlencode($testdefinitionname);
     $data = json_decode(file_get_contents($url),true);
     $testDefinitions = json_decode(file_get_contents($GLOBALS['webService'].'/testDefinition'),true);
     date_default_timezone_set('CET');
@@ -92,10 +92,10 @@
             
             echo getTable($subTests,$row);
             
-            echo "<td><a href=../../".$row['log'].">log</a></td>";
-            echo "<td><a href=../../".$row['results']['resultHtml'].">resultsHtml</a></td>";
-            echo "<td><a href=../../".$row['results']['result-overview'].">overview</a></td>";
-            echo "<td><a href=history.php?count=20&testname=".$row['testname'].">History</a></td>";
+            echo "<td><a href=../../".urlencode($row['log']).">log</a></td>";
+            echo "<td><a href=../../".urlencode($row['results']['resultHtml']).">resultsHtml</a></td>";
+            echo "<td><a href=../../".urlencode($row['results']['result-overview']).">overview</a></td>";
+            echo "<td><a href=history.php?count=20&testname=".urlencode($row['testname']).">History</a></td>";
             
         echo "</tr>";
     }

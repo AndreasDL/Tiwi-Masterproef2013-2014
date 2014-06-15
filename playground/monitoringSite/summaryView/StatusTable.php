@@ -21,7 +21,7 @@ function getTable(&$subTests,&$row){
 
             $title  = "<p><b>TestName:</b> ".$name."</p>";
             $title .= "<p><b>Status:</b> ".$value."</p>";
-            $ret .= " class=south-west title=\"".$title."\"><a href=../../".$row['results']['resultHtml']."#test".$i." id=blackLink>&nbsp".$i."&nbsp</a></td>";
+            $ret .= " class=south-west title=\"".$title."\"><a href=../../".urlencode($row['results']['resultHtml'])."#test".$i." id=blackLink>&nbsp".$i."&nbsp</a></td>";
             $i++;
         }
     }

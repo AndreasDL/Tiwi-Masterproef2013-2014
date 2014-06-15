@@ -388,7 +388,6 @@ con.commit()
 
 
 #######################################################################Convert Results################################################################
-
 print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
@@ -429,9 +428,11 @@ for line in f:
 ####################################################################dubbels verwijderen
 dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn desc;"
 testbedNameInstQuery = "update parameterinstances set parametervalue = %s where parametervalue = %s;"
+deleteTestbed = "delete from testbeds where testbedname = %s;"
 
 def changeTestbedName(old,new):
 	cur.execute(testbedNameInstQuery,(new,old))
+	cur.execute(deleteTestbed,(old,))
 	con.commit()
 
 

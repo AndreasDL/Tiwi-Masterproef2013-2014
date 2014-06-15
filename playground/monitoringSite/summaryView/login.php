@@ -85,7 +85,7 @@
             echo getTable($subTests,$row);
             echo "<td><a href=".$row['log'].">log</a></td>";
             
-            echo "<td><a href=./history.php?testname=".$row['testname'].">history</a></td>";
+            echo "<td><a href=./history.php?testname=".urlencode($row['testname']).">history</a></td>";
             
         echo "</tr>";
     }
