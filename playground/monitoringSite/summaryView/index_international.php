@@ -52,7 +52,7 @@
             echo "</td>";
             
             echo "<td bgcolor=";
-            if ($results['getVersion2']['testGetVersionXmlRpcCorrectness'] == $GLOBALS['fatal'] )  {
+            if ($results['getVersion2']['testGetVersionXmlRpcCorrectness'] == $GLOBALS['fatal'] || $results['getVersion2']['testGetVersionXmlRpcCorrectness'] == 'FAILED')  {
                 echo "#FF0000>".$results['getVersion2']['testGetVersionXmlRpcCorrectness'];
             } else if($results['ping']['testGetVersionXmlRpcCorrectness'] > $GLOBALS['warn']) {
                 echo "#FF9933>".$results['getVersion2']['testGetVersionXmlRpcCorrectness'];

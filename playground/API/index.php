@@ -204,11 +204,11 @@ if (isset($_SERVER['PATH_INFO'])) {
                         <td>Same as above, but only stitching tests</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/last?testbed=vwall2,vwall1&testdefinitionname=ALL&format=PrettyJson">/last?testbed=wall1,wall2&testdefinitionname=ALL</a></td>
+                        <td><a href="./index.php/last?testbed=vwall2,vwall1&testdefinitionname=ALL&format=PrettyJson">/last?testbed=vwall1,vwall2&testdefinitionname=ALL</a></td>
                         <td>All Last results for testbed1 and testbed5</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/list?testdefinitionname=stitch&param=vwall2&count=3&format=PrettyJson">/list?testdefinitionname=stitch&amp;param=wall2&count=3</a></td>
+                        <td><a href="./index.php/list?testdefinitionname=stitch&param=vwall2&count=3&format=PrettyJson">/list?testdefinitionname=stitch&amp;param=vwall2&count=3</a></td>
                         <td>Last 3 stitching results for wall2</td>
                     </tr>
                     <tr>
@@ -232,15 +232,15 @@ if (isset($_SERVER['PATH_INFO'])) {
                         <td>All testinstance for testdefinitionname=stitching test</td>
                     </tr>
                     <tr>
-                        <td><a href="./index.php/testInstance?testname=vwall2&format=PrettyJson">/testInstance?testname=wall2</a></td>
-                        <td>view testinstance with name = wall2 in detail</td>
+                        <td><a href="./index.php/testInstance?param=vwall2&format=PrettyJson">/testInstance?param=vwall2</a></td>
+                        <td> all test instance with paramvalue vwall2 (all tests on vwall2)  in detail</td>
                     </tr>
                     <tr>
                         <td><a href="./index.php/testbed?format=PrettyJson">/testbed</a></td>
                         <td>View all testbeds</td>
                     </tr>
                     <tr>
-                    <td><a href="./index.php/list?format=PrettyJson&q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22vwall2%22,%22vwall1%22]}}}">/list?q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22wall2%22,%22wall1%22]}}}</a></td>
+                    <td><a href="./index.php/list?format=PrettyJson&q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22vwall2%22,%22vwall1%22]}}}">/list?q={%22filters%22:{%22eventType%22:[%22ops_monitoring:is_available%22],%22obj%22:{%22type%22:%22aggregate%22,%22id%22:[%22vwall2%22,%22vwall1%22]}}}</a></td>
                         <td>geni datastore</td>
                     </tr>
                     
