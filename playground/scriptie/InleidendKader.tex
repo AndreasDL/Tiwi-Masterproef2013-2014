@@ -4,12 +4,12 @@ In dit hoofdstuk wordt het achterliggende kader van de masterproef geschetst. Da
 
 \section{FIRE}
 \npar
-Deze masterproef is een onderdeel van een groter Europees onderzoeksproject genaamd FIRE (Future Internet Research and Experimentation)\nomenclature{FIRE}{Future Internet Research and Experimentation}. FIRE is gericht is op onderzoek naar toekomstige internet- en netwerktechnologie\"en. Door onderzoekscentra te laten samenwerken\citep{Fire-what-is}, tracht FIRE het onderzoek vlotter te laten verlopen. FIRE heeft twee grote doelen: enerzijds de samenwerking tussen verschillende onderzoekscentra verbeteren, anderzijds het delen van testfacilities gemakkelijker maken.
+Deze masterproef is een onderdeel van een groter Europees onderzoeksproject genaamd FIRE (Future Internet Research and Experimentation)\nomenclature{FIRE}{Future Internet Research and Experimentation}. FIRE is gericht is op onderzoek naar toekomstige internet- en netwerktechnologie\"en. Door onderzoekscentra te laten samenwerken\citep{Fire-what-is}, tracht FIRE het onderzoek vlotter te laten verlopen. FIRE moedigde in eerste instantie aan om testbeds op te zetten om onderzoek te doen naar toekomstige internet-technologi\"en. Hierbij kwamen 2 doelen naarvoor.
 \npar
 Het eerste doel is de samenwerking tussen verschillende onderzoekscentra verbeteren. Onderzoekers binnen eenzelfde vakgebied komen vaak gelijkaardige problemen tegen. FIRE vermijdt dat men telkens het wiel opnieuw uitvindt, door deze onderzoekers gemakkelijker en meer te laten samenwerken. Hierdoor worden oplossingen en idee\"en meer gedeeld, zodat de ontwikkeling sneller kan verlopen.
 \clearpage
 \npar
-Het tweede doel is het delen van testfaciliteiten gemakkelijker  maken. Door FIRE krijgt een onderzoeker van een onderzoekscentrum toegang tot testfaciliteiten van andere onderzoekscentra binnen FIRE. Testfaciliteit is een algemene term die duidt op zowel de hardware als de software die gebruikt wordt om testen te verrichten. Een concreet voorbeeld van een testfaciliteit is een testbed. Een testbed is een server of een verzameling servers waarop men experimenten laat lopen. 
+Het tweede doel is het delen van testfaciliteiten gemakkelijker  maken. Door FIRE krijgt een onderzoeker van een onderzoekscentrum toegang tot testfaciliteiten van andere onderzoekscentra binnen FIRE. Testfaciliteit is een algemene term die duidt op zowel de hardware als de software die gebruikt wordt om testen te verrichten. Een testfaciliteit of testbed is een server of een verzameling servers waarop men experimenten laat lopen. 
 \npar
 Zo kunnen er op een testbed bijvoorbeeld een server en een aantal cli\"ents gesimuleerd worden. Deze worden verbonden met een aantal tussenliggende routers. Vervolgens wordt een videostream opgestart. Op deze videostream kan men storing introduceren door pakketten te droppen. De storing zal ervoor zorgen dat het beeld aan de client-side hapert. Om dit probleem op te lossen kunnen er technieken ingebouwd worden aan client-side. Zo kan er overgeschakeld worden naar een lagere kwaliteit indien blijkt dat de beschikbare bandbreedte onvoldoende is. Testen van degelijke technieken verlopen door gebruikt te maken van testbeds.
 
@@ -19,26 +19,26 @@ FIRE reikt echter verder dan Europa alleen, zo zijn er ook overeenkomsten met on
 
 \section{Fed4FIRE}
 \npar
-Het probleem dat zich hierbij stelt is dat elk testbed een eigen interne werking heeft. Onderzoekers hebben nu wel toegang tot andere testbeds, maar moeten voor elk testbed eerst de specifieke configuratie leren. Verschillende testbeds laten samenwerken op deze manier is geen sinecure. Om dit eenvoudiger te maken, heeft men de federation architectuur ingevoerd. 
+Het probleem dat zich hierbij stelt is dat elk testbed een eigen interne werking heeft. Onderzoekers hebben nu wel toegang tot andere testbeds, maar moeten voor elk testbed eerst de specifieke configuratie leren. Verschillende testbeds laten samenwerken op deze manier is geen sinecure. Om dit tweede doel van het FIRE project eenvoudiger te maken, heeft men de federation architectuur ingevoerd.
 \npar
 De invoering van deze architectuur, binnen FIRE is een onderdeel van het Fed4FIRE-project (Federation 4 FIRE)\nomenclature{FED4FIRE}{Federation 4 FIRE}. De federation architectuur die hier gebruikt wordt is SFA 2.0\nomenclature{SFA}{slice-based federation architecture}. De bedoeling is dat testbeds binnen FIRE een federatie vormen. Een eerste gevolg hiervan is dat alle onderzoekers, services en testbeds binnen FIRE vertrouwd worden. Hierdoor heeft een onderzoeker binnen FIRE toegang tot alle testbeds. Een tweede gevolg is dat de configuratie en interne werking van de testbeds gelijk zijn. SFA wordt in hoofdstuk \ref{SFA} besproken.
 
 \section{jFed}
 \npar
-jFed werd door iMinds ontwikkeld \citep{iminds-jFed} en is een javatool die de SFA architectuur gebruikt om testbeds aan te sturen. iMinds is een onafhankelijk onderzoekscentrum dat opgericht werd door de Vlaamse overheid \citep{iMinds-what-is}. iMinds is leider van het FED4FIRE project \citep{iminds-FED4FIRE}.
+jFed werd door iMinds ontwikkeld \citep{iminds-jFed} en is een javatool die in eerste instantie de SFA-API implementatie controleert. Systeembeheerders kunnen jFed aanwenden om te controleren of hun API juist werkt. Daarnaast is jFed uitgebreid zodat het ook gebruikt kan worden voor onderzoekers om testbeds aan te sturen. iMinds is een onafhankelijk onderzoekscentrum dat opgericht werd door de Vlaamse overheid \citep{iMinds-what-is}. iMinds is leider van het Fed4FIRE project \citep{iminds-FED4FIRE}.
 \npar
 Met behulp van jFed kunnen onderzoekers snel en eenvoudig netwerken simuleren en testen uitvoeren. Toch is er nog ruimte voor verbetering in jFed. Een van de voornaamste problemen is dat een onderzoeker niet weet of het testbed dat hij gebruikt betrouwbaar is. Bepalen of een vreemd gedrag in een experiment te wijten is aan eigen ontwikkelingen of aan het falen van een testbed, kan op deze manier zeer tijdrovend zijn.
 
 \section{Opdracht: Monitoring van testbeds}
 \npar
-Om dit probleem op te lossen heeft iMinds een monitoringssysteem uitgebouwd\citep{fed4fire-second-fed-arch}. Merk op dat monitoring op meerdere niveau's mogelijk is zoals o.a. testbed,experiment,.. . De monitoring die hier besproken wordt, richt zich op het controleren van testbeds en kijkt of een testbed online is en hoeveel resources er beschikbaar zijn. 
+Om dit probleem op te lossen heeft iMinds een monitoringssysteem uitgebouwd \citep{fed4fire-second-fed-arch} \citep{Walc1406}. Merk op dat monitoring op meerdere niveau's mogelijk is zoals o.a. testbed,experiment,.. . De monitoring die hier besproken wordt, richt zich op het controleren van testbeds en kijkt of een testbed online is en hoeveel resources er beschikbaar zijn. 
 \npar
 Dit monitoringssysteem werkt, maar is door de snelle ontwikkeling niet voorzien op uitbereidingen. Bovendien is de informatie die hiermee verzameld wordt niet eenvoudig beschikbaar. De masterproef lost dit probleem op door een nieuw monitoringssysteem uit te bouwen. Dit systeem moet voorzien zijn op uitbreidingen zoals nieuwe soorten testen.
 \npar
 GENI heeft zelf ook een gedistribueerd monitoringssysteem uitgebouwd \citep{geni-monitor}. Deze service maakt gebruik van datastores \citep{geni-overview}. Een datastore houdt de monitoring informatie van een testbed of aggregate bij. Deze informatie wordt dan opgehaald door een collector. Naast het uitbouwen van een nieuw monitoringssysteem, moet ook onderzocht worden of het mogelijk is om het monitoringssysteem te integreren in dit groter monitoringsframework. De werking van de GENI monitor wordt later in de scriptie uitgebreid besproken.
 \npar
-Deze masterproef kan opgedeeld worden in drie stukken. \\
-Het eerste deel is een API maken die de bestaande monitoringsinformatie beschikbaar maakt. Het is de bedoeling dat deze API een stevige basis vormt waarop andere applicaties kunnen gebouwd worden.
+Deze masterproef kan opgedeeld worden in drie stukken. Het eerste deel is een API maken die de bestaande monitoringsinformatie beschikbaar maakt. Het is de bedoeling dat deze API een stevige basis vormt waarop andere applicaties kunnen gebouwd worden.
+\clearpage
 \npar
 Het tweede deel is het maken van een monitoringsservice die de testbeds controleert. De data hiervan wordt dan via de API beschikbaar gemaakt. De monitoringsservice zal de huidige monitoringsservice vervangen.
 \npar

@@ -2,9 +2,10 @@
 \begin{otherlanguage}{english}
 \chapter*{Abstract}
 \npar
-Due to the new cloud-based technologies, network protocols and network reachability are now more important than ever. To make this change quick and clean, we need more and more network research. FIRE (Future Internet Research and Experimentation) is an European project created to improve the network and internet experimentation. FIRE is the opportunity to jointly develop potentially disruptive innovations for the future of the internet. It is about collaborative research and sharing test facilities. Researchers working for FIRE will now work closer together, sharing ideas. FIRE is also used to share test facilities from all over the world, so researchers have access to many different test facilities.\\
-
-To make handling of these different testbeds easier, jFed was created. jFed is a java tool with the purpose of controlling testbeds. jFed uses the SFA (Slice Federation Architecture) to control and configure testbeds. Unfortunately, the current situation has a major downside in that it is very hard for researchers to determine if a certain behavior is caused by the testconfiguration or by the test facility. 
+Due to the new cloud-based technologies, network protocols and network reachability are now more important than ever. To make this change quick and clean, we need more and more network research. FIRE (Future Internet Research and Experimentation) is an European project created to improve the network and internet experimentation. FIRE is the opportunity to jointly develop potentially disruptive innovations for the future of the internet. It is about collaborative research and sharing test facilities. Researchers working for FIRE will now work closer together, sharing ideas. FIRE is also used to share test facilities from all over the world, so researchers have access to many different test facilities. This is done in Fed4FIRE, a project within FIRE.
+\npar
+Fed4FIRE is a program to implement a single SFA-API on each testbed within FIRE. To check if this was done correctly, jFed was created. 
+As an extension of jFed, a monitoringsservice was created. The problem here is that this service is limited. It is not possible to check new API call. Recieving the monitoringinformation is also a problem.
 \npar
 This thesis will try to solve the aforementioned problem by creating an automated testbed monitoring system. A monitoringAPI will then share this information. Doing so, will provide future tools easy access to this information. Futhermore the thesis will also provide a tool to perform loadtest to test performance of testbeds.
 \end{otherlanguage}

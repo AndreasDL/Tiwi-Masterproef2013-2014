@@ -59,13 +59,13 @@ Al deze componenten worden gegroepeerd in aggregates. Een aggregate is een verza
 \clearpage
 \subsection{Aggregate manager}
 \npar
-Elk aggregaat wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbiedt aan onderzoekers. Via deze interface kan bijvoorbeeld 'plaats' gereserveerd worden om een experiment op te zetten. Een aggregate manager vervult taken zoals 'stukken van het testbed', slices genaamd, toe te wijzen aan onderzoekers of aan een experiment.
+Elk aggregaat wordt beheerd door een AM (aggregate manager). De aggregate manager is een stuk software dat een interface aanbiedt aan onderzoekers. Via deze interface kan bijvoorbeeld 'plaats' gereserveerd worden om een experiment op te zetten. Een aggregate manager vervult taken zoals het toewijzen van van slices (zie later) aan onderzoekers of aan een experimenten.
 \subsection{Sliver}
 \npar
 Een component kan echter ook gemultiplexed worden zodat er meerdere experimenten tegelijk op kunnen draaien. Dit kan door bijvoorbeeld virtualisatie toe te passen. Het 'stuk' van een component wordt een sliver genoemd.
 \subsection{Slice}
 \npar
-Een slice is een verzameling van slivers. Een slice is een abstract begrip dat omschreven kan worden als een container waarin een experiment draait. Vanuit het perspectief van de onderzoeker komt dit overeen met de testopstelling die hij ter beschikking heeft. Vanuit het perspectief van de owner of eigenaar van het testbed is dit een administratieve opdeling om bij te houden welke testen er waar gebeuren. Figuur \ref{slice} geeft een voorbeeld van een slice. Hierbij is duidelijk dat een slice over meerdere aggregates kan lopen.  Een slice kan over meerdere aggregates heen kan lopen. Deze aggregaten hebben elk een eigen beheerder en SLA (Service Level Agreements). Ook is op Figuur \ref{slive} duidelijk te zien dat een slice opgebouwd is uit slivers.
+Een slice is een verzameling van slivers. Een slice is een abstract begrip dat omschreven kan worden als een container waarin een experiment draait. Vanuit het perspectief van de onderzoeker komt dit overeen met de testopstelling die hij ter beschikking heeft. Vanuit het perspectief van de owner of eigenaar van het testbed is dit een administratieve opdeling om bij te houden welke testen er waar gebeuren. Figuur \ref{slice} geeft een voorbeeld van een slice. Hierbij is duidelijk dat een slice over meerdere aggregates kan lopen.  Een slice kan over meerdere aggregates heen kan lopen. Deze aggregaten hebben elk een eigen beheerder en SLA (Service Level Agreements). Ook is op Figuur \ref{slice} duidelijk te zien dat een slice opgebouwd is uit slivers.
 \mijnfiguur{width=0.9\textwidth}{slice}{Een slice (geel) bestaat uit een verzamling slivers (groen).}
 \clearpage
 \section{Communicatie met testbed via RSpec}

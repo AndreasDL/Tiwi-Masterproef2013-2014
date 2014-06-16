@@ -3,10 +3,11 @@
 \npar
 Door de huidige verschuiving naar cloudgebaseerde technologie\"en zal het belang 
 van netwerkprotocollen en van de beschikbaarheid van netwerken alleen maar toenemen.
-Om deze verschuiving vlot te laten verlopen is er meer onderzoek nodig naar netwerktechnologie\"en. Dit onderzoek kan beter verlopen als onderzoekers en onderzoekscentra beter samenwerken. Hiervoor is FIRE (Future Internet Research and Experimentation) opgestart. Dit samenwerkingsakkoord tracht om de uitwisseling van idee\"en tussen onderzoekers te verhogen.
+Om deze verschuiving vlot te laten verlopen is er meer onderzoek nodig naar netwerktechnologie\"en. Dit onderzoek kan beter verlopen als onderzoekers en onderzoekscentra beter samenwerken. Hiervoor is FIRE (Future Internet Research and Experimentation) opgestart. FIRE is een Europees programma voor het uitvoeren van onderzoek naar het internet en de toekomst ervan. Hierbij werden universiteiten aangemoedigd om testbeds te bouwen.
 \npar
-Daarnaast wordt, door de ontwikkeling van een gemeenschappelijke architectuur,  het delen van testfaciliteiten gemakkelijker gemaakt genaamd SFA (Slice Federation Architecture). Om ervoor te zorgen dat onderzoekers makkelijk testfaciliteiten kunnen aansturen via SFA is jFed ontworpen. Deze manier van werken zorgt ervoor dat er snel proefopstellingen op verschillende testfaciliteiten gemaakt kunnen worden. Toch zijn er ook enkele nadelen verbonden aan deze manier van werken. Het is voor een onderzoeker soms erg moeilijk om te bepalen of een bepaald gedrag in zijn experiment te wijten is aan eigen ontwikkelingen dan wel aan het falen van een testbed.
+Fed4FIRE is het sluitstuk van dit programma, waarbij al deze testbeds een universele API implementeren: SFA. Hierdoor wordt het delen van testfaciliteiten gemakkelijker gemaakt. Om te controleren of de SFA juist ge\"implementeerd is, is jFed ontworpen. 
+jFed wordt periodiek gebruikt door beheerders om hun SFA-API implementatie te controleren.
+\npar 
+Deze masterproef bouwt hier verder op door een automatische monitoringsservice te maken. Deze kijkt periodiek of de SFA-API implementatie niet kapot is door nieuwe ontwikkelingen. Hierbij wordt informatie verzameld die via een monitoringsAPI ter beschikking gesteld wordt. Deze API (application programming interface)\nomenclature{API}{application programming interface} vormt een stevige basis waarvan andere toepassingen gebruik kunnen maken.
 \npar
-Deze masterproef verhelpt dit probleem door de invoer van een automatisch monitoringsproces. Een monitoringsservice staat in voor de monitoring van de testfaciliteiten. Hierbij wordt informatie verzameld die via een monitoringsAPI ter beschikking gesteld wordt. Deze API (application programming interface)\nomenclature{API}{application programming interface} vormt een stevige basis waarvan andere toepassingen gebruik kunnen maken.
-\npar
-Dit monitoringssysteem wordt ook omgebouwd om loadtesten te kunnen uitvoeren waarbij gekeken wordt hoe een testbed reageert op een bepaalde belasting.
+Binnen deze masterproef wordt de monitoringsservice ook uitgebreid met een loadtester. De loadtester wordt gebruikt om loadtesten uit te voeren. Hierbij wordt gekeken hoe een testbed reageert op een bepaalde belasting.
