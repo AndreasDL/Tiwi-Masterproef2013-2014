@@ -12,3 +12,4 @@ python playground/scripts/convert2.py
 #vergeet niet 
 # -> cert in ~/.ssl/<certnaam> eventueel met bijhorende pass file indien cert encrypted is
 # -> authorities.xml in ~/.jFed/authorities.xml
+#monitoringSite en API in apachedir 
