@@ -301,7 +301,7 @@ public class WebServiceAccess {
             StringBuilder postData = new StringBuilder();
             postData.append("testinstanceid=").append(result.getTestInstance().getTestInstanceId());
             long nextrun = Long.parseLong(result.getSubResult("startTime")) + result.getTestInstance().getFrequency()*1000;
-            nextrun /= 1000; //naar seconds
+            //nextrun /= 1000; //naar seconds
             postData.append("&nextrun=").append(nextrun);//current time
             System.out.println("UpdateTime: " + postData.toString());
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");

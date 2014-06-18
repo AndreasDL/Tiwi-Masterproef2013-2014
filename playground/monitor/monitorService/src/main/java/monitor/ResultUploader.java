@@ -50,7 +50,6 @@ public class ResultUploader implements Runnable{
                     webAccess.addResult(r);
                     if (! r.isLoadTest())
                         webAccess.updateNextRun(r);
-
                 }
             } catch (InterruptedException ex) {
             }

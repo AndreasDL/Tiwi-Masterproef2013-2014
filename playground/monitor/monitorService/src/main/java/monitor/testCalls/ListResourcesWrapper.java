@@ -76,12 +76,12 @@ public class ListResourcesWrapper extends TestCall {
             ///////////////////////////////////////////// Call any GetVersion /////////////////////////////////////////
             SfaConnectionPool conPool = new SfaConnectionPool();
             AggregateManagerWrapper amWrapper = new AutomaticAggregateManagerWrapper(logger, user, conPool, wall);
-            UserAndSliceApiWrapper credWrapper = new AutomaticUserAndSliceApiWrapper(logger, user, conPool);
+            UserAndSliceApiWrapper credWrapper = new AutomaticUserAndSliceApiWrapper(/*logger,*/ user, conPool);
 
             amWrapper.getVersion();
 
             ///////////////////// Get a user credential. /////////////////////////
-            List<AnyCredential> cred = credWrapper.getUserCredentials(user.getUserUrn());
+            List<AnyCredential> cred = credWrapper.getUserCredentials(logger,user.getUserUrn());
             //System.out.println(lcred.size());
             //AnyCredential cred = lcred.get(0);
             
@@ -91,7 +91,7 @@ public class ListResourcesWrapper extends TestCall {
             String rspec = amWrapper.listResources(cred, true/*available*/);
 
             if (rspec != null) {
-                System.out.println("\n\nAdvertisement RSpec: " + rspec);
+                //System.out.println("\n\nAdvertisement RSpec: " + rspec);
             } else {
                 System.out.println("\n\nListResources failed.");
             }
