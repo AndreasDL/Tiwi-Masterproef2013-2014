@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Automatische testbed monitoring voor jFed - Fed4Fire - Doelstellingen</title>
+		<title>Automatische testbed monitoring voor jFed - Fed4Fire</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -40,13 +40,12 @@
 											<nav id="nav">
 												<ul>
 													<li><a href="info.html">Info</a></li>
-													<li><a href="doelstellingen.html">doelstellingen</a></li>
 													<li>
 														<span>Documenten</span>
 														<ul>
 															<li><a href="docs/eersteVoorstel.pdf">Eerste voorstel</a></li>
 															<li><a href="docs/UitgebreidVoorstel.pdf">Uitgebreid voorstel</a></li>
-															<li><a href="docs/usecases.pdf">Use Cases</a></li>
+															<li><a href="docs/scriptie.pdf">Scriptie</a></li>
 														</ul>
 													</li>
 													<li>
@@ -84,28 +83,23 @@
 													<a href="http://www.iminds.be/nl"><img src="http://jfed.iminds.be/img/iminds.png" /></a>
 													<a href="http://www.ugent.be/"><img src="http://jfed.iminds.be/img/ugent.png" /></a>
 												</header>
-												<h3>Doelstellingen</h3>
-												<p align=left>
-Deze masterproef zal in de context van het Europese onderzoeksproject Fed4FIRE de tool jFed verder 
-uitwerken.Het voornaamste doel is dat de onderzoeker via zijn primaire gebruikersinterface op de 
-hoogte gebracht wordt van eventuele storingen. Deze storingen kan men opdelen in 2 categorieën, 
-enerzijds op het niveau van testbeds en anderzijds op het niveau van componenten eigen aan een 
-experiment. </br></br>
- 
-In een eerste deel zal een api uitgewerkt worden. Deze zal via een webservice toegang geven tot de databank waar de monitoring informatie opgeslagen is. Deze api moet de huidige ad-hoc oplossing efficiënt vervangen. 
-De api zal waarschijnlijk uitgeschreven worden in php en aangeboden worden met een restful service over http.
-Ook moet deze informatie actueel gehouden worden. Momenteel gebeurt dit met shell scripts. Dat kan uiteraard efficiënter.
+													<p align=left>
+Door de huidige verschuiving naar cloudgebaseerde technologie\"en zal het belang 
+van netwerkprotocollen en van de beschikbaarheid van netwerken alleen maar toenemen.
+Om deze verschuiving vlot te laten verlopen is er meer onderzoek nodig naar netwerktechnologieën. Dit onderzoek kan beter verlopen als onderzoekers en onderzoekscentra beter samenwerken. Hiervoor is FIRE (Future Internet Research and Experimentation) opgestart. FIRE is een Europees programma voor het uitvoeren van onderzoek naar het internet en de toekomst ervan. Hierbij werden universiteiten aangemoedigd om testbeds te bouwen.
 </br></br>
-
-Na het uitwerken van deze api zal er een webinterface uitgewerkt worden. 
-Deze website zal de huidige sites vervangen. Er zal een algemeen overzicht gegeven worden. 
-Ook gedetailleerde weergeven van een test of een testbed moet mogelijk zijn.
-Daarnaast zal er ook een gui component voor jFed gemaakt worden om deze informatie weer te geven.
+Fed4FIRE is het sluitstuk van dit programma, waarbij al deze testbeds een universele API implementeren: SFA. Hierdoor wordt het delen van testfaciliteiten gemakkelijker gemaakt. Om te controleren of de SFA juist geïmplementeerd is, is jFed ontworpen. 
+jFed wordt periodiek gebruikt door beheerders om hun SFA-API implementatie te controleren.
 </br></br>
-
-Een eventuele uitbereiding is verder gaan dan monitoring op testbed niveau. Men kan ook nodes in een test monitoren.
-</p>
-</article>
+Deze masterproef bouwt hier verder op door een automatische monitoringsservice te maken. Deze kijkt periodiek of de SFA-API implementatie niet kapot is door nieuwe ontwikkelingen. Hierbij wordt informatie verzameld die via een monitoringsAPI ter beschikking gesteld wordt. Deze API (application programming interface) vormt een stevige basis waarvan andere toepassingen gebruik kunnen maken.
+</br></br>
+Binnen deze masterproef wordt de monitoringsservice ook uitgebreid met een loadtester. De loadtester wordt gebruikt om loadtesten uit te voeren. Hierbij wordt gekeken hoe een testbed reageert op een bepaalde belasting.
+												</p>												
+												<a href="info.html" class="button">Uitleg</a>
+												<a href="docs/eersteVoorstel.pdf" class="button">Eerste voorstel</a>
+												<a href="docs/UitgebreidVoorstel.pdf" class="button">Uitgebreid voorstel</a>
+												<a href="logboek.php" class="button">Logboek</a>
+											</article>
 									</div>
 								</div>
 							</div>
@@ -131,8 +125,9 @@ Een eventuele uitbereiding is verder gaan dan monitoring op testbed niveau. Men 
 								<section>
 									<h2>Project</h2>
 									<ul class="style2">
-										<li><a href="http://fed4fire.eu/">fed4fire</a></li>
-										<li><a href="http://www.iminds.be/en/develop-test/ilab-t/virtual-wall">Virtual Wall</a></li>
+										<li><a href="http://www.ict-fire.eu/home.html">FIRE</a></li>
+										<li><a href="http://www.geni.net/">GENI</a></li>
+										<li><a href="http://fed4fire.eu/">Fed4FIRE</a></li>
 									</ul>
 								</section>
 						</div>

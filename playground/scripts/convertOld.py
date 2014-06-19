@@ -237,7 +237,6 @@ con.commit()
 
 
 #######################################################################Convert Results################################################################
-"""
 print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
@@ -273,7 +272,7 @@ for line in f:
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
 		#con.commit() nu in functie
-"""
+
 ####################################################################dubbels verwijderen
 dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn DESC,testbedname;"
 getTypes = "select testinstanceid,testdefinitionname,testname from testinstances where testinstanceid = ANY(select testinstanceid from parameterinstances where parametervalue = %s)"

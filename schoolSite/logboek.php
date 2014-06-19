@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Automatische testbed monitoring voor jFed - Fed4Fire - Contact</title>
+		<title>Automatische testbed monitoring voor jFed - Fed4Fire - Logboek</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -80,8 +80,8 @@
 													<h2>Automatische testbed monitoring voor jFed - Fed4Fire</h2>
 													<span class="byline">Een masterproef door  Andreas De Lille</span>
 												</header>
-												<p>Contact: andreas.delille@UGent.be</br></br>
-											</br></br>
+												<a href="docs/logboek.ods" class=button>logboek.ods</a>
+												<a href="docs/logboek.pdf" class=button>logboek.pdf</a>
 											</article>
 									</div>
 								</div>
