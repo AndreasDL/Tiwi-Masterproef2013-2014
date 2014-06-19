@@ -107,6 +107,11 @@ def addLoginTest(map,cur):
 		cur.execute(addParQ,(testinstanceid,"testbed",map['testbedname']))	
 		cur.execute(addParQ,(testinstanceid,"user",map['username']))
 def addStitchingTest(map,cur):
+	testname = ""
+	for urn in map["stitchedAuthorityUrns"]:
+		testname += testbedurns[urn]['testbedname']
+	testname += "stitch"
+
 	cur.execute(addTestQ,(map['testname'],"stitch",stitchFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 
@@ -237,6 +242,7 @@ con.commit()
 
 
 #######################################################################Convert Results################################################################
+"""
 print("Parsing Results")
 print("Dir:", resultDir)
 f = open(resultDir,'r')
@@ -272,7 +278,7 @@ for line in f:
 	if result['context_id'] in stitchpath :
 		addStitchResult(result,cur)
 		#con.commit() nu in functie
-
+"""
 ####################################################################dubbels verwijderen
 dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn DESC,testbedname;"
 getTypes = "select testinstanceid,testdefinitionname,testname from testinstances where testinstanceid = ANY(select testinstanceid from parameterinstances where parametervalue = %s)"
@@ -302,7 +308,7 @@ while (r != None):
 		#testen ophalen
 		cur.execute(getTypes,(r['testbedname'],))
 		tests = cur.fetchall()
-		pprint.pprint(tests)
+		#pprint.pprint(tests)
 
 		#alles behalve stitching verzetten naar amv3
 		for test in tests:
@@ -320,4 +326,23 @@ while (r != None):
 		con.commit()
 		
 		r = dict_cur.fetchone()
+con.commit()
+
+#########################################################testen van ftestple disablen
+print("disable tests with ftestple")
+disableTest = "update testinstances set enabled='f' where testinstanceid = %s"
+cur.execute(getTypes,("ftestple",))
+
+tests = cur.fetchall()
+for test in tests:
+	cur.execute(disableTest,(test[0],))
+con.commit()
+
+#########################################################specifieke testen disablen
+print("disable other tests")
+disableTestUrn = "update testinstances set enabled = 'f'\
+	where testinstanceid = ANY(select testinstanceid from parameterinstances \
+		where parametervalue = ANY(select testbedname from testbeds where urn = %s))"
+
+cur.execute(disableTestUrn,("urn:publicid:IDN+fuseco.fokus.fraunhofer.de+authority+cm",))
 con.commit()

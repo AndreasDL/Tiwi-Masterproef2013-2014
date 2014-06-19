@@ -21,7 +21,7 @@
             <id>onejar</id>
             <modules>
                 <module>stresstest</module>
-                <module>Service</module>
+                <module>monitorService</module>
             </modules>
         </profile>
     </profiles>

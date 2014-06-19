@@ -112,7 +112,7 @@ public class WebServiceAccess {
                     + "&testbed=" + testbed
                     + "&testinstanceid=" + tid
                     + "&nextrun=" + nowAsISO;
-            //System.out.println(url);
+            System.out.println(url);
             String jsonText = getFromURL(url);
 
             //parse json string

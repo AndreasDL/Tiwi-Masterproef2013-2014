@@ -91,7 +91,7 @@ public class ListResourcesWrapper extends TestCall {
             String rspec = amWrapper.listResources(cred, true/*available*/);
 
             if (rspec != null) {
-                //System.out.println("\n\nAdvertisement RSpec: " + rspec);
+                System.out.println("\n\nAdvertisement RSpec: " + rspec);
             } else {
                 System.out.println("\n\nListResources failed.");
             }

@@ -13,6 +13,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -49,7 +50,10 @@ public class AutomatedTesterTestCall extends TestCall {
     
     @Override
     public void run() {
+        System.out.println("Starting " + super.test.getTestname() + " with id" + super.test.getTestInstanceId() + " at " + (new Date()).getTime());
+        
         start = System.currentTimeMillis();
+        
         //Parse
         makeTestOutputDir();
         String parsedCommand = prepare();
@@ -70,7 +74,7 @@ public class AutomatedTesterTestCall extends TestCall {
             ArrayList<String> commands = getParameters(parsedCommand);
             String s[] = new String[commands.size()];
             //System.out.println("calling main : commands = " + commands);
-            returnValue = AutomatedTesterCli.main_helper(commands.toArray(s),ps,ps/*/tee,tee/**/,System.in);//System.out,System.out,System.in);
+            returnValue = AutomatedTesterCli.main_helper(commands.toArray(s),tee,tee,System.in);//System.out,System.out,System.in);
             
         } catch (Exception ex) {
             ex.printStackTrace();

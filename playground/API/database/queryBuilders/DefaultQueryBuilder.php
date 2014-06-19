@@ -57,8 +57,10 @@ class DefaultQueryBuilder extends aQueryBuilder {
         $this->addInIfNeeded($query, $params, $paramsForUse, "testdefinitionname", "testdefinitionname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testname", "testname");
         $this->addInIfNeeded($query, $params, $paramsForUse, "testinstanceid", "testinstanceid");
+        $this->addInIfNeeded($query, $params, $paramsForUse, "enabled", "enabled");
         
         $this->addLowerThanIfNeeded($query, $params, $paramsForUse, "nextrun", "nextrun");
+        
         //nextrun & enabled
         if (isset($params['nextrun'])){
             $params['enabled'] = "true"; //zorgt ervoor dat we onderstaande functie kunnen gebruiken.

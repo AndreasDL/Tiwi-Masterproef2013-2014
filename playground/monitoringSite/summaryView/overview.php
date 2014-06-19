@@ -95,7 +95,7 @@
             echo "<td><a href=../../".$row['log'].">log</a></td>";
             echo "<td><a href=../../".$row['results']['resultHtml'].">resultsHtml</a></td>";
             echo "<td><a href=../../".$row['results']['result-overview'].">overview</a></td>";
-            echo "<td><a href=history.php?count=20&testname=".$row['testname'].">History</a></td>";
+            echo "<td><a href=history.php?count=20&testname=".urlencode($row['testname']).">History</a></td>";
             
         echo "</tr>";
     }

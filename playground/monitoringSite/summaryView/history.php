@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <?php $parameters=array();
         parse_str($_SERVER['QUERY_STRING'], $parameters);
-        $testname = (isset($parameters['testname'])?$parameters['testname']:'');
+        $testname = (isset($parameters['testname'])?urldecode($parameters['testname']):'');
         Include ( __DIR__.'/../config.php');
         Include ( __DIR__.'/StatusTable.php');
         date_default_timezone_set('CET');
@@ -61,7 +61,7 @@
    <th>result-overviewXml</th>
   </tr>
   <?php
-    $data = json_decode(file_get_contents($GLOBALS['webService'].'/list?testname='.$testname),true);
+    $data = json_decode(file_get_contents($GLOBALS['webService'].'/list?testname='.$testname."&count=50"),true);
     $testDefinitions = json_decode(file_get_contents($GLOBALS['webService'].'/testDefinition'),true); //handled faster if only right definitions is query'd
     
     foreach ($data as $key => $row){

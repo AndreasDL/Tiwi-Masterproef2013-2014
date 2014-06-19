@@ -239,12 +239,14 @@ class AccessDatabase {
 
 
         if (isset($params['nextrun']) && isset($params['testinstanceid']) && isset($this->testInstances[$params['testinstanceid'][0]]) && strtoupper($request->getVerb()) == 'POST') {
-            $newTime = date("c", $params['nextrun'][0]);
+            $newTime = date("c", $params['nextrun'][0]/1000);
             $oldTime = date("c", strtotime($this->testInstances[$params['testinstanceid'][0]]['nextrun']));
-            //echo "new: $newTime old: $oldTime\n";
+            echo "new: $newTime old: $oldTime\n";
             //timestampe must be past the last timestamp
             if ($newTime > $oldTime) {
-                //echo "timestamp ok!\n";
+                //$newTime /= 1000; //to secs
+                
+                echo "timestamp ok!\n";
                 //update in database
                 $con = $this->getConnection();
                 $query = "update testinstances SET nextrun = $1 where testinstanceid=$2;";

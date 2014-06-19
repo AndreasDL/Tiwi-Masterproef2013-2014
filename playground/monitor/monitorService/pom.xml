@@ -6,7 +6,7 @@
     <version>beta</version>
     <packaging>jar</packaging>
     <parent>
-        <artifactId>monitoringService</artifactId>
+        <artifactId>monitor</artifactId>
         <groupId>be.iminds.ilabt.jfed</groupId>
         <version>beta</version>
     </parent>

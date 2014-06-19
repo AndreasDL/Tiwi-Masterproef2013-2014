@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -37,6 +38,7 @@ public class BashTestCall extends TestCall {
 
     @Override
     public void run() {
+        System.out.println("Starting " + super.test.getTestname() + " with id" + super.test.getTestInstanceId() + " at " + (new Date()).getTime());
         start=System.currentTimeMillis();
         //Parse
         makeTestOutputDir();

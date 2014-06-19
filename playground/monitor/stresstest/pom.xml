@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>be.iminds.ilabt.jfed</groupId>
-        <artifactId>monitoringService</artifactId>
+        <artifactId>monitor</artifactId>
         <version>beta</version>
     </parent>
     <artifactId>stresstest</artifactId>
@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>be.iminds.ilabt.jfed</groupId>
-            <artifactId>Service</artifactId>
+            <artifactId>monitorService</artifactId>
             <version>beta</version>
         </dependency>
         <dependency>

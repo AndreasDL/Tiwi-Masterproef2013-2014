@@ -118,12 +118,8 @@ public class Monitor {
                     
                     TestCall test = tasks.poll();
                     if (test.getTest().isEnabled() && test.getTest().isScheduled()) { //=> webservice will also determine if the test is scheduled
-                        System.out.println("Starting " + test.getTest().getTestname() + " at:" + (new Date()).getTime() + " Tasks left in queue: " + tasks.size() );
+                        //System.out.println("Starting " + test.getTest().getTestname() + " at:" + (new Date()).getTime() + " Tasks left in queue: " + tasks.size() );
                         threadPool.submit(test);
-                        try {
-                            Thread.sleep(1000); //avoid loadtest by running all calls at once
-                        } catch (InterruptedException ex) {
-                        }
                     }else{
                         System.out.println(test.getTest().getTestname() + " doesn't need to run yet and/or is disabled, skipping.");
                     }
@@ -132,8 +128,6 @@ public class Monitor {
                     //wait for all tasks to be complete
                     threadPool.shutdown();
                     threadPool.awaitTermination(1 , TimeUnit.HOURS);
-                    
-                    Thread.sleep(1000);
                     
                     webAccess.shutDownOnUploadComplete();
                 } catch (InterruptedException ex) {
