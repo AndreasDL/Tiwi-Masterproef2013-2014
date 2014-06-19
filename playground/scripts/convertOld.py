@@ -1,9 +1,7 @@
 """
-run defintions first,
-Werkt niet volledig ofwel zet je het stuk dat de dubbels verwijderd in commentaar.
-Dan worden testen dubbel toegevoegd zoals wall1 en wall1-am3.
-Of je past het stuk toe, maar dan ben je de stitching testen kwijt.
-Hierdoor zijn ook de omgezette resultaten niet meer bruikbaar.
+Eerst database.sql uitvoeren voor de structuur.
+Dan definitions.py uitvoeren om de testdefinities toe te voegen.
+Dit uitvoeren voegt testbeds dubbel toe (bv vwall1 en vwall1-am3)
 """
 import re
 import pprint #debug
@@ -276,28 +274,17 @@ for line in f:
 		addStitchResult(result,cur)
 		#con.commit() nu in functie
 """
-
 ####################################################################dubbels verwijderen
-dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn desc;"
-#testbedNameInstQuery = "update parameterinstances set parametervalue = %s where parametervalue = %s;"
-getids = "select testinstanceid from parameterinstances where parametervalue = %s;"
+dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn DESC,testbedname;"
+getTypes = "select testinstanceid,testdefinitionname,testname from testinstances where testinstanceid = ANY(select testinstanceid from parameterinstances where parametervalue = %s)"
+changeTestType = "update testinstances set testdefinitionname = %s where testinstanceid = %s"
+changeTestName = "update testinstances set testname = %s where testinstanceid = %s"
+changePar = "update parameterinstances set parametervalue = %s where parametervalue = %s"
+
 deletePar = "delete from parameterinstances where testinstanceid = %s"
 deleteTest = "delete from testinstances where testinstanceid = %s"
-#results moeten ook weg
+
 deleteTestbed = "delete from testbeds where testbedname = %s;"
-
-def changeTestbedName(old,new):
-	cur.execute(getids,(old,))
-	ids = cur.fetchall()
-	for id in ids:
-		cur.execute(deletePar,(id,))
-		cur.execute(deleteTest,(id,))
-
-	cur.execute(deleteTestbed,(old,))
-	con.commit()
-
-
-
 
 dict_cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)
 dict_cur.execute(dubbelQuery)
@@ -306,23 +293,32 @@ while (r != None):
 	old_name = r['testbedname'];
 	old_urn = r['urn'];
 	old_url = r['url'];
+	print("Double testbed: {", old_name, ",",old_urn, ",", old_url,"}")
 
 	#dubbels eruithalen
 	r= dict_cur.fetchone()
 	while ( r != None and old_urn == r['urn']):
-		#print("old",old_urn,"new",r['urn'])
-		if (len(r['testbedname']) < len(old_name)):
-			name = r['testbedname']
-			#old_name
-		else:
-			name = old_name
-			old_name=r['testbedname']
+		print("\ttestbed: {", r['testbedname'], ",", r['urn'], ",", r['url'], "}")
+		
+		#testen ophalen
+		cur.execute(getTypes,(r['testbedname'],))
+		tests = cur.fetchall()
+		pprint.pprint(tests)
 
-		if (old_url != r['url']):
-			print("Warn: url of",r['testbedname'],"was",r['url'],"and is now",old_url)
-
-		#print("changing",old_name,"to",name)
-		changeTestbedName(old_name,name)
-
+		#alles behalve stitching verzetten naar amv3
+		for test in tests:
+			if (test[1][-1] == "2"):
+				#amv verzetten
+				cur.execute(changeTestType,(test[1][0:-1] + "3", test[0]))
+				cur.execute(changeTestName,(old_name + test[1][0:-1] + "3", test[0]))
+			elif (test[1] == 'listResources'): 
+				cur.execute(deletePar,(test[0],))
+				cur.execute(deleteTest,(test[0],))#deze zal anders dubbel zijn
+		#tesbednaam verzetten
+		cur.execute(changePar,(old_name,r['testbedname']))
+		#testbed verwijderen
+		cur.execute(deleteTestbed,(r['testbedname'],))
+		con.commit()
+		
 		r = dict_cur.fetchone()
 con.commit()
