@@ -112,7 +112,7 @@ def addStitchingTest(map,cur):
 		testname += testbedurns[urn]['testbedname']
 	testname += "stitch"
 
-	cur.execute(addTestQ,(map['testname'],"stitch",stitchFreq,nextRun,enabled))
+	cur.execute(addTestQ,(testname,"stitch",stitchFreq,nextRun,enabled))
 	testinstanceid = cur.fetchone()[0]
 
 	cur.execute(addParQ,(testinstanceid,"user",map['username']))
@@ -327,6 +327,12 @@ while (r != None):
 		
 		r = dict_cur.fetchone()
 con.commit()
+
+#########################################################namen van stitch hernoemen (zonder am3)
+cur.execute(changeTestName,("vwall1vwall2Stitch",177))
+cur.execute(changeTestName,("vwall1utahStitch",178))
+cur.execute(changeTestName,("vwall2utahStitch",179))
+
 
 #########################################################testen van ftestple disablen
 print("disable tests with ftestple")
