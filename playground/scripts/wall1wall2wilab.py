@@ -12,6 +12,9 @@ stitchFreq = 43200
 nextRun = "2014-1-7T12:00:00"
 enabled = True
 
+if (len(sys.argv) > 1):
+	dbname = str(sys.argv[1])
+
 addUserQ = "INSERT INTO users (username,userAuthorityUrn,passwordFilename,pemKeyAndCertFilename) VALUES(%s,%s,%s,%s)"
 addBedQ  = "INSERT INTO testbeds (testbedname,url,urn) VALUES(%s,%s,%s)"
 addTestQ = "INSERT INTO testinstances (testname,testDefinitionName,frequency,nextrun,enabled) VALUES(%s,%s,%s,%s,%s) RETURNING testinstanceid"

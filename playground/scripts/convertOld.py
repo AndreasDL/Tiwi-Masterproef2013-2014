@@ -25,9 +25,9 @@ resultsDir   = "/home/drew/masterproef/site/results/"
 certDir      = "/home/drew/.ssl/"
 
 dbname = "testdb"
-user = "postgres"
-dass = "post"
-durl = "localhost"
+user  = "postgres"
+dpass = "post"
+durl  = "localhost"
 pingFreq   = 300
 listFreq   = 900
 getVerFreq = 900
@@ -35,9 +35,15 @@ loginFreq  = 3600
 stitchFreq = 43200
 nextRun = "2014-1-7T12:00:00"
 enabled = True
+convert = True
+
+if (len(sys.argv) > 1):
+	dbname = str(sys.argv[1])
+	if (len(sys.argv) > 2):
+		convert = False
 
 print("Connecting to database")
-con = psycopg2.connect(database=dbname,user=user,password=dass,host=durl)
+con = psycopg2.connect(database=dbname,user=user,password=dpass,host=durl)
 cur = con.cursor()
 
 ###############################################################################Parsing###############################################################################
@@ -242,43 +248,44 @@ con.commit()
 
 
 #######################################################################Convert Results################################################################
-"""
-print("Parsing Results")
-print("Dir:", resultDir)
-f = open(resultDir,'r')
-header = ""
-#skip stuffs above
-for line in f:
-	if line.startswith("COPY test_context") : 
-		header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
-		break
-#pprint.pprint(header)
+if (convert):
+	print("Parsing Results")
+	print("Dir:", resultDir)
+	f = open(resultDir,'r')
+	header = ""
+	#skip stuffs above
+	for line in f:
+		if line.startswith("COPY test_context") : 
+			header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
+			break
+	#pprint.pprint(header)
 
-#parse testcontexts here & add if needed
-for line in f:
-	if line.startswith("\\.") : break
-	map = { header[i] : line.split("\t")[i] for i in range(len(header)) }
-	filename =map["contextfilename"].split("/")[-1] 
-	if map["contextfilename"].split("/")[-1] in stitchpathids:
-		stitchpathids[filename]["oldid"] = map["id"]
-		stitchpath[map['id']] = filename
+	#parse testcontexts here & add if needed
+	for line in f:
+		if line.startswith("\\.") : break
+		map = { header[i] : line.split("\t")[i] for i in range(len(header)) }
+		filename =map["contextfilename"].split("/")[-1] 
+		if map["contextfilename"].split("/")[-1] in stitchpathids:
+			stitchpathids[filename]["oldid"] = map["id"]
+			stitchpath[map['id']] = filename
 
-#skip stuffs in between
-for line in f:
-	if line.startswith("COPY test_results") : 
-		header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
-		break
+	#skip stuffs in between
+	for line in f:
+		if line.startswith("COPY test_results") : 
+			header = [ colname.strip() for colname in line.split("(")[1].split(")")[0].split(",")]
+			break
 
-#parse results and link to contexts
-for line in f:
-	if line.startswith("\\.") : break
-	ll = [ col.strip() for col in line.split("\t") ]
-	result = {header[i] : ll[i] for i in range(len(header)) }
-	result['detail_xml'] = result['detail_url'][0:-5] +  "-overview.xml"
-	if result['context_id'] in stitchpath :
-		addStitchResult(result,cur)
-		#con.commit() nu in functie
-"""
+	#parse results and link to contexts
+	for line in f:
+		if line.startswith("\\.") : break
+		ll = [ col.strip() for col in line.split("\t") ]
+		result = {header[i] : ll[i] for i in range(len(header)) }
+		result['detail_xml'] = result['detail_url'][0:-5] +  "-overview.xml"
+		if result['context_id'] in stitchpath :
+			addStitchResult(result,cur)
+			#con.commit() nu in functie
+
+
 ####################################################################dubbels verwijderen
 dubbelQuery = "select * from testbeds X where X.urn = any(select urn from testbeds group by urn having count(1) > 1) order by urn DESC,testbedname;"
 getTypes = "select testinstanceid,testdefinitionname,testname from testinstances where testinstanceid = ANY(select testinstanceid from parameterinstances where parametervalue = %s)"

@@ -2,6 +2,7 @@ package monitor;
 
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -81,6 +82,10 @@ public class Monitor {
         options.addOption(OptionBuilder.withLongOpt("help")
                 .withDescription("print help message")
                 .create("h"));
+        options.addOption(OptionBuilder.withLongOpt("configfile")
+                .withDescription("location of the property file containing the configuration. Default ~/.jFed/config")
+                .hasArg()
+                .create("conf"));
 
         CommandLine line = null;
         CommandLineParser parser = new BasicParser();
@@ -100,10 +105,17 @@ public class Monitor {
             String testdefnames = line.getOptionValue("test-definition-name","ALL");
             String testinstances = line.getOptionValue("test-instance-id","ALL");
             String testbeds = line.getOptionValue("testbed","ALL");
+            String configfile = line.getOptionValue("configfile","~/.jFed/config");
             
             //load properties
             //no more config file not found error ! :)
-            this.prop = getProp();
+            prop = new Properties();
+            try{
+                prop.load(new FileInputStream(configfile));
+            }catch (Exception e){
+                System.out.println("Config file not found");
+                System.exit(-2);
+            }
 
             //create webAccess
             this.webAccess = new WebServiceAccess(prop);
@@ -140,10 +152,11 @@ public class Monitor {
             }
         }
     }
+    /*
     /**
-     * returns the properties
+     * returns the properties => in config file
      * @return 
-     */
+     *
     public static Properties getProp() {
         //String serviceUrl = "http://localhost/longrun/service/index.php/";
         //String serviceUrl = "http://localhost/service/index.php/";
@@ -159,5 +172,5 @@ public class Monitor {
         //prop.setProperty("authCertDir",System.getProperty("user.home") + "/.auth/getsslcert.txt");
         //prop.setProperty("authFilePass","");
         return prop;
-    }
+    }*/
 }

@@ -2,7 +2,7 @@
     //config for database
     $db_user = "postgres";
     $db_pass = "post";
-    $db_name = "monitoring";
+    $db_name = "loadtest";
     $db_host = "localhost";
     $db_port = "5432";
     global $conString;
@@ -16,6 +16,6 @@
     $maxList = 200;
     
     global $webservice;
-    $webservice           = 'http://localhost/API/index.php';
+    $webservice           = 'http://localhost/API/loadtest/index.php';
     global $urlTestbed;
     $urlTestbed         = $webservice.'/testbed';

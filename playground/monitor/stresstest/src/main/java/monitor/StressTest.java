@@ -8,6 +8,7 @@ package monitor;
 
 
 
+import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -71,6 +72,10 @@ public class StressTest {
                 .withArgName("test for multiple runs")
                 .isRequired()
                 .create("tn"));
+        options.addOption(OptionBuilder.withLongOpt("configfile")
+                .withDescription("location of the proprerty file containing the configuration. Default ~/.jFed/config")
+                .hasArg()
+                .create("conf"));
 
         CommandLine line = null;
         CommandLineParser parser = new BasicParser();
@@ -80,15 +85,20 @@ public class StressTest {
             help(options);
         }
 
-        //load properties
-        //no more config file not found error ! :)
-        this.prop = Monitor.getProp();
-
         int aantal = Integer.parseInt(line.getOptionValue("number-of-tests"));
         int waitTime = Integer.parseInt(line.getOptionValue("wait-time"));
         String testName = line.getOptionValue("test-name");
         waitTime *= 1000;//to seconds
-
+        String configfile = line.getOptionValue("configfile","~/.jFed/config");
+        
+        prop = new Properties();
+        try{
+            prop.load(new FileInputStream(configfile));
+        }catch (Exception e){
+            System.out.println("Config file not found");
+            System.exit(-2);
+        }
+        
         //create webAccess
         this.webAccess = new WebServiceAccess(prop);
 

@@ -1,4 +1,5 @@
 import psycopg2
+import sys
 
 
 dbname = "testdb"
@@ -12,6 +13,9 @@ loginFreq  = 3600
 stitchFreq = 43200
 nextRun = "2014-1-7T12:00:00"
 enabled = True
+
+if (len(sys.argv) > 1):
+    dbname = str(sys.argv[1])
 
 print("Connecting to database")
 con = psycopg2.connect(database=dbname,user=user,password=dass,host=durl)
