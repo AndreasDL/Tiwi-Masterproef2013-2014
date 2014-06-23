@@ -8,13 +8,6 @@ dbname = "monitoring"
 user = "postgres"
 dass = "post"
 durl = "localhost"
-pingFreq   = 300
-listFreq   = 900
-getVerFreq = 900
-loginFreq  = 3600
-stitchFreq = 43200
-nextRun = "2014-1-7T12:00:00"
-enabled = True
 
 if (len(sys.argv) > 1):
     dbname = str(sys.argv[1])
