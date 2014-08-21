@@ -31,9 +31,9 @@ De opdracht van deze masterproef bestaat uit 3 grote delen. Het eerste deel is h
 * API: De api met de databank die de testen en resultaten bijhoudt. (PHP)
 * documents: allerlei documenten o.a. logboek, uitgebreidvoorstel
 * monitor: Maven project, vanwege de dependencies
-..* loadtest: de loadtester, belast een testbed om de resultaten de kunnen bekijken (java)
+  * loadtest: de loadtester, belast een testbed om de resultaten de kunnen bekijken (java)
 Hier zit nog een monotoringssite bij , omdat deze een kloon van de API gebruikt om de resultaten gescheiden te houden
-..* monitorService: de monitor, haalt testen op en voert ze uit, stuurt resultaten terug naar API (java)
+  * monitorService: de monitor, haalt testen op en voert ze uit, stuurt resultaten terug naar API (java)
 * monitoringsSite: geeft de resultaten weer (html/css/js)
 * schoolSite: de bijhorende site (html/css/js/php)
 * scriptie: de scriptie zelf (latex)
