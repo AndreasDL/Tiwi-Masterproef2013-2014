@@ -6,7 +6,8 @@ masterjaar inwe informatica ugent / tiwi
 
 
 **Inhoud**
-Door de huidige verschuiving naar cloudgebaseerde technologie\"en zal het belang van netwerkprotocollen en van de beschikbaarheid van netwerken alleen maar toenemen. Om deze verschuiving vlot te laten verlopen is er meer onderzoek nodig naar netwerktechnologieën. Dit onderzoek kan beter verlopen als onderzoekers en onderzoekscentra beter samenwerken. Hiervoor is FIRE (Future Internet Research and Experimentation) opgestart. FIRE is een Europees programma voor het uitvoeren van onderzoek naar het internet en de toekomst ervan. Hierbij werden universiteiten aangemoedigd om testbeds te bouwen. 
+
+Door de huidige verschuiving naar cloudgebaseerde technologieën zal het belang van netwerkprotocollen en van de beschikbaarheid van netwerken alleen maar toenemen. Om deze verschuiving vlot te laten verlopen is er meer onderzoek nodig naar netwerktechnologieën. Dit onderzoek kan beter verlopen als onderzoekers en onderzoekscentra beter samenwerken. Hiervoor is FIRE (Future Internet Research and Experimentation) opgestart. FIRE is een Europees programma voor het uitvoeren van onderzoek naar het internet en de toekomst ervan. Hierbij werden universiteiten aangemoedigd om testbeds te bouwen. 
 
 Fed4FIRE is het sluitstuk van dit programma, waarbij al deze testbeds een universele API implementeren: SFA. Hierdoor wordt het delen van testfaciliteiten gemakkelijker gemaakt. Om te controleren of de SFA juist geïmplementeerd is, is jFed ontworpen. jFed wordt periodiek gebruikt door beheerders om hun SFA-API implementatie te controleren. 
 
