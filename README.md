@@ -16,6 +16,7 @@ Deze masterproef bouwt hier verder op door een automatische monitoringsservice t
 Binnen deze masterproef wordt de monitoringsservice ook uitgebreid met een loadtester. De loadtester wordt gebruikt om loadtesten uit te voeren. Hierbij wordt gekeken hoe een testbed reageert op een bepaalde belasting.
 
 **Inleiding**
+
 Het gebruik van netwerken en het internet om computers en allehande randapperatuur te verbinden zal in de toekomst alleen maar stijgen. Het is dan ook van groot belang dat onderzoek op dit gebied vlot en correct verloopt en dat onderzoekers samenwerken om zo ideeën en nieuwe technologieën te delen. Daarnaast moeten er ook testfaciliteiten zijn om deze nieuwe technologieën te testen. FIRE (Future Internet Research and Experimentation) is een Europees onderzoeksprogramma dat zich op deze doelen richt. 
 
 Om de configuratie en de werking van de verschillende testbeds gelijk te maken, is de federation architectuur ontworpen. De invoering hiervan zit in het Fed4FIRE (Federation for FIRE) project. De federation architectuur die in deze masterproef behandeld wordt, is SFA 2.0 (Slice-federation-architecture). Hierbij vormen alle testbeds van FIRE een federatie. Daardoor hebben onderzoekers binnen FIRE toegang tot alle testbeds binnen FIRE. 
